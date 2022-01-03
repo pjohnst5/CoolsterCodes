@@ -1,0 +1,332 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vnetName": {
+            "type": "string",
+            "defaultValue": "aci-vnet",
+            "metadata": {
+                "description": "VNet name"
+            }
+        },
+        "vnetAddressPrefix": {
+            "type": "string",
+            "defaultValue": "10.0.0.0/16",
+            "metadata": {
+                "description": "Address prefix"
+            }
+        },
+        "subnetAddressPrefix": {
+            "type": "string",
+            "defaultValue": "10.0.0.0/24",
+            "metadata": {
+                "description": "Subnet prefix"
+            }
+        },
+        "subnetName": {
+            "type": "string",
+            "defaultValue": "aci-subnet",
+            "metadata": {
+                "description": "Subnet name"
+            }
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+                "description": "Location for all resources."
+            }
+        },
+        "containerGroupName": {
+            "type": "string",
+            "defaultValue": "aci-containergroup",
+            "metadata": {
+                "description": "Container group name"
+            }
+        },
+        "containerName": {
+            "type": "string",
+            "defaultValue": "aci-container",
+            "metadata": {
+                "description": "Container name"
+            }
+        },
+        "image": {
+            "type": "string",
+            "defaultValue": "mcr.microsoft.com/azuredocs/aci-helloworld",
+            "metadata": {
+                "description": "Container image to deploy. Should be of the form accountName/imagename:tag for images stored in Docker Hub or a fully qualified URI for a private registry like the Azure Container Registry."
+            }
+        },
+        "port": {
+            "type": "int",
+            "defaultValue": 80,
+            "metadata": {
+                "description": "Port to open on the container."
+            }
+        },
+        "cpuCores": {
+            "type": "int",
+            "defaultValue": 1,
+            "metadata": {
+                "description": "The number of CPU cores to allocate to the container. Must be an integer."
+            }
+        },
+        "memoryInGb": {
+            "type": "int",
+            "defaultValue": 2,
+            "metadata": {
+                "description": "The amount of memory to allocate to the container in gigabytes."
+            }
+        },
+        "networkProfileName": {
+            "type": "string",
+            "defaultValue": "aci-networkProfile",
+            "metadata": {
+                "description": "The network profile name. Will connect container to virtual network."
+            }
+        },
+        "interfaceConfigName": {
+            "type": "string",
+            "defaultValue": "eth0",
+            "metadata": {
+                "description": "The network profile name's interface config name"
+            }
+        },
+        "interfaceIpConfig": {
+            "type": "string",
+            "defaultValue": "ipconfigprofile1",
+            "metadata": {
+                "description": "The ip config name of network profile."
+            }
+        },
+        "publicIpName": {
+            "type": "string",
+            "defaultValue": "lb-public-ip"
+        },
+        "lbSKU": {
+            "type": "string",
+            "defaultValue": "Standard"
+        },
+        "lbName": {
+            "type": "string",
+            "defaultValue": "lb"
+        },
+        "lbFrontendName": {
+            "type": "string",
+            "defaultValue": "lb-frontend"
+        },
+        "backendAddressPoolName": {
+            "type": "string",
+            "defaultValue": "aci-backend-pool"
+        },
+        "lbProbeName": {
+            "type": "string",
+            "defaultValue": "lb-probe"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2020-11-01",
+            "name": "[parameters('vnetName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[parameters('vnetAddressPrefix')]"
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "apiVersion": "2020-11-01",
+            "name": "[format('{0}/{1}', parameters('vnetName'), parameters('subnetName'))]",
+            "properties": {
+                "addressPrefix": "[parameters('subnetAddressPrefix')]",
+                "delegations": [
+                    {
+                        "name": "DelegationService",
+                        "properties": {
+                            "serviceName": "Microsoft.ContainerInstance/containerGroups"
+                        }
+                    }
+                ]
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
+            ]
+        },
+        {
+            "type": "Microsoft.Network/networkProfiles",
+            "apiVersion": "2020-11-01",
+            "name": "[parameters('networkProfileName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "containerNetworkInterfaceConfigurations": [
+                    {
+                        "name": "[parameters('interfaceConfigName')]",
+                        "properties": {
+                            "ipConfigurations": [
+                                {
+                                    "name": "[parameters('interfaceIpConfig')]",
+                                    "properties": {
+                                        "subnet": {
+                                            "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]"
+            ]
+        },
+        {
+            "type": "Microsoft.ContainerInstance/containerGroups",
+            "apiVersion": "2019-12-01",
+            "name": "[parameters('containerGroupName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "containers": [
+                    {
+                        "name": "[parameters('containerName')]",
+                        "properties": {
+                            "image": "[parameters('image')]",
+                            "ports": [
+                                {
+                                    "port": "[parameters('port')]",
+                                    "protocol": "TCP"
+                                }
+                            ],
+                            "resources": {
+                                "requests": {
+                                    "cpu": "[parameters('cpuCores')]",
+                                    "memoryInGB": "[parameters('memoryInGb')]"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "osType": "Linux",
+                "networkProfile": {
+                    "id": "[resourceId('Microsoft.Network/networkProfiles', parameters('networkProfileName'))]"
+                },
+                "restartPolicy": "Always"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkProfiles', parameters('networkProfileName'))]"
+            ]
+        },
+        {
+            "type": "Microsoft.Network/publicIPAddresses",
+            "apiVersion": "2020-06-01",
+            "name": "[parameters('publicIPName')]",
+            "location": "[parameters('location')]",
+            "sku": {
+                "name": "[parameters('lbSKU')]"
+            },
+            "properties": {
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Static"
+            }
+        },
+        {
+            "type": "Microsoft.Network/loadBalancers",
+            "apiVersion": "2020-06-01",
+            "name": "[parameters('lbName')]",
+            "location": "[parameters('location')]",
+            "sku": {
+                "name": "[parameters('lbSKU')]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIpName'))]"
+            ],
+            "properties": {
+                "frontendIPConfigurations": [
+                    {
+                        "name": "[parameters('lbFrontendName')]",
+                        "properties": {
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('publicIpName'))]"
+                            }
+                        }
+                    }
+                ],
+                "backendAddressPools": [
+                    {
+                        "name": "[parameters('backendAddressPoolName')]"
+                    }
+                ],
+                "loadBalancingRules": [
+                    {
+                        "name": "TCPRule",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', parameters('lbName'), parameters('lbFrontendName'))]"
+                            },
+                            "backendAddressPool": {
+                                "id": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools', parameters('lbName'), parameters('backendAddressPoolName'))]"
+                            },
+                            "frontendPort": 80,
+                            "backendPort": 80,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 15,
+                            "protocol": "Tcp",
+                            "enableTcpReset": true,
+                            "loadDistribution": "Default",
+                            "disableOutboundSnat": true,
+                            "probe": {
+                                "id": "[resourceId('Microsoft.Network/loadBalancers/probes', parameters('lbName'), parameters('lbProbeName'))]"
+                            }
+                        }
+                    }
+                ],
+                "probes": [
+                    {
+                        "name": "[parameters('lbProbeName')]",
+                        "properties": {
+                            "protocol": "TCP",
+                            "port": 80,
+                            "intervalInSeconds": 5,
+                            "numberOfProbes": 2
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Network/loadBalancers/backendAddressPools",
+            "apiVersion": "2020-06-01",
+            "name": "[format('{0}/{1}', parameters('lbName'), parameters('backendAddressPoolName'))]",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('lbName'))]"
+            ],
+            "properties": {
+                "loadBalancerBackendAddresses": [
+                    {
+                        "name": "aci-container-address",
+                        "properties": {
+                            "ipAddress": "[reference(resourceId('Microsoft.ContainerInstance/containerGroups', parameters('containerGroupName'))).ipAddress.ip]"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "outputs": {
+        "containerIPv4Address": {
+            "type": "string",
+            "value": "[reference(resourceId('Microsoft.ContainerInstance/containerGroups', parameters('containerGroupName'))).ipAddress.ip]"
+        },
+        "lbIPv4Address": {
+            "type": "string",
+            "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIpName'))).ipAddress]"
+        }
+    }
+}
