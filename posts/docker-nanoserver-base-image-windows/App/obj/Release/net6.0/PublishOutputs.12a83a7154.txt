@@ -1,0 +1,5 @@
+C:\Users\ASUS\Documents\CoolsterCodes\posts\docker-nanoserver-base-image-windows\App\bin\Release\net6.0\publish\DotNet.Docker.exe
+C:\Users\ASUS\Documents\CoolsterCodes\posts\docker-nanoserver-base-image-windows\App\bin\Release\net6.0\publish\DotNet.Docker.dll
+C:\Users\ASUS\Documents\CoolsterCodes\posts\docker-nanoserver-base-image-windows\App\bin\Release\net6.0\publish\DotNet.Docker.deps.json
+C:\Users\ASUS\Documents\CoolsterCodes\posts\docker-nanoserver-base-image-windows\App\bin\Release\net6.0\publish\DotNet.Docker.runtimeconfig.json
+C:\Users\ASUS\Documents\CoolsterCodes\posts\docker-nanoserver-base-image-windows\App\bin\Release\net6.0\publish\DotNet.Docker.pdb

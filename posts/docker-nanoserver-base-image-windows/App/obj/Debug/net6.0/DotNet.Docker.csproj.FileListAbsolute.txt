@@ -1,0 +1,15 @@
+C:\Users\ASUS\Documents\CoolsterCodes\posts\docker-nanoserver-base-image-windows\App\bin\Debug\net6.0\DotNet.Docker.exe
+C:\Users\ASUS\Documents\CoolsterCodes\posts\docker-nanoserver-base-image-windows\App\bin\Debug\net6.0\DotNet.Docker.deps.json
+C:\Users\ASUS\Documents\CoolsterCodes\posts\docker-nanoserver-base-image-windows\App\bin\Debug\net6.0\DotNet.Docker.runtimeconfig.json
+C:\Users\ASUS\Documents\CoolsterCodes\posts\docker-nanoserver-base-image-windows\App\bin\Debug\net6.0\DotNet.Docker.dll
+C:\Users\ASUS\Documents\CoolsterCodes\posts\docker-nanoserver-base-image-windows\App\bin\Debug\net6.0\ref\DotNet.Docker.dll
+C:\Users\ASUS\Documents\CoolsterCodes\posts\docker-nanoserver-base-image-windows\App\bin\Debug\net6.0\DotNet.Docker.pdb
+C:\Users\ASUS\Documents\CoolsterCodes\posts\docker-nanoserver-base-image-windows\App\obj\Debug\net6.0\DotNet.Docker.csproj.AssemblyReference.cache
+C:\Users\ASUS\Documents\CoolsterCodes\posts\docker-nanoserver-base-image-windows\App\obj\Debug\net6.0\DotNet.Docker.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ASUS\Documents\CoolsterCodes\posts\docker-nanoserver-base-image-windows\App\obj\Debug\net6.0\DotNet.Docker.AssemblyInfoInputs.cache
+C:\Users\ASUS\Documents\CoolsterCodes\posts\docker-nanoserver-base-image-windows\App\obj\Debug\net6.0\DotNet.Docker.AssemblyInfo.cs
+C:\Users\ASUS\Documents\CoolsterCodes\posts\docker-nanoserver-base-image-windows\App\obj\Debug\net6.0\DotNet.Docker.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Documents\CoolsterCodes\posts\docker-nanoserver-base-image-windows\App\obj\Debug\net6.0\DotNet.Docker.dll
+C:\Users\ASUS\Documents\CoolsterCodes\posts\docker-nanoserver-base-image-windows\App\obj\Debug\net6.0\ref\DotNet.Docker.dll
+C:\Users\ASUS\Documents\CoolsterCodes\posts\docker-nanoserver-base-image-windows\App\obj\Debug\net6.0\DotNet.Docker.pdb
+C:\Users\ASUS\Documents\CoolsterCodes\posts\docker-nanoserver-base-image-windows\App\obj\Debug\net6.0\DotNet.Docker.genruntimeconfig.cache
