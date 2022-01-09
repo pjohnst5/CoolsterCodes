@@ -1,5 +1,8 @@
 FROM mcr.microsoft.com/powershell:lts-nanoserver-1909
 
+# Run as admin
+USER ContainerAdministrator
+
 # Make default shell powershell
 SHELL ["pwsh", "-command"]
 

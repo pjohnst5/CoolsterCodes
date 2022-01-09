@@ -9,4 +9,7 @@ See the full article here: [Docker Nanoserver base image Windows]()
 `dotnet publish -c Release`
 
 ## Build docker image
-`docker build  -t nanoserver-base-windows:v1.0.0 -f .\Dockerfile .`
+`docker build -t dotnetexample:v1.0.0 -f .\Dockerfile .`
+
+## Run docker image locally
+`docker run dotnetexample:v1.0.0`
