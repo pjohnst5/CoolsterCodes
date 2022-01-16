@@ -13,4 +13,22 @@ spec:
   containers:
   - name: hostprocesspod
     image: coolstercodes.azurecr.io/hostprocesspod:v1.0.0
-    args: ["%CONTAINER_SANDBOX_MOUNT_POINT%\\Users\\azureuser\\hostfile.txt"]
+    command: ["%CONTAINER_SANDBOX_MOUNT_POINT%/usr/local/bin/app.exe"]
+    args: ["%CONTAINER_SANDBOX_MOUNT_POINT%\\etc\\configdirectory\\configfile.json"]
+    volumeMounts:
+      - name: configvolume
+        mountPath: etc/configdirectory
+  volumes:
+    - name: configvolume
+      configMap:
+        name: myconfigmap
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myconfigmap
+data:
+  configfile.json: |
+    {
+      "ConfigKey": "Value"
+    }
