@@ -1,26 +1,26 @@
-$SUBSCRIPTION_ID='65ce76d9-2f1b-4c0f-849c-163ddd03b7a9'
-$CLUSTER_NAME='win-host-process'
+$SUBSCRIPTION_ID=''
+$CLUSTER_NAME='win-hostprocess-cluster'
 $LOCATION='westus2'
-$API_MODEL='host-process-cluster.json'
+$API_MODEL='hostprocess-cluster.json'
 
+# Creates the resource group which will house your cluster
 az group create --subscription $SUBSCRIPTION_ID --location $LOCATION --name $CLUSTER_NAME
 
-if [[ -z "${CLIENT_ID}" ]]; then
-    AZSP=$(az ad sp create-for-rbac --name paujohns-aks-engine-$(date +"%s") --role="Owner" --scopes="/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${DNS_PREFIX}" -o json)
-    CLIENT_ID=$(echo $AZSP | jq -r '.appId')
-    CLIENT_SECRET=$(echo $AZSP | jq -r '.password')
-fi
-echo Using:
-echo Client ID $CLIENT_ID
-echo Client Secret $CLIENT_SECRET
-sleep 180
+# Creates an Azure Service Principal to let AKS-Engine deploy resources (your cluster) to your resource group
+$AZSP=az ad sp create-for-rbac --name win-hostprocess-service-principal --role="Owner" --scopes="/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$CLUSTER_NAME" -o json | ConvertFrom-Json
+$CLIENT_ID=$AZSP.appId
+$CLIENT_SECRET=$AZSP.password
 
-aks-engine deploy \
-    --subscription-id $SUBSCRIPTION_ID  \
-    --client-id $CLIENT_ID \
-    --client-secret $CLIENT_SECRET \
-    --resource-group $DNS_PREFIX \
-    --dns-prefix $DNS_PREFIX \
-    --location $LOCATION \
-    --api-model $API_MODEL \
+# Let azure permissions propogate before creating cluster
+Start-Sleep -Seconds 180
+
+# Create a hostprocess capable kubernetes cluster using AKS-Engine
+.\aks-engine deploy `
+    --subscription-id $SUBSCRIPTION_ID  `
+    --client-id $CLIENT_ID `
+    --client-secret $CLIENT_SECRET `
+    --resource-group $CLUSTER_NAME `
+    --dns-prefix $CLUSTER_NAME `
+    --location $LOCATION `
+    --api-model $API_MODEL `
     --force-overwrite

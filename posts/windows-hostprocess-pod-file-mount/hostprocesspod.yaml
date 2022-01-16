@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostprocesspod
+spec:
+  nodeSelector:
+    kubernetes.io/os: windows
+  securityContext:
+    windowsOptions:
+      hostProcess: true
+      runAsUserName: "NT AUTHORITY\\Local service"
+  hostNetwork: true
+  containers:
+  - name: hostprocesspod
+    image: coolstercodes.azurecr.io/hostprocesspod:v1.0.0
+    args: ["%CONTAINER_SANDBOX_MOUNT_POINT%\\Users\\azureuser\\hostfile.txt"]
