@@ -14,7 +14,7 @@ spec:
   - name: hostprocesspod
     image: coolstercodes.azurecr.io/hostprocesspod:v1.0.0
     command: ["%CONTAINER_SANDBOX_MOUNT_POINT%/usr/local/bin/app.exe"]
-    args: ["%CONTAINER_SANDBOX_MOUNT_POINT%\\etc\\configdirectory\\configfile.json"]
+    args: ["etc\\configdirectory\\configfile.json"]
     volumeMounts:
       - name: configvolume
         mountPath: etc/configdirectory
