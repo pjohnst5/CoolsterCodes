@@ -8,12 +8,14 @@ import (
 )
 
 func main() {
-	hostFileLocation := os.Args[1]
+	hostFileToReadLocation := os.Args[1]
+	hostFileToWriteLocation := os.Args[2]
 
-	fmt.Printf("host file: %s\n", hostFileLocation)
+	fmt.Printf("host file to read: %s\n", hostFileToReadLocation)
+	fmt.Printf("host file to write: %s\n", hostFileToWriteLocation)
 
 	// Read host file from inside the container!
-	content, err := ioutil.ReadFile(hostFileLocation)
+	content, err := ioutil.ReadFile(hostFileToReadLocation)
 	if err != nil {
 		panic(err)
 	}
@@ -21,15 +23,11 @@ func main() {
 	fmt.Println(text)
 
 	// Write to host file from inside the container!
-	f, err := os.OpenFile(hostFileLocation, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	message := []byte("Hello from the container!")
+	err = ioutil.WriteFile(hostFileToWriteLocation, message, 755)
 	if err != nil {
 		panic(err)
 	}
-	if _, err = f.WriteString("Hello from the container!\n"); err != nil {
-		panic(err)
-	}
-
-	f.Close()
 
 	// Sleep
 	time.Sleep(1 * time.Hour)

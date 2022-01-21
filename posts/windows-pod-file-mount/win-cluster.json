@@ -6,8 +6,6 @@
           "orchestratorRelease": "1.23",
           "kubernetesConfig": {
              "networkPlugin": "azure",
-             "containerRuntime": "containerd",
-             "windowsContainerdURL": "https://github.com/kubernetes-sigs/sig-windows-tools/releases/download/windows-containerd-nightly/windows-containerd.tar.gz",
              "loadBalancerSku": "basic"
           }
        },
