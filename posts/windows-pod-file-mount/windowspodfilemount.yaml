@@ -9,12 +9,12 @@ spec:
   - name: winpodfilemount
     image: coolstercodes.azurecr.io/windowspodfilemount:v1.0.0
     imagePullPolicy: Always
-    args: ["C:\\hostfilemount\\config.txt", "C:\\hostfilemount\\hellofrompod.txt"]
+    args: ["C:\\hostfilemount\\hostfile.txt", "C:\\hostfilemount\\hostfile.txt"]
     volumeMounts:
       - name: hostfilemount
         mountPath: /hostfilemount
   volumes:
     - name: hostfilemount
       hostPath:
-        path: /k/azurecni/bin
+        path: /users/azureuser
         type: Directory

@@ -1,41 +1,41 @@
 {
-    "apiVersion": "vlabs",
-    "properties": {
-       "orchestratorProfile": {
-          "orchestratorType": "Kubernetes",
-          "orchestratorRelease": "1.23",
-          "kubernetesConfig": {
-             "networkPlugin": "azure",
-             "loadBalancerSku": "basic"
-          }
-       },
-       "masterProfile": {
-          "count": 1,
-          "vmSize": "Standard_D2_v2",
-          "availabilityProfile": "AvailabilitySet",
-          "platformUpdateDomainCount": 1
-       },
-       "agentPoolProfiles": [
-          {
-             "name": "windowspool",
-             "count": 1,
-             "vmSize": "Standard_D8s_v3",
-             "availabilityProfile": "VirtualMachineScaleSets",
-             "osType": "Windows",
-             "enableVMSSNodePublicIP": true
-          }
-       ],
-       "windowsProfile": {
-          "adminUsername": "azureuser",
-          "adminPassword": "password1234$",
-          "sshEnabled": true,
-          "enableAutomaticUpdates": true,
-          "WindowsPublisher": "microsoft-aks",
-          "WindowsOffer": "aks-windows",
-          "WindowsSku": "2019-datacenter-core-ctrd-2108",
-          "imageVersion": "17763.2061.210830"
-       },
-       "linuxProfile": {
+   "apiVersion": "vlabs",
+   "properties": {
+      "orchestratorProfile": {
+         "orchestratorType": "Kubernetes",
+         "orchestratorRelease": "1.23",
+         "kubernetesConfig": {
+            "networkPlugin": "azure",
+            "loadBalancerSku": "basic"
+         }
+      },
+      "masterProfile": {
+         "count": 1,
+         "vmSize": "Standard_D2_v2",
+         "availabilityProfile": "AvailabilitySet",
+         "platformUpdateDomainCount": 1
+      },
+      "agentPoolProfiles": [
+         {
+            "name": "windowspool",
+            "count": 1,
+            "vmSize": "Standard_D8s_v3",
+            "availabilityProfile": "VirtualMachineScaleSets",
+            "osType": "Windows",
+            "enableVMSSNodePublicIP": true
+         }
+      ],
+      "windowsProfile": {
+         "adminUsername": "azureuser",
+         "adminPassword": "password1234$",
+         "sshEnabled": true,
+         "enableAutomaticUpdates": true,
+         "WindowsPublisher": "microsoft-aks",
+         "WindowsOffer": "aks-windows",
+         "WindowsSku": "2019-datacenter-core-ctrd-2108",
+         "imageVersion": "17763.2061.210830"
+      },
+      "linuxProfile": {
          "adminUsername": "azureuser",
          "ssh": {
             "publicKeys": [
@@ -45,5 +45,5 @@
             ]
          }
       }
-    }
- }
+   }
+}
