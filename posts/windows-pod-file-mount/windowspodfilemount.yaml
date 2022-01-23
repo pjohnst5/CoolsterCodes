@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: winpodfilemount
+spec:
+  nodeSelector:
+    kubernetes.io/os: windows
+  containers:
+  - name: winpodfilemount
+    image: coolstercodes.azurecr.io/windowspodfilemount:v1.0.0
+    imagePullPolicy: Always
+    args: ["C:\\hostfilemount\\hostfile.txt", "C:\\hostfilemount\\hostfile.txt"]
+    volumeMounts:
+      - name: hostfilemount
+        mountPath: /hostfilemount
+  volumes:
+    - name: hostfilemount
+      hostPath:
+        path: /users/azureuser
+        type: Directory
