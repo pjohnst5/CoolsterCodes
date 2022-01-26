@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmapfilemount
+spec:
+  nodeSelector:
+    kubernetes.io/os: windows
+  containers:
+  - name: configmapfilemount
+    image: coolstercodes.azurecr.io/configmapfilemount:v1.0.0
+    imagePullPolicy: Always
+    args: ["C:\\configmapdirectory\\configfile.json"]
+    volumeMounts:
+      - name: configmapmount
+        mountPath: /configmapdirectory
+  volumes:
+    - name: configmapmount
+      configMap:
+        name: myconfigmap
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myconfigmap
+data:
+  configfile.json: |
+    {
+      "ConfigKey": "Value"
+    }
