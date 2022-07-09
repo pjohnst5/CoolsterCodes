@@ -10,4 +10,4 @@ See the full article here: [Install Modules for Powershell Core (pwsh)]()
 
 ## Install a Module
 `cd App`
-`docker build -t dns-module:v1.0.0 -f Dockerfile`
+`docker build -t dns-module:v1.0.0 -f Dockerfile .`
