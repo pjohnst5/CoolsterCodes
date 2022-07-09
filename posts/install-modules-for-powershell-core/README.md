@@ -13,5 +13,4 @@ Go to [Powershell Gallery](https://www.powershellgallery.com/) and find a module
 - Here we use the module `DnsClient-PS`
 
 ## Install a Module
-`cd App`
 `docker build -t dns-module:v1.0.0 -f Dockerfile .`
