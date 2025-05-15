@@ -1,0 +1,1397 @@
+##############################################################################
+#
+#
+# about
+#
+#
+##############################################################################
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/6n8za9hfa53j2aa/2W4A3434-selfie.JPG?dl=1"
+slug = "about/self-portrait-2023-03"
+title = "Self-portrait April 2023"
+
+##############################################################################
+#
+#
+# articles
+#
+#
+##############################################################################
+
+#
+# size conventions:
+#
+#   * in-body overflowing images: 650 wide
+#
+
+#
+# /minimal-analytics
+#
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/qmut0530vvlxl2k/athena-query.png?dl=1"
+slug = "articles/minimal-analytics/athena-query"
+title = "Querying via Athena's UI."
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/92c4ac0e2pnvwfc/cloudfront-logging-wide.png?dl=1"
+slug = "articles/minimal-analytics/cloudfront-logging"
+title = "Configuring CloudFront logging."
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/g8v1s54epugva1z/goaccess.png?dl=1"
+slug = "articles/minimal-analytics/goaccess"
+title = "GoAccess' command line interface."
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/r3x2ljtrv22xd6z/goatcounter.png?dl=1"
+slug = "articles/minimal-analytics/goatcounter"
+title = "GoatCounter's measurement of an HN traffic peak."
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/04l2orptqa08kvd/s3-lifecycle-rules.png?dl=1"
+slug = "articles/minimal-analytics/s3-lifecycle-rules"
+title = "Creating an S3 lifecycle rule for expiration."
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/zjkkzi0yft117eu/ublock-origin.png?dl=1"
+slug = "articles/minimal-analytics/ublock-origin"
+title = "uBlock Origin blocking analytics sites."
+
+##############################################################################
+#
+#
+# fragments
+#
+#
+##############################################################################
+
+#
+# size conventions:
+#
+#   * in-body images: 550 wide
+#   * in-body overflowing images: 650 wide
+#   * vistas: 1024 wide
+#
+
+#
+# /fragments/filtering-sentry-spans
+#
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/jf1qa6l6yc5htcz/span-visualization.png?dl=1"
+slug = "fragments/filtering-sentry-spans/span-visualization"
+title = "Visualization of a Sentry span"
+
+#
+# /fragments/engelmann-spruce-plaque-sulfur-mountain
+#
+
+[[photographs]]
+crop_width = 1024
+original_image_url = "https://www.dropbox.com/s/tvz4t4ggikrld6x/2W4A0178-cropped.jpg?dl=1"
+slug = "fragments/engelmann-spruce-plaque-sulfur-mountain/plaque"
+title = "Plaque naming an Englemann Spruce tree"
+
+#
+# /fragments/graceful-degradation-time
+#
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/lupzf5ld2igqoup/markdown-and-git.png?dl=1"
+slug = "fragments/graceful-degradation-time/markdown-and-git"
+title = "Markdown and Git"
+
+#
+# /fragments/heroku-two-dynos
+#
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/scl/fi/1qrp43y7j1kt84ogh3mpq/bridge-memory.png?rlkey=wso4lckv7zhxx7ntdpk3m8mc1&st=2grfp7se&dl=1"
+slug = "fragments/heroku-two-dynos/bridge-memory"
+title = "Bridge memory usage"
+
+#
+# /fragments/icq
+#
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/scl/fi/277vilqpj1c6fm4shd1cc/icq-june-26.png?rlkey=z35157dd7ro2t9l87s8dtj86u&st=vkvtwzgw&dl=1"
+slug = "fragments/icq/icq-june-26"
+title = "ICQ will stop working from June 26"
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/scl/fi/wftb2m1kzoj5flj1h8s8v/icq-june-26-2.png?rlkey=yl36xq8peqf3c8gwnwgdxfv8i&st=w37zdnzb&dl=1"
+slug = "fragments/icq/icq-june-26-2"
+title = "ICQ will stop working from June 26"
+
+#
+# /fragments/large-scale-ruby-refactoring
+#
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/f8r0pi07ejl60dr/pr.png?dl=1"
+slug = "fragments/large-scale-ruby-refactoring/pr"
+title = "Changeset"
+
+#
+# /fragments/leica-q2-monochrom
+#
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/w0pyp9ild0e3cfa/image-comparison.jpg?dl=1"
+slug = "fragments/leica-q2-monochrom/image-comparison"
+title = "Leica Q2 and Q2 Monochrom images compared"
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/dgr20h10fnskp5b/leica-q2.jpg?dl=1"
+slug = "fragments/leica-q2-monochrom/leica-q2"
+title = "The Leica Q2"
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/3cf94luaq80w73a/leica-q2-monochrom.jpg?dl=1"
+slug = "fragments/leica-q2-monochrom/leica-q2-monochrom"
+title = "The Leica Q2 Monochrom"
+
+#
+# /fragments/modals-mysterious-macos-cron-failures
+#
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/scl/fi/vkkdfs7jaucx3vo42vcu5/cron.png?rlkey=gj2csqd1p0vyp85abj00hozlh&dl=1"
+slug = "fragments/modals-mysterious-macos-cron-failures/cron"
+title = "Adding cron to full disk access"
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/scl/fi/rq5q2w3921q2hhflsk2ec/full-disk-access.png?rlkey=33j1n1ntcv8jtt05gz4jrz3ww&dl=1"
+slug = "fragments/modals-mysterious-macos-cron-failures/full-disk-access"
+title = "Full disk access preferences"
+
+#
+# /fragments/new-york
+#
+
+[[photographs]]
+crop_width = 550
+original_image_url = "https://www.dropbox.com/s/q2mpowmbriapnmc/DSCF4515.JPG?dl=1"
+slug = "fragments/new-york/apple-store"
+title = "5th Ave Apple Cube"
+
+[[photographs]]
+crop_width = 550
+original_image_url = "https://www.dropbox.com/s/to4sgrv7ce6xeje/DSCF4769.JPG?dl=1"
+slug = "fragments/new-york/dont-block-the-box"
+title = "Don't block the box"
+
+[[photographs]]
+crop_width = 550
+original_image_url = "https://www.dropbox.com/s/ppjs48o5d0otdyt/DSCF4613.JPG?dl=1"
+slug = "fragments/new-york/met"
+title = "The Met"
+
+[[photographs]]
+crop_width = 550
+original_image_url = "https://www.dropbox.com/s/vazjg3v7lxjqdj2/DSCF4825.JPG?dl=1"
+slug = "fragments/new-york/high-line"
+title = "The High Line"
+
+[[photographs]]
+crop_width = 550
+original_image_url = "https://www.dropbox.com/s/pyvzdfq33ejob1a/DSCF4767.JPG?dl=1"
+slug = "fragments/new-york/rockefeller"
+title = "Rockefeller"
+
+[[photographs]]
+crop_width = 550
+original_image_url = "https://www.dropbox.com/s/a8o1y2g44f11oyz/DSCF4694.JPG?dl=1"
+slug = "fragments/new-york/washington-square-park"
+title = "Washington Square Park"
+
+#
+# /fragments/no-medium
+#
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/vw73nvzm9uqvbjb/no-medium-dev.png?dl=1"
+slug = "fragments/no-medium/no-medium-dev"
+title = "Screenshot of nomedium.dev"
+
+#
+# /fragments/openai-api
+#
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/v5okuhgt6334748/example.png?dl=1"
+slug = "fragments/openai-api/example"
+title = "An example API response from OpenAI"
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/wf047o5kxjik65m/openai-api-docs.png?dl=1"
+slug = "fragments/openai-api/openai-api-docs"
+title = "OpenAI API documentation"
+
+#
+# /fragments/operational-convergence
+#
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/0pwu1fa1dhvo5k3/internal-docs.png?dl=1"
+slug = "fragments/operational-convergence/internal-docs"
+title = "Internal docs"
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/2lpoozvnvv9tp1b/internal-docs-2.png?dl=1"
+slug = "fragments/operational-convergence/internal-docs-2"
+title = "Internal docs"
+
+#
+# /fragments/romance-of-europe
+#
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/scl/fi/c9iol1mb44i4sofl1262j/IMG_0468-adjusted.jpg?rlkey=avan98vvnubie715jfzi7wb12&st=uo2lyhf5&dl=1"
+slug = "fragments/romance-of-europe/berlin-graffiti"
+title = "Graffiti outside of a music venue in Berlin"
+
+#
+# /fragments/rss-abandon
+#
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/f5lmidlh0u74ozs/reeder.png?dl=1"
+slug = "fragments/rss-abandon/reeder"
+title = "Reeder screenshot"
+
+#
+# /fragments/safety-razors
+#
+
+[[photographs]]
+crop_width = 550
+original_image_url = "https://www.dropbox.com/s/yp5x0b0jt5yfi31/razor.jpg?dl=1"
+slug = "fragments/safety-razors/razor"
+title = "A safety razor"
+
+#
+# /fragments/shortcuts-notes-memos
+#
+
+[[photographs]]
+crop_width = 400
+original_image_url = "https://www.dropbox.com/s/emeqsahw48oqvpa/shortcut.png?dl=1"
+slug = "fragments/shortcuts-notes-memos/shortcut"
+title = "Siri-activated shortcut for appending the contents of a voice memo to a note."
+
+#
+# /fragments/slack-mania
+#
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/z5j9wp3gnztcuvr/slack-threads.png?dl=1"
+slug = "fragments/slack-mania/slack-threads"
+title = "All conversations in Slack threads."
+
+#
+# /fragments/sso-refresh-tokens
+#
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/scl/fi/4x4ujzhdoava2qyl0n5b7/oidc-step1.png?rlkey=xjc5h6l97ut0w7fkjlvjgvdxv&st=7psrfyze&dl=1"
+slug = "fragments/sso-refresh-tokens/oidc-step1"
+title = "OIDC login step 1"
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/scl/fi/5uhbvpnl7syzfm9jjjalx/oidc-step2.png?rlkey=o6mjtb25gjo4o5gqlydpsufzh&st=mt0tq533&dl=1"
+slug = "fragments/sso-refresh-tokens/oidc-step2"
+title = "OIDC login step 2"
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/scl/fi/o9pvnm8lmybzdn66ohbra/oidc-step3.png?rlkey=0xd5yu45tgnr99d4mxplqj421&st=04iqgbt1&dl=1"
+slug = "fragments/sso-refresh-tokens/oidc-step3"
+title = "OIDC login step 3"
+
+#
+# /fragments/streak-tracking
+#
+
+[[photographs]]
+crop_width = 550
+original_image_url = "https://www.dropbox.com/s/1y9gg1w2f8tm4nc/streaks.png?dl=1"
+slug = "fragments/streak-tracking/streaks"
+title = "Streaks screenshot"
+
+#
+# /fragments/wanikani-midway
+#
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/8m75ao1lh1txqij/wind-up-bird.JPG?dl=1"
+slug = "fragments/wanikani-midway/wind-up-bird"
+title = "Wind-up Bird Chronicles in bunkobon and western formats."
+
+#
+# /fragments/wgt-2015-brain-dump
+#
+
+[[photographs]]
+crop_width = 550
+original_image_url = "https://www.dropbox.com/s/wly7tt7i45dq6el/jo-quail.jpg?dl=1"
+slug = "fragments/wgt-2015-brain-dump/jo-quail"
+title = "Jo Quail"
+
+[[photographs]]
+crop_width = 550
+original_image_url = "https://www.dropbox.com/s/32kvs3gfcdawbbs/leaf.jpg?dl=1"
+slug = "fragments/wgt-2015-brain-dump/leaf"
+title = "L.E.A.F."
+
+#
+# /fragments/write-publish-pipeline
+#
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/byv0rbg2sud6kmw/ia-writer.png?dl=1"
+slug = "fragments/write-publish-pipeline/ia-writer"
+title = "iA Writer."
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/s/lmzflciv2uqb2ow/ia-writer-2.png?dl=1"
+slug = "fragments/write-publish-pipeline/ia-writer-2"
+title = "iA Writer."
+
+##############################################################################
+#
+#
+# nanoglyphs
+#
+#
+##############################################################################
+
+#
+# size conventions:
+#
+#   * landscape: 1200 wide
+#   * portrait: 900 wide
+#   * constrained (non photos): 600 wide
+#
+
+#
+# /nanoglyphs/042-crush
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/jo6ebkh9qp4uleqmjnsgq/avi.jpg?rlkey=fsp0yh6xajmelu0qou3ydnd94&st=j66aajr6&dl=1"
+slug = "nanoglyphs/042-crush/avi"
+title = "Avi from Snatch"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/rd4thrfq6olqvz1thqzqc/2W4A5649-crop.jpg?rlkey=6me7yz1zw4qq7il45gkg3rryb&st=v24avq97&dl=1"
+slug = "nanoglyphs/042-crush/berlin-1"
+title = "Berlin 1"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/2q3exp15xwfmra79cxydj/2W4A5481-crop.jpg?rlkey=lgcgp6k5rkjinjfkr5olff7v4&st=4vgqreh7&dl=1"
+slug = "nanoglyphs/042-crush/berlin-2"
+title = "Berlin 2"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/tgrya4f47h4arbg7140es/2W4A5524-adjusted.jpg?rlkey=tje7vrdmzr4839v9gmh1n0tdf&st=lw16v1lt&dl=1"
+slug = "nanoglyphs/042-crush/berlin-3"
+title = "Berlin 3"
+
+[[photographs]]
+crop_width = 600
+original_image_url = "https://www.dropbox.com/scl/fi/g8lxguwkrbp0dey555k4b/2W4A5490-courtyard.JPG?rlkey=c4qp2z1h1hlt9v0ldr2s1xnjs&st=7epx8s1j&dl=1"
+slug = "nanoglyphs/042-crush/courtyard"
+title = "Courtyard in Berlin"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/jaa6cvmkfg8vvimgbqw2a/crush1.jpg?rlkey=4lr6nbis8d5x584acxus9wjnv&st=zwret04l&dl=1"
+slug = "nanoglyphs/042-crush/crush1"
+title = "Crush screenshot 1"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/tmnyj6p6b492u1ou7gk7k/crush2.jpg?rlkey=lbfzplkvf0sj9fta5q9v380as&st=s0u23dp2&dl=1"
+slug = "nanoglyphs/042-crush/crush2"
+title = "Crush screenshot 2"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/pdpjbvk6exgxpco7puzfl/crush3.jpg?rlkey=85fqhltbg7rrk73crhdmgoxx1&st=f4p56kph&dl=1"
+slug = "nanoglyphs/042-crush/crush3"
+title = "Crush screenshot 3"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/ed4a3y43g1kbt69jsu5e3/2W4A3402.JPG?rlkey=78ah44w1r4bot1dt52mzjj8k2&st=ehfnoav4&dl=1"
+slug = "nanoglyphs/042-crush/manchester"
+title = "Manchester"
+
+#
+# /nanoglyphs/041-15-16
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/c9xgflis1csta7o1lwmho/2W4A4633-anti-ccp-crop.jpg?rlkey=btpnz7qlami9ioi56qt5njrwp&dl=1"
+slug = "nanoglyphs/041-15-16/anti-ccp"
+title = "Anti-CCP protestors"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/of2w85tnxsy3x3wpkqoef/2W4A4602.JPG?rlkey=tmzeqn597c6spcixcrvozj8an&dl=1"
+slug = "nanoglyphs/041-15-16/barriers"
+title = "Barriers"
+
+[[photographs]]
+crop_width = 300
+original_image_url = "https://www.dropbox.com/scl/fi/75qa77vyum7ol10l1jdhh/battery-lifecycles.jpg?rlkey=wtst8l87ruzn9cqivswccthrg&dl=1"
+slug = "nanoglyphs/041-15-16/battery-lifecycles"
+title = "Battery lifecycles"
+
+[[photographs]]
+crop_width = 500
+original_image_url = "https://www.dropbox.com/scl/fi/2beoxpj7p5vd2ksekm7vv/fentanyl.png?rlkey=tjxw3vkbn6slngbwqkgoi8uvy&dl=1"
+slug = "nanoglyphs/041-15-16/fentanyl"
+title = "Fentanyl meme"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/g3la9u850bzysjr4orqod/2W4A4603.JPG?rlkey=g631yrdi45i8kqr84owf81koa&dl=1"
+slug = "nanoglyphs/041-15-16/one-montgomery"
+title = "One Montgomery"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/yks4b3cj7tovk8whdbnk4/2W4A4631-crop.jpg?rlkey=fwmjbj5ezek1p1q3zw96wdcwe&dl=1"
+slug = "nanoglyphs/041-15-16/palace-hotel"
+title = "Palace Hotel"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/qbdmwqaikuz0tyubjvyse/2W4A4610.JPG?rlkey=04y4qxs6lnhg5pihulvav0y0c&dl=1"
+slug = "nanoglyphs/041-15-16/road-closed"
+title = "Road closed"
+
+[[photographs]]
+crop_width = 500
+original_image_url = "https://www.dropbox.com/scl/fi/00cjyqf7qt4f225z57ii0/yellen-xi.jpg?rlkey=i8kid7h33nt8g9n9026wjvpai&dl=1"
+slug = "nanoglyphs/041-15-16/yellen-xi"
+title = "Yellen and Xi meme"
+
+#
+# /nanoglyphs/040-rails-world
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/j8wzz6yumpz3qtcnpz8rh/2W4A4581-coffee-crop.jpg?rlkey=k45o16h4tgwp9gzk1243nrp7o&dl=1"
+slug = "nanoglyphs/040-rails-world/coffee-cart"
+title = "Coffee cart"
+
+[[photographs]]
+crop_width = 600
+original_image_url = "https://www.dropbox.com/scl/fi/cmj8ij7hb3751m8cld6b5/2W4A4580-adjusted.jpg?rlkey=ygvze9uo1ir013agg0q8yh2v3&dl=1"
+slug = "nanoglyphs/040-rails-world/expo-hall"
+title = "The Crunchy booth at the expo hall"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/zpxmmuc4dqyofvmnkpe8e/2W4A4536-adjusted.jpg?rlkey=dbkm9h0mkniym460a5cf98g67&dl=1"
+slug = "nanoglyphs/040-rails-world/keynote-solid-cache"
+title = "Keynote on the subject of Solid Cache"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/pixrgn9lap3ga4mwo7f9x/2W4A4517-noord.JPG?rlkey=oh1qnalntnz7ekmo735rbjkr0&dl=1"
+slug = "nanoglyphs/040-rails-world/noord-1"
+title = "Amsterdam Noord (train station)"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/5pme2o9t3abm9ljjn7d50/2W4A4510.JPG?rlkey=f6wf17k2j12097a37ygxt47gq&dl=1"
+slug = "nanoglyphs/040-rails-world/noord-2"
+title = "Amsterdam Noord"
+
+[[photographs]]
+crop_width = 2400
+original_image_url = "https://www.dropbox.com/scl/fi/xhhs05e0w1eoz47yx109d/2W4A4565-crop.jpg?rlkey=awbkfp0akrpgdab3j8xjqj0pu&dl=1"
+slug = "nanoglyphs/040-rails-world/version-wall"
+title = "Version wall"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/u5skys3jrzvbo24f9upu1/2W4A4567.JPG?rlkey=drkl5iz6ivoz2f2qwaq04fe4g&dl=1"
+slug = "nanoglyphs/040-rails-world/version-wall-2003"
+title = "Version wall (2003)"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/ln618gevsrkx1lvfs747g/2W4A4561-version-wall.JPG?rlkey=igo1t31u3mxsduvt9r7n5ahte&dl=1"
+slug = "nanoglyphs/040-rails-world/version-wall-2009"
+title = "Version wall @ 2.3 (2009)"
+
+#
+# /nanoglyphs/039-trails
+#
+
+[[photographs]]
+crop_width = 600
+original_image_url = "https://www.dropbox.com/scl/fi/xem2ct5je45wyk8vgnd2g/IMG_0893-liberty-crop.jpg?rlkey=5ql8tp4z1rr7zk7m1t7gazagg&dl=1"
+slug = "nanoglyphs/039-trails/liberty"
+title = "Liberty, the bald eagle"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/2qktq8sgq3529oiwej75y/2W4A4352.JPG?rlkey=9polsu2j4fbw16s11p21alpi4&dl=1"
+slug = "nanoglyphs/039-trails/kings-canyon"
+title = "Kings Canyon National Park"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/mqbljsuhztrqeicx8xtqy/new-slack-ui.png?rlkey=v81bq0ejmk4wnt385t46rb6tm&dl=1"
+slug = "nanoglyphs/039-trails/new-slack-ui"
+title = "Screenshot of new Slack UI"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/wzh1xvz6np6mg89yzrtec/new-slack-ui-normal-zoom.png?rlkey=8l2d4pqxsbxu8rqpfonwra8g2&dl=1"
+slug = "nanoglyphs/039-trails/new-slack-ui-normal-zoom"
+title = "Screenshot of new Slack UI at normal zoom level"
+
+[[photographs]]
+crop_width = 600
+original_image_url = "https://www.dropbox.com/scl/fi/r8nf39lti0m9y2boxb5in/2W4A3915.JPG?rlkey=pn0yfwdriswkc67pqyam6aiop&dl=1"
+slug = "nanoglyphs/039-trails/seldon-pass"
+title = "Seldon Pass"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/scl/fi/vss7h0mswsxd4kjgjfqhy/vscode.png?rlkey=wxzvgp5kdzq3os3rzahbgmoai&dl=1"
+slug = "nanoglyphs/039-trails/vscode"
+title = "Screenshot of VSCode"
+
+#
+# /nanoglyphs/038-london
+#
+
+[[photographs]]
+crop_width = 600
+original_image_url = "https://www.dropbox.com/s/fwrhtnwal078gbe/honeybadger-shirt.jpg?dl=1"
+slug = "nanoglyphs/038-london/honeybadger-shirt"
+title = "Honeybadger shirt"
+
+[[photographs]]
+crop_width = 600
+original_image_url = "https://www.dropbox.com/s/3zu9a44nuk1qppw/honeybadger-shirt-2.jpg?dl=1"
+slug = "nanoglyphs/038-london/honeybadger-shirt-2"
+title = "Honeybadger shirt"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/34ru3gh5blfdbiq/2W4A3149.JPG?dl=1"
+slug = "nanoglyphs/038-london/hyde-park"
+title = "Hyde Park in London"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/yjsthxq0tnqh632/2W4A3156.JPG?dl=1"
+slug = "nanoglyphs/038-london/hyde-park-2"
+title = "Hyde Park in London"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/gajzhb0p3txmf07/2W4A3086-flags.JPG?dl=1"
+slug = "nanoglyphs/038-london/london-streets"
+title = "London streets, flags flying high"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/a9od1ln8qf30vyh/2W4A3005-flags.JPG?dl=1"
+slug = "nanoglyphs/038-london/london-streets-2"
+title = "London streets, flags flying high"
+
+[[photographs]]
+crop_width = 600
+original_image_url = "https://www.dropbox.com/s/iswfzgdd674ac6a/sentry-errors.png?dl=1"
+slug = "nanoglyphs/038-london/sentry-errors"
+title = "Errors in Sentry"
+
+#
+# /nanoglyphs/037-fast
+#
+
+[[photographs]]
+crop_width = 900
+original_image_url = "https://www.dropbox.com/s/jnq5fwzo279qt29/2W4A2627.JPG?dl=1"
+slug = "nanoglyphs/037-fast/la-cheminee"
+title = "La Cheminée (a tall multi-colored art project) dans La Défense"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/b5a006d3004oluq/2W4A2641.JPG?dl=1"
+slug = "nanoglyphs/037-fast/la-defense"
+title = "La Défense"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/b92cbvlgtpkgtik/2W4A2657.JPG?dl=1"
+slug = "nanoglyphs/037-fast/la-defense-2"
+title = "La Défense 2"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/hgxoyxt9rn40p8e/2W4A2648.JPG?dl=1"
+slug = "nanoglyphs/037-fast/la-grande-arche"
+title = "La Grande Arche"
+
+#
+# /nanoglyphs/036-queues
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/mmmvyybyg5xsvop/2W4A2502.JPG?dl=1"
+slug = "nanoglyphs/036-queues/leafy-seadragon"
+title = "Leafy seadragon at the Georgia Aquarium"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/8nqnlcaixqgdoqq/2W4A2496.JPG?dl=1"
+slug = "nanoglyphs/036-queues/leafy-seadragon-2"
+title = "Another shot of the leafy seadragon at the Georgia Aquarium"
+
+#
+# /nanoglyphs/035-generics
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/q25sv3ui0k5hmlu/2W4A1067.JPG?dl=1"
+slug = "nanoglyphs/035-generics/forest-of-nisene-marks"
+title = "Creek at the Forest of Nisene Marks"
+
+#
+# /nanoglyphs/034-cloud-sqlite
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/nvxjw9c9t2f2zu9/2W4A1211-kex.JPG?dl=1"
+slug = "nanoglyphs/034-cloud-sqlite/kex"
+title = "The Kex's cafe"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/eiajyukiqygivqb/2W4A1213.JPG?dl=1"
+slug = "nanoglyphs/034-cloud-sqlite/kex-2"
+title = "The Kex's cafe (no. 2)"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/wcpo07ncld8h1tp/outhorse-your-email.jpg?dl=1"
+slug = "nanoglyphs/034-cloud-sqlite/outhorse-your-email"
+title = "Outhorse your email"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/2w7z3gt1pn48723/2W4A1135.JPG?dl=1"
+slug = "nanoglyphs/034-cloud-sqlite/portland"
+title = "Portland"
+
+#
+# /nanoglyphs/033-heroku
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/ez5f241oryp0ncb/2W4A1044-cafe.JPG?dl=1"
+slug = "nanoglyphs/033-heroku/brooklyn-cafe"
+title = "A cafe in Brooklyn"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/5891ftr207dcrzv/2W4A0908.JPG?dl=1"
+slug = "nanoglyphs/033-heroku/greenwich-st"
+title = "Greenwich St intersection"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/ct1i0jnsfqwt2gr/2W4A0934-high-line.JPG?dl=1"
+slug = "nanoglyphs/033-heroku/highline"
+title = "The Highline"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/g24gjwpdvwoadim/2W4A1013.JPG?dl=1"
+slug = "nanoglyphs/033-heroku/herald-square"
+title = "Herald Square in New York"
+
+#
+# /nanoglyphs/032-hook-toil
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/cz2ls57jhwk0zd5/2W4A0829.JPG?dl=1"
+slug = "nanoglyphs/032-hook-toil/balconies-cave"
+title = "Balconies cave at Pinnacles National Park"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/o55huvbztmueddt/2W4A0787-condor.JPG?dl=1"
+slug = "nanoglyphs/032-hook-toil/california-condor"
+title = "California condor in flight"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/dpy7pl6butr3j78/2W4A0756.JPG?dl=1"
+slug = "nanoglyphs/032-hook-toil/pinnacles-park-1"
+title = "Pinnacles National Park"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/0in0j1nxsfhc125/2W4A0769-diagonal.JPG?dl=1"
+slug = "nanoglyphs/032-hook-toil/pinnacles-park-2"
+title = "Pinnacles National Park"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/tg9h25z350ylnz6/2W4A0814-face.JPG?dl=1"
+slug = "nanoglyphs/032-hook-toil/pinnacles-park-3"
+title = "Pinnacles National Park"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/vgf6m8p6kqcwg6l/2W4A0741.JPG?dl=1"
+slug = "nanoglyphs/032-hook-toil/pinnacles-park-4"
+title = "Pinnacles National Park"
+
+#
+# /nanoglyphs/031-api-docs
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/b0wd00jovo1l09a/bridge-api-reference.png?dl=1"
+slug = "nanoglyphs/031-api-docs/bridge-api-reference"
+title = "Screenshot of the Crunchy Bridge API reference"
+
+# [[photographs]]
+# crop_width = 1200
+# original_image_url = "https://www.dropbox.com/s/r33un6nozgnhb09/2W4A0566-tree-cropped.jpg?dl=1"
+# slug = "nanoglyphs/031-api-docs/hellman-hollow"
+# title = "Hellman Hollow"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/mfxevj4na7u0nbq/heroku-api-reference.png?dl=1"
+slug = "nanoglyphs/031-api-docs/heroku-api-reference"
+title = "Screenshot of Heroku's API reference"
+
+# [[photographs]]
+# crop_width = 1200
+# original_image_url = "https://www.dropbox.com/s/u6fvp55uafiumb9/2W4A0571-beach.JPG?dl=1"
+# slug = "nanoglyphs/031-api-docs/ocean-beach"
+# title = "Ocean Beach"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/jnq669hiwqxde7u/2W4A0571-beach-cropped.jpg?dl=1"
+slug = "nanoglyphs/031-api-docs/ocean-beach-cropped"
+title = "Ocean Beach"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/1xkwpk0mepv213c/stripe-api-reference.png?dl=1"
+slug = "nanoglyphs/031-api-docs/stripe-api-reference"
+title = "Screenshot of Stripe's API reference"
+
+#
+# /nanoglyphs/030-onionskin
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/lwq4mpb9fuplu4n/DSC_4420.JPG?dl=1"
+slug = "nanoglyphs/030-onionskin/union-square-rain"
+title = "Union Square in the rain"
+
+#
+# /nanoglyphs/029-path-of-madness
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/f9bt1kb8dpz6t46/IMG_0440-pier.jpg?dl=1"
+slug = "nanoglyphs/029-path-of-madness/bunaken-pier"
+title = "A view from a pier on Bunaken in Indonesia"
+
+[[photographs]]
+crop_width = 900
+original_image_url = "https://www.dropbox.com/s/grb1iwzymxk73fz/IMG_0435-path.jpg?dl=1"
+slug = "nanoglyphs/029-path-of-madness/bunaken-road"
+title = "A road on Bunaken in Indonesia"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/7yyg2qg4xfbep8n/lan-and-nynaeve.jpg?dl=1"
+slug = "nanoglyphs/029-path-of-madness/lan-and-nynaeve"
+title = "Wheel of Time: Lan and Nynaeve"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/4zgcqlst31gkdia/padan-fain.jpg?dl=1"
+slug = "nanoglyphs/029-path-of-madness/padan-fain"
+title = "Wheel of Time: Padan Fain"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/4h0rfgkc532mmua/shadar-logoth.jpg?dl=1"
+slug = "nanoglyphs/029-path-of-madness/shadar-logoth"
+title = "Wheel of Time: Shadar Logoth"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/5d7gxrb3b4wvl52/whitecloak.jpg?dl=1"
+slug = "nanoglyphs/029-path-of-madness/whitecloak"
+title = "Wheel of Time: Whitecloak"
+
+#
+# /nanoglyphs/028-cool-tools
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/ny6jquaewvct3st/2W4A0515-lizard-crop.jpg?dl=1"
+slug = "nanoglyphs/028-cool-tools/lizard"
+title = "A lizard in San Bruno park"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/o2juh59p9b99ipa/2W4A0505.JPG?dl=1"
+slug = "nanoglyphs/028-cool-tools/ridge"
+title = "A ridgeline in San Bruno park"
+
+#
+# /nanoglyphs/027-15-minutes
+#
+
+[[photographs]]
+crop_width = 496                                                                          # original image only 992 wide
+original_image_url = "https://www.dropbox.com/s/21t62z257f9tzxg/15-minute-tweet.png?dl=1"
+slug = "nanoglyphs/027-15-minutes/15-minute-tweet"
+title = "Tweet of 15 minutes to upgrade"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/v98kfm3b4w5wud3/L1020466-river.JPG?dl=1"
+slug = "nanoglyphs/027-15-minutes/denver-river"
+title = "The South Platte River running through central Denver"
+
+[[photographs]]
+crop_width = 900
+original_image_url = "https://www.dropbox.com/s/s2t51wh9wnsod7a/L1020461-millenium-bridge.JPG?dl=1"
+slug = "nanoglyphs/027-15-minutes/millenium-bridge"
+title = "The Millenium Bridge in LoDo Denver"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/1qh2xsapknvanlk/L1020454_mod2.jpg?dl=1"
+slug = "nanoglyphs/027-15-minutes/red-rock"
+title = "Red Rock in Colorado"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/rtxm0ik4apy5m55/L1020457_mod1.jpg?dl=1"
+slug = "nanoglyphs/027-15-minutes/red-rock-landscape"
+title = "The Red Rocks Amphitheatre and surrounding landscape"
+
+[[photographs]]
+crop_width = 600                                                                     # original image only 1200 wide
+original_image_url = "https://www.dropbox.com/s/nbhif4j3yeevu86/rezz-rocks.jpg?dl=1"
+slug = "nanoglyphs/027-15-minutes/rezz-rocks"
+title = "Poster for Rezz Rock III"
+
+#
+# /nanoglyphs/026-ids
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/qzcqqqe80kkwrpm/L1010861.jpg?dl=1"
+slug = "nanoglyphs/026-ids/great-highway"
+title = "Looking down the Great Highway"
+
+[[photographs]]
+crop_width = 900
+original_image_url = "https://www.dropbox.com/s/bqx7qubthu3x5j5/2W4A0530.JPG?dl=1"
+slug = "nanoglyphs/026-ids/pacifica"
+title = "Pacifica"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/ysm5c94xch04bgv/2W4A0529.JPG?dl=1"
+slug = "nanoglyphs/026-ids/pacifica-2"
+title = "Pacifica"
+
+[[photographs]]
+crop_width = 900
+original_image_url = "https://www.dropbox.com/s/6nmtr3aqa43upwz/L1020361.JPG?dl=1"
+slug = "nanoglyphs/026-ids/salesforce-park"
+title = "TODO"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/8wpcoxfnu4l5km6/san-bruno.png?dl=1"
+slug = "nanoglyphs/026-ids/san-bruno"
+title = "Walk to San Bruno"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/9x2vlfmna20ru1p/2W4A0555.JPG?dl=1"
+slug = "nanoglyphs/026-ids/south-san-francisco"
+title = "Sweeney Ridge"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/pqsqbw9bmeqwr5m/2W4A0541.JPG?dl=1"
+slug = "nanoglyphs/026-ids/sweeney-ridge"
+title = "Sweeney Ridge"
+
+[[photographs]]
+crop_width = 384                                                                   # original image only 768 wide
+original_image_url = "https://www.dropbox.com/s/mfj8ih965izaevo/uuid-tps.png?dl=1"
+slug = "nanoglyphs/026-ids/uuid-tps"
+title = "Transactions per second comparison"
+
+[[photographs]]
+crop_width = 384                                                                                     # original image only 768 wide
+original_image_url = "https://www.dropbox.com/s/e0cbeluvlhace7u/uuid-wal-medium-normalized.png?dl=1"
+slug = "nanoglyphs/026-ids/uuid-wal-medium-normalized"
+title = "WAL size comparison"
+
+#
+# /nanoglyphs/025-logs
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/lhpfm4kofd2zbpa/2W4A0474.JPG?dl=1"
+slug = "nanoglyphs/025-logs/heroes-grove"
+title = "Redwoods in Heroes Grove, Golden Gate Park"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/1al3m62ns8mc3mv/2014-01-26-heroku-sign.jpg?dl=1"
+slug = "nanoglyphs/025-logs/heroku-sign"
+title = "Heroku sign at 650 7th"
+
+[[photographs]]
+crop_width = 350
+original_image_url = "https://www.dropbox.com/s/sx8ho92svfwe3l6/lines-changed.png?dl=1"
+slug = "nanoglyphs/025-logs/lines-changed"
+title = "Number of lines changed"
+
+[[photographs]]
+crop_width = 350
+original_image_url = "https://www.dropbox.com/s/lbwzseessuohtjh/lines-changed-2.png?dl=1"
+slug = "nanoglyphs/025-logs/lines-changed-2"
+title = "Number of lines changed"
+
+[[photographs]]
+crop_width = 600
+original_image_url = "https://www.dropbox.com/s/5igneu0z0f49yo7/log-aggregates.png?dl=1"
+slug = "nanoglyphs/025-logs/log-aggregates"
+title = "Aggregating logs"
+
+[[photographs]]
+crop_width = 600
+original_image_url = "https://www.dropbox.com/s/u6u2dv7gq99ejd5/log-clean-trace.png?dl=1"
+slug = "nanoglyphs/025-logs/log-clean-trace"
+title = "Clean trace of log lines"
+
+[[photographs]]
+crop_width = 600
+original_image_url = "https://www.dropbox.com/s/m0lvf3v2vwvtyvh/log-expanded.png?dl=1"
+slug = "nanoglyphs/025-logs/log-expanded"
+title = "Log line expanded"
+
+[[photographs]]
+crop_width = 600
+original_image_url = "https://www.dropbox.com/s/9t3pofbpmjuf0d5/log-nested-structures.png?dl=1"
+slug = "nanoglyphs/025-logs/log-nested-structures"
+title = "Nested structures in logs"
+
+[[photographs]]
+crop_width = 600
+original_image_url = "https://www.dropbox.com/s/k4ftqsfh2u6u2ts/sentry-trace.png?dl=1"
+slug = "nanoglyphs/025-logs/sentry-trace"
+title = "Distributed Sentry trace"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/o2zr4b4e4kvuojn/03_93_27_04_BillyJohn.jpg?dl=1"
+slug = "nanoglyphs/025-logs/03_93_27_04_BillyJohn"
+title = "03_93_27_04_BillyJohn"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/y5c7tky7369svg1/04_96_35_20_HandsomeDave.jpg?dl=1"
+slug = "nanoglyphs/025-logs/04_96_35_20_HandsomeDave"
+title = "04_96_35_20_HandsomeDave"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/58kr8oipaasmyzr/05_93_18_22_Joe_and_messenger.jpg?dl=1"
+slug = "nanoglyphs/025-logs/05_93_18_22_Joe_and_messenger"
+title = "05_93_18_22_Joe_and_messenger"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/sr5z0l56we2i9hc/12_92_65_02_Chris.jpg?dl=1"
+slug = "nanoglyphs/025-logs/12_92_65_02_Chris"
+title = "12_92_65_02_Chris"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/dox7arcmpbumhyy/17_93_48_09_Anita.jpg?dl=1"
+slug = "nanoglyphs/025-logs/17_93_48_09_Anita"
+title = "17_93_48_09_Anita"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/8962gwu496vh1e9/21_95_49_06_Manny.jpg?dl=1"
+slug = "nanoglyphs/025-logs/21_95_49_06_Manny"
+title = "21_95_49_06_Manny"
+
+#
+# /nanoglyphs/024-new-horizons
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/yps66x5h69nr62n/2W4A0460.JPG?dl=1"
+slug = "nanoglyphs/024-new-horizons/sunrise"
+title = "Sunrise over Twin Peaks"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/n23ul6xjnvapups/2W4A0465.JPG?dl=1"
+slug = "nanoglyphs/024-new-horizons/sunrise-tree"
+title = "Sunrise towards downtown, through a tree"
+
+#
+# /nanoglyphs/023-enhancement
+#
+
+[[photographs]]
+crop_width = 900
+original_image_url = "https://www.dropbox.com/s/lqcz3psheoyuyi9/city-pop.jpg?dl=1"
+slug = "nanoglyphs/023-enhancement/city-pop"
+title = "Japanese city pop"
+
+# [[photographs]]
+#   crop_width = 1200
+#   original_image_url = "https://www.dropbox.com/s/65des0t2jg86052/2W4A0399-hoop.JPG?dl=1"
+#   slug = "nanoglyphs/023-enhancement/hoop"
+#   title = "Basketball by Mount Sutro"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/sids26fjvpi2ona/2W4A0408.JPG?dl=1"
+slug = "nanoglyphs/023-enhancement/sand"
+title = "Sand"
+
+#
+# /nanoglyphs/022-entropy
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/n99y3gwwfv92xti/git.png?dl=1"
+slug = "nanoglyphs/022-entropy/git"
+title = "Sorg in Git"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/mtnly810xmz89kw/L1030975.JPG?dl=1"
+slug = "nanoglyphs/022-entropy/yunomine"
+title = "Yunomine Onsen"
+
+[[photographs]]
+crop_width = 900
+original_image_url = "https://www.dropbox.com/s/mcoyfbtby6izw3t/L1040042.JPG?dl=1"
+slug = "nanoglyphs/022-entropy/yunomine-2"
+title = "Yunomine Onsen 2"
+
+#
+# /nanoglyphs/021-ides
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/omt60a0q4abj580/L1070842-chairlift.JPG?dl=1"
+slug = "nanoglyphs/021-ides/chairlift"
+title = "A chairlift off season"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/v9jbu6xrhmeo2dg/L1070841.JPG?dl=1"
+slug = "nanoglyphs/021-ides/wind-turbine"
+title = "A wind turbine near Vancouver"
+
+#
+# /nanoglyphs/019-api-libraries
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/j5ns5cht9vzjxez/2W4A0232.JPG?dl=1"
+slug = "nanoglyphs/019-api-libraries/brickell"
+title = "Around Brickell in Miami"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/daw7v9f42v8teic/wani-kani.png?dl=1"
+slug = "nanoglyphs/019-api-libraries/wani-kani"
+title = "Wani Kani's home page"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/vr9tvo4im3yh3zs/2W4A0289.JPG?dl=1"
+slug = "nanoglyphs/019-api-libraries/vizcaya"
+title = "The gardens at Vizcaya in Miami"
+
+#
+# /nanoglyphs/018-ractors
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/tvz4t4ggikrld6x/2W4A0178-cropped.jpg?dl=1"
+slug = "nanoglyphs/018-ractors/engelmann-plaque"
+title = "Plaque on Sulphur Mountain showing an Engelmann Spruce"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/yvhbe0c6wsydc4f/2W4A0150.JPG?dl=1"
+slug = "nanoglyphs/018-ractors/sulphur-gondola"
+title = "The gondola at Sulphur Mountain"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/0cf7x6o1ccew6qi/2W4A0161.JPG?dl=1"
+slug = "nanoglyphs/018-ractors/sulphur-view"
+title = "The view off Sulphur Mountain"
+
+#
+# /nanoglyphs/017-twenty
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/7jxx7zx7e3xalfb/2W4A0137.JPG?dl=1"
+slug = "nanoglyphs/017-twenty/canmore"
+title = "The mountains of Canmore"
+
+[[photographs]]
+crop_width = 900
+original_image_url = "https://www.dropbox.com/s/q1acfqfnkecpixu/da-vinci.jpg?dl=1"
+slug = "nanoglyphs/017-twenty/da-vinci"
+title = "Da Vinci"
+
+[[photographs]]
+crop_width = 900
+original_image_url = "https://www.dropbox.com/s/778i77mmyh5t8mj/2W4A0146.JPG?dl=1"
+slug = "nanoglyphs/017-twenty/river"
+title = "The Bow River"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/1onhi70nuy5q2qw/2W4A0144.JPG?dl=1"
+slug = "nanoglyphs/017-twenty/river-2"
+title = "The Bow River"
+
+#
+# /nanoglyphs/016-postgres-13
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/tuhjavbworvu2xi/L1020154.jpg?dl=1"
+slug = "nanoglyphs/016-postgres-13/uc-berkeley-clock-tower"
+title = "UC Berkeley, the birthplace of Postgres"
+
+[[photographs]]
+crop_width = 900
+original_image_url = "https://www.dropbox.com/s/52vx77e7vbirrky/L1020152.JPG?dl=1"
+slug = "nanoglyphs/016-postgres-13/uc-berkeley-grove"
+title = "A grove at UC Berkeley"
+
+#
+# /nanoglyphs/015-ruby-typing
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/41c579a1dfm069f/IMG_1391.jpg?dl=1"
+slug = "nanoglyphs/015-ruby-typing/cole-valley"
+title = "Cole Valley around noon on Bladerunner day"
+
+#
+# /nanoglyphs/014-local-first
+#
+
+[[photographs]]
+crop_width = 900
+original_image_url = "https://www.dropbox.com/s/hd9rwpy1fdxa91o/IMG_0441.jpg?dl=1"
+slug = "nanoglyphs/014-local-first/bunaken"
+title = "Bunaken"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/0kephagafiou7hp/L1080319.JPG?dl=1"
+slug = "nanoglyphs/014-local-first/coral-eye"
+title = "Coral Eye's dive jetty on Bangka in Indonesia"
+
+[[photographs]]
+crop_width = 900
+original_image_url = "https://www.dropbox.com/s/bal6cya3yel8u0o/sandman.jpg?dl=1"
+slug = "nanoglyphs/014-local-first/sandman"
+title = "Page from Sandman"
+
+#
+# /nanoglyphs/013-remote
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/lcr7oi8bicodhu8/L1010190.jpg?dl=1"
+slug = "nanoglyphs/013-remote/great-highway"
+title = "The Great Highway, car free"
+
+[[photographs]]
+crop_width = 900
+original_image_url = "https://www.dropbox.com/s/s0zooun0rruvkz0/L1000514-crop-2.jpg?dl=1"
+slug = "nanoglyphs/013-remote/slope"
+title = "A steep San Francisco street"
+
+#
+# /nanoglyphs/011-shelter
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/81uhvmzbp8tspfd/L1000272.JPG?dl=1"
+slug = "nanoglyphs/011-shelter/chimes"
+title = "Wind chimes at home"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/uds1vfevcyxd1e8/L1000270.JPG?dl=1"
+slug = "nanoglyphs/011-shelter/pool"
+title = "Pool on the roof"
+
+[[photographs]]
+crop_width = 900
+original_image_url = "https://www.dropbox.com/s/g56ancw989uv4lv/IMG_0846-crop.jpg?dl=1"
+slug = "nanoglyphs/011-shelter/sutro-tower"
+title = "Sutro Tower"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/6880e7vmtehjif1/L1000258.JPG?dl=1"
+slug = "nanoglyphs/011-shelter/tea"
+title = "Tea set -- made in Calgary and Japan"
+
+#
+# /nanoglyphs/010-monterey
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/fu9cjjbssl4kyby/L1080497.JPG?dl=1"
+slug = "nanoglyphs/010-monterey/san-carlos"
+title = "San Carlos Beach in Monterey at sunrise."
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/zsbf2sz8abw0lsy/mariana-trench.jpg?dl=1"
+slug = "nanoglyphs/010-monterey/mariana-trench"
+title = "The Mariana Trench"
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/vno7c26xsfopxww/L1080491.JPG?dl=1"
+slug = "nanoglyphs/010-monterey/storefront"
+title = "Storefront"
+
+#
+# /nanoglyphs/006-moma-rain
+#
+
+[[photographs]]
+crop_width = 1200
+original_image_url = "https://www.dropbox.com/s/ywcoofzdn2vhq53/L1080399.JPG?dl=1"
+slug = "nanoglyphs/006-moma-rain/moma"
+title = "The San Francisco MOMA"
+
+##############################################################################
+#
+#
+# now
+#
+#
+##############################################################################
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/scl/fi/a1vlmcfapbu26tl441wmy/2W4A6047.JPG?rlkey=avsi12zf3xo1w7655oxc2coc1&dl=1"
+slug = "now/2024-07-salesforce-tower"
+title = "Salesforce Tower"
+
+[[photographs]]
+crop_width = 650
+original_image_url = "https://www.dropbox.com/scl/fi/p91ixntk6udt4tk71bx5b/2W4A5289-stayery-table-crop.jpg?rlkey=npwlad9mjjtaahx1li1tlyjiu&st=ceo92vl1&dl=1"
+slug = "now/2024-05-stayery"
+title = "Stayery, Berlin"

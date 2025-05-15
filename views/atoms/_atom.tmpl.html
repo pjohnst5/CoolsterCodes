@@ -1,0 +1,108 @@
+<div id="{{.Atom.Slug}}" class="container max-w-[900px] mx-auto py-8">
+    <div class="md:flex md:px-4">
+        <div class="px-4 md:basis-[90px] md:flex-grow-0 md:flex-shrink-0 md:mr-4 md:px-0">
+            <div class="font-bold my-1 leading-normal text-xs text-proseLinks tracking-tighter dark:text-proseInvertLinks">
+                <a href="#{{.Atom.Slug}}" class="leading-3">
+                    {{FormatTime .Atom.PublishedAt "2006 / Jan 2"}}
+                    {{FormatTime .Atom.PublishedAt "15:04 PST"}}
+                </a>
+                <a href="/atoms/{{.Atom.Slug}}" class="mx-0.5 opacity-60">🔗</a>
+            </div>
+        </div>
+        <div class="md:flex-grow md:min-w-0 md:ml-4">
+            <div class="hyphens-auto
+                max-w-none
+                px-4 md:px-0
+                prose prose-md dark:prose-invert
+                prose-a:border-b-[1px] prose-a:border-slate-500 prose-a:font-sans prose-a:no-underline
+                hover:prose-a:border-b-slate-200
+                prose-blockquote:text-slate-700 dark:prose-blockquote:text-slate-200
+                prose-code:prose-a:text-sm prose-code:prose-p:text-sm
+                prose-h1:font-bold prose-h1:text-base
+                prose-p:font-serif
+                prose-p:prose-blockquote:font-sans
+                prose-strong:font-sans
+                prose-ol:font-serif
+                prose-ul:font-serif
+                ">
+                {{if .Atom.Title -}}
+                <a href="/atoms/{{.Atom.Slug}}">
+                    <h1>{{.Atom.Title}}</h1>
+                </a>
+                {{end -}}
+
+                {{.Atom.DescriptionHTML}}
+            </div>
+
+            {{- if gt (len .Atom.Photos) 0 -}}
+            <!--
+                Negative left margin equal to with of left metadata bar plus
+                2rem for the margins between bar and content.
+
+                Negative right margin equal to `mr-2` which each photo has so
+                that it can fit into a row.
+
+                Width of 100% plus the negative margins on each side.
+
+                Also provides two additional larger sizes for lg and xl so that
+                images and videos expand further on very large screens.
+            -->
+            <div class="flex flex-col mt-8
+                        mr-[calc(-0.5rem)] md:ml-[calc(-90px-2rem)] md:w-[calc(100%+90px+2rem+0.5rem)]
+                        lg:mr-[calc(-0.5rem-75px)] lg:ml-[calc(-90px-2rem-75px)] lg:w-[calc(100%+90px+2rem+0.5rem+2*75px)]
+                        xl:mr-[calc(-0.5rem-150px)] xl:ml-[calc(-90px-2rem-150px)] xl:w-[calc(100%+90px+2rem+0.5rem+2*150px)]
+                        ">
+
+                {{- range $i, $photo := .Atom.Photos -}}
+
+                {{if eq (Mod $i 2) 0}} <div class="flex flex-col md:flex-row"> {{end}}
+
+                    <div class="mb-2 mr-2">
+                        <a
+                            href="{{if $photo.LinkURL}}{{$photo.LinkURL}}{{else}}{{printf "/photographs/atoms/%s/%s_large@2x%s" $.Atom.Slug $photo.Slug $photo.TargetExt}}{{end}}">
+                            <img class="md:rounded-lg w-full" loading="lazy"
+                                src="{{printf "/photographs/atoms/%s/%s_large%s" $.Atom.Slug $photo.Slug $photo.TargetExt}}"
+                                srcset="{{printf "/photographs/atoms/%s/%s_large@2x%s" $.Atom.Slug $photo.Slug $photo.TargetExt}} 2x,
+                                {{printf "/photographs/atoms/%s/%s_large%s" $.Atom.Slug $photo.Slug $photo.TargetExt}} 1x">
+                        </a>
+                    </div>
+
+                    <!-- close the row div if an odd numbered photo or the last photo -->
+                    {{if or (eq (Mod $i 2) 1) (eq $i (Sub (len $.Atom.Photos) 1))}}
+                </div> {{end}}
+
+                {{- end -}}
+
+            </div>
+            {{- end -}}
+
+            {{- if gt (len .Atom.Videos) 0 -}}
+            <div class="flex flex-col mt-8
+                        mr-[calc(-0.5rem)] md:ml-[calc(-90px-2rem)] md:w-[calc(100%+90px+2rem+0.5rem)]
+                        lg:mr-[calc(-0.5rem-75px)] lg:ml-[calc(-90px-2rem-75px)] lg:w-[calc(100%+90px+2rem+0.5rem+2*75px)]
+                        xl:mr-[calc(-0.5rem-150px)] xl:ml-[calc(-90px-2rem-150px)] xl:w-[calc(100%+90px+2rem+0.5rem+2*150px)]
+                        ">
+
+                {{- range $i, $video := .Atom.Videos -}}
+
+                {{if eq (Mod $i 2) 0}} <div class="flex flex-col md:flex-row"> {{end}}
+
+                    <div class="mb-2 mr-2">
+                        <video autoplay loop muted playsinline class="md:rounded-lg w-full">
+                            {{range $video.URL -}}
+                            <source src="/videos/atoms/{{$.Atom.Slug}}/{{URLBaseFile .}}" type="video/{{URLBaseExt .}}">
+                            {{end}}
+                        </video>
+                    </div>
+
+                    <!-- close the row div if an odd numbered photo or the last photo -->
+                    {{if or (eq (Mod $i 2) 1) (eq $i (Sub (len $.Atom.Photos) 1))}}
+                </div> {{end}}
+
+                {{- end -}}
+
+            </div>
+            {{- end -}}
+        </div>
+    </div>
+</div>
