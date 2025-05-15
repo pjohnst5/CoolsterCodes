@@ -1,0 +1,47 @@
+{{- template "layouts/passages.tmpl.html" . -}}
+
+{{- define "title" -}}{{.Issue.Title}}{{.TitleSuffix}}{{- end -}}
+
+{{- define "content" -}}
+
+<div class="passages_section">
+    <div id="header">
+        <p id="issue">
+            <a href="{{.URLPrefix}}/passages/{{.Issue.Slug}}">{{.Issue.Number}}</a>
+        </p>
+        <p id="passages">
+            <a href="{{.URLPrefix}}/passages">Passages & Glass</a>
+        </p>
+    </div>
+    <h1>{{.Issue.Title}}</h1>
+</div>
+{{if .Issue.ImageURL}}
+    {{if eq .Issue.ImageOrientation "landscape"}}
+        <div class="passages_section_highlight">
+            <img src="{{.URLPrefix}}{{.Issue.ImageURL}}" alt="{{.Issue.ImageAlt}}">
+        </div>
+    {{else}}
+        <div class="passages_section_highlight_portrait">
+            <img src="{{.URLPrefix}}{{.Issue.ImageURL}}" alt="{{.Issue.ImageAlt}}">
+        </div>
+    {{end}}
+{{end}}
+<div class="passages_section">
+    {{.Issue.Content}}
+    <p id="signature">– Brandur</p>
+    <div id="footer">
+        <div id="about">
+            <p>
+                {{template "views/_passages_about.tmpl.html" .}}
+                {{if .InEmail}}
+                    If you don't want to get it anymore, <a href="%unsubscribe_url%">unsubscribe right here</a>.
+                {{end}}
+            </p>
+            {{if not .InEmail}}
+                <p>Issue {{.Issue.Number}} was first broadcast on {{FormatTimeLocal .Issue.PublishedAt}}.</p>
+            {{end}}
+        </div>
+    </div>
+</div>
+
+{{- end -}}

@@ -1,0 +1,17 @@
+.DS_Store
+.env
+.envrc
+
+/content/images/talks/*.backup/
+/content/photographs/**/*.jpg
+/content/photographs/**/*.png
+/content/photographs/**/*.webp
+/content/videos/**/*.mp4
+/content/videos/**/*.webm
+/public/
+/public-dev/
+/sorg
+/tmp/
+/tags
+
+*.csv

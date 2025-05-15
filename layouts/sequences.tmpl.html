@@ -1,0 +1,20 @@
+{{- template "layouts/main.tmpl.html" . -}}
+
+{{- define "javascripts" -}}
+<script src="/assets/{{.Release}}/javascripts/lazy-loading.js" type="text/javascript"></script>
+<script src="/assets/{{.Release}}/javascripts/simpleLightbox.js" type="text/javascript"></script>
+{{- end -}}
+
+{{- define "stylesheets" -}}
+<link href="/assets/{{.Release}}/stylesheets/simpleLightbox.css" media="screen" rel="stylesheet" type="text/css">
+{{- end -}}
+
+{{- define "body_style" -}}bg-white dark:bg-black{{- end -}}
+
+{{- define "content" -}}
+{{- template "views/_nav.tmpl.html" . -}}
+
+<div class="">
+    {{block "sequences_content" .}}{{end}}
+</div>
+{{- end -}}

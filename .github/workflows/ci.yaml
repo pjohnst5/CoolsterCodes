@@ -1,0 +1,287 @@
+name: sorg CI
+
+env:
+  # Saw build failures, apparently because awscli is trying to determine
+  # region. This is an undocumented env var that disables that check.
+  #
+  # Discovered from: https://github.com/aws/aws-cli/issues/5262#issuecomment-705832151
+  AWS_EC2_METADATA_DISABLED: true
+
+  CONCURRENCY: 10 # reduced because I think I'm running into Dropbox rate problems
+  ENABLE_GOAT_COUNTER: true
+  GOOGLE_ANALYTICS_ID: UA-47798518-1
+
+  # Paths for various manually installed utilities. Don't try to use $HOME
+  # because GitHub Actions won't support it.
+  MAGICK_BIN: /home/runner/imagemagick/bin/magick
+  # See: https://github.com/ImageMagick/ImageMagick/releases
+  MAGICK_FILE_NAME: ImageMagick-bbdcbf7-clang-x86_64.AppImage
+  MAGICK_RELEASE: 7.1.1-41
+  MOZJPEG_BIN: /opt/mozjpeg/bin/cjpeg
+  PNGQUANT_BIN: /usr/bin/pngquant
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  schedule:
+    # Once a week on Tuesday.
+    - cron: "0 0 * * TUE"
+
+jobs:
+  check_and_test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Go
+        uses: actions/setup-go@v5
+        with:
+          check-latest: true
+          go-version-file: "go.mod"
+
+      # It'd be nice to take apt-get back out of the flow since it's so slow,
+      # but we seem to need it for a few things:
+      #
+      #   * pngquant has no particularly easy alternative install options.
+      #
+      #   * libfuse2 to support AppImage to run ImageMagick.
+      #
+      #   * WebPs are run through `cbwebp` (which comes from the webp package)
+      #     by ImageMagick.
+      #
+      - name: Install LibFUSE2 + PNGQuant + WebP
+        run: sudo apt-get install libfuse2 pngquant webp
+
+      # The copy of ImageMagick we could get from apt-get is ancient and
+      # doesn't handle niceties like `.heic` files, so here we get a binary
+      # directly. When Ubuntu is upgraded at some point in the probably-distant
+      # future, we can probably get rid of this.
+      - name: Install ImageMagick
+        run: |
+          mkdir -p $(dirname "${{ env.MAGICK_BIN }}")
+          curl --compressed -L -o "${{ env.MAGICK_BIN }}" https://github.com/ImageMagick/ImageMagick/releases/download/${{ env.MAGICK_RELEASE }}/${{ env.MAGICK_FILE_NAME }}
+          cat "${{ env.MAGICK_BIN }}"
+          chmod +x "${{ env.MAGICK_BIN }}"
+
+      - name: ImageMagick format options
+        run: ${{ env.MAGICK_BIN }} identify -list format
+
+      # Uses an artifact built by:
+      #
+      # https://github.com/brandur/mozjpeg-builder
+      - name: Install MozJPEG
+        run: |
+          curl --compressed -L -O https://github.com/brandur/mozjpeg-builder/releases/download/master/mozjpeg_amd64.deb
+          sudo dpkg -i mozjpeg_amd64.deb
+
+      - name: Debug
+        run: |
+          echo "github.ref=${{ github.ref }}"
+          echo "go env GOPATH=$(go env GOPATH)"
+          echo "pwd=$(pwd)"
+          echo "GITHUB_WORKSPACE=${GITHUB_WORKSPACE}"
+          echo "HOME=${HOME}"
+
+      - name: Clean
+        run: make clean
+
+      - name: "Go: Install"
+        run: make install
+
+      - name: "Go: Test"
+        run: make test
+        env:
+          # GitHub basically makes it fucking impossible to use any kind of
+          # $HOME variable here for reasons that are far beyond me. Eventually
+          # just gave up and hard-coded `/home/runner`.
+          MAGICK_BIN: /home/runner/imagemagick/bin/magick
+
+          MOZJPEG_BIN: /opt/mozjpeg/bin/cjpeg
+          PNGQUANT_BIN: /usr/bin/pngquant
+
+      - name: "Check: Dropbox image ?dl=0"
+        run: make check-dl0
+
+      - name: "Check: Gofmt"
+        run: make check-gofmt
+
+      - name: "Check: Markdown headers"
+        run: make check-headers
+
+      - name: "Check: Retina assets"
+        run: make check-retina
+
+  check_tailwind:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+
+    env:
+      TAILWIND_VERSION: v3.4.15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Tailwind
+        run: |
+          curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/download/${{ env.TAILWIND_VERSION }}/tailwindcss-linux-x64
+          mv tailwindcss-linux-x64 tailwindcss
+          chmod +x tailwindcss
+
+      - name: Generate Tailwind
+        run: |
+          ./tailwindcss -i ./content/stylesheets/tailwind_base.css -o ./content/stylesheets/tailwind.css
+          ./tailwindcss -i ./content/stylesheets/tailwind_base.css -o ./content/stylesheets/tailwind.min.css --minify
+
+      - name: Check Git diff
+        run: |
+          echo "Please make sure that all Tailwind changes are checked in!"
+          git diff --exit-code .
+
+  deploy_dev:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    if: github.ref == 'refs/heads/master'
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWSAccessKeyID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWSSecretAccessKey }}
+
+    needs:
+      - check_and_test
+      - check_tailwind
+      - golangci-lint
+
+    steps:
+      # See notes in check_and_test.
+      - name: Install LibFUSE2 + PNGQuant + WebP
+        run: sudo apt-get install libfuse2 pngquant webp
+
+      # See notes in check_and_test.
+      - name: Install ImageMagick
+        run: |
+          mkdir -p $(dirname "${{ env.MAGICK_BIN }}")
+          curl --compressed -L -o "${{ env.MAGICK_BIN }}" https://github.com/ImageMagick/ImageMagick/releases/download/${{ env.MAGICK_RELEASE }}/${{ env.MAGICK_FILE_NAME }}
+          chmod +x "${{ env.MAGICK_BIN }}"
+
+      # See notes in check_and_test.
+      - name: Install MozJPEG
+        run: |
+          curl --compressed -L -O https://github.com/brandur/mozjpeg-builder/releases/download/master/mozjpeg_amd64.deb
+          sudo dpkg -i mozjpeg_amd64.deb
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Go
+        uses: actions/setup-go@v5
+        with:
+          check-latest: true
+          go-version-file: "go.mod"
+
+      - name: "Sorg: Install"
+        run: make install
+
+      # Download any markers that have not yet been committed to Git to save
+      # redoing download/resize work.
+      - name: "Download photo markers"
+        run: make photographs-download-markers
+
+      - name: "Build: Development"
+        run: make build
+        env:
+          DRAFTS: true
+          TARGET_DIR: ./public-dev
+
+      - name: "Deploy: Development"
+        run: make deploy
+        env:
+          S3_BUCKET: brandur.org-dev
+          TARGET_DIR: ./public-dev
+
+  deploy_prod:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    if: github.ref == 'refs/heads/master'
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWSAccessKeyID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWSSecretAccessKey }}
+
+    needs:
+      - check_and_test
+      - check_tailwind
+      - golangci-lint
+
+    steps:
+      # See notes in check_and_test.
+      - name: Install LibFUSE2 + PNGQuant + WebP
+        run: sudo apt-get install libfuse2 pngquant webp
+
+      # See notes in check_and_test.
+      - name: Install ImageMagick
+        run: |
+          mkdir -p $(dirname "${{ env.MAGICK_BIN }}")
+          curl --compressed -L -o "${{ env.MAGICK_BIN }}" https://github.com/ImageMagick/ImageMagick/releases/download/${{ env.MAGICK_RELEASE }}/${{ env.MAGICK_FILE_NAME }}
+          chmod +x "${{ env.MAGICK_BIN }}"
+
+      # See notes in check_and_test.
+      - name: Install MozJPEG
+        run: |
+          curl --compressed -L -O https://github.com/brandur/mozjpeg-builder/releases/download/master/mozjpeg_amd64.deb
+          sudo dpkg -i mozjpeg_amd64.deb
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Go
+        uses: actions/setup-go@v5
+        with:
+          check-latest: true
+          go-version-file: "go.mod"
+
+      - name: "Go: Install"
+        run: make install
+
+      # Download any markers that have not yet been committed to Git to save
+      # redoing download/resize work.
+      - name: "Download photo markers"
+        run: make photographs-download-markers
+
+      - name: "Build: Production"
+        run: make build
+        env:
+          TARGET_DIR: ./public
+
+      - name: "Deploy: Production"
+        run: make deploy
+        env:
+          S3_BUCKET: brandur.org
+          TARGET_DIR: ./public
+
+      - name: Upload photos
+        run: make photographs-upload
+
+  golangci-lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Go
+        uses: actions/setup-go@v5
+        with:
+          check-latest: true
+          go-version-file: "go.mod"
+
+      - name: "Check: golangci-lint"
+        uses: golangci/golangci-lint-action@v7
+        with:
+          version: v2.0.0
