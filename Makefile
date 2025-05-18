@@ -1,3 +1,8 @@
+.DEFAULT_GOAL := mine
+
+.PHONY: mine
+mine: install loop
+
 .PHONY: all
 all: clean install test vet lint check-dl0 check-gofmt check-headers check-retina build
 
@@ -143,6 +148,7 @@ endif
 
 .PHONY: install
 install:
+	printenv
 	go install .
 
 # Invalidates CloudFront's cache for paths specified in PATHS.
@@ -206,7 +212,7 @@ markers-gco:
 #     make markers-rm
 #
 # Remove untracked markers in a specific directory:
-# 
+#
 #     make DIR="/content/photographs/sequences" markers-rm
 #
 .PHONY: markers-rm

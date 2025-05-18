@@ -1,0 +1,5 @@
+direnv is not working
+Need to install imagemagick binary path into env
+
+
+Ahah works!!
