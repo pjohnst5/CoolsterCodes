@@ -6,3 +6,12 @@ Ahah works!!
 
 
 Todo: Figure out what "markers" are
+
+Remove "Atoms"
+Remove "Fragments"
+Remove "Newsletter"
+Remove "Sequences"
+Remove "Now"
+Remove "Uses" <- Keep track of this commit though
+Figure out how to make Articles main page
+Remove all other Articles
