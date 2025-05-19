@@ -3,3 +3,6 @@ Need to install imagemagick binary path into env
 
 
 Ahah works!!
+
+
+Todo: Figure out what "markers" are
