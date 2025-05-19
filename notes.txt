@@ -8,6 +8,7 @@ Ahah works!!
 Todo: Figure out what "markers" are
 
 Remove "Atoms"
+    - In build.go there was a video thingy
 Remove "Fragments"
 Remove "Newsletter"
 Remove "Sequences"

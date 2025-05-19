@@ -10,7 +10,6 @@ import (
 	"html"
 	"html/template"
 	"io"
-	"math/big"
 	"math/rand/v2"
 	"net/http"
 	"net/url"
@@ -75,7 +74,6 @@ const (
 // sources if those source files actually changed.
 var (
 	articles     []*Article
-	atoms        []*Atom
 	dependencies = NewDependencyRegistry()
 	fragments    []*Fragment
 	nanoglyphs   []*snewsletter.Issue
@@ -215,7 +213,6 @@ func build(c *modulir.Context) []error {
 	{
 		commonDirs := []string{
 			c.TargetDir + "/articles",
-			c.TargetDir + "/atoms",
 			c.TargetDir + "/fragments",
 			c.TargetDir + "/nanoglyphs",
 			c.TargetDir + "/passages",
@@ -291,75 +288,6 @@ func build(c *modulir.Context) []error {
 					&articles, &articlesChanged, &articlesMu)
 			})
 		}
-	}
-
-	//
-	// Atoms (read `_meta.toml`)
-	//
-
-	var atomsChanged bool
-
-	{
-		c.AddJob("atoms", func() (bool, error) {
-			// Constrain descriptions to 2217 bytes as specified by Spring '83
-			// even though they're also posted off Spring '83.
-			const maxBytesLength = 2217
-
-			source := c.SourceDir + "/content/atoms/_meta.toml"
-
-			if !c.Changed(source) {
-				return false, nil
-			}
-
-			atomsChanged = true
-
-			var atomsWrapper AtomWrapper
-			err := mtoml.ParseFile(c, source, &atomsWrapper)
-			if err != nil {
-				return true, err
-			}
-
-			if err := atomsWrapper.validate(); err != nil {
-				return true, err
-			}
-
-			var replaceEverything bool
-			if len(atoms) != len(atomsWrapper.Atoms) {
-				replaceEverything = true
-			}
-
-			slices.SortFunc(atomsWrapper.Atoms, func(a, b *Atom) int { return b.PublishedAt.Compare(a.PublishedAt) })
-
-			// Do a little post-processing on each atom, but try to skip any
-			// that haven't changed.
-			for i, atom := range atomsWrapper.Atoms {
-				if !replaceEverything {
-					lastAtom := atoms[i]
-					if lastAtom.Equal(atom) {
-						// Although the raw atoms are equal, we still use the
-						// current version because it'll have values for any
-						// rendered properties like DescriptionHTML.
-						lastAtom.changed = false
-						atomsWrapper.Atoms[i] = lastAtom
-						continue
-					}
-				}
-
-				atom.DescriptionHTML = template.HTML(string(mmarkdown.Render(c, []byte(atom.Description))))
-				atom.Slug = atomSlug(atom.PublishedAt)
-
-				atom.changed = true
-
-				if len([]byte(atom.DescriptionHTML)) > maxBytesLength && !atom.LengthExempted {
-					return true, xerrors.Errorf("atom's length is greater than %d bytes (was %d): %q",
-						maxBytesLength, len([]byte(atom.DescriptionHTML)), atom.Description[0:100])
-				}
-			}
-
-			atoms = atomsWrapper.Atoms
-
-			return true, nil
-		})
 	}
 
 	//
@@ -709,71 +637,6 @@ func build(c *modulir.Context) []error {
 	}
 
 	//
-	// Atoms (index / fetch + resize)
-	//
-
-	// Atoms archive
-	{
-		c.AddJob("atoms: archive", func() (bool, error) {
-			return renderAtomArchive(ctx, c, atoms, atomsChanged)
-		})
-	}
-
-	// Atoms index
-	{
-		c.AddJob("atoms: index", func() (bool, error) {
-			return renderAtomIndex(ctx, c, atoms, atomsChanged)
-		})
-	}
-
-	// Atoms feed
-	{
-		c.AddJob("atoms: feed", func() (bool, error) {
-			return renderAtomFeed(ctx, c, atoms, atomsChanged)
-		})
-	}
-
-	// Each atom
-	{
-		for i, a := range atoms {
-			atom := a
-
-			if !atom.changed {
-				continue
-			}
-
-			// Atom page
-			name := "atom: " + atom.Slug
-			c.AddJob(name, func() (bool, error) {
-				return renderAtom(ctx, c, atom, i, atomsChanged)
-			})
-
-			// Photo fetch + resize
-			for i := range atom.Photos {
-				photo := atom.Photos[i]
-
-				name = fmt.Sprintf("atom %q photo: %s", atom.Slug, photo.Slug)
-				c.AddJob(name, func() (bool, error) {
-					return fetchAndResizePhoto(c,
-						c.SourceDir+"/content/photographs/atoms/"+atom.Slug, photo)
-				})
-			}
-
-			// Video fetch
-			for _, video := range atom.Videos {
-				for _, u := range video.URL {
-					videoURL := u
-					name = fmt.Sprintf("atom %q video: %s", atom.Slug, filepath.Base(videoURL))
-					c.AddJob(name, func() (bool, error) {
-						return fetchVideo(ctx, c,
-							c.SourceDir+"/content/videos/atoms/"+atom.Slug, videoURL)
-					})
-				}
-			}
-		}
-	}
-
-	//
 	// Fragments
 	//
 
@@ -1086,78 +949,6 @@ func (a *Article) validate(source string) error {
 		return xerrors.Errorf("error validating article %q: %+v", source, err)
 	}
 	return nil
-}
-
-type AtomWrapper struct {
-	Atoms []*Atom `toml:"atoms" validate:"required,dive"`
-}
-
-func (w *AtomWrapper) validate() error {
-	if err := validate.Struct(w); err != nil {
-		return xerrors.Errorf("error validating sequences: %+v", err)
-	}
-	return nil
-}
-
-// Atom is a single atom entry.
-type Atom struct {
-	// Description is the description of the entry.
-	Description string `toml:"description" validate:"required"`
-
-	// DescriptionHTML is the description rendered to HTML.
-	DescriptionHTML template.HTML `toml:"-" validate:"-"`
-
-	// LengthExempted indicates that the atom is allowed to be longer than the
-	// standard 2217 rendered character limits.
-	LengthExempted bool `toml:"length_exempted" validate:"-"`
-
-	// Photos are any photos associated with the atom.
-	Photos []*Photo `toml:"photos" validate:"omitempty,dive"`
-
-	// PublishedAt is UTC time when the atom was published. It also serves to
-	// provide a stable permalink.
-	PublishedAt time.Time `toml:"published_at" validate:"required"`
-
-	// Slug is a stable URL slug for the atom which is derived from its
-	// timestamp.
-	Slug string `toml:"-" validate:"-"`
-
-	// Title is a title for the atom, but is optional. Atoms don't need and
-	// mostly don't have titles.
-	Title *string `toml:"title" validate:"-"`
-
-	// Videos are any videos associated with the atom.
-	Videos []*AtomVideo `toml:"videos" validate:"omitempty,dive"`
-
-	// Tracks whether the atom has changed since the last build run so that
-	// atoms can be rendered incrementally.
-	changed bool `toml:"changed" validate:"-"`
-}
-
-func (a *Atom) Equal(other *Atom) bool {
-	return a.Description == other.Description &&
-		slices.EqualFunc(a.Photos, other.Photos, func(a, b *Photo) bool { return a.Equal(b) }) &&
-		a.PublishedAt.Equal(other.PublishedAt) &&
-		a.Title == other.Title &&
-		slices.EqualFunc(a.Videos, other.Videos, func(a, b *AtomVideo) bool { return a.Equal(b) })
-}
-
-type AtomVideo struct {
-	URL []string `toml:"url" validate:"required"`
-}
-
-func (v *AtomVideo) Equal(other *AtomVideo) bool {
-	if len(v.URL) != len(other.URL) {
-		return false
-	}
-
-	for i := range v.URL {
-		if v.URL[i] != other.URL[i] {
-			return false
-		}
-	}
-
-	return true
 }
 
 // Fragment represents a fragment (that is, a short "stream of consciousness"
@@ -1480,13 +1271,6 @@ var lexicographicBase32 = "234567abcdefghijklmnopqrstuvwxyz"
 
 var lexicographicBase32Encoding = base32.NewEncoding(lexicographicBase32).
 	WithPadding(base32.NoPadding)
-
-// Produces an atom slug from its timestamp, which is the timestamp's unix time
-// encoded via base32.
-func atomSlug(publishedAt time.Time) string {
-	i := big.NewInt(publishedAt.Unix())
-	return lexicographicBase32Encoding.EncodeToString(i.Bytes())
-}
 
 func extCanonical(originalURL string) string {
 	u, err := url.Parse(originalURL)
@@ -1987,75 +1771,6 @@ func renderArticlesFeed(_ *modulir.Context, articles []*Article, tag *Tag, artic
 	return true, feed.Encode(f, "  ")
 }
 
-// Number of atoms on the atom index page (the rest are on the archive page
-// instead).
-const maxAtomsIndex = 15
-
-func renderAtomArchive(ctx context.Context, c *modulir.Context, atoms []*Atom, atomsChanged bool,
-) (bool, error) {
-	source := scommon.ViewsDir + "/atoms/index.tmpl.html"
-
-	viewsChanged := c.ChangedAny(dependencies.getDependencies(source)...)
-	if !atomsChanged && !viewsChanged {
-		return false, nil
-	}
-
-	locals := getLocals(map[string]interface{}{
-		"Atoms": atoms,
-	})
-
-	err := dependencies.renderGoTemplate(ctx, c, source, path.Join(c.TargetDir, "atoms/archive"), locals)
-	if err != nil {
-		return true, err
-	}
-
-	return true, nil
-}
-
-func renderAtom(ctx context.Context, c *modulir.Context, atom *Atom, atomIndex int, atomsChanged bool,
-) (bool, error) {
-	source := scommon.ViewsDir + "/atoms/show.tmpl.html"
-
-	viewsChanged := c.ChangedAny(dependencies.getDependencies(source)...)
-	if !atomsChanged && !viewsChanged {
-		return false, nil
-	}
-
-	var title string
-	if atom.Title == nil {
-		// Twitter doesn't play nicely showing "<" or ">", so don't put those in
-		title = "Atom #" + atom.Slug
-	} else {
-		title = *atom.Title
-	}
-
-	card := &twitterCard{
-		Description: truncateString(simplifyMarkdownForSummary(atom.Description), 200),
-		ImageURL:    "", // empty defaults to site favicon
-		Title:       title,
-	}
-	if len(atom.Photos) > 0 {
-		photo := atom.Photos[0]
-		card.ImageURL = fmt.Sprintf("/photographs/atoms/%s/%s_large@2x%s",
-			atom.Slug, photo.Slug, photo.TargetExt())
-	}
-
-	locals := getLocals(map[string]interface{}{
-		"Atom":        atom,
-		"AtomIndex":   atomIndex,
-		"IndexMax":    maxAtomsIndex,
-		"Title":       title,
-		"TwitterCard": card,
-	})
-
-	err := dependencies.renderGoTemplate(ctx, c, source, path.Join(c.TargetDir, "atoms", atom.Slug), locals)
-	if err != nil {
-		return true, err
-	}
-
-	return true, nil
-}
-
 var markdownLinkRE = regexp.MustCompile(`\[(.*?)\]\(.*?\)`)
 
 func simplifyMarkdownForSummary(str string) string {
@@ -2070,102 +1785,6 @@ func truncateString(str string, maxLength int) string {
 		return str
 	}
 	return str[0:maxLength-2] + " …"
-}
-
-// Renders an Atom feed for atoms. The entries slice is assumed to be
-// pre-sorted.
-func renderAtomFeed(ctx context.Context, c *modulir.Context, atoms []*Atom, atomsChanged bool,
-) (bool, error) {
-	source := scommon.ViewsDir + "/atoms/_atom_atom.tmpl.html"
-
-	viewsChanged := c.ChangedAny(dependencies.getDependencies(source)...)
-	if !atomsChanged && !viewsChanged {
-		return false, nil
-	}
-
-	feed := &matom.Feed{
-		Title: "Atoms " + scommon.TitleSuffix,
-		ID:    "tag:" + scommon.AtomTag + ",2019:atoms",
-
-		Links: []*matom.Link{
-			{Rel: "self", Type: "application/atom+xml", Href: "https://brandur.org/atoms.atom"},
-			{Rel: "alternate", Type: "text/html", Href: "https://brandur.org"},
-		},
-	}
-
-	if len(atoms) > 0 {
-		feed.Updated = atoms[0].PublishedAt
-	}
-
-	for i, atom := range atoms {
-		if i >= conf.NumAtomEntries {
-			break
-		}
-
-		locals := getLocals(map[string]interface{}{
-			"Atom": atom,
-		})
-
-		var contentBuf bytes.Buffer
-		err := dependencies.renderGoTemplateWriter(ctx, c, source, &contentBuf, locals)
-		if err != nil {
-			return true, err
-		}
-
-		title := "Atom #" + atom.Slug
-		if atom.Title != nil {
-			title = *atom.Title
-		}
-
-		entry := &matom.Entry{
-			Title:     title,
-			Content:   &matom.EntryContent{Content: contentBuf.String(), Type: "html"},
-			Published: atom.PublishedAt,
-			Updated:   atom.PublishedAt,
-			Link:      &matom.Link{Href: conf.AbsoluteURL + "/atoms/" + atom.Slug},
-			ID: "tag:" + scommon.AtomTag + "," + atom.PublishedAt.Format("2006-01-02") +
-				":atoms:" + atom.Slug,
-
-			AuthorName: scommon.AtomAuthorName,
-			AuthorURI:  conf.AbsoluteURL,
-		}
-		feed.Entries = append(feed.Entries, entry)
-	}
-
-	filePath := path.Join(conf.TargetDir, "atoms.atom")
-	f, err := os.Create(filePath)
-	if err != nil {
-		return true, xerrors.Errorf("error creating file '%s': %w", filePath, err)
-	}
-	defer f.Close()
-
-	return true, feed.Encode(f, "  ")
-}
-
-func renderAtomIndex(ctx context.Context, c *modulir.Context, atoms []*Atom, atomsChanged bool,
-) (bool, error) {
-	source := scommon.ViewsDir + "/atoms/index.tmpl.html"
-
-	viewsChanged := c.ChangedAny(dependencies.getDependencies(source)...)
-	if !atomsChanged && !viewsChanged {
-		return false, nil
-	}
-
-	if len(atoms) > maxAtomsIndex {
-		atoms = atoms[0:maxAtomsIndex]
-	}
-
-	locals := getLocals(map[string]interface{}{
-		"Atoms":    atoms,
-		"IndexMax": maxAtomsIndex,
-	})
-
-	err := dependencies.renderGoTemplate(ctx, c, source, path.Join(c.TargetDir, "atoms/index.html"), locals)
-	if err != nil {
-		return true, err
-	}
-
-	return true, nil
 }
 
 func renderFragment(ctx context.Context, c *modulir.Context, source string,
@@ -2738,7 +2357,7 @@ Disallow: /
 		// interesting for robots and they're bandwidth heavy.
 		content = `User-agent: Twitterbot
 Disallow:
-		
+
 User-agent: *
 Disallow: /photographs/
 Disallow: /photos
