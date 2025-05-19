@@ -1,17 +1,13 @@
 package main
 
 import (
-	"bufio"
 	"bytes"
 	"context"
-	"encoding/base32"
 	"encoding/json"
 	"fmt"
 	"html"
 	"html/template"
-	"io"
 	"math/rand/v2"
-	"net/http"
 	"net/url"
 	"os"
 	"path"
@@ -1269,9 +1265,6 @@ type twitterCard struct {
 // case characters instead of upper.
 var lexicographicBase32 = "234567abcdefghijklmnopqrstuvwxyz"
 
-var lexicographicBase32Encoding = base32.NewEncoding(lexicographicBase32).
-	WithPadding(base32.NoPadding)
-
 func extCanonical(originalURL string) string {
 	u, err := url.Parse(originalURL)
 	if err != nil {
@@ -1380,64 +1373,6 @@ func fetchAndResizePhotoTwitter(c *modulir.Context, targetDir string,
 
 	return mimage.FetchAndResizeImage(c, u, targetDir, slug, extCanonical(extImageTarget(media.OriginalExt())),
 		mimage.PhotoGravityCenter, twitterPhotoSizes)
-}
-
-// TODO: Needs to be refactored to respect markers.
-//
-// TODO: Needs to be refactored to do a less manual fetch (probably in Modulir).
-//
-// TODO: May want to eventually support non-manual video cutting.
-func fetchVideo(ctx context.Context, c *modulir.Context, targetDir string, videoURL string) (bool, error) {
-	u, err := url.Parse(videoURL)
-	if err != nil {
-		return false, xerrors.Errorf("bad URL for video '%s': %w", videoURL, err)
-	}
-
-	target := filepath.Join(targetDir, filepath.Base(u.Path))
-
-	if mfile.Exists(target) {
-		return false, nil
-	}
-
-	err = mfile.EnsureDir(c, targetDir)
-	if err != nil {
-		return false, err
-	}
-
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, u.String(), nil)
-	if err != nil {
-		return false, xerrors.Errorf("error creating request: %w", err)
-	}
-
-	resp, err := http.DefaultClient.Do(req)
-	if err != nil {
-		return false, xerrors.Errorf("error fetching: %v", u.String())
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		return false, xerrors.Errorf("unexpected status code fetching '%v': %d",
-			u.String(), resp.StatusCode)
-	}
-
-	f, err := os.Create(target)
-	if err != nil {
-		return false, xerrors.Errorf("error creating '%v': %w", target, err)
-	}
-	defer f.Close()
-
-	w := bufio.NewWriter(f)
-
-	// probably not needed
-	defer w.Flush()
-
-	_, err = io.Copy(w, resp.Body)
-	if err != nil {
-		return false, xerrors.Errorf("error copying to '%v' from HTTP response: %w",
-			target, err)
-	}
-
-	return true, nil
 }
 
 // getAceOptions gets a good set of default options for Ace template rendering
