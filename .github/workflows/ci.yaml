@@ -117,7 +117,7 @@ jobs:
         run: make check-retina
 
   check_tailwind:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     timeout-minutes: 3
 
     env:
@@ -129,8 +129,8 @@ jobs:
 
       - name: Install Tailwind
         run: |
-          curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/download/${{ env.TAILWIND_VERSION }}/tailwindcss-linux-x64
-          mv tailwindcss-linux-x64 tailwindcss
+          curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/download/${{ env.TAILWIND_VERSION }}/tailwindcss-macos-arm64
+          mv tailwindcss-macos-arm64 tailwindcss
           chmod +x tailwindcss
 
       - name: Generate Tailwind
