@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := mine
 
 .PHONY: mine
-mine: install loop
+mine: clean install loop
 
 .PHONY: all
 all: clean install test vet lint check-dl0 check-gofmt check-headers check-retina build

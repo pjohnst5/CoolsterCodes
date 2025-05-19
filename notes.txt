@@ -8,6 +8,7 @@ Ahah works!!
 Todo: Figure out what "markers" are
 
 Remove "Atoms"
+    - In build.go there was a video thingy
 Remove "Fragments"
 Remove "Newsletter"
 Remove "Sequences"
@@ -15,3 +16,11 @@ Remove "Now"
 Remove "Uses" <- Keep track of this commit though
 Figure out how to make Articles main page
 Remove all other Articles
+
+
+-- Commands --
+curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.15/tailwindcss-macos-arm64
+mv tailwindcss-macos-arm64 tailwindcss
+chmod +x tailwindcss
+./tailwindcss -i ./content/stylesheets/tailwind_base.css -o ./content/stylesheets/tailwind.css
+./tailwindcss -i ./content/stylesheets/tailwind_base.css -o ./content/stylesheets/tailwind.min.css --minify
