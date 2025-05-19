@@ -148,7 +148,6 @@ endif
 
 .PHONY: install
 install:
-	printenv
 	go install .
 
 # Invalidates CloudFront's cache for paths specified in PATHS.
