@@ -16,6 +16,8 @@ Remove "Now"
 Remove "Uses" <- Keep track of this commit though
 Figure out how to make Articles main page
 Remove all other Articles
+Add Tags
+Add back in GT articles
 
 
 -- Commands --
