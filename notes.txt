@@ -7,16 +7,15 @@ Ahah works!!
 
 Todo: Figure out what "markers" are
 
-Remove "Atoms"
-    - In build.go there was a video thingy
+Remove "Atoms" ✅
 Remove "Fragments"
 Remove "Newsletter"
 Remove "Sequences"
 Remove "Now"
 Remove "Uses" <- Keep track of this commit though
 Figure out how to make Articles main page
+Implement Tags
 Remove all other Articles
-Add Tags
 Add back in GT articles
 
 
@@ -26,3 +25,6 @@ mv tailwindcss-macos-arm64 tailwindcss
 chmod +x tailwindcss
 ./tailwindcss -i ./content/stylesheets/tailwind_base.css -o ./content/stylesheets/tailwind.css
 ./tailwindcss -i ./content/stylesheets/tailwind_base.css -o ./content/stylesheets/tailwind.min.css --minify
+
+--- Misc ---
+When removing atoms, in build.go there was a video thingy
