@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"html"
 	"html/template"
 	"math/rand/v2"
 	"net/url"
@@ -71,7 +70,6 @@ const (
 var (
 	articles     []*Article
 	dependencies = NewDependencyRegistry()
-	fragments    []*Fragment
 	nanoglyphs   []*snewsletter.Issue
 	passages     []*snewsletter.Issue
 	pages        = make(map[string]*Page)
@@ -82,7 +80,7 @@ var (
 )
 
 // Time zone to show articles / fragments / etc. publishing times in.
-var localLocation = mustLocation("America/Los_Angeles")
+var localLocation = mustLocation("America/Denver")
 
 // List of common build dependencies, a change in any of which will trigger a
 // rebuild on everything: partial views, JavaScripts, and stylesheets. Even
@@ -209,7 +207,6 @@ func build(c *modulir.Context) []error {
 	{
 		commonDirs := []string{
 			c.TargetDir + "/articles",
-			c.TargetDir + "/fragments",
 			c.TargetDir + "/nanoglyphs",
 			c.TargetDir + "/passages",
 			c.TargetDir + "/photos",
@@ -282,38 +279,6 @@ func build(c *modulir.Context) []error {
 			c.AddJob(name, func() (bool, error) {
 				return renderArticle(ctx, c, source,
 					&articles, &articlesChanged, &articlesMu)
-			})
-		}
-	}
-
-	//
-	// Fragments
-	//
-
-	var fragmentsChanged bool
-	var fragmentsMu sync.Mutex
-
-	{
-		sources, err := mfile.ReadDirCached(c, c.SourceDir+"/content/fragments", nil)
-		if err != nil {
-			return []error{err}
-		}
-
-		if conf.Drafts {
-			drafts, err := mfile.ReadDirCached(c, c.SourceDir+"/content/fragments-drafts", nil)
-			if err != nil {
-				return []error{err}
-			}
-			sources = append(sources, drafts...)
-		}
-
-		for _, s := range sources {
-			source := s
-
-			name := "fragment: " + filepath.Base(source)
-			c.AddJob(name, func() (bool, error) {
-				return renderFragment(ctx, c, source,
-					&fragments, &fragmentsChanged, &fragmentsMu)
 			})
 		}
 	}
@@ -598,7 +563,6 @@ func build(c *modulir.Context) []error {
 	// compared against a current version.
 	{
 		slices.SortFunc(articles, func(a, b *Article) int { return b.PublishedAt.Compare(a.PublishedAt) })
-		slices.SortFunc(fragments, func(a, b *Fragment) int { return b.PublishedAt.Compare(a.PublishedAt) })
 		slices.SortFunc(nanoglyphs, func(a, b *snewsletter.Issue) int { return b.PublishedAt.Compare(a.PublishedAt) })
 		slices.SortFunc(passages, func(a, b *snewsletter.Issue) int { return b.PublishedAt.Compare(a.PublishedAt) })
 		slices.SortFunc(photos, func(a, b *Photo) int { return b.OccurredAt.Compare(a.OccurredAt) })
@@ -633,49 +597,13 @@ func build(c *modulir.Context) []error {
 	}
 
 	//
-	// Fragments
-	//
-
-	// Index
-	{
-		c.AddJob("fragments index", func() (bool, error) {
-			return renderFragmentsIndex(ctx, c, fragments,
-				fragmentsChanged)
-		})
-	}
-
-	// Feed
-	{
-		c.AddJob("fragments feed", func() (bool, error) {
-			return renderFragmentsFeed(c, fragments,
-				fragmentsChanged)
-		})
-	}
-
-	// Possible photo in each fragment
-	{
-		for _, fragment := range fragments {
-			if fragment.ImageURL != "" {
-				name := fmt.Sprintf("fragment %q vista", fragment.Slug)
-				c.AddJob(name, func() (bool, error) {
-					return fetchAndResizePhotoOther(c,
-						c.SourceDir+"/content/photographs/fragments/"+fragment.Slug+"/vista", &Photo{
-							CropWidth:        1024,
-							OriginalImageURL: fragment.ImageURL,
-						})
-				})
-			}
-		}
-	}
-
-	//
 	// Home
 	//
 
 	{
 		c.AddJob("home", func() (bool, error) {
-			return renderHome(ctx, c, articles, fragments, nanoglyphs, photos, sequences,
-				articlesChanged, fragmentsChanged, nanoglyphsChanged, photosChanged, sequenceChanged)
+			return renderHome(ctx, c, articles, nanoglyphs, photos, sequences,
+				articlesChanged, nanoglyphsChanged, photosChanged, sequenceChanged)
 		})
 	}
 
@@ -947,73 +875,6 @@ func (a *Article) validate(source string) error {
 	return nil
 }
 
-// Fragment represents a fragment (that is, a short "stream of consciousness"
-// style article) to be rendered.
-type Fragment struct {
-	// Attributions are any attributions for content that may be included in
-	// the article (like an image in the header for example).
-	Attributions template.HTML `toml:"attributions,omitempty"`
-
-	// Content is the HTML content of the fragment. It isn't included as TOML
-	// frontmatter, and is rather split out of an fragment's Markdown file,
-	// rendered, and then added separately.
-	Content template.HTML `toml:"-"`
-
-	// Draft indicates that the fragment is not yet published.
-	Draft bool `toml:"-"`
-
-	// Footnotes are HTML footnotes extracted from content.
-	Footnotes template.HTML `toml:"-"`
-
-	// HNLink is an optional link to comments on Hacker News.
-	HNLink string `toml:"hn_link,omitempty"`
-
-	// Hook is a leading sentence or two to succinctly introduce the fragment.
-	Hook template.HTML `toml:"hook"`
-
-	// Image is an optional image that may be included with a fragment.
-	Image string `toml:"image,omitempty"`
-
-	// ImageURL is an optional image that may be included with a fragment, but
-	// this one fetched from a remote source like Dropbox for convenience.
-	ImageURL string `toml:"image_url,omitempty"`
-
-	// Location is the geographical location where this article was written.
-	Location string `toml:"location,omitempty"`
-
-	// PublishedAt is when the fragment was published.
-	PublishedAt time.Time `toml:"published_at" validate:"required"`
-
-	// Slug is a unique identifier for the fragment that also helps determine
-	// where it's addressable by URL.
-	Slug string `toml:"-"`
-
-	// Title is the fragment's title.
-	Title string `toml:"title" validate:"required"`
-}
-
-// PublishingInfo produces a brief spiel about publication which is intended to
-// go into the left sidebar when a fragment is shown.
-func (f *Fragment) publishingInfo() map[string]string {
-	info := make(map[string]string)
-
-	info["Fragment"] = html.EscapeString(f.Title)
-	info["Published"] = f.PublishedAt.In(localLocation).Format("January 2, 2006")
-
-	if f.Location != "" {
-		info["Location"] = f.Location
-	}
-
-	return info
-}
-
-func (f *Fragment) validate(source string) error {
-	if err := validate.Struct(f); err != nil {
-		return xerrors.Errorf("error validating fragment %q: %+v", source, err)
-	}
-	return nil
-}
-
 // Page is the metadata for a static HTML page generated from an ACE file.
 type Page struct {
 	// Paths for external dependencies that the page included as it was being
@@ -1222,12 +1083,6 @@ type articleYear struct {
 	Articles []*Article
 }
 
-// fragmentYear holds a collection of fragments grouped by year.
-type fragmentYear struct {
-	Year      int
-	Fragments []*Fragment
-}
-
 // readingYear holds a collection of readings grouped by year.
 type readingYear struct {
 	Year     int
@@ -1425,22 +1280,6 @@ func groupArticlesByYear(articles []*Article) []*articleYear {
 	return years
 }
 
-func groupFragmentsByYear(fragments []*Fragment) []*fragmentYear {
-	var year *fragmentYear
-	var years []*fragmentYear
-
-	for _, fragment := range fragments {
-		if year == nil || year.Year != fragment.PublishedAt.Year() {
-			year = &fragmentYear{fragment.PublishedAt.Year(), nil}
-			years = append(years, year)
-		}
-
-		year.Fragments = append(year.Fragments, fragment)
-	}
-
-	return years
-}
-
 func groupReadingsByYear(readings []*squantified.Reading) []*readingYear {
 	var year *readingYear
 	var years []*readingYear
@@ -1466,17 +1305,6 @@ func insertOrReplaceArticle(articles *[]*Article, article *Article) {
 	}
 
 	*articles = append(*articles, article)
-}
-
-func insertOrReplaceFragment(fragments *[]*Fragment, fragment *Fragment) {
-	for i, f := range *fragments {
-		if fragment.Slug == f.Slug {
-			(*fragments)[i] = fragment
-			return
-		}
-	}
-
-	*fragments = append(*fragments, fragment)
 }
 
 func insertOrReplaceNewsletter(issues *[]*snewsletter.Issue, issue *snewsletter.Issue) {
@@ -1722,158 +1550,6 @@ func truncateString(str string, maxLength int) string {
 	return str[0:maxLength-2] + " …"
 }
 
-func renderFragment(ctx context.Context, c *modulir.Context, source string,
-	fragments *[]*Fragment, fragmentsChanged *bool, mu *sync.Mutex,
-) (bool, error) {
-	sourceChanged := c.Changed(source)
-
-	sourceTmpl := scommon.ViewsDir + "/fragments/show.tmpl.html"
-	viewsChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
-	if !sourceChanged && !viewsChanged {
-		return false, nil
-	}
-
-	var fragment Fragment
-	data, err := mtoml.ParseFileFrontmatter(c, source, &fragment)
-	if err != nil {
-		return true, err
-	}
-
-	err = fragment.validate(source)
-	if err != nil {
-		return true, err
-	}
-
-	fragment.Draft = scommon.IsDraft(source)
-	fragment.Slug = scommon.ExtractSlug(source)
-
-	content, err := mmarkdownext.Render(string(data), &mmarkdownext.RenderOptions{
-		TemplateData: map[string]interface{}{
-			"Ctx": ctx,
-		},
-	})
-	if err != nil {
-		return true, err
-	}
-
-	content, footnotes, ok := strings.Cut(content, `<div class="footnotes">`)
-	if ok {
-		footnotes = strings.TrimSuffix(footnotes, "</div>")
-	}
-
-	fragment.Content = template.HTML(content)
-	fragment.Footnotes = template.HTML(footnotes) // may be empty
-
-	if fragment.Hook != "" {
-		hook, err := mmarkdownext.Render(string(fragment.Hook), nil)
-		if err != nil {
-			return true, err
-		}
-
-		fragment.Hook = template.HTML(mtemplate.CollapseParagraphs(hook))
-	}
-
-	card := &twitterCard{
-		Title:       fragment.Title,
-		Description: string(fragment.Hook),
-	}
-	format, ok := pathAsImage(
-		path.Join(c.SourceDir, "content", "images", "fragments", fragment.Slug, "twitter@2x"),
-	)
-	if ok {
-		card.ImageURL = "/assets/images/fragments/" + fragment.Slug + "/twitter@2x." + format
-	}
-
-	locals := getLocals(map[string]interface{}{
-		"Fragment":       fragment,
-		"PublishingInfo": fragment.publishingInfo(),
-		"TwitterCard":    card,
-	})
-
-	err = dependencies.renderGoTemplate(ctx, c, sourceTmpl, path.Join(c.TargetDir, "fragments", fragment.Slug), locals)
-	if err != nil {
-		return true, err
-	}
-
-	mu.Lock()
-	insertOrReplaceFragment(fragments, &fragment)
-	*fragmentsChanged = true
-	mu.Unlock()
-
-	return true, nil
-}
-
-func renderFragmentsFeed(_ *modulir.Context, fragments []*Fragment,
-	fragmentsChanged bool,
-) (bool, error) {
-	if !fragmentsChanged {
-		return false, nil
-	}
-
-	feed := &matom.Feed{
-		Title: "Fragments" + scommon.TitleSuffix,
-		ID:    "tag:" + scommon.AtomTag + ",2013:/fragments",
-
-		Links: []*matom.Link{
-			{Rel: "self", Type: "application/atom+xml", Href: "https://brandur.org/fragments.atom"},
-			{Rel: "alternate", Type: "text/html", Href: "https://brandur.org"},
-		},
-	}
-
-	if len(fragments) > 0 {
-		feed.Updated = fragments[0].PublishedAt
-	}
-
-	for i, fragment := range fragments {
-		if i >= conf.NumAtomEntries {
-			break
-		}
-
-		entry := &matom.Entry{
-			Title:     fragment.Title,
-			Summary:   string(fragment.Hook),
-			Content:   &matom.EntryContent{Content: string(fragment.Content), Type: "html"},
-			Published: fragment.PublishedAt,
-			Updated:   fragment.PublishedAt,
-			Link:      &matom.Link{Href: conf.AbsoluteURL + "/fragments/" + fragment.Slug},
-			ID: "tag:" + scommon.AtomTag + "," + fragment.PublishedAt.Format("2006-01-02") +
-				":fragments/" + fragment.Slug,
-
-			AuthorName: scommon.AtomAuthorName,
-			AuthorURI:  conf.AbsoluteURL,
-		}
-		feed.Entries = append(feed.Entries, entry)
-	}
-
-	filename := conf.TargetDir + "/fragments.atom"
-	f, err := os.Create(filename)
-	if err != nil {
-		return true, xerrors.Errorf("error creating file '%s': %w", filename, err)
-	}
-	defer f.Close()
-
-	return true, feed.Encode(f, "  ")
-}
-
-func renderFragmentsIndex(ctx context.Context, c *modulir.Context, fragments []*Fragment,
-	fragmentsChanged bool,
-) (bool, error) {
-	sourceTmpl := scommon.ViewsDir + "/fragments/index.tmpl.html"
-	viewsChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
-	if !fragmentsChanged && !viewsChanged {
-		return false, nil
-	}
-
-	fragmentsByYear := groupFragmentsByYear(fragments)
-
-	locals := getLocals(map[string]interface{}{
-		"FragmentsByYear": fragmentsByYear,
-	})
-
-	return true, dependencies.renderGoTemplate(ctx, c, sourceTmpl,
-		path.Join(c.TargetDir, "fragments/index.html"), locals)
-}
-
 func renderNanoglyph(ctx context.Context, c *modulir.Context, source string,
 	issues *[]*snewsletter.Issue, nanoglyphsChanged *bool, mu *sync.Mutex,
 ) (bool, error) {
@@ -2107,21 +1783,17 @@ func renderPassagesIndex(ctx context.Context, c *modulir.Context, issues []*snew
 }
 
 func renderHome(ctx context.Context, c *modulir.Context,
-	articles []*Article, fragments []*Fragment, nanoglyphs []*snewsletter.Issue, photos []*Photo, sequences []*SequenceEntry,
-	articlesChanged, fragmentsChanged, nanoglyphsChanged, photosChanged, sequencesChanged bool,
+	articles []*Article, nanoglyphs []*snewsletter.Issue, photos []*Photo, sequences []*SequenceEntry,
+	articlesChanged, nanoglyphsChanged, photosChanged, sequencesChanged bool,
 ) (bool, error) {
 	sourceTmpl := scommon.ViewsDir + "/index.tmpl.html"
 	viewsChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
-	if !articlesChanged && !fragmentsChanged && !nanoglyphsChanged && !photosChanged && !sequencesChanged && !viewsChanged {
+	if !articlesChanged && !nanoglyphsChanged && !photosChanged && !sequencesChanged && !viewsChanged {
 		return false, nil
 	}
 
 	if len(articles) > 3 {
 		articles = articles[0:3]
-	}
-
-	if len(fragments) > 3 {
-		fragments = fragments[0:3]
 	}
 
 	if len(nanoglyphs) > 3 {
@@ -2137,7 +1809,6 @@ func renderHome(ctx context.Context, c *modulir.Context,
 
 	locals := getLocals(map[string]interface{}{
 		"Articles":   articles,
-		"Fragments":  fragments,
 		"Nanoglyphs": nanoglyphs,
 		"Photo":      photo,
 		"Sequences":  sequences,
