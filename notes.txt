@@ -8,7 +8,7 @@ Ahah works!!
 Todo: Figure out what "markers" are
 
 Remove "Atoms" ✅
-Remove "Fragments"
+Remove "Fragments" ✅
 Remove "Newsletter"
 Remove "Sequences"
 Remove "Now"
