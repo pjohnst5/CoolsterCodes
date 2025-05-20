@@ -50,21 +50,6 @@
                         {{end}}
                     </ul>
                 </div>
-                <div class="flex-1 flex-grow pb-12 md:pb-0 lg:max-w-[21rem]">
-                    <p class="font-serif mt-0 text-[0.9rem]">I put short stream of consciousness thoughts into tiny
-                        posts called <a href="/fragments">fragments</a>:</p>
-                    <ul class="mb-0">
-                        {{range .Fragments}}
-                        <li class="last:mb-0">
-                            <a href="/fragments/{{.Slug}}">{{.Title}}</a>
-                            <span
-                                class="font-sans italic pl-0.5 text-[#6b7280] text-[0.7rem] dark:text-[#9ca3af]">{{FormatTimeLocal
-                                .PublishedAt}}</span>
-                            <p class="font-sans mt-2 mb-0 text-[0.82rem]">{{.Hook}}</p>
-                        </li>
-                        {{end}}
-                    </ul>
-                </div>
                 <div class="flex-1 flex-grow lg:max-w-[21rem]">
                     <p class="font-serif mt-0 text-[0.9rem]">I write a newsletter about the philosophy of software
                         called <a href="/newsletter">Nanoglyph</a>:</p>

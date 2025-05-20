@@ -16,6 +16,7 @@ Remove "Uses" <- Keep track of this commit though
 Figure out how to make Articles main page
 Implement Tags
 Remove all other Articles
+Remove all "brandur" stuff and make it my own
 Add back in GT articles
 
 
@@ -28,3 +29,4 @@ chmod +x tailwindcss
 
 --- Misc ---
 When removing atoms, in build.go there was a video thingy
+With Fragments, there was a "content/fragments-drafts" and "content/fragments-defunct"
