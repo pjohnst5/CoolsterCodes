@@ -19,7 +19,6 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	_ "github.com/lib/pq"
-	"github.com/yosssi/ace"
 	"golang.org/x/xerrors"
 
 	"github.com/brandur/modulir"
@@ -1112,18 +1111,6 @@ func fetchAndResizePhotoTwitter(c *modulir.Context, targetDir string,
 
 	return mimage.FetchAndResizeImage(c, u, targetDir, slug, extCanonical(extImageTarget(media.OriginalExt())),
 		mimage.PhotoGravityCenter, twitterPhotoSizes)
-}
-
-// getAceOptions gets a good set of default options for Ace template rendering
-// for the project.
-func getAceOptions(dynamicReload bool) *ace.Options {
-	options := &ace.Options{FuncMap: scommon.HTMLTemplateFuncMap}
-
-	if dynamicReload {
-		options.DynamicReload = true
-	}
-
-	return options
 }
 
 // Gets a map of local values for use while rendering a template and includes
