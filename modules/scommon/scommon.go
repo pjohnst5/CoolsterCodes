@@ -42,14 +42,6 @@ const (
 	// runs and Twitter.
 	MainLayout = LayoutsDir + "/main.ace"
 
-	// NanoglyphsLayout is the layout for a Nanoglyph issue (an email
-	// newsletter).
-	NanoglyphsLayout = LayoutsDir + "/nanoglyphs.ace"
-
-	// PassagesLayout is the layout for a Passages & Glass issue (an email
-	// newsletter).
-	PassagesLayout = LayoutsDir + "/passages.ace"
-
 	// TempDir is a temporary directory used to download images that will be
 	// processed and such.
 	TempDir = "./tmp"
