@@ -84,18 +84,6 @@ func TestMonthName(t *testing.T) {
 	assert.Equal(t, "July", monthName(time.July))
 }
 
-func TestNanoglyphSignup(t *testing.T) {
-	t.Run("InEmail", func(t *testing.T) {
-		str := nanoglyphSignup(true)
-		assert.Empty(t, string(str))
-	})
-
-	t.Run("NotEmail", func(t *testing.T) {
-		str := nanoglyphSignup(false)
-		assert.Contains(t, str, "<form")
-	})
-}
-
 func TestNumberWithDelimiter(t *testing.T) {
 	assert.Equal(t, "123", numberWithDelimiter(',', 123))
 	assert.Equal(t, "1,234", numberWithDelimiter(',', 1234))

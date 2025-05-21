@@ -16,12 +16,8 @@
                       text-center text-[2.5rem]
                       tracking-tight
                       ">
-                I'm <a href="https://twitter.com/brandur" rel="me">@coolstercodes</a>, a software engineer, and dabbler
-                in writing and photography.</p>
-            <p class="font-medium leading-relaxed text-[1rem]">This site is where I publish words and photos. The
-                section that's most updated most often is <a href="/atoms">atoms</a>, small multimedia particles
-                reminiscent of a Twitter feed. I update my <a href="/now">now page</a> monthly according to what I'm
-                working on and thinking about. I <a href="/newsletter">publish a newsletter</a> as often as I can.</p>
+                I'm <a href="https://www.linkedin.com/in/paul-alonso-johnston/" rel="me">Paul</a>, a software engineer.</p>
+            <p class="font-medium leading-relaxed text-[1rem]">Ballin'</p>
         </div>
     </div>
 
@@ -42,21 +38,6 @@
                         {{range .Articles}}
                         <li class="last:mb-0">
                             <a href="/{{.Slug}}">{{.Title}}</a>
-                            <span
-                                class="font-sans italic pl-0.5 text-[#6b7280] text-[0.7rem] dark:text-[#9ca3af]">{{FormatTimeLocal
-                                .PublishedAt}}</span>
-                            <p class="font-sans mt-2 mb-0 text-[0.82rem]">{{.Hook}}</p>
-                        </li>
-                        {{end}}
-                    </ul>
-                </div>
-                <div class="flex-1 flex-grow lg:max-w-[21rem]">
-                    <p class="font-serif mt-0 text-[0.9rem]">I write a newsletter about the philosophy of software
-                        called <a href="/newsletter">Nanoglyph</a>:</p>
-                    <ul class="mb-0">
-                        {{range .Nanoglyphs}}
-                        <li class="last:mb-0">
-                            <a href="/nanoglyphs/{{.Slug}}">{{.Number}} — {{.Title}}</a>
                             <span
                                 class="font-sans italic pl-0.5 text-[#6b7280] text-[0.7rem] dark:text-[#9ca3af]">{{FormatTimeLocal
                                 .PublishedAt}}</span>

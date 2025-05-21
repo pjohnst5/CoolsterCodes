@@ -1,14 +1,12 @@
 package stemplate
 
 import (
-	"bufio"
 	"bytes"
 	"fmt"
 	"html/template"
 	"math"
 	"math/rand/v2"
 	"net/url"
-	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -30,7 +28,6 @@ var FuncMap = template.FuncMap{
 	"LazyRetinaImageLightbox": lazyRetinaImageLightbox,
 	"Mod":                     mod,
 	"MonthName":               monthName,
-	"NanoglyphSignup":         nanoglyphSignup,
 	"NumberWithDelimiter":     numberWithDelimiter,
 	"Pace":                    pace,
 	"RandIntN":                rand.IntN,
@@ -145,37 +142,6 @@ func mod(i, j int) int {
 
 func monthName(m time.Month) string {
 	return m.String()
-}
-
-func nanoglyphSignup(inEmail bool) template.HTML {
-	if inEmail {
-		return template.HTML("")
-	}
-
-	const tmplFile = "./views/_nanoglyphs_signup.tmpl.html"
-	tmplData, err := os.ReadFile(tmplFile)
-	if err != nil {
-		panic(err)
-	}
-
-	tmpl, err := template.New(tmplFile).Parse(string(tmplData))
-	if err != nil {
-		panic(err)
-	}
-
-	var b bytes.Buffer
-	writer := bufio.NewWriter(&b)
-
-	err = tmpl.Execute(writer, nil)
-	if err != nil {
-		panic(err)
-	}
-
-	subscribeText := `<p id="subscribe-encouragement">This post was originally broadcast in email form. ` +
-		`Can I interest you in seeing more like it? <em>Nanoglyph</em> is never sent more than once a week.</p>`
-
-	writer.Flush()
-	return template.HTML(subscribeText + b.String())
 }
 
 // Changes a number to a string and uses a separator for groups of three

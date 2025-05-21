@@ -18,18 +18,12 @@ allowed_exceptions=(
     # Images that don't have a retina version by design.
     ./content/images/favicon/favicon-*.jpg
     ./content/images/favicon/favicon-*.png
-    ./content/images/favicon/nanoglyph-*.jpg
-    ./content/images/favicon/nanoglyph-*.png
-    ./content/images/favicon/passages-*.jpg
     "./content/images/standin_00.jpg"
     "./content/images/standin_01.jpg"
     "./content/images/standin_02.jpg"
     "./content/images/standin_03.jpg"
     "./content/images/standin_04.jpg"
     "./content/images/standin_portrait_00.jpg"
-
-    # Images that were never high resolution enough to merit a retina version.
-    "./content/images/nanoglyphs/012-virtual-worlds/lester-masked.png"
 
     # Other.
     "./content/images/sequences-project/sample-huge.png"

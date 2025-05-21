@@ -60,28 +60,6 @@ Runs the build loop one time and places the result in TARGET_DIR
 	}
 	rootCmd.AddCommand(loopCommand)
 
-	var live bool
-	var staging bool
-	sendCommand := &cobra.Command{
-		Use:   "send [source newsletter .md file]",
-		Short: "Email a Nanoglyph or Passages newsletter",
-		Long: strings.TrimSpace(`
-Emails the Nanoglyph or Passages newsletter at the location given
-as argument. Note that MAILGUN_API_KEY must be set in the
-environment for this to work as it executes against the Mailgun
-API.`),
-		Args: cobra.ExactArgs(1),
-		Run: func(_ *cobra.Command, args []string) {
-			c := &modulir.Context{Log: getLog()}
-			sendNewsletter(c, args[0], live, staging)
-		},
-	}
-	sendCommand.Flags().BoolVar(&live, "live", false,
-		"Send to list (as opposed to dry run)")
-	sendCommand.Flags().BoolVar(&staging, "staging", false,
-		"Send to staging list (as opposed to dry run)")
-	rootCmd.AddCommand(sendCommand)
-
 	if err := envdecode.Decode(&conf); err != nil {
 		fmt.Fprintf(os.Stderr, "Error decoding conf from env: %v", err)
 		os.Exit(1)
