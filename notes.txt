@@ -10,17 +10,17 @@ Todo: Figure out what "markers" are
 Remove "Atoms" ✅
 Remove "Fragments" ✅
 Remove "Newsletter" ✅
-Remove "Fragments" images
+Remove "Fragments" images ✅
 Remove "Sequences"
 Remove "Now"
 Remove "Pages"
-Remove "Uses" <- Keep track of this commit though
+Remove "Uses"
 Figure out how to make Articles main page
 Implement Tags
 Remove all other Articles
 Remove all "brandur" stuff and make it my own
 Add back in GT articles
-
+Host it
 
 -- Commands --
 curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.15/tailwindcss-macos-arm64
