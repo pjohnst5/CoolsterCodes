@@ -32,7 +32,6 @@ import (
 	"github.com/brandur/modulir/modules/mtoc"
 	"github.com/brandur/modulir/modules/mtoml"
 	"github.com/brandur/sorg/modules/scommon"
-	"github.com/brandur/sorg/modules/snewsletter"
 	"github.com/brandur/sorg/modules/squantified"
 	"github.com/brandur/sorg/modules/stemplate"
 )
@@ -70,8 +69,6 @@ const (
 var (
 	articles     []*Article
 	dependencies = NewDependencyRegistry()
-	nanoglyphs   []*snewsletter.Issue
-	passages     []*snewsletter.Issue
 	pages        = make(map[string]*Page)
 	photos       []*Photo
 	photosOther  []*Photo
@@ -207,8 +204,6 @@ func build(c *modulir.Context) []error {
 	{
 		commonDirs := []string{
 			c.TargetDir + "/articles",
-			c.TargetDir + "/nanoglyphs",
-			c.TargetDir + "/passages",
 			c.TargetDir + "/photos",
 			c.TargetDir + "/reading",
 			c.TargetDir + "/runs",
@@ -234,11 +229,6 @@ func build(c *modulir.Context) []error {
 			{c.SourceDir + "/content/fonts", c.TargetDir + "/assets/fonts"},
 			{c.SourceDir + "/content/images", c.TargetDir + "/assets/images"},
 			{c.SourceDir + "/content/javascripts", versionedAssetsDir + "/javascripts"},
-
-			// For backwards compatibility as many emails with this style of path
-			// have already gone out.
-			{c.SourceDir + "/content/images/passages", c.TargetDir + "/assets/passages"},
-
 			{c.SourceDir + "/content/photographs", c.TargetDir + "/photographs"},
 			{c.SourceDir + "/content/stylesheets", versionedAssetsDir + "/stylesheets"},
 			{c.SourceDir + "/content/videos", c.TargetDir + "/videos"},
@@ -284,38 +274,6 @@ func build(c *modulir.Context) []error {
 	}
 
 	//
-	// Nanoglyphs
-	//
-
-	var nanoglyphsChanged bool
-	var nanoglyphsMu sync.Mutex
-
-	{
-		sources, err := mfile.ReadDirCached(c, c.SourceDir+"/content/nanoglyphs", nil)
-		if err != nil {
-			return []error{err}
-		}
-
-		if conf.Drafts {
-			drafts, err := mfile.ReadDirCached(c, c.SourceDir+"/content/nanoglyphs-drafts", nil)
-			if err != nil {
-				return []error{err}
-			}
-			sources = append(sources, drafts...)
-		}
-
-		for _, s := range sources {
-			source := s
-
-			name := "nanoglyph: " + filepath.Base(source)
-			c.AddJob(name, func() (bool, error) {
-				return renderNanoglyph(ctx, c, source,
-					&nanoglyphs, &nanoglyphsChanged, &nanoglyphsMu)
-			})
-		}
-	}
-
-	//
 	// Pages (render each view)
 	//
 
@@ -341,38 +299,6 @@ func build(c *modulir.Context) []error {
 			name := "page: " + filepath.Base(source)
 			c.AddJob(name, func() (bool, error) {
 				return renderPage(ctx, c, source, pages, &pagesMu)
-			})
-		}
-	}
-
-	//
-	// Passages
-	//
-
-	var passagesChanged bool
-	var passagesMu sync.Mutex
-
-	{
-		sources, err := mfile.ReadDirCached(c, c.SourceDir+"/content/passages", nil)
-		if err != nil {
-			return []error{err}
-		}
-
-		if conf.Drafts {
-			drafts, err := mfile.ReadDirCached(c, c.SourceDir+"/content/passages-drafts", nil)
-			if err != nil {
-				return []error{err}
-			}
-			sources = append(sources, drafts...)
-		}
-
-		for _, s := range sources {
-			source := s
-
-			name := "passage: " + filepath.Base(source)
-			c.AddJob(name, func() (bool, error) {
-				return renderPassage(ctx, c, source,
-					&passages, &passagesChanged, &passagesMu)
 			})
 		}
 	}
@@ -563,8 +489,6 @@ func build(c *modulir.Context) []error {
 	// compared against a current version.
 	{
 		slices.SortFunc(articles, func(a, b *Article) int { return b.PublishedAt.Compare(a.PublishedAt) })
-		slices.SortFunc(nanoglyphs, func(a, b *snewsletter.Issue) int { return b.PublishedAt.Compare(a.PublishedAt) })
-		slices.SortFunc(passages, func(a, b *snewsletter.Issue) int { return b.PublishedAt.Compare(a.PublishedAt) })
 		slices.SortFunc(photos, func(a, b *Photo) int { return b.OccurredAt.Compare(a.OccurredAt) })
 	}
 
@@ -602,48 +526,8 @@ func build(c *modulir.Context) []error {
 
 	{
 		c.AddJob("home", func() (bool, error) {
-			return renderHome(ctx, c, articles, nanoglyphs, photos, sequences,
-				articlesChanged, nanoglyphsChanged, photosChanged, sequenceChanged)
-		})
-	}
-
-	//
-	// Nanoglyphs
-	//
-
-	// Index
-	{
-		c.AddJob("nanoglyphs index", func() (bool, error) {
-			return renderNanoglyphsIndex(ctx, c, nanoglyphs,
-				nanoglyphsChanged)
-		})
-	}
-
-	// Feed
-	{
-		c.AddJob("nanoglyphs feed", func() (bool, error) {
-			return renderNanoglyphsFeed(c, nanoglyphs,
-				nanoglyphsChanged)
-		})
-	}
-
-	//
-	// Passages
-	//
-
-	// Index
-	{
-		c.AddJob("passages index", func() (bool, error) {
-			return renderPassagesIndex(ctx, c, passages,
-				passagesChanged)
-		})
-	}
-
-	// Feed
-	{
-		c.AddJob("passages feed", func() (bool, error) {
-			return renderPassagesFeed(c, passages,
-				passagesChanged)
+			return renderHome(ctx, c, articles, photos, sequences,
+				articlesChanged, photosChanged, sequenceChanged)
 		})
 	}
 
@@ -1307,17 +1191,6 @@ func insertOrReplaceArticle(articles *[]*Article, article *Article) {
 	*articles = append(*articles, article)
 }
 
-func insertOrReplaceNewsletter(issues *[]*snewsletter.Issue, issue *snewsletter.Issue) {
-	for i, s := range *issues {
-		if issue.Slug == s.Slug {
-			(*issues)[i] = issue
-			return
-		}
-	}
-
-	*issues = append(*issues, issue)
-}
-
 func mustLocation(locationName string) *time.Location {
 	location, err := time.LoadLocation(locationName)
 	if err != nil {
@@ -1550,254 +1423,18 @@ func truncateString(str string, maxLength int) string {
 	return str[0:maxLength-2] + " …"
 }
 
-func renderNanoglyph(ctx context.Context, c *modulir.Context, source string,
-	issues *[]*snewsletter.Issue, nanoglyphsChanged *bool, mu *sync.Mutex,
-) (bool, error) {
-	sourceChanged := c.Changed(source)
-	sourceTmpl := scommon.ViewsDir + "/nanoglyphs/show.tmpl.html"
-	viewsChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
-	if !sourceChanged && !viewsChanged {
-		return false, nil
-	}
-
-	issue, err := snewsletter.Render(c, filepath.Dir(source), filepath.Base(source),
-		"", false)
-	if err != nil {
-		return true, err
-	}
-
-	format, ok := pathAsImage(
-		path.Join(c.SourceDir, "content", "images", "nanoglyphs", issue.Slug, "hook"),
-	)
-	if ok {
-		issue.HookImageURL = "/assets/images/nanoglyphs/" + issue.Slug + "/hook." + format
-	}
-
-	locals := getLocals(map[string]interface{}{
-		"InEmail":   false,
-		"Issue":     issue,
-		"URLPrefix": "", // Relative prefix for the web version
-	})
-
-	err = dependencies.renderGoTemplate(ctx, c, sourceTmpl, path.Join(c.TargetDir, "nanoglyphs", issue.Slug), locals)
-	if err != nil {
-		return true, err
-	}
-
-	mu.Lock()
-	insertOrReplaceNewsletter(issues, issue)
-	*nanoglyphsChanged = true
-	mu.Unlock()
-
-	return true, nil
-}
-
-func renderNanoglyphsFeed(_ *modulir.Context, issues []*snewsletter.Issue, nanoglyphsChanged bool) (bool, error) {
-	if !nanoglyphsChanged {
-		return false, nil
-	}
-
-	name := "nanoglyphs"
-	filename := name + ".atom"
-
-	feed := &matom.Feed{
-		Title: "Nanoglyph" + scommon.TitleSuffix,
-		ID:    "tag:" + scommon.AtomTag + ",2013:/" + name,
-
-		Links: []*matom.Link{
-			{Rel: "self", Type: "application/atom+xml", Href: "https://brandur.org/" + filename},
-			{Rel: "alternate", Type: "text/html", Href: "https://brandur.org"},
-		},
-	}
-
-	if len(articles) > 0 {
-		feed.Updated = issues[0].PublishedAt
-	}
-
-	for i, issue := range issues {
-		if i >= conf.NumAtomEntries {
-			break
-		}
-
-		content := issue.Content
-		if issue.ImageURL != "" {
-			content = template.HTML(fmt.Sprintf(`<p><img src="%s" alt="%s" /></p>`, issue.ImageURL, issue.ImageAlt)) + content
-		}
-
-		entry := &matom.Entry{
-			Title:     fmt.Sprintf("Nanoglyph %s — %s", issue.Number, issue.Title),
-			Content:   &matom.EntryContent{Content: string(content), Type: "html"},
-			Published: issue.PublishedAt,
-			Updated:   issue.PublishedAt,
-			Link:      &matom.Link{Href: conf.AbsoluteURL + "/nanoglyphs/" + issue.Slug},
-			ID:        "tag:" + scommon.AtomTag + "," + issue.PublishedAt.Format("2006-01-02") + ":" + issue.Slug,
-
-			AuthorName: scommon.AtomAuthorName,
-			AuthorURI:  conf.AbsoluteURL,
-		}
-		feed.Entries = append(feed.Entries, entry)
-	}
-
-	filePath := path.Join(conf.TargetDir, filename)
-	f, err := os.Create(filePath)
-	if err != nil {
-		return true, xerrors.Errorf("error creating file '%s': %w", filePath, err)
-	}
-	defer f.Close()
-
-	return true, feed.Encode(f, "  ")
-}
-
-func renderNanoglyphsIndex(ctx context.Context, c *modulir.Context, issues []*snewsletter.Issue,
-	nanoglyphsChanged bool,
-) (bool, error) {
-	sourceTmpl := scommon.ViewsDir + "/nanoglyphs/index.tmpl.html"
-	viewsChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
-	if !nanoglyphsChanged && !viewsChanged {
-		return false, nil
-	}
-
-	locals := getLocals(map[string]interface{}{
-		"Issues":    issues,
-		"URLPrefix": "", // Relative prefix for the web version
-	})
-
-	return true, dependencies.renderGoTemplate(ctx, c, sourceTmpl,
-		path.Join(c.TargetDir, "nanoglyphs/index.html"), locals)
-}
-
-func renderPassage(ctx context.Context, c *modulir.Context, source string,
-	issues *[]*snewsletter.Issue, passagesChanged *bool, mu *sync.Mutex,
-) (bool, error) {
-	sourceChanged := c.Changed(source)
-	sourceTmpl := scommon.ViewsDir + "/passages/show.tmpl.html"
-	viewsChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
-	if !sourceChanged && !viewsChanged {
-		return false, nil
-	}
-
-	issue, err := snewsletter.Render(c, filepath.Dir(source), filepath.Base(source),
-		"", false)
-	if err != nil {
-		return true, err
-	}
-
-	format, ok := pathAsImage(
-		path.Join(c.SourceDir, "content", "images", "passages", issue.Slug, "hook"),
-	)
-	if ok {
-		issue.HookImageURL = "/assets/images/passages/" + issue.Slug + "/hook." + format
-	}
-
-	locals := getLocals(map[string]interface{}{
-		"InEmail":   false,
-		"Issue":     issue,
-		"URLPrefix": "", // Relative prefix for the web version
-	})
-
-	err = dependencies.renderGoTemplate(ctx, c, sourceTmpl, path.Join(c.TargetDir, "passages", issue.Slug), locals)
-	if err != nil {
-		return true, err
-	}
-
-	mu.Lock()
-	insertOrReplaceNewsletter(issues, issue)
-	*passagesChanged = true
-	mu.Unlock()
-
-	return true, nil
-}
-
-func renderPassagesFeed(_ *modulir.Context, issues []*snewsletter.Issue, passagesChanged bool) (bool, error) {
-	if !passagesChanged {
-		return false, nil
-	}
-
-	name := "passages"
-	filename := name + ".atom"
-
-	feed := &matom.Feed{
-		Title: "Passages & Glass" + scommon.TitleSuffix,
-		ID:    "tag:" + scommon.AtomTag + ",2013:/" + name,
-
-		Links: []*matom.Link{
-			{Rel: "self", Type: "application/atom+xml", Href: "https://brandur.org/" + filename},
-			{Rel: "alternate", Type: "text/html", Href: "https://brandur.org"},
-		},
-	}
-
-	if len(articles) > 0 {
-		feed.Updated = issues[0].PublishedAt
-	}
-
-	for i, issue := range issues {
-		if i >= conf.NumAtomEntries {
-			break
-		}
-
-		content := issue.Content
-		if issue.ImageURL != "" {
-			content = template.HTML(fmt.Sprintf(`<p><img src="%s" alt="%s" /></p>`, issue.ImageURL, issue.ImageAlt)) + content
-		}
-
-		entry := &matom.Entry{
-			Title:     fmt.Sprintf("Passages & Glass %s — %s", issue.Number, issue.Title),
-			Content:   &matom.EntryContent{Content: string(content), Type: "html"},
-			Published: issue.PublishedAt,
-			Updated:   issue.PublishedAt,
-			Link:      &matom.Link{Href: conf.AbsoluteURL + "/passages/" + issue.Slug},
-			ID:        "tag:" + scommon.AtomTag + "," + issue.PublishedAt.Format("2006-01-02") + ":" + issue.Slug,
-
-			AuthorName: scommon.AtomAuthorName,
-			AuthorURI:  conf.AbsoluteURL,
-		}
-		feed.Entries = append(feed.Entries, entry)
-	}
-
-	filePath := path.Join(conf.TargetDir, filename)
-	f, err := os.Create(filePath)
-	if err != nil {
-		return true, xerrors.Errorf("error creating file '%s': %w", filePath, err)
-	}
-	defer f.Close()
-
-	return true, feed.Encode(f, "  ")
-}
-
-func renderPassagesIndex(ctx context.Context, c *modulir.Context, issues []*snewsletter.Issue,
-	passagesChanged bool,
-) (bool, error) {
-	sourceTmpl := scommon.ViewsDir + "/passages/index.tmpl.html"
-	viewsChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
-	if !passagesChanged && !viewsChanged {
-		return false, nil
-	}
-
-	locals := getLocals(map[string]interface{}{
-		"Issues":    issues,
-		"URLPrefix": "", // Relative prefix for the web version
-	})
-
-	return true, dependencies.renderGoTemplate(ctx, c, sourceTmpl,
-		path.Join(c.TargetDir, "passages/index.html"), locals)
-}
-
 func renderHome(ctx context.Context, c *modulir.Context,
-	articles []*Article, nanoglyphs []*snewsletter.Issue, photos []*Photo, sequences []*SequenceEntry,
-	articlesChanged, nanoglyphsChanged, photosChanged, sequencesChanged bool,
+	articles []*Article, photos []*Photo, sequences []*SequenceEntry,
+	articlesChanged, photosChanged, sequencesChanged bool,
 ) (bool, error) {
 	sourceTmpl := scommon.ViewsDir + "/index.tmpl.html"
 	viewsChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
-	if !articlesChanged && !nanoglyphsChanged && !photosChanged && !sequencesChanged && !viewsChanged {
+	if !articlesChanged && !photosChanged && !sequencesChanged && !viewsChanged {
 		return false, nil
 	}
 
 	if len(articles) > 3 {
 		articles = articles[0:3]
-	}
-
-	if len(nanoglyphs) > 3 {
-		nanoglyphs = nanoglyphs[0:3]
 	}
 
 	// Find a random photo to put on the homepage.
@@ -1808,10 +1445,9 @@ func renderHome(ctx context.Context, c *modulir.Context,
 	}
 
 	locals := getLocals(map[string]interface{}{
-		"Articles":   articles,
-		"Nanoglyphs": nanoglyphs,
-		"Photo":      photo,
-		"Sequences":  sequences,
+		"Articles":  articles,
+		"Photo":     photo,
+		"Sequences": sequences,
 	})
 
 	return true, dependencies.renderGoTemplate(ctx, c, sourceTmpl,
