@@ -9,7 +9,8 @@ Todo: Figure out what "markers" are
 
 Remove "Atoms" ✅
 Remove "Fragments" ✅
-Remove "Newsletter"
+Remove "Newsletter" ✅
+Remove "Fragments" images
 Remove "Sequences"
 Remove "Now"
 Remove "Pages"
