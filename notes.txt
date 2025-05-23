@@ -27,7 +27,7 @@ Figure out how to make Articles main page
 Implement Tags
 Remove all other Articles
 Remove all "brandur" stuff and make it my own
-Make preview images mine (favico)
+    - Make preview images mine (favico)
 Add back in GT articles
 Host it
 
