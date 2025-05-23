@@ -280,14 +280,6 @@ func build(c *modulir.Context) []error {
 			return []error{err}
 		}
 
-		if conf.Drafts {
-			drafts, err := mfile.ReadDirCached(c, c.SourceDir+"/pages-drafts", &mfile.ReadDirOptions{RecurseDirs: true})
-			if err != nil {
-				return []error{err}
-			}
-			sources = append(sources, drafts...)
-		}
-
 		for _, s := range sources {
 			source := s
 
