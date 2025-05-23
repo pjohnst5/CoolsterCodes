@@ -12,7 +12,7 @@ Remove "Fragments" ✅
 Remove "Newsletter" ✅
 Remove "Fragments" images ✅
 Remove "Sequences" ✅
-Remove "Now"
+Remove "Now" ✅
 Remove "Pages"
 Remove "Uses"
 Remove "Videos" under /content
