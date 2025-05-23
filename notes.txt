@@ -14,12 +14,13 @@ Remove "Fragments" images ✅
 Remove "Sequences" ✅
 Remove "Now" ✅
 Remove "Pages" ✅
-Remove "Uses"
+Remove "Uses" ✅
 Remove "Videos" under /content
 Remove "Runs" under "renderRuns()"
 Remove "Twitter"
 Remove "robots.txt"
 Remove "remark"
+Remove "drafts"
 Remove "photos" in build.go? Not sure
 Remove "Belize" / Make one final round
     Maybe keep "Reading", seems cool
