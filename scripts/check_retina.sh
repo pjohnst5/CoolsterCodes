@@ -24,9 +24,6 @@ allowed_exceptions=(
     "./content/images/standin_03.jpg"
     "./content/images/standin_04.jpg"
     "./content/images/standin_portrait_00.jpg"
-
-    # Other.
-    "./content/images/sequences-project/sample-huge.png"
 )
 
 find_images() {
