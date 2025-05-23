@@ -4,9 +4,6 @@ Need to install imagemagick binary path into env
 
 Ahah works!!
 
-
-Todo: Figure out what "markers" are
-
 Remove "Atoms" ✅
 Remove "Fragments" ✅
 Remove "Newsletter" ✅
@@ -21,6 +18,7 @@ Remove "Twitter"
 Remove "robots.txt"
 Remove "remark"
 Remove "drafts"
+Remove "talks"
 Remove "photos" in build.go? Not sure
 Remove "Belize" / Make one final round
     Maybe keep "Reading", seems cool
