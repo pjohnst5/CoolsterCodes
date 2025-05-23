@@ -3,6 +3,13 @@
 .PHONY: mine
 mine: clean install loop
 
+.PHONY: check
+check: tailwind lint test check-retina
+
+.PHONY: tailwind
+tailwind:
+	scripts/tailwind.sh
+
 .PHONY: all
 all: clean install test vet lint check-dl0 check-gofmt check-headers check-retina build
 

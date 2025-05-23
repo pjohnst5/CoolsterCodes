@@ -18,6 +18,8 @@ Remove "Uses"
 Remove "Videos" under /content
 Remove "Runs" under "renderRuns()"
 Remove "Twitter"
+Remove "remark"
+Remove "photos" in build.go? Not sure
 Remove "Belize" / Make one final round
     Maybe keep "Reading", seems cool
     Or would that just be a tag? 🤔
