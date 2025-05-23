@@ -15,10 +15,19 @@ Remove "Sequences"
 Remove "Now"
 Remove "Pages"
 Remove "Uses"
+Remove "Videos" under /content
+Remove "Runs" under "renderRuns()"
+Remove "Twitter"
+Remove "Belize" / Make one final round
+    Maybe keep "Reading", seems cool
+    Or would that just be a tag? 🤔
+    Probably just start with a tag for now haha
+What are "Markers" ?
 Figure out how to make Articles main page
 Implement Tags
 Remove all other Articles
 Remove all "brandur" stuff and make it my own
+Make preview images mine (favico)
 Add back in GT articles
 Host it
 
