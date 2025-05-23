@@ -49,37 +49,6 @@
             </div>
         </div>
     </div>
-
-    <div class="border-b py-20 dark:border-slate-700 md:px-12">
-        <div class="flex flex-col items-center justify-center last:-mb-11 md:flex-row md:gap-4 md:last:mb-0 lg:gap-8">
-            {{range .Sequences}}
-            <div>
-                <a href="/sequences/{{.Slug}}">
-                    <img src="/photographs/sequences/{{(index .Photos 0).Slug}}_large{{(index .Photos 0).TargetExt}}"
-                        class="ease-in-out transition w-full md:rounded-md md:hover:scale-105 lg:rounded-lg">
-                </a>
-                <p class="mb-7 mt-3 text-[0.8rem] text-center md:mb-0">
-                    <a href="/sequences/{{.Slug}}">
-                        <span class="font-bold text-proseLinks dark:text-proseInvertLinks">{{.Slug}}</span><br>
-                        <span class="text-proseBody dark:text-proseInvertBody">{{.Title}}</span>
-                    </a>
-                </p>
-            </div>
-            {{end}}
-        </div>
-    </div>
-
-    <div class="py-20 dark:border-slate-700">
-        {{if .Photo}}
-        <div class="max-w-[1200px] mx-auto">
-            <a href="/photos#{{.Photo.Slug}}">
-                <img src="/photographs/{{QueryEscape .Photo.Slug}}_large.jpg"
-                    srcset="/photographs/{{QueryEscape .Photo.Slug}}_large@2x.jpg 2x, /photographs/{{QueryEscape .Photo.Slug}}_large.jpg 1x"
-                    class="xl:rounded-lg w-full">
-            </a>
-        </div>
-        {{end}}
-    </div>
 </div>
 
 {{- end -}}

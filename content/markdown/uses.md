@@ -3,7 +3,6 @@
             lg:mr-[calc(-1rem-75px)] lg:ml-[calc(-1rem-75px)] lg:w-[calc(100%+2rem+2*75px)]
             xl:mr-[calc(-1rem-150px)] xl:ml-[calc(-1rem-150px)] xl:w-[calc(100%+2rem+2*150px)]
             ">
-    <img src="/photographs/sequences/073_large.jpg" alt="535 Mission St" class="lg:rounded-lg w-full">
 </div>
 
 <!--
@@ -22,7 +21,7 @@
 
 ## Tangible (#tangible)
 
-* **<span id="macbook">[Macbook Pro 14" M4](#macbook):</span>** It's disturbing how much time I spend on this thing. Not only all day at work, but it's where the lion's share of my hobbies and entertainment comes from too. 
+* **<span id="macbook">[Macbook Pro 14" M4](#macbook):</span>** It's disturbing how much time I spend on this thing. Not only all day at work, but it's where the lion's share of my hobbies and entertainment comes from too.
 
     * I've lived through many of the most important personal computing advances in history, and Apple's move to ARM chips yielded _the_ most important. So much power that a desktop PC isn't necessary, and so energy efficient that battery is never a problem. The MacBook Pro M4 base chip (non-Pro, non-Max) yields 24 hours of battery life. Incredible.
 

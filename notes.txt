@@ -11,7 +11,7 @@ Remove "Atoms" ✅
 Remove "Fragments" ✅
 Remove "Newsletter" ✅
 Remove "Fragments" images ✅
-Remove "Sequences"
+Remove "Sequences" ✅
 Remove "Now"
 Remove "Pages"
 Remove "Uses"
