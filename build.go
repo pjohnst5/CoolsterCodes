@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -25,7 +24,6 @@ import (
 	"github.com/brandur/modulir/modules/matom"
 	"github.com/brandur/modulir/modules/mfile"
 	"github.com/brandur/modulir/modules/mimage"
-	"github.com/brandur/modulir/modules/mmarkdown"
 	"github.com/brandur/modulir/modules/mmarkdownext"
 	"github.com/brandur/modulir/modules/mtemplate"
 	"github.com/brandur/modulir/modules/mtoc"
@@ -71,7 +69,6 @@ var (
 	pages        = make(map[string]*Page)
 	photos       []*Photo
 	photosOther  []*Photo
-	sequences    []*SequenceEntry
 	tweets       []*squantified.Tweet
 )
 
@@ -206,7 +203,6 @@ func build(c *modulir.Context) []error {
 			c.TargetDir + "/photos",
 			c.TargetDir + "/reading",
 			c.TargetDir + "/runs",
-			c.TargetDir + "/sequences",
 			c.TargetDir + "/twitter",
 			scommon.TempDir,
 			versionedAssetsDir,
@@ -386,65 +382,6 @@ func build(c *modulir.Context) []error {
 	}
 
 	//
-	// Sequences (read `_meta.toml`)
-	//
-
-	var sequenceChanged bool
-
-	{
-		c.AddJob("sequences", func() (bool, error) {
-			source := c.SourceDir + "/content/sequences/_meta.toml"
-
-			if !c.Changed(source) {
-				return false, nil
-			}
-
-			sequenceChanged = true
-
-			var sequenceWrapper SequenceWrapper
-			err := mtoml.ParseFile(c, source, &sequenceWrapper)
-			if err != nil {
-				return true, err
-			}
-
-			if err := sequenceWrapper.validate(); err != nil {
-				return true, err
-			}
-
-			var replaceEverything bool
-			if len(sequences) != len(sequenceWrapper.Entries) {
-				replaceEverything = true
-			}
-
-			slices.SortFunc(sequenceWrapper.Entries, func(a, b *SequenceEntry) int { return b.PublishedAt.Compare(a.PublishedAt) })
-
-			// Do a little post-processing on all the entries found in the
-			// sequence, but try to skip any that haven't changed.
-			for i, entry := range sequenceWrapper.Entries {
-				if !replaceEverything {
-					lastEntry := sequences[i]
-					if lastEntry.Equal(entry) {
-						// Although the raw atoms are equal, we still use the
-						// current version because it'll have values for any
-						// rendered properties like DescriptionHTML.
-						lastEntry.changed = false
-						sequenceWrapper.Entries[i] = lastEntry
-						continue
-					}
-				}
-
-				entry.DescriptionHTML = template.HTML(string(mmarkdown.Render(c, []byte(entry.Description))))
-
-				entry.changed = true
-			}
-
-			sequences = sequenceWrapper.Entries
-
-			return true, nil
-		})
-	}
-
-	//
 	// Twitter (read `data/twitter.toml`)
 	//
 
@@ -525,8 +462,8 @@ func build(c *modulir.Context) []error {
 
 	{
 		c.AddJob("home", func() (bool, error) {
-			return renderHome(ctx, c, articles, photos, sequences,
-				articlesChanged, photosChanged, sequenceChanged)
+			return renderHome(ctx, c, articles, photos,
+				articlesChanged, photosChanged)
 		})
 	}
 
@@ -574,52 +511,6 @@ func build(c *modulir.Context) []error {
 			c.AddJob("downloaded image: "+imageInfo.Slug, func() (bool, error) {
 				return fetchAndResizeDownloadedImage(c, c.SourceDir+"/content/photographs", imageInfo)
 			})
-		}
-	}
-
-	//
-	// Sequences (index / fetch + resize)
-	//
-
-	// Sequences index
-	{
-		c.AddJob("sequences: index", func() (bool, error) {
-			return renderSequencesIndex(ctx, c, sequences, sequenceChanged)
-		})
-	}
-
-	// Sequences feed
-	{
-		c.AddJob("sequences: feed", func() (bool, error) {
-			return renderSequenceFeed(ctx, c, sequences, sequenceChanged)
-		})
-	}
-
-	// Each sequences entry
-	{
-		for _, e := range sequences {
-			entry := e
-
-			if !entry.changed {
-				continue
-			}
-
-			// Sequence page
-			name := "sequences: " + entry.Slug
-			c.AddJob(name, func() (bool, error) {
-				return renderSequenceEntry(ctx, c, entry, sequenceChanged)
-			})
-
-			// Sequence fetch + resize
-			for _, p := range entry.Photos {
-				photo := p
-
-				name = fmt.Sprintf("sequence entry %s photo: %s", entry.Slug, photo.Slug)
-				c.AddJob(name, func() (bool, error) {
-					return fetchAndResizePhoto(c,
-						c.SourceDir+"/content/photographs/sequences", photo)
-				})
-			}
 		}
 	}
 
@@ -878,79 +769,6 @@ func (w *PhotoWrapper) validate() error {
 		return xerrors.Errorf("error validating photos: %+v", err)
 	}
 	return nil
-}
-
-type SequenceWrapper struct {
-	Entries []*SequenceEntry `toml:"entries" validate:"required,dive"`
-}
-
-func (w *SequenceWrapper) validate() error {
-	if err := validate.Struct(w); err != nil {
-		return xerrors.Errorf("error validating sequences: %+v", err)
-	}
-
-	entrySlugs := make(map[string]struct{})
-
-	for i, entry := range w.Entries {
-		if entry.Slug == "" {
-			return xerrors.Errorf("no slug set for sequence entry: index %v", i)
-		}
-
-		if _, ok := entrySlugs[entry.Slug]; ok {
-			return xerrors.Errorf("duplicate sequence entry slug: %v", entry.Slug)
-		}
-		entrySlugs[entry.Slug] = struct{}{}
-
-		photoSlugs := make(map[string]struct{})
-		for _, photo := range entry.Photos {
-			if !strings.HasPrefix(photo.Slug, entry.Slug) {
-				return xerrors.Errorf("photo slug '%v' should share prefix with entry slug '%v'",
-					photo.Slug, entry.Slug)
-			}
-
-			if _, ok := photoSlugs[photo.Slug]; ok {
-				return xerrors.Errorf("duplicate photo slug: %v", photo.Slug)
-			}
-			photoSlugs[photo.Slug] = struct{}{}
-		}
-	}
-
-	return nil
-}
-
-// SequenceEntry is a single entry in a sequence.
-type SequenceEntry struct {
-	// Description is the description of the entry.
-	Description string `toml:"description" validate:"required"`
-
-	// DescriptionHTML is the description rendered to HTML.
-	DescriptionHTML template.HTML `toml:"-" validate:"-"`
-
-	// Photos is a collection of photos within this particular entry. Many
-	// sequence entries will only have a single photo, but there are alternate
-	// layouts for when one contains a number of different ones.
-	Photos []*Photo `toml:"photographs" validate:"required,dive"`
-
-	// PublishedAt is UTC time when the entry was published.
-	PublishedAt time.Time `toml:"published_at" validate:"required"`
-
-	// Slug is a unique identifier for the entry.
-	Slug string `toml:"slug" validate:"required"`
-
-	// Title is the title of the entry.
-	Title string `toml:"title" validate:"required"`
-
-	// Tracks whether the entry has changed since the last build run so that
-	// entries can be rendered incrementally.
-	changed bool `toml:"changed" validate:"-"`
-}
-
-func (e *SequenceEntry) Equal(other *SequenceEntry) bool {
-	return e.Description == other.Description &&
-		slices.EqualFunc(e.Photos, other.Photos, func(a, b *Photo) bool { return a.Equal(b) }) &&
-		e.PublishedAt.Equal(other.PublishedAt) &&
-		e.Slug == other.Slug &&
-		e.Title == other.Title
 }
 
 // Tag is a symbol assigned to an article to categorize it.
@@ -1411,12 +1229,12 @@ func truncateString(str string, maxLength int) string {
 }
 
 func renderHome(ctx context.Context, c *modulir.Context,
-	articles []*Article, photos []*Photo, sequences []*SequenceEntry,
-	articlesChanged, photosChanged, sequencesChanged bool,
+	articles []*Article, photos []*Photo,
+	articlesChanged, photosChanged bool,
 ) (bool, error) {
 	sourceTmpl := scommon.ViewsDir + "/index.tmpl.html"
 	viewsChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
-	if !articlesChanged && !photosChanged && !sequencesChanged && !viewsChanged {
+	if !articlesChanged && !photosChanged && !viewsChanged {
 		return false, nil
 	}
 
@@ -1427,14 +1245,9 @@ func renderHome(ctx context.Context, c *modulir.Context,
 	// Find a random photo to put on the homepage.
 	photo := selectRandomPhoto(photos)
 
-	if len(sequences) > 3 {
-		sequences = sequences[0:3]
-	}
-
 	locals := getLocals(map[string]interface{}{
-		"Articles":  articles,
-		"Photo":     photo,
-		"Sequences": sequences,
+		"Articles": articles,
+		"Photo":    photo,
 	})
 
 	return true, dependencies.renderGoTemplate(ctx, c, sourceTmpl,
@@ -1616,128 +1429,6 @@ func renderRuns(ctx context.Context, c *modulir.Context) (bool, error) {
 	locals := getLocals(map[string]interface{}{})
 
 	err := dependencies.renderGoTemplate(ctx, c, source, path.Join(c.TargetDir, "runs", "index.html"), locals)
-	if err != nil {
-		return true, err
-	}
-
-	return true, nil
-}
-
-// Renders an Atom feed for sequences. The entries slice is assumed to be
-// pre-sorted.
-func renderSequenceFeed(ctx context.Context, c *modulir.Context,
-	entries []*SequenceEntry, sequencesChanged bool,
-) (bool, error) {
-	source := scommon.ViewsDir + "/sequences/_entry_atom.tmpl.html"
-	viewsChanged := c.ChangedAny(dependencies.getDependencies(source)...)
-	if !sequencesChanged && !viewsChanged {
-		return false, nil
-	}
-
-	feed := &matom.Feed{
-		Title: "Sequences" + scommon.TitleSuffix,
-		ID:    "tag:" + scommon.AtomTag + ",2019:sequences",
-
-		Links: []*matom.Link{
-			{Rel: "self", Type: "application/atom+xml", Href: "https://brandur.org/sequences.atom"},
-			{Rel: "alternate", Type: "text/html", Href: "https://brandur.org"},
-		},
-	}
-
-	if len(entries) > 0 {
-		feed.Updated = entries[0].PublishedAt
-	}
-
-	for i, entry := range entries {
-		if i >= conf.NumAtomEntries {
-			break
-		}
-
-		locals := getLocals(map[string]interface{}{
-			"Entry": entry,
-		})
-
-		var contentBuf bytes.Buffer
-		err := dependencies.renderGoTemplateWriter(ctx, c, source, &contentBuf, locals)
-		if err != nil {
-			return true, err
-		}
-
-		entry := &matom.Entry{
-			Title:     entry.Slug + " — " + entry.Title,
-			Content:   &matom.EntryContent{Content: contentBuf.String(), Type: "html"},
-			Published: entry.PublishedAt,
-			Updated:   entry.PublishedAt,
-			Link:      &matom.Link{Href: conf.AbsoluteURL + "/sequences/" + entry.Slug},
-			ID: "tag:" + scommon.AtomTag + "," + entry.PublishedAt.Format("2006-01-02") +
-				":sequences:" + entry.Slug,
-
-			AuthorName: scommon.AtomAuthorName,
-			AuthorURI:  conf.AbsoluteURL,
-		}
-		feed.Entries = append(feed.Entries, entry)
-	}
-
-	filePath := path.Join(conf.TargetDir, "sequences.atom")
-	f, err := os.Create(filePath)
-	if err != nil {
-		return true, xerrors.Errorf("error creating file '%s': %w", filePath, err)
-	}
-	defer f.Close()
-
-	return true, feed.Encode(f, "  ")
-}
-
-func renderSequenceEntry(ctx context.Context, c *modulir.Context, entry *SequenceEntry, sequencesChanged bool,
-) (bool, error) {
-	source := scommon.ViewsDir + "/sequences/show.tmpl.html"
-
-	viewsChanged := c.ChangedAny(dependencies.getDependencies(source)...)
-	if !sequencesChanged && !viewsChanged {
-		return false, nil
-	}
-
-	title := fmt.Sprintf("%s — %s", entry.Title, entry.Slug)
-
-	var card *twitterCard
-	if len(entry.Photos) > 0 {
-		photo := entry.Photos[0]
-		card = &twitterCard{
-			Description: "",
-			ImageURL: fmt.Sprintf("/photographs/sequences/%s_large@2x%s",
-				photo.Slug, photo.TargetExt()),
-			Title: title,
-		}
-	}
-
-	locals := getLocals(map[string]interface{}{
-		"Entry":       entry,
-		"Title":       title,
-		"TwitterCard": card,
-	})
-
-	err := dependencies.renderGoTemplate(ctx, c, source, path.Join(c.TargetDir, "sequences", entry.Slug), locals)
-	if err != nil {
-		return true, err
-	}
-
-	return true, nil
-}
-
-func renderSequencesIndex(ctx context.Context, c *modulir.Context, entries []*SequenceEntry,
-	sequenceChanged bool,
-) (bool, error) {
-	source := scommon.ViewsDir + "/sequences/index.tmpl.html"
-	viewsChanged := c.ChangedAny(dependencies.getDependencies(source)...)
-	if !sequenceChanged && !viewsChanged {
-		return false, nil
-	}
-
-	locals := getLocals(map[string]interface{}{
-		"Entries": entries,
-	})
-
-	err := dependencies.renderGoTemplate(ctx, c, source, path.Join(c.TargetDir, "sequences/index.html"), locals)
 	if err != nil {
 		return true, err
 	}
