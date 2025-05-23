@@ -4,9 +4,6 @@ Need to install imagemagick binary path into env
 
 Ahah works!!
 
-
-Todo: Figure out what "markers" are
-
 Remove "Atoms" ✅
 Remove "Fragments" ✅
 Remove "Newsletter" ✅
@@ -14,18 +11,23 @@ Remove "Fragments" images ✅
 Remove "Sequences" ✅
 Remove "Now" ✅
 Remove "Pages" ✅
-Remove "Uses"
+Remove "Uses" ✅
 Remove "Videos" under /content
 Remove "Runs" under "renderRuns()"
 Remove "Twitter"
 Remove "robots.txt"
 Remove "remark"
+Remove "drafts"
+Remove "talks"
+Remove "raws"
+Remove "strava"
 Remove "photos" in build.go? Not sure
 Remove "Belize" / Make one final round
     Maybe keep "Reading", seems cool
     Or would that just be a tag? 🤔
     Probably just start with a tag for now haha
 What are "Markers" ?
+What are Modules?
 Figure out how to make Articles main page
 Implement Tags
 Remove all other Articles
