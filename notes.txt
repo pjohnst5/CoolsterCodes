@@ -19,7 +19,7 @@ Remove "robots.txt" ✅
 Remove "remark"
 Remove "drafts"
 Remove "talks"
-Remove "raws"
+Remove "raws" (.monopic, under /content/raws)
 Remove "strava"
 Remove "photos" in build.go? Not sure
 Remove "Belize" / Make one final round
