@@ -2474,11 +2474,6 @@ video {
   line-height: 1.5rem;
 }
 
-.prose-h2\:text-sm :is(:where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
 .prose-h3\:mb-1 :is(:where(h3):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   margin-bottom: 0.25rem;
 }
