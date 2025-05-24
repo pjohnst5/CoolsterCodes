@@ -16,7 +16,7 @@ Remove "Videos" under /content ✅
 Remove "Runs" under "renderRuns()" ✅
 Remove "Twitter" ✅
 Remove "robots.txt" ✅
-Remove "remark"
+Remove "remark" ✅
 Remove "drafts"
 Remove "talks"
 Remove "raws" (.monopic, under /content/raws)
