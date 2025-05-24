@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"html/template"
 	"math/rand/v2"
@@ -69,7 +68,6 @@ var (
 	pages        = make(map[string]*Page)
 	photos       []*Photo
 	photosOther  []*Photo
-	tweets       []*squantified.Tweet
 )
 
 // Time zone to show articles / fragments / etc. publishing times in.
@@ -202,7 +200,6 @@ func build(c *modulir.Context) []error {
 			c.TargetDir + "/articles",
 			c.TargetDir + "/photos",
 			c.TargetDir + "/reading",
-			c.TargetDir + "/twitter",
 			scommon.TempDir,
 			versionedAssetsDir,
 		}
@@ -362,31 +359,6 @@ func build(c *modulir.Context) []error {
 	}
 
 	//
-	// Twitter (read `data/twitter.toml`)
-	//
-
-	var tweetsChanged bool
-
-	{
-		c.AddJob("twitter data/twitter.toml", func() (bool, error) {
-			source := scommon.DataDir + "/twitter.toml"
-
-			if !c.Changed(source) {
-				return false, nil
-			}
-
-			var err error
-			tweets, err = squantified.ReadTwitterData(c, source)
-			if err != nil {
-				return true, err
-			}
-
-			tweetsChanged = true
-			return true, nil
-		})
-	}
-
-	//
 	//
 	//
 	// PHASE 2
@@ -491,45 +463,6 @@ func build(c *modulir.Context) []error {
 			c.AddJob("downloaded image: "+imageInfo.Slug, func() (bool, error) {
 				return fetchAndResizeDownloadedImage(c, c.SourceDir+"/content/photographs", imageInfo)
 			})
-		}
-	}
-
-	//
-	// Twitter indexes
-	//
-
-	{
-		c.AddJob("twitter (no replies)", func() (bool, error) {
-			return renderTwitter(ctx, c, tweets, tweetsChanged, false)
-		})
-
-		c.AddJob("twitter (with replies)", func() (bool, error) {
-			return renderTwitter(ctx, c, tweets, tweetsChanged, true)
-		})
-	}
-
-	// Twitter photo fetch + resize
-	{
-		for _, t := range tweets {
-			tweet := t
-
-			if tweet.Entities == nil {
-				continue
-			}
-
-			for _, m := range tweet.Entities.Medias {
-				media := m
-
-				if media.Type != "photo" {
-					continue
-				}
-
-				name := fmt.Sprintf("twitter photo: %v", media.ID)
-				c.AddJob(name, func() (bool, error) {
-					return fetchAndResizePhotoTwitter(c, c.SourceDir+"/content/photographs/twitter",
-						tweet, media)
-				})
-			}
 		}
 	}
 
@@ -770,21 +703,6 @@ type readingYear struct {
 	Readings []*squantified.Reading
 }
 
-// twitterCard represents a Twitter "card" (i.e. one of those rich media boxes
-// that sometimes appear under tweets official clients) for use in templates.
-type twitterCard struct {
-	// Description is the description to show in the card.
-	Description string
-
-	// ImageURL is the URL to the image to show in the card. An absolute URL
-	// will be preprended, so this should be a relative URL. A blank value will
-	// use the site's favicon.
-	ImageURL string
-
-	// Title is the title to show in the card.
-	Title string
-}
-
 //////////////////////////////////////////////////////////////////////////////
 //
 //
@@ -892,25 +810,6 @@ func fetchAndResizePhotoOther(c *modulir.Context, targetDir string, photo *Photo
 		})
 }
 
-var twitterPhotoSizes = []mimage.PhotoSize{
-	{Suffix: "", Width: 550},
-	{Suffix: "@2x", Width: 1100},
-}
-
-func fetchAndResizePhotoTwitter(c *modulir.Context, targetDir string,
-	tweet *squantified.Tweet, media *squantified.TweetEntitiesMedia,
-) (bool, error) {
-	u, err := url.Parse(media.URL)
-	if err != nil {
-		return false, xerrors.Errorf("bad URL for Twitter photo '%v': %w", media.ID, err)
-	}
-
-	slug := fmt.Sprintf("%v-%v", tweet.ID, media.ID)
-
-	return mimage.FetchAndResizeImage(c, u, targetDir, slug, extCanonical(extImageTarget(media.OriginalExt())),
-		mimage.PhotoGravityCenter, twitterPhotoSizes)
-}
-
 // Gets a map of local values for use while rendering a template and includes
 // a few "special" values that are globally relevant to all templates.
 func getLocals(locals map[string]interface{}) map[string]interface{} {
@@ -922,8 +821,6 @@ func getLocals(locals map[string]interface{}) map[string]interface{} {
 		"Release":           Release,
 		"SorgEnv":           conf.SorgEnv,
 		"TitleSuffix":       scommon.TitleSuffix,
-		"TwitterCard":       nil,
-		"TwitterInfo":       scommon.TwitterInfo,
 	}
 
 	for k, v := range locals {
@@ -1081,21 +978,9 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 		article.HookImageURL = "/assets/images/" + article.Slug + "/hook." + format
 	}
 
-	card := &twitterCard{
-		Title:       article.Title,
-		Description: string(article.Hook),
-	}
-	format, ok = pathAsImage(
-		path.Join(c.SourceDir, "content", "images", article.Slug, "twitter@2x"),
-	)
-	if ok {
-		card.ImageURL = "/assets/images/" + article.Slug + "/twitter@2x." + format
-	}
-
 	locals := getLocals(map[string]interface{}{
 		"Article":        article,
 		"PublishingInfo": article.publishingInfo(),
-		"TwitterCard":    card,
 	})
 
 	err = dependencies.renderGoTemplate(ctx, c, sourceTmpl, path.Join(c.TargetDir, article.Slug), locals)
@@ -1395,54 +1280,6 @@ Disallow: /photos
 		return true, xerrors.Errorf("error writing file '%s': %w", filePath, err)
 	}
 	outFile.Close()
-
-	return true, nil
-}
-
-func renderTwitter(ctx context.Context, c *modulir.Context, tweets []*squantified.Tweet, tweetsChanged, withReplies bool) (bool, error) {
-	source := scommon.ViewsDir + "/twitter/index.tmpl.html"
-	viewsChanged := c.ChangedAny(dependencies.getDependencies(source)...)
-	if !tweetsChanged && !viewsChanged {
-		return false, nil
-	}
-
-	tweetsWithoutReplies := make([]*squantified.Tweet, 0, len(tweets))
-	for _, tweet := range tweets {
-		if tweet.ReplyOrMention {
-			continue
-		}
-
-		tweetsWithoutReplies = append(tweetsWithoutReplies, tweet)
-	}
-
-	target := "index.html"
-	ts := tweets
-	if withReplies {
-		target = "with-replies"
-	} else {
-		ts = tweetsWithoutReplies
-	}
-
-	tweetsByYearAndMonth := squantified.GroupTwitterByYearAndMonth(ts)
-	tweetCountsByMonth := squantified.GetTwitterByMonth(ts)
-
-	tweetCountsByMonthData, err := json.Marshal(tweetCountsByMonth)
-	if err != nil {
-		return false, xerrors.Errorf("error marshaling tweet counts: %w", err)
-	}
-
-	locals := getLocals(map[string]interface{}{
-		"NumTweets":            len(tweetsWithoutReplies),
-		"NumTweetsWithReplies": len(tweets),
-		"TweetCountsByMonth":   template.HTML(tweetCountsByMonthData), // chart: tweets by month
-		"TweetsByYearAndMonth": tweetsByYearAndMonth,
-		"WithReplies":          withReplies,
-	})
-
-	err = dependencies.renderGoTemplate(ctx, c, source, path.Join(c.TargetDir, "twitter", target), locals)
-	if err != nil {
-		return true, err
-	}
 
 	return true, nil
 }

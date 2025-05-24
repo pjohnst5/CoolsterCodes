@@ -2,7 +2,6 @@ package scommon
 
 import (
 	"fmt"
-	"html/template"
 	"os"
 	"path/filepath"
 	"strings"
@@ -52,11 +51,6 @@ const (
 	// ViewsDir is the source directory for views.
 	ViewsDir = "./views"
 )
-
-// TwitterInfo is some HTML that includes a Twitter link which can be appended
-// to the publishing info of various content.
-const TwitterInfo = template.HTML(`<p>Find me on Twitter at ` +
-	`<strong><a href="https://twitter.com/brandur">@brandur</a></strong>.</p>`)
 
 //////////////////////////////////////////////////////////////////////////////
 //
