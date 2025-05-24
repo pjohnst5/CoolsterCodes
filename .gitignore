@@ -2,12 +2,10 @@
 .env
 .envrc
 
-/content/images/talks/*.backup/
 /content/photographs/**/*.jpg
 /content/photographs/**/*.png
 /content/photographs/**/*.webp
 /public/
-/public-dev/
 /sorg
 /tmp/
 /tags

@@ -18,7 +18,7 @@ Remove "Twitter" ✅
 Remove "robots.txt" ✅
 Remove "remark" ✅
 Remove "drafts" ✅
-Remove "talks"
+Remove "talks" ✅
 Remove "raws" (.monopic, under /content/raws)
 Remove "strava"
 Remove "photos" in build.go? Not sure
