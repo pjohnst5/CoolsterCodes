@@ -220,19 +220,11 @@
             hover:prose-a:border-b-slate-200
             prose-p:font-serif
             ">
-            {{if .Article.Draft}}
-            <p>
-                Did I make a mistake? Please consider <a
-                    href="https://github.com/brandur/sorg/edit/master/content/drafts/{{.Article.Slug}}.md">sending
-                    a pull request</a>.
-            </p>
-            {{else}}
             <p>
                 Did I make a mistake? Please consider <a
                     href="https://github.com/brandur/sorg/edit/master/content/articles/{{.Article.Slug}}.md">sending a
                     pull request</a>.
             </p>
-            {{end}}
         </div>
     </div>
 </div>

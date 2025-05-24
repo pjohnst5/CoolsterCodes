@@ -143,67 +143,6 @@ jobs:
           echo "Please make sure that all Tailwind changes are checked in!"
           git diff --exit-code .
 
-  deploy_dev:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    if: github.ref == 'refs/heads/master'
-
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWSAccessKeyID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWSSecretAccessKey }}
-
-    needs:
-      - check_and_test
-      - check_tailwind
-      - golangci-lint
-
-    steps:
-      # See notes in check_and_test.
-      - name: Install LibFUSE2 + PNGQuant + WebP
-        run: sudo apt-get install libfuse2 pngquant webp
-
-      # See notes in check_and_test.
-      - name: Install ImageMagick
-        run: |
-          mkdir -p $(dirname "${{ env.MAGICK_BIN }}")
-          curl --compressed -L -o "${{ env.MAGICK_BIN }}" https://github.com/ImageMagick/ImageMagick/releases/download/${{ env.MAGICK_RELEASE }}/${{ env.MAGICK_FILE_NAME }}
-          chmod +x "${{ env.MAGICK_BIN }}"
-
-      # See notes in check_and_test.
-      - name: Install MozJPEG
-        run: |
-          curl --compressed -L -O https://github.com/brandur/mozjpeg-builder/releases/download/master/mozjpeg_amd64.deb
-          sudo dpkg -i mozjpeg_amd64.deb
-
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Go
-        uses: actions/setup-go@v5
-        with:
-          check-latest: true
-          go-version-file: "go.mod"
-
-      - name: "Sorg: Install"
-        run: make install
-
-      # Download any markers that have not yet been committed to Git to save
-      # redoing download/resize work.
-      - name: "Download photo markers"
-        run: make photographs-download-markers
-
-      - name: "Build: Development"
-        run: make build
-        env:
-          DRAFTS: true
-          TARGET_DIR: ./public-dev
-
-      - name: "Deploy: Development"
-        run: make deploy
-        env:
-          S3_BUCKET: brandur.org-dev
-          TARGET_DIR: ./public-dev
-
   deploy_prod:
     runs-on: ubuntu-latest
     timeout-minutes: 20

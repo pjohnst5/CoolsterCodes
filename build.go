@@ -244,14 +244,6 @@ func build(c *modulir.Context) []error {
 			return []error{err}
 		}
 
-		if conf.Drafts {
-			drafts, err := mfile.ReadDirCached(c, c.SourceDir+"/content/drafts", nil)
-			if err != nil {
-				return []error{err}
-			}
-			sources = append(sources, drafts...)
-		}
-
 		for _, s := range sources {
 			source := s
 
@@ -479,9 +471,6 @@ type Article struct {
 	// frontmatter, and is rather split out of an article's Markdown file,
 	// rendered, and then added separately.
 	Content template.HTML `toml:"-"`
-
-	// Draft indicates that the article is not yet published.
-	Draft bool `toml:"-"`
 
 	// Footnotes are HTML footnotes extracted from content.
 	Footnotes template.HTML `toml:"-"`
@@ -877,7 +866,6 @@ func mustLocation(locationName string) *time.Location {
 // Looks something like "about", or "nested/about".
 func pagePathKey(source string) string {
 	pagePath := mfile.MustAbs(source)
-	pagePath = strings.TrimPrefix(pagePath, mfile.MustAbs("./pages-drafts")+"/")
 	pagePath = strings.TrimPrefix(pagePath, mfile.MustAbs("./pages")+"/")
 	pagePath = strings.TrimSuffix(pagePath, path.Ext(pagePath))
 	pagePath = strings.TrimSuffix(pagePath, path.Ext(pagePath)) // again, for `.tmpl.html`
@@ -925,7 +913,6 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 		return true, err
 	}
 
-	article.Draft = scommon.IsDraft(source)
 	article.Slug = scommon.ExtractSlug(source)
 
 	content, err := mmarkdownext.Render(string(data), &mmarkdownext.RenderOptions{
