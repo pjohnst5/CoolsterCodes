@@ -33,6 +33,8 @@ Implement Tags
 Remove all other Articles
 Remove all "brandur" stuff and make it my own
     - Make preview images mine (favico)
+    - Colors
+    - Logo
 Add back in GT articles
 Host it
 
