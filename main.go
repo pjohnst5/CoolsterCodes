@@ -115,13 +115,6 @@ type Conf struct {
 	// perform build work items.
 	Concurrency int `env:"CONCURRENCY,default=30"`
 
-	// Drafts is whether drafts of articles and fragments should be compiled
-	// along with their published versions.
-	//
-	// Activating drafts also prompts the creation of a robots.txt to make sure
-	// that drafts aren't inadvertently accessed by web crawlers.
-	Drafts bool `env:"DRAFTS,default=false"`
-
 	// EnableGoatCounter enables Goat Counter analytics, which is a less
 	// invasive version of Google Analytics that collects less information,
 	// does less user tracking, and is not an ad company. Currently I'm

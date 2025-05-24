@@ -95,10 +95,3 @@ func ExitWithError(err error) {
 func ExtractSlug(source string) string {
 	return strings.TrimSuffix(filepath.Base(source), filepath.Ext(source))
 }
-
-// IsDraft does really simplistic detection on whether the given source is a
-// draft by looking whether the name "drafts" is in its parent directory's
-// name.
-func IsDraft(source string) bool {
-	return strings.Contains(filepath.Base(filepath.Dir(source)), "drafts")
-}

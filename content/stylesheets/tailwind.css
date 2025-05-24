@@ -1894,10 +1894,6 @@ video {
   flex-shrink: 0;
 }
 
-.shrink {
-  flex-shrink: 1;
-}
-
 .flex-grow {
   flex-grow: 1;
 }
@@ -1937,10 +1933,6 @@ video {
 
 .cursor-pointer {
   cursor: pointer;
-}
-
-.resize {
-  resize: both;
 }
 
 .flex-col {
