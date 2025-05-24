@@ -48,3 +48,6 @@ rm tailwindcss
 When removing atoms, in build.go there was a video thingy
 With Fragments, there was a "content/fragments-drafts" and "content/fragments-defunct"
 Check out "taggedWith", it seems to have been there before
+
+-- Eventually --
+Make it so articles with YouTube tutorial have it linked on the side
