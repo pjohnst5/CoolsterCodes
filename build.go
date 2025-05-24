@@ -226,7 +226,6 @@ func build(c *modulir.Context) []error {
 			{c.SourceDir + "/content/javascripts", versionedAssetsDir + "/javascripts"},
 			{c.SourceDir + "/content/photographs", c.TargetDir + "/photographs"},
 			{c.SourceDir + "/content/stylesheets", versionedAssetsDir + "/stylesheets"},
-			{c.SourceDir + "/content/videos", c.TargetDir + "/videos"},
 		}
 		for _, link := range commonSymlinks {
 			err := mfile.EnsureSymlink(c, link[0], link[1])
