@@ -20,7 +20,7 @@ Remove "remark" ✅
 Remove "drafts" ✅
 Remove "talks" ✅
 Remove "raws" (.monopic, under /content/raws) ✅
-Remove "strava"
+Remove "strava" ✅
 Remove "photos" in build.go? Not sure
 Remove "Belize" / Make one final round
     Maybe keep "Reading", seems cool
