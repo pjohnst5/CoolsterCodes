@@ -349,16 +349,6 @@ func build(c *modulir.Context) []error {
 	}
 
 	//
-	// Robots.txt
-	//
-
-	{
-		c.AddJob("robots.txt", func() (bool, error) {
-			return renderRobotsTxt(c)
-		})
-	}
-
-	//
 	//
 	//
 	// PHASE 2
@@ -1239,47 +1229,6 @@ func renderPhotoIndex(ctx context.Context, c *modulir.Context, photos []*Photo,
 	if err != nil {
 		return true, err
 	}
-
-	return true, nil
-}
-
-func renderRobotsTxt(c *modulir.Context) (bool, error) {
-	if !c.FirstRun && !c.Forced {
-		return false, nil
-	}
-
-	var content string
-	if conf.Drafts {
-		// Allow Twitterbot so that we can preview card images on dev.
-		//
-		// Disallow everything else.
-		content = `User-agent: Twitterbot
-Disallow:
-
-User-agent: *
-Disallow: /
-`
-	} else {
-		// Disallow acccess to photos because the content isn't very
-		// interesting for robots and they're bandwidth heavy.
-		content = `User-agent: Twitterbot
-Disallow:
-
-User-agent: *
-Disallow: /photographs/
-Disallow: /photos
-`
-	}
-
-	filePath := c.TargetDir + "/robots.txt"
-	outFile, err := os.Create(filePath)
-	if err != nil {
-		return true, xerrors.Errorf("error creating file '%s': %w", filePath, err)
-	}
-	if _, err := outFile.WriteString(content); err != nil {
-		return true, xerrors.Errorf("error writing file '%s': %w", filePath, err)
-	}
-	outFile.Close()
 
 	return true, nil
 }
