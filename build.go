@@ -202,7 +202,6 @@ func build(c *modulir.Context) []error {
 			c.TargetDir + "/articles",
 			c.TargetDir + "/photos",
 			c.TargetDir + "/reading",
-			c.TargetDir + "/runs",
 			c.TargetDir + "/twitter",
 			scommon.TempDir,
 			versionedAssetsDir,
@@ -359,16 +358,6 @@ func build(c *modulir.Context) []error {
 	{
 		c.AddJob("robots.txt", func() (bool, error) {
 			return renderRobotsTxt(c)
-		})
-	}
-
-	//
-	// Runs
-	//
-
-	{
-		c.AddJob("runs", func() (bool, error) {
-			return renderRuns(ctx, c)
 		})
 	}
 
@@ -1406,23 +1395,6 @@ Disallow: /photos
 		return true, xerrors.Errorf("error writing file '%s': %w", filePath, err)
 	}
 	outFile.Close()
-
-	return true, nil
-}
-
-func renderRuns(ctx context.Context, c *modulir.Context) (bool, error) {
-	source := scommon.ViewsDir + "/runs/index.tmpl.html"
-	viewsChanged := c.ChangedAny(dependencies.getDependencies(source)...)
-	if !c.FirstRun && !viewsChanged {
-		return false, nil
-	}
-
-	locals := getLocals(map[string]interface{}{})
-
-	err := dependencies.renderGoTemplate(ctx, c, source, path.Join(c.TargetDir, "runs", "index.html"), locals)
-	if err != nil {
-		return true, err
-	}
 
 	return true, nil
 }
