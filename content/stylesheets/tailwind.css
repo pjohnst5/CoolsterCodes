@@ -1669,11 +1669,6 @@ video {
   margin-right: 0.125rem;
 }
 
-.mx-8 {
-  margin-left: 2rem;
-  margin-right: 2rem;
-}
-
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -1692,11 +1687,6 @@ video {
 .my-16 {
   margin-top: 4rem;
   margin-bottom: 4rem;
-}
-
-.my-4 {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
 }
 
 .my-8 {
@@ -1726,10 +1716,6 @@ video {
 
 .mb-3 {
   margin-bottom: 0.75rem;
-}
-
-.mb-8 {
-  margin-bottom: 2rem;
 }
 
 .mb-9 {
@@ -1778,10 +1764,6 @@ video {
 
 .mt-2 {
   margin-top: 0.5rem;
-}
-
-.mt-3 {
-  margin-top: 0.75rem;
 }
 
 .mt-8 {
@@ -1886,10 +1868,6 @@ video {
 
 .max-w-\[725px\] {
   max-width: 725px;
-}
-
-.max-w-\[750px\] {
-  max-width: 750px;
 }
 
 .max-w-\[800px\] {
@@ -2217,10 +2195,6 @@ video {
   font-size: 0.82rem;
 }
 
-.text-\[0\.85rem\] {
-  font-size: 0.85rem;
-}
-
 .text-\[0\.9rem\] {
   font-size: 0.9rem;
 }
@@ -2440,10 +2414,6 @@ video {
 
 .last\:mb-0:last-child {
   margin-bottom: 0px;
-}
-
-.hover\:\!border-transparent:hover {
-  border-color: transparent !important;
 }
 
 .hover\:border-b-black:hover {
@@ -2725,11 +2695,6 @@ video {
 
   .md\:top-5 {
     top: 1.25rem;
-  }
-
-  .md\:mx-10 {
-    margin-left: 2.5rem;
-    margin-right: 2.5rem;
   }
 
   .md\:my-16 {
@@ -3032,48 +2997,4 @@ video {
 .dark\:prose-hr\:border-slate-700 :is(:where(hr):not(:where([class~="not-prose"],[class~="not-prose"] *))):where(.dark, .dark *) {
   --tw-border-opacity: 1;
   border-color: rgb(51 65 85 / var(--tw-border-opacity, 1));
-}
-
-.\[\&\>li\]\:my-4>li {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-.\[\&_a\]\:border-b-\[1px\] a {
-  border-bottom-width: 1px;
-}
-
-.\[\&_a\]\:border-b-slate-200 a {
-  --tw-border-opacity: 1;
-  border-bottom-color: rgb(226 232 240 / var(--tw-border-opacity, 1));
-}
-
-.\[\&_a\]\:text-proseLinks a {
-  --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
-}
-
-.hover\:\[\&_a\]\:border-b-black a:hover {
-  --tw-border-opacity: 1;
-  border-bottom-color: rgb(0 0 0 / var(--tw-border-opacity, 1));
-}
-
-.dark\:\[\&_a\]\:border-b-slate-700 a:where(.dark, .dark *) {
-  --tw-border-opacity: 1;
-  border-bottom-color: rgb(51 65 85 / var(--tw-border-opacity, 1));
-}
-
-.dark\:\[\&_a\]\:text-proseInvertLinks a:where(.dark, .dark *) {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
-}
-
-.dark\:hover\:\[\&_a\]\:border-b-proseInvertLinks a:hover:where(.dark, .dark *) {
-  --tw-border-opacity: 1;
-  border-bottom-color: rgb(255 255 255 / var(--tw-border-opacity, 1));
-}
-
-.\[\&_p\]\:my-1 p {
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
 }
