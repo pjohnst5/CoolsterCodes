@@ -181,8 +181,6 @@ func build(c *modulir.Context) []error {
 
 	ctx := context.Background()
 
-	ctx, downloadedImageContainer := mtemplate.DownloadedImageContext(ctx)
-
 	//
 	// Common directories
 	//
@@ -210,10 +208,8 @@ func build(c *modulir.Context) []error {
 
 	{
 		commonSymlinks := [][2]string{
-			{c.SourceDir + "/content/fonts", c.TargetDir + "/assets/fonts"},
 			{c.SourceDir + "/content/images", c.TargetDir + "/assets/images"},
 			{c.SourceDir + "/content/javascripts", versionedAssetsDir + "/javascripts"},
-			{c.SourceDir + "/content/photographs", c.TargetDir + "/photographs"},
 			{c.SourceDir + "/content/stylesheets", versionedAssetsDir + "/stylesheets"},
 		}
 		for _, link := range commonSymlinks {
@@ -328,17 +324,6 @@ func build(c *modulir.Context) []error {
 			return renderHome(ctx, c, articles,
 				articlesChanged)
 		})
-	}
-
-	// From `DownloadedImage` template tags.
-	{
-		for i := range downloadedImageContainer.Images {
-			imageInfo := downloadedImageContainer.Images[i]
-
-			c.AddJob("downloaded image: "+imageInfo.Slug, func() (bool, error) {
-				return fetchAndResizeDownloadedImage(c, c.SourceDir+"/content/photographs", imageInfo)
-			})
-		}
 	}
 
 	return nil
@@ -523,7 +508,6 @@ func fetchAndResizeDownloadedImage(c *modulir.Context,
 func getLocals(locals map[string]interface{}) map[string]interface{} {
 	defaults := map[string]interface{}{
 		"AbsoluteURL": conf.AbsoluteURL,
-		"LocalFonts":  conf.LocalFonts,
 		"Release":     Release,
 		"SorgEnv":     conf.SorgEnv,
 		"TitleSuffix": scommon.TitleSuffix,
