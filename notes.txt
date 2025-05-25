@@ -21,12 +21,13 @@ Remove "drafts" ✅
 Remove "talks" ✅
 Remove "raws" (.monopic, under /content/raws) ✅
 Remove "strava" ✅
-Remove "photos" in build.go? Not sure
+Remove "photos" in build.go? Not sure ✅
 Remove "Belize" / Make one final round
     Maybe keep "Reading", seems cool
     Or would that just be a tag? 🤔
     Probably just start with a tag for now haha
-What are "Markers" ?
+What are "Markers"? ✅
+    - The prevent already-resized-checked-in photos from being re-processed ✅
 What are Modules?
 Figure out how to make Articles main page
 Implement Tags

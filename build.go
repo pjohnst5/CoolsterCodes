@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"html/template"
-	"math/rand/v2"
 	"net/url"
 	"os"
 	"path"
@@ -66,8 +65,6 @@ var (
 	articles     []*Article
 	dependencies = NewDependencyRegistry()
 	pages        = make(map[string]*Page)
-	photos       []*Photo
-	photosOther  []*Photo
 )
 
 // Time zone to show articles / fragments / etc. publishing times in.
@@ -108,7 +105,6 @@ func init() {
 //
 //////////////////////////////////////////////////////////////////////////////
 
-//nolint:maintidx
 func build(c *modulir.Context) []error {
 	//
 	// PHASE 0: Setup
@@ -198,7 +194,6 @@ func build(c *modulir.Context) []error {
 	{
 		commonDirs := []string{
 			c.TargetDir + "/articles",
-			c.TargetDir + "/photos",
 			c.TargetDir + "/reading",
 			scommon.TempDir,
 			versionedAssetsDir,
@@ -278,59 +273,6 @@ func build(c *modulir.Context) []error {
 	}
 
 	//
-	// Photos (read `_meta.toml`)
-	//
-
-	var photosChanged bool
-
-	{
-		c.AddJob("photos _meta.toml", func() (bool, error) {
-			source := c.SourceDir + "/content/photographs/_meta.toml"
-
-			if !c.Changed(source) {
-				return false, nil
-			}
-
-			var photosWrapper PhotoWrapper
-			err := mtoml.ParseFile(c, source, &photosWrapper)
-			if err != nil {
-				return true, err
-			}
-
-			photos = photosWrapper.Photos
-			photosChanged = true
-			return true, nil
-		})
-	}
-
-	//
-	// Photos (other) (read `_other_meta.toml`)
-	//
-
-	{
-		c.AddJob("photos (other) _meta.toml", func() (bool, error) {
-			source := c.SourceDir + "/content/photographs/_other_meta.toml"
-
-			if !c.Changed(source) {
-				return false, nil
-			}
-
-			var photosWrapper PhotoWrapper
-			err := mtoml.ParseFile(c, source, &photosWrapper)
-			if err != nil {
-				return true, err
-			}
-
-			if err := photosWrapper.validate(); err != nil {
-				return true, err
-			}
-
-			photosOther = photosWrapper.Photos
-			return true, nil
-		})
-	}
-
-	//
 	// Reading
 	//
 
@@ -359,7 +301,6 @@ func build(c *modulir.Context) []error {
 	// compared against a current version.
 	{
 		slices.SortFunc(articles, func(a, b *Article) int { return b.PublishedAt.Compare(a.PublishedAt) })
-		slices.SortFunc(photos, func(a, b *Photo) int { return b.OccurredAt.Compare(a.OccurredAt) })
 	}
 
 	//
@@ -396,45 +337,9 @@ func build(c *modulir.Context) []error {
 
 	{
 		c.AddJob("home", func() (bool, error) {
-			return renderHome(ctx, c, articles, photos,
-				articlesChanged, photosChanged)
+			return renderHome(ctx, c, articles,
+				articlesChanged)
 		})
-	}
-
-	//
-	// Photos (index / fetch + resize)
-	//
-
-	// Photo index
-	{
-		c.AddJob("photos index", func() (bool, error) {
-			return renderPhotoIndex(ctx, c, photos,
-				photosChanged)
-		})
-	}
-
-	// Photo fetch + resize
-	{
-		for _, p := range photos {
-			photo := p
-
-			name := "photo: " + photo.Slug
-			c.AddJob(name, func() (bool, error) {
-				return fetchAndResizePhoto(c, c.SourceDir+"/content/photographs", photo)
-			})
-		}
-	}
-
-	// Photo fetch + resize (other)
-	{
-		for _, p := range photosOther {
-			photo := p
-
-			name := "photo fetch: " + photo.Slug
-			c.AddJob(name, func() (bool, error) {
-				return fetchAndResizePhotoOther(c, c.SourceDir+"/content/photographs", photo)
-			})
-		}
 	}
 
 	// From `DownloadedImage` template tags.
@@ -552,117 +457,6 @@ type Page struct {
 	dependencies []string
 }
 
-// Photo is a photograph.
-type Photo struct {
-	// CropGravity is the gravity to use with ImageMagick when doing a square
-	// crop. Should be one of: northwest, north, northeast, west, center, east,
-	// southwest, south, southeast.
-	CropGravity string `default:"center" toml:"crop_gravity"`
-
-	// CropWidth is the width to crop the photo to.
-	//
-	// This should be the non-retina target width. A second file will be
-	// created with the `@2x` suffix with twice this number.
-	//
-	// This is a required property for photos that are not part of the main
-	// photographs sequence. It's ignored for photos that *are* part of the
-	// main photographs sequence.
-	CropWidth int `toml:"crop_width"`
-
-	// Description is the description of the photograph.
-	Description string `toml:"description"`
-
-	// KeepInHomeRotation is a special override for photos I really like that
-	// keeps them in the home page's random rotation. The rotation then
-	// consists of either a recent photo or one of these explicitly selected
-	// old ones.
-	KeepInHomeRotation bool `toml:"keep_in_home_rotation"`
-
-	// LinkURL is a URL to have the image link to. This is only respect for some
-	// uses of photographs like in atoms.
-	LinkURL string `toml:"link_url" validate:"-"`
-
-	// NoCrop disables cropping on this photo (normally photos are cropped to
-	// 3:2 or 2:3).
-	NoCrop bool `toml:"no_crop"`
-
-	// OriginalImageURL is the location where the original-sized version of the
-	// photo can be downloaded from.
-	OriginalImageURL string `toml:"original_image_url" validate:"required"`
-
-	// OccurredAt is UTC time when the photo was published.
-	OccurredAt time.Time `toml:"occurred_at"`
-
-	// OverrideExt is an extension like `.webp` that should be used for the
-	// resized versions of the photo. Mostly useful for when a screenshot or
-	// something is saved as a `.png` and it should really have been a `.jpg` or
-	// something because the source being displayed was already lossy.
-	OverrideExt string `toml:"override_ext" validate:"-"`
-
-	// Portrait is a hint to indicate that the photo is in portrait instead of
-	// landscape. This helps the build pick a better stand-in image for lazy
-	// loading so that there's less jumping around as photos that get loaded in
-	// change size.
-	Portrait bool `toml:"portrait"`
-
-	// Slug is a unique identifier for the photo. Originally these were
-	// generated from Flickr, but I've since just started reusing them for
-	// filenames.
-	Slug string `toml:"slug" validate:"required"`
-
-	// Title is the title of the photograph.
-	Title string `toml:"title"`
-
-	// Internal
-	originalExt string `toml:"-"`
-}
-
-func (p *Photo) Equal(other *Photo) bool {
-	return p.CropGravity == other.CropGravity &&
-		p.CropWidth == other.CropWidth &&
-		p.Description == other.Description &&
-		p.KeepInHomeRotation == other.KeepInHomeRotation &&
-		p.LinkURL == other.LinkURL &&
-		p.NoCrop == other.NoCrop &&
-		p.OriginalImageURL == other.OriginalImageURL &&
-		p.OccurredAt.Equal(other.OccurredAt) &&
-		p.OverrideExt == other.OverrideExt &&
-		p.Portrait == other.Portrait &&
-		p.Slug == other.Slug &&
-		p.Title == other.Title
-}
-
-func (p *Photo) OriginalExt() string {
-	if p.originalExt != "" {
-		return p.originalExt
-	}
-
-	p.originalExt = extCanonical(p.OriginalImageURL)
-	return p.originalExt
-}
-
-func (p *Photo) TargetExt() string {
-	if p.OverrideExt != "" {
-		return p.OverrideExt
-	}
-
-	return extImageTarget(p.OriginalExt())
-}
-
-// PhotoWrapper is a data structure intended to represent the data structure at
-// the top level of photograph data file `content/photographs/_meta.toml`.
-type PhotoWrapper struct {
-	// Photos is a collection of photos within the top-level wrapper.
-	Photos []*Photo `toml:"photographs" validate:"required,dive"`
-}
-
-func (w *PhotoWrapper) validate() error {
-	if err := validate.Struct(w); err != nil {
-		return xerrors.Errorf("error validating photos: %+v", err)
-	}
-	return nil
-}
-
 // Tag is a symbol assigned to an article to categorize it.
 //
 // This feature is not meanted to be overused. It's really just for tagging
@@ -721,35 +515,6 @@ func extImageTarget(canonicalExt string) string {
 
 var cropDefault = &mimage.PhotoCropSettings{Portrait: "2:3", Landscape: "3:2"}
 
-var defaultPhotoSizes = []mimage.PhotoSize{
-	{Suffix: "", Width: 333, CropSettings: cropDefault},
-	{Suffix: "@2x", Width: 667, CropSettings: cropDefault},
-	{Suffix: "_large", Width: 1500, CropSettings: cropDefault},
-	{Suffix: "_large@2x", Width: 3000, CropSettings: cropDefault},
-}
-
-var defaultPhotoSizesNoCrop = []mimage.PhotoSize{
-	{Suffix: "", Width: 333, CropSettings: nil},
-	{Suffix: "@2x", Width: 667, CropSettings: nil},
-	{Suffix: "_large", Width: 1500, CropSettings: nil},
-	{Suffix: "_large@2x", Width: 3000, CropSettings: nil},
-}
-
-func fetchAndResizePhoto(c *modulir.Context, targetDir string, photo *Photo) (bool, error) {
-	u, err := url.Parse(photo.OriginalImageURL)
-	if err != nil {
-		return false, xerrors.Errorf("bad URL for photo '%s': %w", photo.Slug, err)
-	}
-
-	photoSizes := defaultPhotoSizes
-	if photo.NoCrop {
-		photoSizes = defaultPhotoSizesNoCrop
-	}
-
-	return mimage.FetchAndResizeImage(c, u, targetDir, photo.Slug, photo.TargetExt(),
-		mimage.PhotoGravity(photo.CropGravity), photoSizes)
-}
-
 func fetchAndResizeDownloadedImage(c *modulir.Context,
 	targetDir string, imageInfo *mtemplate.DownloadedImageInfo,
 ) (bool, error) {
@@ -768,24 +533,6 @@ func fetchAndResizeDownloadedImage(c *modulir.Context,
 		[]mimage.PhotoSize{
 			{Suffix: "", Width: imageInfo.Width, CropSettings: cropDefault},
 			{Suffix: "@2x", Width: imageInfo.Width * 2, CropSettings: cropDefault},
-		})
-}
-
-func fetchAndResizePhotoOther(c *modulir.Context, targetDir string, photo *Photo) (bool, error) {
-	if photo.CropWidth == 0 {
-		return false, xerrors.Errorf("need `crop_width` specified for photo '%s'", photo.Slug)
-	}
-
-	u, err := url.Parse(photo.OriginalImageURL)
-	if err != nil {
-		return false, xerrors.Errorf("bad URL for photo '%s'", photo.Slug)
-	}
-
-	return mimage.FetchAndResizeImage(c, u, targetDir, photo.Slug, photo.TargetExt(),
-		mimage.PhotoGravity(photo.CropGravity),
-		[]mimage.PhotoSize{
-			{Suffix: "", Width: photo.CropWidth, CropSettings: nil},
-			{Suffix: "@2x", Width: photo.CropWidth * 2, CropSettings: nil},
 		})
 }
 
@@ -1071,12 +818,12 @@ func truncateString(str string, maxLength int) string {
 }
 
 func renderHome(ctx context.Context, c *modulir.Context,
-	articles []*Article, photos []*Photo,
-	articlesChanged, photosChanged bool,
+	articles []*Article,
+	articlesChanged bool,
 ) (bool, error) {
 	sourceTmpl := scommon.ViewsDir + "/index.tmpl.html"
 	viewsChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
-	if !articlesChanged && !photosChanged && !viewsChanged {
+	if !articlesChanged && !viewsChanged {
 		return false, nil
 	}
 
@@ -1084,12 +831,8 @@ func renderHome(ctx context.Context, c *modulir.Context,
 		articles = articles[0:3]
 	}
 
-	// Find a random photo to put on the homepage.
-	photo := selectRandomPhoto(photos)
-
 	locals := getLocals(map[string]interface{}{
 		"Articles": articles,
-		"Photo":    photo,
 	})
 
 	return true, dependencies.renderGoTemplate(ctx, c, sourceTmpl,
@@ -1197,56 +940,6 @@ func renderReading(ctx context.Context, c *modulir.Context) (bool, error) {
 	}
 
 	return true, nil
-}
-
-func renderPhotoIndex(ctx context.Context, c *modulir.Context, photos []*Photo,
-	photosChanged bool,
-) (bool, error) {
-	source := scommon.ViewsDir + "/photos/index.tmpl.html"
-	viewsChanged := c.ChangedAny(dependencies.getDependencies(source)...)
-	if !photosChanged && !viewsChanged {
-		return false, nil
-	}
-
-	locals := getLocals(map[string]interface{}{
-		"Photos": photos,
-	})
-
-	err := dependencies.renderGoTemplate(ctx, c, source, path.Join(c.TargetDir, "photos", "index.html"), locals)
-	if err != nil {
-		return true, err
-	}
-
-	return true, nil
-}
-
-func selectRandomPhoto(photos []*Photo) *Photo {
-	if len(photos) < 1 {
-		return nil
-	}
-
-	numRecent := 20
-	if len(photos) < numRecent {
-		numRecent = len(photos)
-	}
-
-	// All recent photos go into the random selection.
-	randomPhotos := photos[0:numRecent]
-
-	// Older photos that are good enough that I've explicitly tagged them
-	// as such also get considered for the rotation.
-	if len(photos) > numRecent {
-		olderPhotos := photos[numRecent : len(photos)-1]
-
-		for _, photo := range olderPhotos {
-			if photo.KeepInHomeRotation {
-				randomPhotos = append(randomPhotos, photo)
-			}
-		}
-	}
-
-	//nolint:gosec
-	return randomPhotos[rand.IntN(len(randomPhotos))]
 }
 
 // Gets a pointer to a tag just to work around the fact that you can take the
