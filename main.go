@@ -115,15 +115,6 @@ type Conf struct {
 	// perform build work items.
 	Concurrency int `env:"CONCURRENCY,default=30"`
 
-	// EnableGoatCounter enables Goat Counter analytics, which is a less
-	// invasive version of Google Analytics that collects less information,
-	// does less user tracking, and is not an ad company. Currently I'm
-	// experimenting with it as a possibility of a full alternative.
-	EnableGoatCounter bool `env:"ENABLE_GOAT_COUNTER,default=false"`
-
-	// GoogleAnalyticsID is the account identifier for Google Analytics to use.
-	GoogleAnalyticsID string `env:"GOOGLE_ANALYTICS_ID"`
-
 	// LocalFonts starts using locally downloaded versions of Google Fonts.
 	// This is not ideal for real deployment because you won't be able to
 	// leverage Google's CDN and the caching that goes with it, and may not get

@@ -21,13 +21,11 @@ import (
 	"github.com/brandur/modulir"
 	"github.com/brandur/modulir/modules/matom"
 	"github.com/brandur/modulir/modules/mfile"
-	"github.com/brandur/modulir/modules/mimage"
 	"github.com/brandur/modulir/modules/mmarkdownext"
 	"github.com/brandur/modulir/modules/mtemplate"
 	"github.com/brandur/modulir/modules/mtoc"
 	"github.com/brandur/modulir/modules/mtoml"
 	"github.com/brandur/sorg/modules/scommon"
-	"github.com/brandur/sorg/modules/squantified"
 	"github.com/brandur/sorg/modules/stemplate"
 )
 
@@ -182,8 +180,6 @@ func build(c *modulir.Context) []error {
 
 	ctx := context.Background()
 
-	ctx, downloadedImageContainer := mtemplate.DownloadedImageContext(ctx)
-
 	//
 	// Common directories
 	//
@@ -194,7 +190,6 @@ func build(c *modulir.Context) []error {
 	{
 		commonDirs := []string{
 			c.TargetDir + "/articles",
-			c.TargetDir + "/reading",
 			scommon.TempDir,
 			versionedAssetsDir,
 		}
@@ -212,10 +207,8 @@ func build(c *modulir.Context) []error {
 
 	{
 		commonSymlinks := [][2]string{
-			{c.SourceDir + "/content/fonts", c.TargetDir + "/assets/fonts"},
 			{c.SourceDir + "/content/images", c.TargetDir + "/assets/images"},
 			{c.SourceDir + "/content/javascripts", versionedAssetsDir + "/javascripts"},
-			{c.SourceDir + "/content/photographs", c.TargetDir + "/photographs"},
 			{c.SourceDir + "/content/stylesheets", versionedAssetsDir + "/stylesheets"},
 		}
 		for _, link := range commonSymlinks {
@@ -270,16 +263,6 @@ func build(c *modulir.Context) []error {
 				return renderPage(ctx, c, source, pages, &pagesMu)
 			})
 		}
-	}
-
-	//
-	// Reading
-	//
-
-	{
-		c.AddJob("reading", func() (bool, error) {
-			return renderReading(ctx, c)
-		})
 	}
 
 	//
@@ -340,17 +323,6 @@ func build(c *modulir.Context) []error {
 			return renderHome(ctx, c, articles,
 				articlesChanged)
 		})
-	}
-
-	// From `DownloadedImage` template tags.
-	{
-		for i := range downloadedImageContainer.Images {
-			imageInfo := downloadedImageContainer.Images[i]
-
-			c.AddJob("downloaded image: "+imageInfo.Slug, func() (bool, error) {
-				return fetchAndResizeDownloadedImage(c, c.SourceDir+"/content/photographs", imageInfo)
-			})
-		}
 	}
 
 	return nil
@@ -470,12 +442,6 @@ type articleYear struct {
 	Articles []*Article
 }
 
-// readingYear holds a collection of readings grouped by year.
-type readingYear struct {
-	Year     int
-	Readings []*squantified.Reading
-}
-
 //////////////////////////////////////////////////////////////////////////////
 //
 //
@@ -513,40 +479,14 @@ func extImageTarget(canonicalExt string) string {
 	return canonicalExt
 }
 
-var cropDefault = &mimage.PhotoCropSettings{Portrait: "2:3", Landscape: "3:2"}
-
-func fetchAndResizeDownloadedImage(c *modulir.Context,
-	targetDir string, imageInfo *mtemplate.DownloadedImageInfo,
-) (bool, error) {
-	base := filepath.Base(imageInfo.Slug)
-	dir := targetDir + filepath.Dir(imageInfo.Slug)
-
-	extImageTarget := func(canonicalExt string) string {
-		if canonicalExt == ".heic" {
-			return ".webp"
-		}
-
-		return canonicalExt
-	}
-
-	return mimage.FetchAndResizeImage(c, imageInfo.URL, dir, base, extImageTarget(imageInfo.OriginalExt()), mimage.PhotoGravityCenter,
-		[]mimage.PhotoSize{
-			{Suffix: "", Width: imageInfo.Width, CropSettings: cropDefault},
-			{Suffix: "@2x", Width: imageInfo.Width * 2, CropSettings: cropDefault},
-		})
-}
-
 // Gets a map of local values for use while rendering a template and includes
 // a few "special" values that are globally relevant to all templates.
 func getLocals(locals map[string]interface{}) map[string]interface{} {
 	defaults := map[string]interface{}{
-		"AbsoluteURL":       conf.AbsoluteURL,
-		"EnableGoatCounter": conf.EnableGoatCounter,
-		"GoogleAnalyticsID": conf.GoogleAnalyticsID,
-		"LocalFonts":        conf.LocalFonts,
-		"Release":           Release,
-		"SorgEnv":           conf.SorgEnv,
-		"TitleSuffix":       scommon.TitleSuffix,
+		"AbsoluteURL": conf.AbsoluteURL,
+		"Release":     Release,
+		"SorgEnv":     conf.SorgEnv,
+		"TitleSuffix": scommon.TitleSuffix,
 	}
 
 	for k, v := range locals {
@@ -567,22 +507,6 @@ func groupArticlesByYear(articles []*Article) []*articleYear {
 		}
 
 		year.Articles = append(year.Articles, article)
-	}
-
-	return years
-}
-
-func groupReadingsByYear(readings []*squantified.Reading) []*readingYear {
-	var year *readingYear
-	var years []*readingYear
-
-	for _, reading := range readings {
-		if year == nil || year.Year != reading.ReadAt.Year() {
-			year = &readingYear{reading.ReadAt.Year(), nil}
-			years = append(years, year)
-		}
-
-		year.Readings = append(year.Readings, reading)
 	}
 
 	return years
@@ -907,37 +831,6 @@ func renderPage(ctx context.Context, c *modulir.Context,
 	}
 
 	pageMeta.dependencies = dependencies.getDependencies(source)
-
-	return true, nil
-}
-
-func renderReading(ctx context.Context, c *modulir.Context) (bool, error) {
-	source := scommon.ViewsDir + "/reading/index.tmpl.html"
-	viewsChanged := c.ChangedAny(
-		append([]string{
-			c.SourceDir + "/content/reading/_meta.toml",
-		},
-			dependencies.getDependencies(source)...,
-		)...)
-	if !c.FirstRun && !viewsChanged {
-		return false, nil
-	}
-
-	readings, err := squantified.GetReadingsData(c, c.SourceDir+"/content/reading/_meta.toml")
-	if err != nil {
-		return false, err
-	}
-
-	readingsByYear := groupReadingsByYear(readings)
-
-	locals := getLocals(map[string]interface{}{
-		"ReadingsByYear": readingsByYear,
-	})
-
-	err = dependencies.renderGoTemplate(ctx, c, source, path.Join(c.TargetDir, "reading/index.html"), locals)
-	if err != nil {
-		return true, err
-	}
 
 	return true, nil
 }

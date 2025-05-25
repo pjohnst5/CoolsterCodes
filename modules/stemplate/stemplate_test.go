@@ -5,8 +5,6 @@ import (
 	"time"
 
 	assert "github.com/stretchr/testify/require"
-
-	_ "github.com/brandur/sorg/modules/stesting"
 )
 
 var testTime time.Time
