@@ -19,7 +19,6 @@ func TestDependencyRegistryParseGoTemplate(t *testing.T) {
 			"layouts/main.tmpl.html",
 			"views/_tailwind_stylesheets.tmpl.html",
 			"views/_dark_mode_js.tmpl.html",
-			"views/_analytics_js.tmpl.html",
 			"views/_shiki_js.tmpl.html",
 		}, dependencies)
 	}

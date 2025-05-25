@@ -8,8 +8,6 @@ env:
   AWS_EC2_METADATA_DISABLED: true
 
   CONCURRENCY: 10 # reduced because I think I'm running into Dropbox rate problems
-  ENABLE_GOAT_COUNTER: true
-  GOOGLE_ANALYTICS_ID: UA-47798518-1
 
   # Paths for various manually installed utilities. Don't try to use $HOME
   # because GitHub Actions won't support it.
