@@ -244,14 +244,6 @@ else
 	# No AWS access key. Skipping photographs-download-markers.
 endif
 
-.PHONY: photographs-upload
-photographs-upload:
-ifdef AWS_ACCESS_KEY_ID
-	aws s3 sync content/photographs/ s3://$(PHOTOGRAPHS_S3_BUCKET)/ --size-only
-else
-	# No AWS access key. Skipping photographs-upload.
-endif
-
 .PHONY: sigusr2
 sigusr2:
 	killall -SIGUSR2 sorg

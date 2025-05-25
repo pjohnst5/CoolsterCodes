@@ -203,9 +203,6 @@ jobs:
           S3_BUCKET: brandur.org
           TARGET_DIR: ./public
 
-      - name: Upload photos
-        run: make photographs-upload
-
   golangci-lint:
     runs-on: ubuntu-latest
     timeout-minutes: 3
