@@ -21,7 +21,6 @@ import (
 	"github.com/brandur/modulir"
 	"github.com/brandur/modulir/modules/matom"
 	"github.com/brandur/modulir/modules/mfile"
-	"github.com/brandur/modulir/modules/mimage"
 	"github.com/brandur/modulir/modules/mmarkdownext"
 	"github.com/brandur/modulir/modules/mtemplate"
 	"github.com/brandur/modulir/modules/mtoc"
@@ -478,29 +477,6 @@ func extImageTarget(canonicalExt string) string {
 	}
 
 	return canonicalExt
-}
-
-var cropDefault = &mimage.PhotoCropSettings{Portrait: "2:3", Landscape: "3:2"}
-
-func fetchAndResizeDownloadedImage(c *modulir.Context,
-	targetDir string, imageInfo *mtemplate.DownloadedImageInfo,
-) (bool, error) {
-	base := filepath.Base(imageInfo.Slug)
-	dir := targetDir + filepath.Dir(imageInfo.Slug)
-
-	extImageTarget := func(canonicalExt string) string {
-		if canonicalExt == ".heic" {
-			return ".webp"
-		}
-
-		return canonicalExt
-	}
-
-	return mimage.FetchAndResizeImage(c, imageInfo.URL, dir, base, extImageTarget(imageInfo.OriginalExt()), mimage.PhotoGravityCenter,
-		[]mimage.PhotoSize{
-			{Suffix: "", Width: imageInfo.Width, CropSettings: cropDefault},
-			{Suffix: "@2x", Width: imageInfo.Width * 2, CropSettings: cropDefault},
-		})
 }
 
 // Gets a map of local values for use while rendering a template and includes
