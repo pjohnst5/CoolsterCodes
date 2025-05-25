@@ -23,10 +23,15 @@ Remove "raws" (.monopic, under /content/raws) ✅
 Remove "strava" ✅
 Remove "photos" in build.go? Not sure ✅
 Remove "Belize" / Make one final round ✅
-    Removed "reading" ✅
+    Remove "reading" ✅
+    Remove "google analytics" ✅
+    Remove "fonts" ✅
+What CSS is used here?
+What is retina?
 What are "Markers"? ✅
     - The prevent already-resized-checked-in photos from being re-processed ✅
-What are Modules?
+What are Modules? ✅
+    - They're various helper functions to build TOC, format time etc. ✅
 Figure out how to make Articles main page
 Implement Tags
 Remove all other Articles
