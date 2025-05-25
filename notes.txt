@@ -22,10 +22,8 @@ Remove "talks" ✅
 Remove "raws" (.monopic, under /content/raws) ✅
 Remove "strava" ✅
 Remove "photos" in build.go? Not sure ✅
-Remove "Belize" / Make one final round
-    Maybe keep "Reading", seems cool
-    Or would that just be a tag? 🤔
-    Probably just start with a tag for now haha
+Remove "Belize" / Make one final round ✅
+    Removed "reading" ✅
 What are "Markers"? ✅
     - The prevent already-resized-checked-in photos from being re-processed ✅
 What are Modules?

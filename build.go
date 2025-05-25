@@ -27,7 +27,6 @@ import (
 	"github.com/brandur/modulir/modules/mtoc"
 	"github.com/brandur/modulir/modules/mtoml"
 	"github.com/brandur/sorg/modules/scommon"
-	"github.com/brandur/sorg/modules/squantified"
 	"github.com/brandur/sorg/modules/stemplate"
 )
 
@@ -194,7 +193,6 @@ func build(c *modulir.Context) []error {
 	{
 		commonDirs := []string{
 			c.TargetDir + "/articles",
-			c.TargetDir + "/reading",
 			scommon.TempDir,
 			versionedAssetsDir,
 		}
@@ -270,16 +268,6 @@ func build(c *modulir.Context) []error {
 				return renderPage(ctx, c, source, pages, &pagesMu)
 			})
 		}
-	}
-
-	//
-	// Reading
-	//
-
-	{
-		c.AddJob("reading", func() (bool, error) {
-			return renderReading(ctx, c)
-		})
 	}
 
 	//
@@ -470,12 +458,6 @@ type articleYear struct {
 	Articles []*Article
 }
 
-// readingYear holds a collection of readings grouped by year.
-type readingYear struct {
-	Year     int
-	Readings []*squantified.Reading
-}
-
 //////////////////////////////////////////////////////////////////////////////
 //
 //
@@ -567,22 +549,6 @@ func groupArticlesByYear(articles []*Article) []*articleYear {
 		}
 
 		year.Articles = append(year.Articles, article)
-	}
-
-	return years
-}
-
-func groupReadingsByYear(readings []*squantified.Reading) []*readingYear {
-	var year *readingYear
-	var years []*readingYear
-
-	for _, reading := range readings {
-		if year == nil || year.Year != reading.ReadAt.Year() {
-			year = &readingYear{reading.ReadAt.Year(), nil}
-			years = append(years, year)
-		}
-
-		year.Readings = append(year.Readings, reading)
 	}
 
 	return years
@@ -907,37 +873,6 @@ func renderPage(ctx context.Context, c *modulir.Context,
 	}
 
 	pageMeta.dependencies = dependencies.getDependencies(source)
-
-	return true, nil
-}
-
-func renderReading(ctx context.Context, c *modulir.Context) (bool, error) {
-	source := scommon.ViewsDir + "/reading/index.tmpl.html"
-	viewsChanged := c.ChangedAny(
-		append([]string{
-			c.SourceDir + "/content/reading/_meta.toml",
-		},
-			dependencies.getDependencies(source)...,
-		)...)
-	if !c.FirstRun && !viewsChanged {
-		return false, nil
-	}
-
-	readings, err := squantified.GetReadingsData(c, c.SourceDir+"/content/reading/_meta.toml")
-	if err != nil {
-		return false, err
-	}
-
-	readingsByYear := groupReadingsByYear(readings)
-
-	locals := getLocals(map[string]interface{}{
-		"ReadingsByYear": readingsByYear,
-	})
-
-	err = dependencies.renderGoTemplate(ctx, c, source, path.Join(c.TargetDir, "reading/index.html"), locals)
-	if err != nil {
-		return true, err
-	}
 
 	return true, nil
 }
