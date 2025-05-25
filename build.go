@@ -522,13 +522,11 @@ func fetchAndResizeDownloadedImage(c *modulir.Context,
 // a few "special" values that are globally relevant to all templates.
 func getLocals(locals map[string]interface{}) map[string]interface{} {
 	defaults := map[string]interface{}{
-		"AbsoluteURL":       conf.AbsoluteURL,
-		"EnableGoatCounter": conf.EnableGoatCounter,
-		"GoogleAnalyticsID": conf.GoogleAnalyticsID,
-		"LocalFonts":        conf.LocalFonts,
-		"Release":           Release,
-		"SorgEnv":           conf.SorgEnv,
-		"TitleSuffix":       scommon.TitleSuffix,
+		"AbsoluteURL": conf.AbsoluteURL,
+		"LocalFonts":  conf.LocalFonts,
+		"Release":     Release,
+		"SorgEnv":     conf.SorgEnv,
+		"TitleSuffix": scommon.TitleSuffix,
 	}
 
 	for k, v := range locals {
