@@ -19,3 +19,13 @@ struct {
     baller: bool -> true
 }
 ```
+
+<img src="/assets/images/two-phase-render/n_times_m_plus_one.svg" alt="N*M+1.">
+
+<img src="/assets/images/hey/screenshot.png" alt="hey">
+
+Hey
+
+Okay
+
+So it kind of previews..
