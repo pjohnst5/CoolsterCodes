@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"html/template"
 	"net/url"
 	"os"
@@ -19,7 +18,6 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/brandur/modulir"
-	"github.com/brandur/modulir/modules/matom"
 	"github.com/brandur/modulir/modules/mfile"
 	"github.com/brandur/modulir/modules/mmarkdownext"
 	"github.com/brandur/modulir/modules/mtemplate"
@@ -38,12 +36,6 @@ import (
 //
 //
 //////////////////////////////////////////////////////////////////////////////
-
-// A set of tag constants to hopefully help ensure that this set doesn't grow
-// very much.
-const (
-	tagPostgres Tag = "postgres"
-)
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -298,22 +290,6 @@ func build(c *modulir.Context) []error {
 		})
 	}
 
-	// Feed (all)
-	{
-		c.AddJob("articles feed", func() (bool, error) {
-			return renderArticlesFeed(c, articles, nil,
-				articlesChanged)
-		})
-	}
-
-	// Feed (Postgres)
-	{
-		c.AddJob("articles feed (postgres)", func() (bool, error) {
-			return renderArticlesFeed(c, articles, tagPointer(tagPostgres),
-				articlesChanged)
-		})
-	}
-
 	//
 	// Home
 	//
@@ -397,18 +373,6 @@ func (a *Article) publishingInfo() map[string]string {
 	info["Location"] = a.Location
 
 	return info
-}
-
-// taggedWith returns true if the given tag is in this article's set of tags
-// and false otherwise.
-func (a *Article) taggedWith(tag Tag) bool {
-	for _, t := range a.Tags {
-		if t == tag {
-			return true
-		}
-	}
-
-	return false
 }
 
 func (a *Article) validate(source string) error {
@@ -661,70 +625,6 @@ func renderArticlesIndex(ctx context.Context, c *modulir.Context, articles []*Ar
 		path.Join(c.TargetDir, "articles/index.html"), locals)
 }
 
-func renderArticlesFeed(_ *modulir.Context, articles []*Article, tag *Tag, articlesChanged bool) (bool, error) {
-	if !articlesChanged {
-		return false, nil
-	}
-
-	name := "articles"
-	if tag != nil {
-		name = fmt.Sprintf("articles-%s", *tag)
-	}
-	atomPath := name + ".atom"
-
-	title := "Articles" + scommon.TitleSuffix
-	if tag != nil {
-		title = fmt.Sprintf("Articles%s (%s)", scommon.TitleSuffix, *tag)
-	}
-
-	feed := &matom.Feed{
-		Title: title,
-		ID:    "tag:" + scommon.AtomTag + ",2013:/" + name,
-
-		Links: []*matom.Link{
-			{Rel: "self", Type: "application/atom+xml", Href: "https://brandur.org/" + atomPath},
-			{Rel: "alternate", Type: "text/html", Href: "https://brandur.org"},
-		},
-	}
-
-	if len(articles) > 0 {
-		feed.Updated = articles[0].PublishedAt
-	}
-
-	for i, article := range articles {
-		if tag != nil && !article.taggedWith(*tag) {
-			continue
-		}
-
-		if i >= conf.NumAtomEntries {
-			break
-		}
-
-		entry := &matom.Entry{
-			Title:     article.Title,
-			Summary:   string(article.Hook),
-			Content:   &matom.EntryContent{Content: string(article.Content), Type: "html"},
-			Published: article.PublishedAt,
-			Updated:   article.PublishedAt,
-			Link:      &matom.Link{Href: conf.AbsoluteURL + "/" + article.Slug},
-			ID:        "tag:" + scommon.AtomTag + "," + article.PublishedAt.Format("2006-01-02") + ":" + article.Slug,
-
-			AuthorName: scommon.AtomAuthorName,
-			AuthorURI:  conf.AbsoluteURL,
-		}
-		feed.Entries = append(feed.Entries, entry)
-	}
-
-	filename := path.Join(conf.TargetDir, atomPath)
-	f, err := os.Create(filename)
-	if err != nil {
-		return true, xerrors.Errorf("error creating file '%s': %w", filename, err)
-	}
-	defer f.Close()
-
-	return true, feed.Encode(f, "  ")
-}
-
 var markdownLinkRE = regexp.MustCompile(`\[(.*?)\]\(.*?\)`)
 
 func simplifyMarkdownForSummary(str string) string {
@@ -833,10 +733,4 @@ func renderPage(ctx context.Context, c *modulir.Context,
 	pageMeta.dependencies = dependencies.getDependencies(source)
 
 	return true, nil
-}
-
-// Gets a pointer to a tag just to work around the fact that you can take the
-// address of a constant like `tagPostgres`.
-func tagPointer(tag Tag) *Tag {
-	return &tag
 }

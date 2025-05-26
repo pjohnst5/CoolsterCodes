@@ -37,8 +37,8 @@ Have to really see, if I want to use this image flow (seems kind of convoluted):
     - Doesn't preview on my vscode but does in browser I guess
     - Okay yeah, ultimately I do like the design of brandur.org better, it will just be a bit of a pain/annoyance
         To render an @2x picture each time I guess lols
-    - Need to figure out tags though
-    - Ooo, what if i renamed "assets" to "content" though? 👀
+What is articles feed? ✅
+    - It was to make an atoms feed, we don't need it ✅
 Figure out how to make Articles main page
 Implement Tags
 Remove all other Articles
