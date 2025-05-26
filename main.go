@@ -107,24 +107,9 @@ type Conf struct {
 	// It's used for things like Atom feeds and sending email.
 	AbsoluteURL string `env:"ABSOLUTE_URL,default=https://brandur.org"`
 
-	// BlackSwanDatabaseURL is a connection string for a database to connect to
-	// in order to extract books, tweets, runs, etc.
-	BlackSwanDatabaseURL string `env:"BLACK_SWAN_DATABASE_URL"`
-
 	// Concurrency is the number of build Goroutines that will be used to
 	// perform build work items.
 	Concurrency int `env:"CONCURRENCY,default=30"`
-
-	// LocalFonts starts using locally downloaded versions of Google Fonts.
-	// This is not ideal for real deployment because you won't be able to
-	// leverage Google's CDN and the caching that goes with it, and may not get
-	// the font format for requesting browsers, but good for airplane rides
-	// where you otherwise wouldn't have the fonts.
-	LocalFonts bool `env:"LOCAL_FONTS,default=false"`
-
-	// MailgunAPIKey is a key for Mailgun used to send email. It's required
-	// when using the `passages` command.
-	MailgunAPIKey string `env:"MAILGUN_API_KEY"`
 
 	// MagickBin is the location of the `magick` binary that ships with the
 	// ImageMagick project (an image manipulation utility).

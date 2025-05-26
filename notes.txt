@@ -32,6 +32,12 @@ What are "Markers"? ✅
     - The prevent already-resized-checked-in photos from being re-processed ✅
 What are Modules? ✅
     - They're various helper functions to build TOC, format time etc. ✅
+Have to really see, if I want to use this image flow (seems kind of convoluted):
+    - Need to make an "@2x" version of each picture
+    - Doesn't preview on my vscode but does in browser I guess
+    - Okay yeah, ultimately I do like the design of brandur.org better, it will just be a bit of a pain/annoyance
+        To render an @2x picture each time I guess lols
+    - Need to figure out tags though
 Figure out how to make Articles main page
 Implement Tags
 Remove all other Articles
