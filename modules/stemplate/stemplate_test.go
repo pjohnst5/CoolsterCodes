@@ -40,39 +40,6 @@ func TestInKM(t *testing.T) {
 	assert.Equal(t, 2.342, inKM(2342.0)) //nolint:testifylint
 }
 
-func TestLazyRetinaImage(t *testing.T) {
-	assert.Equal(t,
-		`<img class="lazy" src="/assets/images/standin_00.jpg" data-src="/photographs/other/001.jpg" `+
-			`data-srcset="/photographs/other/001@2x.jpg 2x, /photographs/other/001.jpg 1x">`,
-		string(lazyRetinaImage(0, "/photographs/other/", "001", ".jpg")),
-	)
-}
-
-func TestLazyRetinaImageLightbox(t *testing.T) {
-	assert.Equal(t,
-		`<a href="/photographs/other/001@2x.jpg">`+
-			`<img class="lazy" src="/assets/images/standin_00.jpg" data-src="/photographs/other/001.jpg" `+
-			`data-srcset="/photographs/other/001@2x.jpg 2x, /photographs/other/001.jpg 1x"></a>`,
-		string(lazyRetinaImageLightbox(0, "/photographs/other/", "001", ".jpg", false, "")),
-	)
-
-	// Portrait
-	assert.Equal(t,
-		`<a href="/photographs/other/001@2x.jpg">`+
-			`<img class="lazy" src="/assets/images/standin_portrait_00.jpg" data-src="/photographs/other/001.jpg" `+
-			`data-srcset="/photographs/other/001@2x.jpg 2x, /photographs/other/001.jpg 1x"></a>`,
-		string(lazyRetinaImageLightbox(0, "/photographs/other/", "001", ".jpg", true, "")),
-	)
-
-	// Link override
-	assert.Equal(t,
-		`<a href="/photographs/other/001">`+
-			`<img class="lazy" src="/assets/images/standin_00.jpg" data-src="/photographs/other/001.jpg" `+
-			`data-srcset="/photographs/other/001@2x.jpg 2x, /photographs/other/001.jpg 1x"></a>`,
-		string(lazyRetinaImageLightbox(0, "/photographs/other/", "001", ".jpg", false, "/photographs/other/001")),
-	)
-}
-
 func TestMod(t *testing.T) {
 	assert.Equal(t, 0, mod(2, 2))
 	assert.Equal(t, 1, mod(3, 2))
@@ -101,14 +68,6 @@ func TestPace(t *testing.T) {
 
 	// Slow: 133 m ran in 60 seconds which is 7:31 per km.
 	assert.Equal(t, "7:31", pace(133.0, d))
-}
-
-func TestRetinaImageAlt(t *testing.T) {
-	assert.Equal(t,
-		`<img alt="alt text" loading="lazy" src="/photographs/other/001.jpg" `+
-			`srcset="/photographs/other/001@2x.jpg 2x, /photographs/other/001.jpg 1x">`,
-		string(RetinaImageAlt("/photographs/other/001.jpg", "alt text")),
-	)
 }
 
 func TestRound(t *testing.T) {

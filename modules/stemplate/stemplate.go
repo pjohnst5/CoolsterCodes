@@ -11,33 +11,28 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
-	"github.com/brandur/modulir/modules/mtemplate"
 )
 
 // FuncMap is a set of helper functions to make available in templates for the
 // project.
 var FuncMap = template.FuncMap{
-	"Downcase":                downcase,
-	"Favicon":                 favicon,
-	"FormatTimeLocal":         formatTimeLocal,
-	"FormatTimeWithMinute":    formatTimeWithMinute,
-	"FormatTimeYearMonth":     formatTimeYearMonth,
-	"InKM":                    inKM,
-	"LazyRetinaImage":         lazyRetinaImage,
-	"LazyRetinaImageLightbox": lazyRetinaImageLightbox,
-	"Mod":                     mod,
-	"MonthName":               monthName,
-	"NumberWithDelimiter":     numberWithDelimiter,
-	"Pace":                    pace,
-	"RandIntN":                rand.IntN,
-	"RenderPublishingInfo":    renderPublishingInfo,
-	"RetinaImageAlt":          RetinaImageAlt,
-	"Sub":                     sub,
-	"ToStars":                 toStars,
-	"TimeInLocal":             timeInLocal,
-	"URLBaseExt":              urlBaseExt,
-	"URLBaseFile":             urlBaseFile,
+	"Downcase":             downcase,
+	"Favicon":              favicon,
+	"FormatTimeLocal":      formatTimeLocal,
+	"FormatTimeWithMinute": formatTimeWithMinute,
+	"FormatTimeYearMonth":  formatTimeYearMonth,
+	"InKM":                 inKM,
+	"Mod":                  mod,
+	"MonthName":            monthName,
+	"NumberWithDelimiter":  numberWithDelimiter,
+	"Pace":                 pace,
+	"RandIntN":             rand.IntN,
+	"RenderPublishingInfo": renderPublishingInfo,
+	"Sub":                  sub,
+	"ToStars":              toStars,
+	"TimeInLocal":          timeInLocal,
+	"URLBaseExt":           urlBaseExt,
+	"URLBaseFile":          urlBaseFile,
 }
 
 // LocalLocation is the location to show times in which use FormatTimeLocal.
@@ -78,48 +73,6 @@ func formatTimeYearMonth(t time.Time) string {
 
 func formatTimeWithMinute(t time.Time) string {
 	return toNonBreakingWhitespace(t.Format("January 2, 2006 15:04"))
-}
-
-// Produces a retina-compatible photograph that's lazy loaded. Largely used for
-// the photographs and sequences sets.
-func lazyRetinaImage(index int, path, slug, ext string) template.HTML {
-	return lazyRetinaImageLightboxMaybe(index, path, slug, ext, false, "", false)
-}
-
-// Same as the above, but also allows the image to be clicked to get a
-// lightbox.
-func lazyRetinaImageLightbox(index int, path, slug, ext string, portrait bool, linkOverride string) template.HTML {
-	return lazyRetinaImageLightboxMaybe(index, path, slug, ext, portrait, linkOverride, true)
-}
-
-func lazyRetinaImageLightboxMaybe(index int, path, slug, ext string, portrait bool, linkOverride string,
-	lightbox bool,
-) template.HTML {
-	slug = mtemplate.QueryEscape(slug)
-	fullPath := path + slug + ext
-	fullPathRetina := path + slug + "@2x" + ext
-
-	var standinPath string
-	if portrait {
-		// We only have one portrait standin currently (thus `% 1`).
-		//nolint:staticcheck
-		standinPath = fmt.Sprintf("/assets/images/standin_portrait_0%d.jpg", index%1)
-	} else {
-		standinPath = fmt.Sprintf("/assets/images/standin_0%d.jpg", index%5)
-	}
-
-	code := fmt.Sprintf(`<img class="lazy" src="%s" data-src="%s" data-srcset="%s 2x, %s 1x">`,
-		standinPath, fullPath, fullPathRetina, fullPath)
-
-	if lightbox {
-		if linkOverride == "" {
-			linkOverride = fullPathRetina
-		}
-
-		code = fmt.Sprintf(`<a href="%s">%s</a>`, linkOverride, code)
-	}
-
-	return template.HTML(code)
 }
 
 // This is a little tricky, but converts normal spaces to non-breaking spaces
@@ -196,16 +149,6 @@ func renderPublishingInfo(info map[string]string) template.HTML {
 	}
 
 	return template.HTML(s)
-}
-
-// RetinaImageAlt is a shortcut for creating an image with
-// `mtemplate.ImgAndAlt` and rendering it with `mteplate.RenderHTML`. This is
-// mostly for backwards compatibility as the interface was changed around a
-// bit.
-func RetinaImageAlt(src, alt string) template.HTML {
-	return mtemplate.HTMLRender(
-		mtemplate.ImgSrcAndAlt(src, alt),
-	)
 }
 
 // There is no "round" function built into Go :/.

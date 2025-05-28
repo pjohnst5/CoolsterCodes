@@ -111,9 +111,6 @@ jobs:
       - name: "Check: Markdown headers"
         run: make check-headers
 
-      - name: "Check: Retina assets"
-        run: make check-retina
-
   check_tailwind:
     runs-on: macos-latest
     timeout-minutes: 3
