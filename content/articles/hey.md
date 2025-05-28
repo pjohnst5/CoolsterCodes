@@ -19,18 +19,14 @@ struct {
     baller: bool -> true
 }
 ```
+Figure
+<figure>
+  <p><a href="https://www.behance.net/gallery/Transworld-Surf-Redesign/13052023"><img src="/assets/images/page/transworld-surf.jpg"></a></p>
+  <figcaption>Late 2011 redesign of the Transworld Surf magazine.</figcaption>
+</figure>
 
-
-<!-- ![](/content/images/hey/pexels-photo-1108099.jpeg) -->
-<!--
-<img src="/content/images/two-phase-render/n_times_m_plus_one.svg" alt="N*M+1.">
- -->
+Screenshot with @2 in it
 <img src="/assets/images/hey/screenshot.png" alt="hey">
 
+Puppies
 <img src="/content/images/hey/pexels-photo-1108099.jpeg" >
-
-Hey
-
-Okay
-
-So it kind of previews..
