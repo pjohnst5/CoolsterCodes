@@ -29,4 +29,4 @@ Screenshot with @2 in it
 <img src="/assets/images/hey/screenshot.png" alt="hey">
 
 Puppies
-<img src="/content/images/hey/pexels-photo-1108099.jpeg" >
+<img src="/assets/images/hey/pexels-photo-1108099.jpeg" >
