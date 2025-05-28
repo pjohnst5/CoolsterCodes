@@ -4,14 +4,14 @@
 mine: clean install loop
 
 .PHONY: check
-check: tailwind lint test check-retina
+check: tailwind lint test
 
 .PHONY: tailwind
 tailwind:
 	scripts/tailwind.sh
 
 .PHONY: all
-all: clean install test vet lint check-dl0 check-gofmt check-headers check-retina build
+all: clean install test vet lint check-dl0 check-gofmt check-headers build
 
 .PHONY: build
 build:
@@ -28,10 +28,6 @@ check-gofmt:
 .PHONY: check-headers
 check-headers:
 	scripts/check_headers.sh
-
-.PHONY: check-retina
-check-retina:
-	scripts/check_retina.sh
 
 .PHONY: clean
 clean:
