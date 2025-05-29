@@ -20,6 +20,7 @@ Remove "strava" ✅
 Remove "photos" in build.go? Not sure ✅
 Remove "Mozbin" ✅
 Remove "Magikbin" ✅
+Remove "PNGQuantBin" ✅
 Remove "Belize" / Make one final round ✅
     Remove "reading" ✅
     Remove "google analytics" ✅
