@@ -1,7 +1,7 @@
 +++
 hook = "This is my first blog post"
 image = "/assets/images/two-phase-render/vista.jpg"
-location = "SLC"
+location = "Utah"
 published_at = 2025-05-19T14:52:52Z
 title = "Ballin' like a baller"
 +++
