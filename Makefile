@@ -189,34 +189,6 @@ lint:
 loop:
 	$(shell go env GOPATH)/bin/sorg loop
 
-# `git add` any markers not already tracked by Git.
-markers-add:
-	git ls-files $(DIR) --others --exclude-standard '*.marker' | xargs -n1 git add
-
-# Resets all `.marker` files showing up as modified in Git because their
-# modified time was slightly altered. Useful after a big photo sync that leaves
-# a bunch of markers in a modified or added state.
-.PHONY: markers-gco
-markers-gco:
-	git ls-files --modified --exclude-standard "*.marker" | xargs git checkout
-
-# Remove untracked `.marker` files, which can be useful in cases where markers
-# have been committed to the Git repository on one computer, and Git is now
-# preventing a pull on a different one because it'd overwrite local markers
-# (that are functionally the same thing but considered different).
-#
-# Remove all untracked markers:
-#
-#     make markers-rm
-#
-# Remove untracked markers in a specific directory:
-#
-#     make DIR="/content/photographs/sequences" markers-rm
-#
-.PHONY: markers-rm
-markers-rm:
-	git ls-files $(DIR) --others --exclude-standard '*.marker' | xargs -n1 rm
-
 .PHONY: sigusr2
 sigusr2:
 	killall -SIGUSR2 sorg
