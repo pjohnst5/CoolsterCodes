@@ -10,8 +10,8 @@ import (
 	"github.com/spf13/cobra"
 	"golang.org/x/term"
 
-	"github.com/brandur/modulir"
-	"github.com/brandur/modulir/modules/mimage"
+	"github.com/brandur/sorg/modules/modulir"
+	"github.com/brandur/sorg/modules/modulir/mimage"
 	"github.com/brandur/sorg/modules/scommon"
 )
 
