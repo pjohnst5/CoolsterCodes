@@ -344,8 +344,6 @@ func transformFootnotes(source string, options *RenderOptions) (string, error) {
 	return source, nil
 }
 
-var imageRE = regexp.MustCompile(`<img src="([^"]+)"([^>]*)`)
-
 var relativeImageRE = regexp.MustCompile(`<img src="/`)
 
 var relativeLinkRE = regexp.MustCompile(`<a href="/`)
