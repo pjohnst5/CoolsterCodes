@@ -42,6 +42,11 @@ type Job struct {
 	Name string
 }
 
+// NewJob initializes and returns a new Job.
+func NewJob(name string, f func() (bool, error)) *Job {
+	return &Job{Name: name, F: f}
+}
+
 // Error returns the error message of the error wrapped in the job if this was
 // an errored job. Job implements the error interface so that it can return
 // itself in situations where error handling is being done but job errors may
@@ -55,11 +60,6 @@ func (j *Job) Error() string {
 	}
 
 	return j.Err.Error()
-}
-
-// NewJob initializes and returns a new Job.
-func NewJob(name string, f func() (bool, error)) *Job {
-	return &Job{Name: name, F: f}
 }
 
 // Pool is a worker group that runs a number of jobs at a configured
