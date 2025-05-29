@@ -33,11 +33,11 @@ What are Modules? ✅
 What is articles feed? ✅
     - It was to make an atoms feed, we don't need it ✅
 Explore docfx ✅
-Add in modulir local ✅
 What is retina? ✅
     - It was used to make smaller/bigger sized images for mobile/desktop/retina displays ✅
 Do we need "containerImages"? ✅
     - No, it was for photographs project ✅
+Add in modulir local ✅
 Images:
 - Remove srcset tag ✅
 - Change from "assets" to "content"
