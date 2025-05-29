@@ -187,7 +187,7 @@ func TestFigure(t *testing.T) {
 			t,
 			strings.TrimSpace(`
 <figure>
-    <img alt="alt" loading="lazy" src="src" srcset="src@2x 2x, src 1x">
+    <img alt="alt" loading="lazy" src="src">
     <figcaption>caption</figcaption>
 </figure>
 			`),
@@ -200,9 +200,9 @@ func TestFigure(t *testing.T) {
 			t,
 			strings.TrimSpace(`
 <figure>
-    <img alt="alt0" loading="lazy" src="src0" srcset="src0@2x 2x, src0 1x">
-    <img alt="alt1" loading="lazy" src="src1" srcset="src1@2x 2x, src1 1x">
-    <img alt="alt2" loading="lazy" src="src2" srcset="src2@2x 2x, src2 1x">
+    <img alt="alt0" loading="lazy" src="src0">
+    <img alt="alt1" loading="lazy" src="src1">
+    <img alt="alt2" loading="lazy" src="src2">
     <figcaption>caption</figcaption>
 </figure>
 			`),
@@ -219,7 +219,7 @@ func TestFigure(t *testing.T) {
 			t,
 			strings.TrimSpace(`
 <figure>
-    <img loading="lazy" src="src" srcset="src@2x 2x, src 1x">
+    <img loading="lazy" src="src">
 </figure>
 			`),
 			string(Figure("", &HTMLImage{Src: "src"})),
@@ -244,7 +244,7 @@ func TestHTMLImageRender(t *testing.T) {
 		img := HTMLImage{Src: "src", Alt: "alt"}
 		assert.Equal(
 			t,
-			`<img alt="alt" loading="lazy" src="src" srcset="src@2x 2x, src 1x">`,
+			`<img alt="alt" loading="lazy" src="src">`,
 			string(img.render()),
 		)
 	})
@@ -262,7 +262,7 @@ func TestHTMLImageRender(t *testing.T) {
 		img := HTMLImage{Src: "src", Alt: "alt", Class: "class"}
 		assert.Equal(
 			t,
-			`<img alt="alt" class="class" loading="lazy" src="src" srcset="src@2x 2x, src 1x">`,
+			`<img alt="alt" class="class" loading="lazy" src="src">`,
 			string(img.render()),
 		)
 	})
@@ -273,7 +273,7 @@ func TestHTMLRender(t *testing.T) {
 		assert.Equal(
 			t,
 			strings.TrimSpace(`
-<img alt="alt" loading="lazy" src="src" srcset="src@2x 2x, src 1x">
+<img alt="alt" loading="lazy" src="src">
 			`),
 			string(HTMLRender(
 				&HTMLImage{Src: "src", Alt: "alt"},
@@ -285,9 +285,9 @@ func TestHTMLRender(t *testing.T) {
 		assert.Equal(
 			t,
 			strings.TrimSpace(`
-<img alt="alt0" loading="lazy" src="src0" srcset="src0@2x 2x, src0 1x">
-<img alt="alt1" loading="lazy" src="src1" srcset="src1@2x 2x, src1 1x">
-<img alt="alt2" loading="lazy" src="src2" srcset="src2@2x 2x, src2 1x">
+<img alt="alt0" loading="lazy" src="src0">
+<img alt="alt1" loading="lazy" src="src1">
+<img alt="alt2" loading="lazy" src="src2">
 			`),
 			string(HTMLRender(
 				&HTMLImage{Src: "src0", Alt: "alt0"},
