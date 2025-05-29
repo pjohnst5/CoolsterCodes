@@ -11,8 +11,8 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/brandur/modulir"
-	"github.com/brandur/modulir/modules/mtemplatemd"
+	"github.com/brandur/sorg/modules/modulir"
+	"github.com/brandur/sorg/modules/modulir/mtemplatemd"
 	"github.com/brandur/sorg/modules/scommon"
 )
 

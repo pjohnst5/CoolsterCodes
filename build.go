@@ -17,12 +17,12 @@ import (
 	_ "github.com/lib/pq"
 	"golang.org/x/xerrors"
 
-	"github.com/brandur/modulir"
-	"github.com/brandur/modulir/modules/mfile"
-	"github.com/brandur/modulir/modules/mmarkdownext"
-	"github.com/brandur/modulir/modules/mtemplate"
-	"github.com/brandur/modulir/modules/mtoc"
-	"github.com/brandur/modulir/modules/mtoml"
+	"github.com/brandur/sorg/modules/modulir"
+	"github.com/brandur/sorg/modules/modulir/mfile"
+	"github.com/brandur/sorg/modules/modulir/mmarkdownext"
+	"github.com/brandur/sorg/modules/modulir/mtemplate"
+	"github.com/brandur/sorg/modules/modulir/mtoc"
+	"github.com/brandur/sorg/modules/modulir/mtoml"
 	"github.com/brandur/sorg/modules/scommon"
 	"github.com/brandur/sorg/modules/stemplate"
 )
