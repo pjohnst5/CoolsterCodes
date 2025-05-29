@@ -554,7 +554,6 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 		TemplateData: map[string]interface{}{
 			"Ctx": ctx,
 		},
-		NoRetina: true,
 	})
 	if err != nil {
 		return true, err
