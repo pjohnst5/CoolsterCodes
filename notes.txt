@@ -37,6 +37,7 @@ What is retina? ✅
     - It was used to make smaller/bigger sized images for mobile/desktop/retina displays ✅
 Do we need "containerImages"? ✅
     - No, it was for photographs project ✅
+Remove retina ✅
 Add in modulir local ✅
 Images:
 - Remove srcset tag ✅

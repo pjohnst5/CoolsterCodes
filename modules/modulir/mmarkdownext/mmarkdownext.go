@@ -13,8 +13,6 @@ import (
 
 	"golang.org/x/xerrors"
 	"gopkg.in/russross/blackfriday.v2"
-
-	"github.com/brandur/sorg/modules/modulir/mtemplate"
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -46,9 +44,6 @@ type RenderOptions struct {
 
 	// NoHeaderLinks disables automatic permalinks on headers.
 	NoHeaderLinks bool
-
-	// NoRetina disables the Retina.JS rendering attributes.
-	NoRetina bool
 
 	// TemplateData is data injected while rendering Go templates.
 	TemplateData interface{}
@@ -111,7 +106,6 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	transformLinksToNoFollow,
 
 	transformImagesAndLinksToAbsoluteURLs,
-	transformImagesToRetina,
 }
 
 // Look for any whitespace between HTML tags.
@@ -348,37 +342,6 @@ func transformFootnotes(source string, options *RenderOptions) (string, error) {
 	}
 
 	return source, nil
-}
-
-var imageRE = regexp.MustCompile(`<img src="([^"]+)"([^>]*)`)
-
-func transformImagesToRetina(source string, options *RenderOptions) (string, error) {
-	if options != nil && options.NoRetina {
-		return source, nil
-	}
-
-	// The basic idea here is that we give every image a `srcset` that includes
-	// 2x so that browsers will replace it with a retina version.
-	return imageRE.ReplaceAllStringFunc(source, func(img string) string {
-		matches := imageRE.FindStringSubmatch(img)
-
-		// SVGs are resolution-agnostic and don't need replacing.
-		if filepath.Ext(matches[1]) == ".svg" {
-			return fmt.Sprintf(`<img src="%s"%s`, matches[1], matches[2])
-		}
-
-		// If the image already has a srcset, do nothing.
-		if strings.Contains(matches[2], "srcset") {
-			return fmt.Sprintf(`<img src="%s"%s`, matches[1], matches[2])
-		}
-
-		return fmt.Sprintf(`<img src="%s" srcset="%s 2x, %s 1x"%s`,
-			matches[1],
-			mtemplate.To2X(matches[1]),
-			matches[1],
-			matches[2],
-		)
-	}), nil
 }
 
 var relativeImageRE = regexp.MustCompile(`<img src="/`)

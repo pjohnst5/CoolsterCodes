@@ -191,41 +191,6 @@ Conclusion.
 	)
 }
 
-func TestTransformImagesToRetina(t *testing.T) {
-	assert.Equal(t,
-		`<img src="/assets/hello.jpg" srcset="/assets/hello@2x.jpg 2x, /assets/hello.jpg 1x">`,
-		must(transformImagesToRetina(`<img src="/assets/hello.jpg">`, nil)),
-	)
-
-	// No srcset is inserted for resolution agnostic SVGs.
-	assert.Equal(t,
-		`<img src="/assets/hello.svg">`,
-		must(transformImagesToRetina(`<img src="/assets/hello.svg">`, nil)),
-	)
-
-	// Don't change images that already have a srcset.
-	assert.Equal(t,
-		`<img src="/assets/hello.jpg" srcset="pre-existing">`,
-		must(transformImagesToRetina(`<img src="/assets/hello.jpg" srcset="pre-existing">`, nil)),
-	)
-
-	// Make sure transformation works with other attributes in the <img> tag (I
-	// previously introduced a bug relating to this).
-	assert.Equal(t,
-		`<img src="/assets/hello.svg" class="overflowing">`,
-		must(transformImagesToRetina(`<img src="/assets/hello.svg" class="overflowing">`, nil)),
-	)
-
-	// No replacement when we've explicitly requested no retina conversion
-	assert.Equal(t,
-		`<img src="/assets/hello.jpg">`,
-		must(transformImagesToRetina(
-			`<img src="/assets/hello.jpg">`,
-			&RenderOptions{NoRetina: true},
-		)),
-	)
-}
-
 func TestTransformImagesToAbsoluteURLs(t *testing.T) {
 	// An image
 	assert.Equal(t,
