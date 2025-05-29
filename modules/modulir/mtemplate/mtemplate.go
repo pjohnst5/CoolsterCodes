@@ -295,11 +295,6 @@ func (img *HTMLImage) render() template.HTML {
 		element.Attrs["alt"] = img.Alt
 	}
 
-	if ext := filepath.Ext(img.Src); ext != ".svg" {
-		retinaSource := strings.TrimSuffix(img.Src, ext) + "@2x" + ext
-		element.Attrs["srcset"] = fmt.Sprintf("%s 2x, %s 1x", retinaSource, img.Src)
-	}
-
 	if img.Class != "" {
 		element.Attrs["class"] = img.Class
 	}
