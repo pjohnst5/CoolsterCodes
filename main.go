@@ -11,8 +11,6 @@ import (
 	"golang.org/x/term"
 
 	"github.com/brandur/sorg/modules/modulir"
-	"github.com/brandur/sorg/modules/modulir/mimage"
-	"github.com/brandur/sorg/modules/scommon"
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -65,11 +63,6 @@ Runs the build loop one time and places the result in TARGET_DIR
 		os.Exit(1)
 	}
 
-	mimage.MagickBin = conf.MagickBin
-	mimage.MozJPEGBin = conf.MozJPEGBin
-	mimage.PNGQuantBin = conf.PNGQuantBin
-	mimage.TempDir = scommon.TempDir
-
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintf(os.Stderr, "Error executing command: %v", err)
 		os.Exit(1)
@@ -110,23 +103,6 @@ type Conf struct {
 	// Concurrency is the number of build Goroutines that will be used to
 	// perform build work items.
 	Concurrency int `env:"CONCURRENCY,default=30"`
-
-	// MagickBin is the location of the `magick` binary that ships with the
-	// ImageMagick project (an image manipulation utility).
-	MagickBin string `env:"MAGICK_BIN"`
-
-	// MozJPEGBin is the location of the `cjpeg` binary that ships with the
-	// mozjpeg project (a JPG optimizer). If configured, Sorg will put photos
-	// through an optimization pass after resizing them.
-	MozJPEGBin string `env:"MOZJPEG_BIN"`
-
-	// NumAtomEntries is the number of entries to put in Atom feeds.
-	NumAtomEntries int `env:"NUM_ATOM_ENTRIES,default=20"`
-
-	// PNGQuantBin is the location of the `pnqquant` binary (a PNG optimizer). If
-	// configured, PNGs are passed through an optimization pass after resizing
-	// them.
-	PNGQuantBin string `env:"PNGQUANT_BIN"`
 
 	// Port is the port on which to serve HTTP when looping in development.
 	Port int `env:"PORT,default=5002"`

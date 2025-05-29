@@ -17,10 +17,6 @@ all: clean install test vet lint check-dl0 check-gofmt check-headers build
 build:
 	$(shell go env GOPATH)/bin/sorg build
 
-.PHONY: check-d10
-check-dl0:
-	scripts/check_dl0.sh
-
 .PHONY: check-gofmt
 check-gofmt:
 	scripts/check_gofmt.sh
@@ -220,25 +216,6 @@ markers-gco:
 .PHONY: markers-rm
 markers-rm:
 	git ls-files $(DIR) --others --exclude-standard '*.marker' | xargs -n1 rm
-
-# A specialized S3 bucket used only for caching resized photographs.
-PHOTOGRAPHS_S3_BUCKET := "brandur.org-photographs"
-
-.PHONY: photographs-download
-photographs-download:
-ifdef AWS_ACCESS_KEY_ID
-	aws s3 sync s3://$(PHOTOGRAPHS_S3_BUCKET)/ content/photographs/
-else
-	# No AWS access key. Skipping photographs-download.
-endif
-
-.PHONY: photographs-download-markers
-photographs-download-markers:
-ifdef AWS_ACCESS_KEY_ID
-	aws s3 sync s3://$(PHOTOGRAPHS_S3_BUCKET)/ content/photographs/ --exclude "*" --include "*.marker"
-else
-	# No AWS access key. Skipping photographs-download-markers.
-endif
 
 .PHONY: sigusr2
 sigusr2:
