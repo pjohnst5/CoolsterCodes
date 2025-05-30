@@ -49,7 +49,7 @@ One opens the CSV file, reads, modifies, and writes some
 data, but that change is immediately clobbered by another
 client trying to do the same.
 
-{{Figure "Data loss from contention between two clients." (ImgSrcAndAltAndClass "/assets/images/postgres-atomicity/csv-database.svg" "Data loss from contention between two clients." "overflowing")}}
+{{Figure "Data loss from contention between two clients." (ImgSrcAndAltAndClass "/contents/images/postgres-atomicity/csv-database.svg" "Data loss from contention between two clients." "overflowing")}}
 
 This is a problem of concurrent access and it's addressed
 by introducing _concurrency control_. There are plenty of
@@ -121,7 +121,7 @@ happily without ever needing a `xid`.
 any transactions that are still running when this one
 starts. Vacuum processes calculate the minimum boundary of
 data that they need to keep by taking the minimum of the
-`xmin`s of all active transactions 
+`xmin`s of all active transactions
 
 ### Lifetime-aware tuples (#tuples)
 
@@ -176,7 +176,7 @@ that created it). It also tracks `xmax` to be the _last_
 transaction where the tuple is visible (i.e. the one that
 deleted it) [2].
 
-{{Figure "A heap tuple's lifetime being tracked with xmin and xmax." (ImgSrcAndAltAndClass "/assets/images/postgres-atomicity/heap-tuple-visibility.svg" "A heap tuple's lifetime being tracked with xmin and xmax." "overflowing")}}
+{{Figure "A heap tuple's lifetime being tracked with xmin and xmax." (ImgSrcAndAltAndClass "/contents/images/postgres-atomicity/heap-tuple-visibility.svg" "A heap tuple's lifetime being tracked with xmin and xmax." "overflowing")}}
 
 `xmin` and `xmax` are internal concepts, but they can be
 revealed as hidden columns on any Postgres table. Just
@@ -253,7 +253,7 @@ flight hidden. `*xip` stores the list of transactions that
 were active when the snapshot was created so that we can
 tell which is which.
 
-{{Figure "Transactions executing against a database and a snapshot capturing a moment in time." (ImgSrcAndAltAndClass "/assets/images/postgres-atomicity/snapshot-creation.svg" "Transactions executing against a database and a snapshot capturing a moment in time." "overflowing")}}
+{{Figure "Transactions executing against a database and a snapshot capturing a moment in time." (ImgSrcAndAltAndClass "/contents/images/postgres-atomicity/snapshot-creation.svg" "Transactions executing against a database and a snapshot capturing a moment in time." "overflowing")}}
 
 ## Beginning a transaction (#begin)
 

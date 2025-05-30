@@ -87,7 +87,7 @@ ifdef AWS_ACCESS_KEY_ID
         --acl public-read --delete --content-type text/html --exclude 'assets*'
 
 	# Then move on to assets and allow S3 to detect content type.
-	aws s3 sync ./public/assets/images/ s3://$(S3_BUCKET)/assets/images/ \
+	aws s3 sync ./public/contents/images/ s3://$(S3_BUCKET)/contents/images/ \
         --acl public-read --delete --follow-symlinks
 else
 	# No AWS access key. Skipping deploy.
@@ -164,7 +164,7 @@ your DNS.
 
 Use Route53 or any other DNS provide of your choice to CNAME your custom domain
 to the domain name of your new CloudFront distribution (once again, those look
-like `da48dchlilyg8.cloudfront.net`). 
+like `da48dchlilyg8.cloudfront.net`).
 
 You should now be able to visit your custom domain and see the fruit of your
 efforts!

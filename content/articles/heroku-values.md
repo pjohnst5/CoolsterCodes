@@ -1,7 +1,7 @@
 +++
 hn_link = "https://news.ycombinator.com/item?id=14286143"
 hook = "Some of my favorite practices and ideas from almost four years at Heroku."
-image = "/assets/images/heroku-values/heroku-values.jpg"
+image = "/contents/images/heroku-values/heroku-values.jpg"
 location = "San Francisco"
 published_at = 2015-11-05T06:20:16Z
 title = "My Heroku Values"
@@ -258,7 +258,7 @@ working on. It was designed to educate and inspire, and it worked.
 
 ### Flexible environment (#flexible-environment)
 
-{{Figure "The Agora Collective in Berlin." (ImgSrcAndAltAndClass "/assets/images/heroku-values/agora.jpg" "The Agora Collective in Berlin." "overflowing")}}
+{{Figure "The Agora Collective in Berlin." (ImgSrcAndAltAndClass "/contents/images/heroku-values/agora.jpg" "The Agora Collective in Berlin." "overflowing")}}
 
 Traditional organizations generally hold a strong belief that every employee
 should physically punch in at 9 AM, leave it at 5 PM, and keep that up for 5
@@ -289,7 +289,7 @@ regularly.
 
 ### GitHub (#github)
 
-{{Figure "The OctoTrophy (dodgeball)." (ImgSrcAndAltAndClass "/assets/images/heroku-values/octotrophy.jpg" "The OctoTrophy (dodgeball)." "overflowing")}}
+{{Figure "The OctoTrophy (dodgeball)." (ImgSrcAndAltAndClass "/contents/images/heroku-values/octotrophy.jpg" "The OctoTrophy (dodgeball)." "overflowing")}}
 
 GitHub has been one of the best pieces of software on the Internet for years,
 and is the right way to organize code and projects. Companies should be using
