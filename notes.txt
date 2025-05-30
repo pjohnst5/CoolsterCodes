@@ -41,7 +41,7 @@ Remove retina ✅
 Add in modulir local ✅
 Images:
 - Remove srcset tag ✅
-- Change from "assets" to "content"
+- Change from "assets" to "content" ✅
 - Add fancybox raw html
 - Change to ![] syntax instead
 - Add in figures captions as well
