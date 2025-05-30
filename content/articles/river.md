@@ -1,12 +1,12 @@
 +++
 hook = "Introducing River, a Postgres-based job queue designed for resilience and correctness through strong transactional guarantees."
-#image = "/assets/images/river/bishop-pass.jpg"
-#image = "/assets/images/river/bishop-pass-bw.jpg"
-#image = "/assets/images/river/evolution-valley.jpg"
-#image = "/assets/images/river/kumano.jpg"
-#image = "/assets/images/river/seldon-pass.jpg"
-image = "/assets/images/river/shrine.jpg"
-#image = "/assets/images/river/ten-waterfalls.jpg"
+#image = "/contents/images/river/bishop-pass.jpg"
+#image = "/contents/images/river/bishop-pass-bw.jpg"
+#image = "/contents/images/river/evolution-valley.jpg"
+#image = "/contents/images/river/kumano.jpg"
+#image = "/contents/images/river/seldon-pass.jpg"
+image = "/contents/images/river/shrine.jpg"
+#image = "/contents/images/river/ten-waterfalls.jpg"
 location = "San Francisco"
 published_at = 2023-11-20T06:18:48-08:00
 title = "River: a Fast, Robust Job Queue for Go + Postgres"
@@ -21,25 +21,25 @@ Consider:
 
 * In a transaction, a job is emitted to a Redis-based queue and picked up for work, but the transaction that emitted it isn't yet committed, so none of the data it needs is available. The job fails and will need to be retried later.
 
-<div class="ml-auto w-10/12"><img src="/assets/images/river/data-not-visible.svg" alt="Job failure because data is not yet visible"></div>
+<div class="ml-auto w-10/12"><img src="/contents/images/river/data-not-visible.svg" alt="Job failure because data is not yet visible"></div>
 
 ---
 
 * A job is emitted from a transaction which then rolls back. The job fails and will also fail every subsequent retry, pointlessly eating resources despite never being able to succeed, eventually landing the dead letter queue.
 
-<div class="ml-auto w-10/12"><img src="/assets/images/river/data-roll-back.svg" alt="Job failure because data rolled back"></div>
+<div class="ml-auto w-10/12"><img src="/contents/images/river/data-roll-back.svg" alt="Job failure because data rolled back"></div>
 
 ---
 
 * In an attempt to work around the data visibility problem, a job is emitted to Redis _after_ the transaction commits. But there's a brief moment between the commit and job emit where if the process crashes or there's a bug, the job is gone, requiring manual intervention to resolve (if it's even noticed).
 
-<div class="ml-auto w-10/12"><img src="/assets/images/river/job-emit-failure.svg" alt="Job post-transaction emit failure"></div>
+<div class="ml-auto w-10/12"><img src="/contents/images/river/job-emit-failure.svg" alt="Job post-transaction emit failure"></div>
 
 ---
 
 * If both queue and store are non-transactional, all of the above and more. Instead of data not being visible, it may be that it's in a partially ready state. If a job runs in the interim, all bets are off.
 
-<div class="ml-auto w-10/12"><img src="/assets/images/river/data-not-complete.svg" alt="Job failure because data is not complete"></div>
+<div class="ml-auto w-10/12"><img src="/contents/images/river/data-not-complete.svg" alt="Job failure because data is not complete"></div>
 
 ---
 
@@ -55,7 +55,7 @@ So a few months ago, [Blake](https://github.com/bgentry) and I did what one shou
 
 I'd like to introduce River ([GitHub link](https://github.com/riverqueue/river)), a job queue for building fast, airtight applications.
 
-<a href="https://riverqueue.com"><img src="/assets/images/river/river-home.png" srcset="/assets/images/river/river-home@2x.png 2x, /assets/images/river/river-home.png 1x" alt="Screen shot of River home page" class="rounded-3xl"></a>
+<a href="https://riverqueue.com"><img src="/contents/images/river/river-home.png" srcset="/contents/images/river/river-home@2x.png 2x, /contents/images/river/river-home.png 1x" alt="Screen shot of River home page" class="rounded-3xl"></a>
 
 ### Designed for generics (#generics)
 
