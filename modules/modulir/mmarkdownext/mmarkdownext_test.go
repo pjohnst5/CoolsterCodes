@@ -194,9 +194,9 @@ Conclusion.
 func TestTransformImagesToAbsoluteURLs(t *testing.T) {
 	// An image
 	assert.Equal(t,
-		`<img src="https://brandur.org/assets/hello.jpg">`,
+		`<img src="https://brandur.org/contents/hello.jpg">`,
 		must(transformImagesAndLinksToAbsoluteURLs(
-			`<img src="/assets/hello.jpg">`,
+			`<img src="/contents/hello.jpg">`,
 			&RenderOptions{AbsoluteURL: "https://brandur.org"},
 		)),
 	)
@@ -212,18 +212,18 @@ func TestTransformImagesToAbsoluteURLs(t *testing.T) {
 
 	// URLs that are already absolute are left alone.
 	assert.Equal(t,
-		`<img src="https://example.com/assets/hello.jpg">`,
+		`<img src="https://example.com/contents/hello.jpg">`,
 		must(transformImagesAndLinksToAbsoluteURLs(
-			`<img src="https://example.com/assets/hello.jpg">`,
+			`<img src="https://example.com/contents/hello.jpg">`,
 			&RenderOptions{AbsoluteURL: "https://brandur.org"},
 		)),
 	)
 
 	// Should pass through if options are nil.
 	assert.Equal(t,
-		`<img src="/assets/hello.jpg">`,
+		`<img src="/contents/hello.jpg">`,
 		must(transformImagesAndLinksToAbsoluteURLs(
-			`<img src="/assets/hello.jpg">`,
+			`<img src="/contents/hello.jpg">`,
 			nil,
 		)),
 	)

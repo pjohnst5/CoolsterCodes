@@ -48,7 +48,7 @@ func favicon(name, ext string) template.HTML {
 	for _, size := range []int{32, 128, 152, 167, 180, 192, 256} {
 		fmt.Fprintf(
 			&b,
-			`<link rel="shortcut icon" type="image/%s" sizes="%dx%d" href="/assets/images/favicon/%s-%d.%s">`,
+			`<link rel="shortcut icon" type="image/%s" sizes="%dx%d" href="/contents/images/favicon/%s-%d.%s">`,
 			ext, size, size, name, size, ext,
 		)
 		fmt.Fprint(&b, "\n")

@@ -1,6 +1,6 @@
 +++
 hook = "This is my first blog post"
-image = "/assets/images/two-phase-render/vista.jpg"
+image = "/contents/images/two-phase-render/vista.jpg"
 location = "Utah"
 published_at = 2025-05-19T14:52:52Z
 title = "Ballin' like a baller"
@@ -21,12 +21,12 @@ struct {
 ```
 Figure
 <figure>
-  <p><a href="https://www.behance.net/gallery/Transworld-Surf-Redesign/13052023"><img src="/assets/images/page/transworld-surf.jpg"></a></p>
+  <p><a href="https://www.behance.net/gallery/Transworld-Surf-Redesign/13052023"><img src="/contents/images/page/transworld-surf.jpg"></a></p>
   <figcaption>Late 2011 redesign of the Transworld Surf magazine.</figcaption>
 </figure>
 
 Screenshot with @2 in it
-<img src="/assets/images/hey/screenshot.png" alt="hey">
+<img src="/contents/images/hey/screenshot.png" alt="hey">
 
 Puppies
-<img src="/assets/images/hey/pexels-photo-1108099.jpeg" >
+<img src="/contents/images/hey/pexels-photo-1108099.jpeg" >

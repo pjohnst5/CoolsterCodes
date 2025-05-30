@@ -24,11 +24,11 @@ reload their content. Here's a video of it in action:
 <figure>
   <p>
     <video controls class="overflowing">
-      <source src="/assets/images/live-reload/live-reload.h264.mp4" type="video/mp4">
+      <source src="/contents/images/live-reload/live-reload.h264.mp4" type="video/mp4">
     </video>
   </p>
   <figcaption>A short video of the live reload feature in
-    action: changes saved in the editor show up immediately 
+    action: changes saved in the editor show up immediately
     in the browser.</figcaption>
 </figure>
 
@@ -192,7 +192,7 @@ change comes in, it will accumulate new events until being
 signaled that the build completed, at which point it will
 trigger a new one with the sum of the accumulated changes.
 
-{{Figure "Goroutines coordinating builds even across changes that occur during an active build." (ImgSrcAndAltAndClass "/assets/images/live-reload/build-loop.svg" "Goroutines coordinating builds even across changes that occur during an active build." "overflowing")}}
+{{Figure "Goroutines coordinating builds even across changes that occur during an active build." (ImgSrcAndAltAndClass "/contents/images/live-reload/build-loop.svg" "Goroutines coordinating builds even across changes that occur during an active build." "overflowing")}}
 
 Builds are fast (we send just the names of files that
 changed to make them incremental), so usually only one
@@ -319,7 +319,7 @@ for {
 }
 ```
 
-{{Figure "The build goroutine broadcasting a completed rebuild to WebSocket goroutines that will message their clients." (ImgSrcAndAltAndClass "/assets/images/live-reload/signaling-rebuilds.svg" "The build goroutine broadcasting a completed rebuild to WebSocket goroutines that will message their clients." "overflowing")}}
+{{Figure "The build goroutine broadcasting a completed rebuild to WebSocket goroutines that will message their clients." (ImgSrcAndAltAndClass "/contents/images/live-reload/signaling-rebuilds.svg" "The build goroutine broadcasting a completed rebuild to WebSocket goroutines that will message their clients." "overflowing")}}
 
 ### Client-side JavaScript (#client)
 

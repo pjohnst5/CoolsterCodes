@@ -44,7 +44,7 @@ With those stated, we can explain the role of the notifier. Its job is to **hold
 
 The "single Postgres connection per process" piece is key. Use of a notifier keeps the number of Postgres connections dedicated to use with listen/notify down to **one per program**, a major advantage compared to the naive version, which is _one connection per topic per program_. Especially for languages like Go that make a in-process concurrency easy and cheap, the notifier reduces listen/notify connection overhead to practically nil.
 
-<img src="/assets/images/notifier/notifier.svg" alt="Notifier distributing notifications to program components">
+<img src="/contents/images/notifier/notifier.svg" alt="Notifier distributing notifications to program components">
 
 ## A few implementation details (#implementation)
 
@@ -89,7 +89,7 @@ func (l *Notifier) Listen(channel string) *Subscription {
 
     // Cancel out of blocking on WaitForNotification so changes can be processed
     // immediately.
-    l.waitForNotificationCancel() 
+    l.waitForNotificationCancel()
 
     return sub
 }

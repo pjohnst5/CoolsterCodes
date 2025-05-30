@@ -63,7 +63,7 @@ operation will start with safe initial state.
 It's never desirable to fail transactions that we hoped to
 commit, but atomicity cancels the expensive fallout.
 
-{{Figure "Some requests. Each wraps its database operations using an atomic transaction so that they either all commit, or none of them do." (ImgSrcAndAltAndClass "/assets/images/acid/transactions-in-requests.svg" "Some requests. Each wraps its database operations using an atomic transaction so that they either all commit, or none of them do." "overflowing")}}
+{{Figure "Some requests. Each wraps its database operations using an atomic transaction so that they either all commit, or none of them do." (ImgSrcAndAltAndClass "/contents/images/acid/transactions-in-requests.svg" "Some requests. Each wraps its database operations using an atomic transaction so that they either all commit, or none of them do." "overflowing")}}
 
 ### The janitorial team (#janitorial-team)
 
@@ -85,7 +85,7 @@ fire off to any listeners on the repository, a reviewer
 record mapping to whomever we've assigned review, and an
 event to store in the audit log.
 
-{{Figure "Demonstration of how without an atomicity guarantee, a failed request results in an invalid state of data." (ImgSrcAndAltAndClass "/assets/images/acid/request-failure.svg" "Demonstration of how without an atomicity guarantee, a failed request results in an invalid state of data." "overflowing")}}
+{{Figure "Demonstration of how without an atomicity guarantee, a failed request results in an invalid state of data." (ImgSrcAndAltAndClass "/contents/images/acid/request-failure.svg" "Demonstration of how without an atomicity guarantee, a failed request results in an invalid state of data." "overflowing")}}
 
 A request that fails after the first two saves fails to
 create a valid set of objects, but with transactional
@@ -111,7 +111,7 @@ certain size, this sort of thing will be happening
 frequently, and your engineers will start to spend less
 time as engineers, and more time as data janitors.
 
-{{Figure "A grid of pillars at the Jewish Museum in Berlin. Real world consistency at its best." (ImgSrcAndAltAndClass "/assets/images/acid/pillars.jpg" "A grid of pillars at the Jewish Museum in Berlin. Real world consistency at its best." "overflowing")}}
+{{Figure "A grid of pillars at the Jewish Museum in Berlin. Real world consistency at its best." (ImgSrcAndAltAndClass "/contents/images/acid/pillars.jpg" "A grid of pillars at the Jewish Museum in Berlin. Real world consistency at its best." "overflowing")}}
 
 ## Consistency (#consistency)
 
@@ -139,7 +139,7 @@ concurrently, then the above check can fail us because both
 could have validated step one successfully before moving on
 to create a duplicated record.
 
-{{Figure "Without guaranteed consistency, there's nothing to stop the database from transitioning to an invalid state." (ImgSrcAndAltAndClass "/assets/images/acid/consistency.svg" "Without guaranteed consistency, there's nothing to stop the database from transitioning to an invalid state." "overflowing")}}
+{{Figure "Without guaranteed consistency, there's nothing to stop the database from transitioning to an invalid state." (ImgSrcAndAltAndClass "/contents/images/acid/consistency.svg" "Without guaranteed consistency, there's nothing to stop the database from transitioning to an invalid state." "overflowing")}}
 
 You can solve this problem on an ACID database in multiple
 ways:
@@ -236,7 +236,7 @@ we'd lock the whole account when a modification request
 comes in, and only unlock it again after we've finished our
 work.
 
-{{Figure "Demonstration of pessimistic locking showing 3 requests to the same resource. Each blocks the next in line." (ImgSrcAndAltAndClass "/assets/images/acid/pessimistic-locking.svg" "Demonstration of pessimistic locking showing 3 requests to the same resource. Each blocks the next in line." "overflowing")}}
+{{Figure "Demonstration of pessimistic locking showing 3 requests to the same resource. Each blocks the next in line." (ImgSrcAndAltAndClass "/contents/images/acid/pessimistic-locking.svg" "Demonstration of pessimistic locking showing 3 requests to the same resource. Each blocks the next in line." "overflowing")}}
 
 This approach is _all_ downsides:
 
@@ -347,7 +347,7 @@ per-shard ACID guarantees. Google Spanner provides
 distributed locking read-write transactions for when you
 need them.
 
-{{Figure "For best results, build your app on solid foundations." (ImgSrcAndAltAndClass "/assets/images/acid/foundation.jpg" "For best results, build your app on solid foundations." "overflowing")}}
+{{Figure "For best results, build your app on solid foundations." (ImgSrcAndAltAndClass "/contents/images/acid/foundation.jpg" "For best results, build your app on solid foundations." "overflowing")}}
 
 ## Check your foundation (#foundation)
 
