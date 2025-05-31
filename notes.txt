@@ -46,6 +46,7 @@ Images:
 - Add fancybox raw html ✅
 - Change to ![] syntax instead
 - Add in figures captions as well
+Code: update/play with Shiki
 What CSS is used here?
 Figure out how to make Articles main page
 Implement Tags (can use Victor Zhou's lols)
