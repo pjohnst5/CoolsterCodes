@@ -55,3 +55,5 @@ Fancy box:
 {{Figure "The design of the orrery to be used in the 10,000 year clock. It shows the relative position of six human-eye visible planets in our solar system." (ImgSrcAndAltAndClass "/contents/images/10000-years/orrery.jpg" "The design of the orrery to be used in the 10,000 year clock. It shows the relative position of six human-eye visible planets in our solar system." "overflowing")}}
 
 > what happens with this
+
+!fig src="/contents/images/hey/pexels-photo-1108099.jpeg" caption="fig-caption"
