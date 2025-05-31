@@ -1,0 +1,17 @@
+
+
+
+
+
+
+
+This:
+![](/content/images/hey/pexels-photo-1108099.jpeg)
+
+To this:
+<figure>
+  <a data-fancybox="gallery" href="/contents/images/hey/pexels-photo-1108099.jpeg" data-caption="Some friggin' cute puppies">
+      <img src="/contents/images/hey/pexels-photo-1108099.jpeg" alt="" />
+  </a>
+  <figcaption>Some friggin' cute puppies</figcaption>
+</figure>
