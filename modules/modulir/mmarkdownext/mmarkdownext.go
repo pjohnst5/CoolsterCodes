@@ -6,7 +6,6 @@ package mmarkdownext
 import (
 	"bytes"
 	"fmt"
-	"path/filepath"
 	"regexp"
 	"strings"
 	"text/template"
@@ -82,9 +81,7 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 
 	transformGoTemplate,
 	transformHeaders,
-
-	// DEPRECATED: Use Go template helpers instead.
-	transformFigures,
+	transformImages,
 
 	// The actual Blackfriday rendering
 	func(source string, _ *RenderOptions) (string, error) {
@@ -130,30 +127,33 @@ func transformCodeWithLanguagePrefix(source string, _ *RenderOptions) (string, e
 
 const figureHTML = `
 <figure>
-  <p><a href="%s"><img src="%s" class="overflowing"></a></p>
+  <a data-fancybox="gallery" href="%s" data-caption="%s">
+    <img src="%s" />
+  </a>
   <figcaption>%s</figcaption>
 </figure>
 `
 
-var figureRE = regexp.MustCompile(`!fig src="(.*)" caption="(.*)"`)
+// Let me break this regex down:
+/*
+	!\[\] - Matches the "![]"
+		Note: if we wanted to add alt text later, it would be !\[(.*)\]
+	\( - matches first paren
+	(.*) - matches everything until next
+	\) - matches closing paren
+	\n - matches newline
+	\* - matches first asterisk after newline
+	(.*) - matches everything until next asterisk
+	\* - matches last asterisk
+*/
+var figureRE = regexp.MustCompile(`!\[\]\((.*)\)\n\*(.*)\*`)
 
-func transformFigures(source string, _ *RenderOptions) (string, error) {
+func transformImages(source string, _ *RenderOptions) (string, error) {
 	return figureRE.ReplaceAllStringFunc(source, func(figure string) string {
 		matches := figureRE.FindStringSubmatch(figure)
-		src := matches[1]
-
-		link := src
-		extension := filepath.Ext(link)
-		if extension != "" && extension != ".svg" {
-			link = link[0:len(src)-len(extension)] + "@2x" + extension
-		}
-
-		// This is a really ugly hack in that it relies on the regex above
-		// being greedy about quotes, but meh, I'll make it better when there's
-		// a good reason to.
-		caption := strings.ReplaceAll(matches[2], `\"`, `"`)
-
-		return fmt.Sprintf(figureHTML, link, src, caption)
+		img := matches[1]
+		caption := matches[2]
+		return fmt.Sprintf(figureHTML, img, caption, img, caption)
 	}), nil
 }
 

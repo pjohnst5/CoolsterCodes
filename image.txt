@@ -1,0 +1,41 @@
+"*Author’s note:* Paul is known to ball really hard, beware.\n\n---\n\nMarkdown\n![](/content/images/hey/pexels-photo-1108099.jpeg)\n*Some friggin' cute puppies*"
+"*Author's note:* Paul is known to ball really hard, beware.\n\n---\n\nMarkdown\n\n\t<figure>\n\t  <a data-fancybox=\"gallery\" href=\"/content/images/hey/pexels-photo-1108099.jpeg\" data-caption=\"Some friggin' cute puppies\">\n\t    <img src=\"/content/images/hey/pexels-photo-1108099.jpeg\" />\n\t  </a>\n\t  <figcaption>Some friggin' cute puppies</figcaption>\n\t</figure>\n\t"
+My magic regex:
+!\[\]\((.*)\)\\n\*(.*)\*
+
+This:
+![](/content/images/hey/pexels-photo-1108099.jpeg)
+*Some friggin' cute puppies*
+
+To this:
+<figure>
+  <a data-fancybox="gallery" href="/contents/images/hey/pexels-photo-1108099.jpeg" data-caption="Some friggin' cute puppies">
+      <img src="/contents/images/hey/pexels-photo-1108099.jpeg" alt="" />
+  </a>
+  <figcaption>Some friggin' cute puppies</figcaption>
+</figure>
+
+Regex:
+\n, with ![*](*path)\n*
+
+\n
+
+Got it to work! Here are random notes:
+Puppies
+<figure>
+  <a data-fancybox="gallery" href="/contents/images/hey/pexels-photo-1108099.jpeg" data-caption="Some friggin' cute puppies">
+      <img src="/contents/images/hey/pexels-photo-1108099.jpeg" alt="" />
+  </a>
+  <figcaption>Some friggin' cute puppies</figcaption>
+</figure>
+
+Fancy box:
+<a data-fancybox="gallery" href="https://lipsum.app/id/1/1600x1200" data-caption="Hello world">
+    <img src="https://lipsum.app/id/1/200x150" alt="" />
+</a>
+<a data-fancybox="gallery"  href="https://lipsum.app/id/2/1600x1200" data-caption="Second single image">
+    <img src="https://lipsum.app/id/2/200x150" alt="" />
+</a>
+<a data-fancybox="gallery"  href="https://lipsum.app/id/3/1600x1200" data-caption="Third single image">
+    <img src="https://lipsum.app/id/3/200x150" alt="" />
+</a>

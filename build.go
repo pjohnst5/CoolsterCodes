@@ -104,10 +104,10 @@ func build(c *modulir.Context) []error {
 
 	c.Log.Debugf("Running build loop")
 
-	// This is where we stored "versioned" contents like compiled JS and CSS.
-	// These contents have a release number that we can increment and by
+	// This is where we stored "versioned" content like compiled JS and CSS.
+	// These content have a release number that we can increment and by
 	// extension quickly invalidate.
-	versionedContentsDir := path.Join(c.TargetDir, "contents", Release)
+	versionedContentDir := path.Join(c.TargetDir, "content", Release)
 
 	// A set of source paths that rebuild everything when any one of them
 	// changes. These are dependencies that are included in more or less
@@ -183,7 +183,7 @@ func build(c *modulir.Context) []error {
 		commonDirs := []string{
 			c.TargetDir + "/articles",
 			scommon.TempDir,
-			versionedContentsDir,
+			versionedContentDir,
 		}
 		for _, dir := range commonDirs {
 			err := mfile.EnsureDir(c, dir)
@@ -199,9 +199,9 @@ func build(c *modulir.Context) []error {
 
 	{
 		commonSymlinks := [][2]string{
-			{c.SourceDir + "/content/images", c.TargetDir + "/contents/images"},
-			{c.SourceDir + "/content/javascripts", versionedContentsDir + "/javascripts"},
-			{c.SourceDir + "/content/stylesheets", versionedContentsDir + "/stylesheets"},
+			{c.SourceDir + "/content/images", c.TargetDir + "/content/images"},
+			{c.SourceDir + "/content/javascripts", versionedContentDir + "/javascripts"},
+			{c.SourceDir + "/content/stylesheets", versionedContentDir + "/stylesheets"},
 		}
 		for _, link := range commonSymlinks {
 			err := mfile.EnsureSymlink(c, link[0], link[1])
@@ -587,7 +587,7 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 		path.Join(c.SourceDir, "content", "images", article.Slug, "hook"),
 	)
 	if ok {
-		article.HookImageURL = "/contents/images/" + article.Slug + "/hook." + format
+		article.HookImageURL = "/content/images/" + article.Slug + "/hook." + format
 	}
 
 	locals := getLocals(map[string]interface{}{
