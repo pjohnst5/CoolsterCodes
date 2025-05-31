@@ -39,6 +39,7 @@ Do we need "containerImages"? ✅
     - No, it was for photographs project ✅
 Remove retina ✅
 Add in modulir local ✅
+Remove prism ✅
 Images:
 - Remove srcset tag ✅
 - Change from "assets" to "content" ✅
