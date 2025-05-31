@@ -12,7 +12,7 @@
 
     <link href="/articles.atom" rel="alternate" title="Articles{{.TitleSuffix}}" type="application/atom+xml">
 
-    {{template "views/_tailwind_stylesheets.tmpl.html" .}}
+    {{template "views/_style_stylesheets.tmpl.html" .}}
 
     {{block "stylesheets" .}}{{end}}
 
@@ -31,6 +31,8 @@
     {{block "content" .}}{{end}}
 
     {{template "views/_shiki_js.tmpl.html" .}}
+    {{template "views/_fancybox_js.tmpl.html" .}}
+
 </body>
 
 </html>

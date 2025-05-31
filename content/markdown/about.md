@@ -6,6 +6,17 @@
     <img src="/photographs/about/self-portrait-2023-03.jpg" alt=""Selfie April 2023" class="lg:rounded-lg w-full">
 </div>
 
+Fancy box:
+<a data-fancybox="gallery" href="https://lipsum.app/id/1/1600x1200" data-caption="Hello world">
+    <img src="https://lipsum.app/id/1/200x150" width="200" height="150" alt="" />
+</a>
+<a data-fancybox="gallery"  href="https://lipsum.app/id/2/1600x1200" data-caption="Second single image">
+    <img src="https://lipsum.app/id/2/200x150" width="200" height="150" alt="" />
+</a>
+<a data-fancybox="gallery"  href="https://lipsum.app/id/3/1600x1200" data-caption="Third single image">
+    <img src="https://lipsum.app/id/3/200x150" width="200" height="150" alt="" />
+</a>
+
 I'm an engineer at [Crunchy Data](https://www.crunchydata.com/), where I work on the company's platform API, and spend a lot of time talking about and working with my favorite database, Postgres.
 
 I recently spent five and a half years at Stripe, where I helped design, build, and run our API, and maintain our public-facing developer tooling. Stripe's API design ethos is notable for aiming to make complex flows _as easy as possible_, while still providing enough flexibility to facilitate even the most complex flows.
