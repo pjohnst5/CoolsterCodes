@@ -24,43 +24,17 @@ func TestTransformCodeWithLanguagePrefix(t *testing.T) {
 	)
 }
 
-func TestTransformFigures(t *testing.T) {
+func TestTransformImages(t *testing.T) {
 	assert.Equal(t, `
 <figure>
-  <p><a href="fig-src"><img src="fig-src" class="overflowing"></a></p>
-  <figcaption>fig-caption</figcaption>
+  <a data-fancybox="gallery" href="/content/images/hey/img.png" data-caption="some puppies">
+    <img src="/content/images/hey/img.png" />
+  </a>
+  <figcaption>some puppies</figcaption>
 </figure>
 `,
-		must(transformImages(`!fig src="fig-src" caption="fig-caption"`, nil)),
-	)
-
-	// .png links to "@2x" version of the source
-	assert.Equal(t, `
-<figure>
-  <p><a href="fig-src@2x.png"><img src="fig-src.png" class="overflowing"></a></p>
-  <figcaption>fig-caption</figcaption>
-</figure>
-`,
-		must(transformImages(`!fig src="fig-src.png" caption="fig-caption"`, nil)),
-	)
-
-	// .svg doesn't link to "@2x"
-	assert.Equal(t, `
-<figure>
-  <p><a href="fig-src.svg"><img src="fig-src.svg" class="overflowing"></a></p>
-  <figcaption>fig-caption</figcaption>
-</figure>
-`,
-		must(transformImages(`!fig src="fig-src.svg" caption="fig-caption"`, nil)),
-	)
-
-	assert.Equal(t, `
-<figure>
-  <p><a href="fig-src"><img src="fig-src" class="overflowing"></a></p>
-  <figcaption>Caption with some "" quote.</figcaption>
-</figure>
-`,
-		must(transformImages(`!fig src="fig-src" caption="Caption with some \"\" quote."`, nil)),
+		must(transformImages(`![](/content/images/hey/img.png)
+*some puppies*`, nil)),
 	)
 }
 

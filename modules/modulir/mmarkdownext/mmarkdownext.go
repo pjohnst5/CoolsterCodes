@@ -128,7 +128,7 @@ func transformCodeWithLanguagePrefix(source string, _ *RenderOptions) (string, e
 const figureHTML = `
 <figure>
   <a data-fancybox="gallery" href="%s" data-caption="%s">
-	<img src="%s" />
+    <img src="%s" />
   </a>
   <figcaption>%s</figcaption>
 </figure>
@@ -152,8 +152,8 @@ func transformImages(source string, _ *RenderOptions) (string, error) {
 	return figureRE.ReplaceAllStringFunc(source, func(figure string) string {
 		matches := figureRE.FindStringSubmatch(figure)
 		img := matches[1]
-		cap := matches[2]
-		return fmt.Sprintf(figureHTML, img, cap, img, cap)
+		caption := matches[2]
+		return fmt.Sprintf(figureHTML, img, caption, img, caption)
 	}), nil
 }
 
