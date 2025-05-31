@@ -30,3 +30,14 @@ Screenshot with @2 in it
 
 Puppies
 <img src="/contents/images/hey/pexels-photo-1108099.jpeg" >
+
+Fancy box:
+<a data-fancybox="gallery" href="https://lipsum.app/id/1/1600x1200" data-caption="Hello world">
+    <img src="https://lipsum.app/id/1/200x150" width="200" height="150" alt="" />
+</a>
+<a data-fancybox="gallery"  href="https://lipsum.app/id/2/1600x1200" data-caption="Second single image">
+    <img src="https://lipsum.app/id/2/200x150" width="200" height="150" alt="" />
+</a>
+<a data-fancybox="gallery"  href="https://lipsum.app/id/3/1600x1200" data-caption="Third single image">
+    <img src="https://lipsum.app/id/3/200x150" width="200" height="150" alt="" />
+</a>
