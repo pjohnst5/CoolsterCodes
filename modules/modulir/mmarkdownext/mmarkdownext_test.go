@@ -31,7 +31,7 @@ func TestTransformFigures(t *testing.T) {
   <figcaption>fig-caption</figcaption>
 </figure>
 `,
-		must(transformFigures(`!fig src="fig-src" caption="fig-caption"`, nil)),
+		must(transformImages(`!fig src="fig-src" caption="fig-caption"`, nil)),
 	)
 
 	// .png links to "@2x" version of the source
@@ -41,7 +41,7 @@ func TestTransformFigures(t *testing.T) {
   <figcaption>fig-caption</figcaption>
 </figure>
 `,
-		must(transformFigures(`!fig src="fig-src.png" caption="fig-caption"`, nil)),
+		must(transformImages(`!fig src="fig-src.png" caption="fig-caption"`, nil)),
 	)
 
 	// .svg doesn't link to "@2x"
@@ -51,7 +51,7 @@ func TestTransformFigures(t *testing.T) {
   <figcaption>fig-caption</figcaption>
 </figure>
 `,
-		must(transformFigures(`!fig src="fig-src.svg" caption="fig-caption"`, nil)),
+		must(transformImages(`!fig src="fig-src.svg" caption="fig-caption"`, nil)),
 	)
 
 	assert.Equal(t, `
@@ -60,7 +60,7 @@ func TestTransformFigures(t *testing.T) {
   <figcaption>Caption with some "" quote.</figcaption>
 </figure>
 `,
-		must(transformFigures(`!fig src="fig-src" caption="Caption with some \"\" quote."`, nil)),
+		must(transformImages(`!fig src="fig-src" caption="Caption with some \"\" quote."`, nil)),
 	)
 }
 
@@ -194,9 +194,9 @@ Conclusion.
 func TestTransformImagesToAbsoluteURLs(t *testing.T) {
 	// An image
 	assert.Equal(t,
-		`<img src="https://brandur.org/contents/hello.jpg">`,
+		`<img src="https://brandur.org/content/hello.jpg">`,
 		must(transformImagesAndLinksToAbsoluteURLs(
-			`<img src="/contents/hello.jpg">`,
+			`<img src="/content/hello.jpg">`,
 			&RenderOptions{AbsoluteURL: "https://brandur.org"},
 		)),
 	)
@@ -212,18 +212,18 @@ func TestTransformImagesToAbsoluteURLs(t *testing.T) {
 
 	// URLs that are already absolute are left alone.
 	assert.Equal(t,
-		`<img src="https://example.com/contents/hello.jpg">`,
+		`<img src="https://example.com/content/hello.jpg">`,
 		must(transformImagesAndLinksToAbsoluteURLs(
-			`<img src="https://example.com/contents/hello.jpg">`,
+			`<img src="https://example.com/content/hello.jpg">`,
 			&RenderOptions{AbsoluteURL: "https://brandur.org"},
 		)),
 	)
 
 	// Should pass through if options are nil.
 	assert.Equal(t,
-		`<img src="/contents/hello.jpg">`,
+		`<img src="/content/hello.jpg">`,
 		must(transformImagesAndLinksToAbsoluteURLs(
-			`<img src="/contents/hello.jpg">`,
+			`<img src="/content/hello.jpg">`,
 			nil,
 		)),
 	)
