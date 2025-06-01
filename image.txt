@@ -3,6 +3,9 @@
 My magic regex:
 !\[\]\((.*)\)\\n\*(.*)\*
 
+Magic regex 2:
+(!\[\]\((.*)\))(\n\*(.*)\*)?
+
 This:
 ![](/content/images/hey/pexels-photo-1108099.jpeg)
 *Some friggin' cute puppies*
