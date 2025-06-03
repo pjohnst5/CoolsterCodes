@@ -148,7 +148,7 @@ const figureHTMLNoCaption = `
 		\( - matches first paren
 		(.*) - matches everything until closing paren
 		\) - matches closing paren
-    ) - Ends first group
+	) - Ends first group
 	( - Starts second optional group
 		\n - matches newline
 		\* - matches first asterisk after newline
