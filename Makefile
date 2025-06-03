@@ -183,7 +183,7 @@ killall:
 
 .PHONY: lint
 lint:
-	golangci-lint run --fix
+	golangci-lint run
 
 .PHONY: loop
 loop:
