@@ -40,13 +40,13 @@ Do we need "containerImages"? ✅
 Remove retina ✅
 Add in modulir local ✅
 Remove prism ✅
-Images:
+Images: ✅
 - Remove srcset tag ✅
 - Change from "assets" to "content" ✅
 - Add fancybox raw html ✅
 - Change to ![] syntax instead ✅
 - Add in figure captions as well ✅
-- Make captions optional?
+- Make captions optional ✅
 Code: update/play with Shiki
 What CSS is used here?
 Figure out how to make Articles main page
