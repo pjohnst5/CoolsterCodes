@@ -651,12 +651,10 @@ func renderHome(ctx context.Context, c *modulir.Context,
 		return false, nil
 	}
 
-	if len(articles) > 3 {
-		articles = articles[0:3]
-	}
+	articlesByYear := groupArticlesByYear(articles)
 
 	locals := getLocals(map[string]interface{}{
-		"Articles": articles,
+		"ArticlesByYear": articlesByYear,
 	})
 
 	return true, dependencies.renderGoTemplate(ctx, c, sourceTmpl,
