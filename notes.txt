@@ -47,8 +47,6 @@ Images: ✅
 - Change to ![] syntax instead ✅
 - Add in figure captions as well ✅
 - Make captions optional ✅
-Code: update/play with Shiki
-What CSS is used here?
 Figure out how to make Articles main page
 Implement Tags (can use Victor Zhou's lols)
 Implement Search (can use docfx example lols)
@@ -57,6 +55,8 @@ Remove all other Articles
 Remove all "brandur" stuff and make it my own
     - Make preview images mine (favico)
     - Colors
+    - What CSS is used here?
+    - Code: update/play with Shiki
     - Logo
 Add back in GT articles
 Host it
