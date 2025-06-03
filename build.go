@@ -279,18 +279,6 @@ func build(c *modulir.Context) []error {
 	}
 
 	//
-	// Articles
-	//
-
-	// Index
-	{
-		c.AddJob("articles index", func() (bool, error) {
-			return renderArticlesIndex(ctx, c, articles,
-				articlesChanged)
-		})
-	}
-
-	//
 	// Home
 	//
 
@@ -531,7 +519,7 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 ) (bool, error) {
 	sourceChanged := c.Changed(source)
 
-	sourceTmpl := scommon.ViewsDir + "/articles/show.tmpl.html"
+	sourceTmpl := scommon.ViewsDir + "/article.tmpl.html"
 	viewsChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
 	if !sourceChanged && !viewsChanged {
 		return false, nil
@@ -608,23 +596,6 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	return true, nil
 }
 
-func renderArticlesIndex(ctx context.Context, c *modulir.Context, articles []*Article, articlesChanged bool) (bool, error) {
-	sourceTmpl := scommon.ViewsDir + "/articles/index.tmpl.html"
-	viewsChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
-	if !articlesChanged && !viewsChanged {
-		return false, nil
-	}
-
-	articlesByYear := groupArticlesByYear(articles)
-
-	locals := getLocals(map[string]interface{}{
-		"ArticlesByYear": articlesByYear,
-	})
-
-	return true, dependencies.renderGoTemplate(ctx, c, sourceTmpl,
-		path.Join(c.TargetDir, "articles/index.html"), locals)
-}
-
 var markdownLinkRE = regexp.MustCompile(`\[(.*?)\]\(.*?\)`)
 
 func simplifyMarkdownForSummary(str string) string {
@@ -651,12 +622,10 @@ func renderHome(ctx context.Context, c *modulir.Context,
 		return false, nil
 	}
 
-	if len(articles) > 3 {
-		articles = articles[0:3]
-	}
+	articlesByYear := groupArticlesByYear(articles)
 
 	locals := getLocals(map[string]interface{}{
-		"Articles": articles,
+		"ArticlesByYear": articlesByYear,
 	})
 
 	return true, dependencies.renderGoTemplate(ctx, c, sourceTmpl,
