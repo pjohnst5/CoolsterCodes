@@ -10,14 +10,24 @@ title = "Ballin' like a baller"
 
 ---
 
-## Why i'm a baller haha (#baller)
+## Markdown without caption
+![](/content/images/10000-years/hook.jpg)
+
+## Caption
 
 Markdown
 ![](/content/images/hey/pexels-photo-1108099.jpeg)
 *Some friggin' cute puppies*
+
+## Back to no caption
+![](/content/images/acid/foundation.jpg)
+
+## And finally caption
 
 ![](/content/images/hey/new_profile_seattle.jpg)
 *me being a baller*
 
 ![](/content/images/hey/screenshot.png)
 *screenshot of stuff*
+
+![](/content/images/river/bishop-pass.jpg)
