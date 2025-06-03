@@ -6,6 +6,11 @@
     <img src="/photographs/about/self-portrait-2023-03.jpg" alt=""Selfie April 2023" class="lg:rounded-lg w-full">
 </div>
 
+![](/content/images/hey/new_profile_seattle.jpg)
+*Me, being a baller*
+
+![](/content/images/hey/new_profile_seattle.jpg)
+
 Fancy box:
 <a data-fancybox="gallery" href="https://lipsum.app/id/1/1600x1200" data-caption="Hello world">
     <img src="https://lipsum.app/id/1/200x150" width="200" height="150" alt="" />
