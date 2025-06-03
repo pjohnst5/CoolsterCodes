@@ -125,7 +125,7 @@ func transformCodeWithLanguagePrefix(source string, _ *RenderOptions) (string, e
 	return codeRE.ReplaceAllString(source, `<code class="language-$1">`), nil
 }
 
-const figureHTML = `
+const figureHTMLCaption = `
 <figure>
   <a data-fancybox="gallery" href="%s" data-caption="%s">
     <img src="%s" />
@@ -134,26 +134,48 @@ const figureHTML = `
 </figure>
 `
 
+const figureHTMLNoCaption = `
+<a data-fancybox="gallery" href="%s">
+  <img src="%s" />
+</a>
+`
+
 // Let me break this regex down:
 /*
-	!\[\] - Matches the "![]"
-		Note: if we wanted to add alt text later, it would be !\[(.*)\]
-	\( - matches first paren
-	(.*) - matches everything until next
-	\) - matches closing paren
-	\n - matches newline
-	\* - matches first asterisk after newline
-	(.*) - matches everything until next asterisk
-	\* - matches last asterisk
+	( - Starts first group
+		!\[\] - Matches the "![]"
+			Note: if we wanted to add alt text later, it would be !\[(.*)\]
+		\( - matches first paren
+		(.*) - matches everything until closing paren
+		\) - matches closing paren
+	) - Ends first group
+	( - Starts second optional group
+		\n - matches newline
+		\* - matches first asterisk after newline
+		(.*) - matches everything until next asterisk
+		\* - matches last asterisk
+	) - Ends second optional group
+	? - Makes second group option (in case there is no caption given)
 */
-var figureRE = regexp.MustCompile(`!\[\]\((.*)\)\n\*(.*)\*`)
+var figureRE = regexp.MustCompile(`(!\[\]\((.*)\))(\n\*(.*)\*)?`)
 
 func transformImages(source string, _ *RenderOptions) (string, error) {
 	return figureRE.ReplaceAllStringFunc(source, func(figure string) string {
 		matches := figureRE.FindStringSubmatch(figure)
-		img := matches[1]
-		caption := matches[2]
-		return fmt.Sprintf(figureHTML, img, caption, img, caption)
+		if len(matches) != 5 {
+			return figure
+		}
+		// Grab the image (it's the same every time)
+		img := matches[2]
+
+		// No caption option
+		if matches[3] == "" {
+			return fmt.Sprintf(figureHTMLNoCaption, img, img)
+		}
+
+		// Grab the caption (only if 3rd arg isn't empty)
+		caption := matches[4]
+		return fmt.Sprintf(figureHTMLCaption, img, caption, img, caption)
 	}), nil
 }
 

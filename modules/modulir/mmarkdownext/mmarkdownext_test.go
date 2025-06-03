@@ -36,6 +36,14 @@ func TestTransformImages(t *testing.T) {
 		must(transformImages(`![](/content/images/hey/img.png)
 *some puppies*`, nil)),
 	)
+
+	assert.Equal(t, `
+<a data-fancybox="gallery" href="/content/images/hey/img.png">
+  <img src="/content/images/hey/img.png" />
+</a>
+`,
+		must(transformImages(`![](/content/images/hey/img.png)`, nil)),
+	)
 }
 
 func TestTransformFootnotes(t *testing.T) {
