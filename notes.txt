@@ -76,5 +76,4 @@ Check out "taggedWith", it seems to have been there before
 
 -- Eventually --
 Make it so articles with YouTube tutorial have it linked on the side
-Make it so pictures are preview-able (like if you click them, they stand out)
-    - https://www.pjlewis.com/posts/how-to-host-a-static-site-in-azure-for-almost-nothing/
+Change header bar to be hamburger or something
