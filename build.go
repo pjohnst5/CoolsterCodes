@@ -338,9 +338,6 @@ type Article struct {
 	// where it's addressable by URL.
 	Slug string `toml:"-"`
 
-	// Tags are the set of tags that the article is tagged with.
-	Tags []Tag `toml:"tags,omitempty"`
-
 	// Title is the article's title.
 	Title string `toml:"title" validate:"required"`
 
@@ -379,13 +376,6 @@ type Page struct {
 	// render.
 	dependencies []string
 }
-
-// Tag is a symbol assigned to an article to categorize it.
-//
-// This feature is not meanted to be overused. It's really just for tagging
-// a few particular things so that we can generate content-specific feeds for
-// certain aggregates (so far just Planet Postgres).
-type Tag string
 
 // articleYear holds a collection of articles grouped by year.
 type articleYear struct {

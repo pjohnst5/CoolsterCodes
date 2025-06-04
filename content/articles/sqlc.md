@@ -2,7 +2,6 @@
 hook = "Touring the ORM and Postgres landscape in Go, and why sqlc is today's top pick."
 location = "San Francisco"
 published_at = 2021-09-08T16:49:02Z
-tags = ["postgres"]
 title = "How We Went All In on sqlc/pgx for Postgres + Go"
 +++
 
