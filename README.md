@@ -33,23 +33,6 @@ make build
 make loop
 ```
 
-The project can be deployed to s3 using:
-
-``` sh
-pip install awscli
-
-export AWS_ACCESS_KEY_ID=...
-export AWS_SECRET_ACCESS_KEY=...
-export S3_BUCKET=...
-make deploy
-```
-
-Cached photos can be fetched using:
-
-``` sh
-make photographs-download
-```
-
 ## Development
 
 Run the entire lifecycle like in CI:

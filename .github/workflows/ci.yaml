@@ -83,44 +83,6 @@ jobs:
           echo "Please make sure that all Tailwind changes are checked in!"
           git diff --exit-code .
 
-  deploy_prod:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    if: github.ref == 'refs/heads/master'
-
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWSAccessKeyID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWSSecretAccessKey }}
-
-    needs:
-      - check_and_test
-      - check_tailwind
-      - golangci-lint
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Go
-        uses: actions/setup-go@v5
-        with:
-          check-latest: true
-          go-version-file: "go.mod"
-
-      - name: "Go: Install"
-        run: make install
-
-      - name: "Build: Production"
-        run: make build
-        env:
-          TARGET_DIR: ./public
-
-      - name: "Deploy: Production"
-        run: make deploy
-        env:
-          S3_BUCKET: brandur.org
-          TARGET_DIR: ./public
-
   golangci-lint:
     runs-on: ubuntu-latest
     timeout-minutes: 3
@@ -139,3 +101,5 @@ jobs:
         uses: golangci/golangci-lint-action@v7
         with:
           version: v2.0.0
+
+  ## TODO: Make a deploy
