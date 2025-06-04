@@ -149,34 +149,6 @@ endif
 install:
 	go install .
 
-# Invalidates CloudFront's cache for paths specified in PATHS.
-
-# Usage:
-#     make PATHS="/fragments /fragments/six-weeks" invalidate
-.PHONY: invalidate
-invalidate: check-aws-keys check-cloudfront-id
-ifndef PATHS
-	$(error PATHS is required)
-endif
-	aws cloudfront create-invalidation --distribution-id $(CLOUDFRONT_ID) --paths ${PATHS}
-
-# Invalidates CloudFront's entire cache.
-.PHONY: invalidate-all
-invalidate-all: check-aws-keys check-cloudfront-id
-	aws cloudfront create-invalidation --distribution-id $(CLOUDFRONT_ID) --paths /
-
-# Invalidates CloudFront's cached assets.
-.PHONY: invalidate-assets
-invalidate-assets: check-aws-keys check-cloudfront-id
-	aws cloudfront create-invalidation --distribution-id $(CLOUDFRONT_ID) --paths /assets
-
-# Invalidates CloudFront's cached index pages. This is useful, but not
-# necessarily required, when publishing articles or new data (if it's not run,
-# anything cached in CloudFront will expire naturally after SHORT_TTL).
-.PHONY: invalidate-indexes
-invalidate-indexes: check-aws-keys check-cloudfront-id
-	aws cloudfront create-invalidation --distribution-id $(CLOUDFRONT_ID) --paths /articles /articles.atom /fragments /fragments.atom /now /passages /passages.atom /twitter
-
 .PHONY: killall
 killall:
 	killall sorg
@@ -238,14 +210,6 @@ ifndef AWS_ACCESS_KEY_ID
 endif
 ifndef AWS_SECRET_ACCESS_KEY
 	$(error AWS_SECRET_ACCESS_KEY is required)
-endif
-
-# Requires that variables necessary to update a CloudFront distribution are in
-# the environment.
-.PHONY: check-cloudfront-id
-check-cloudfront-id:
-ifndef CLOUDFRONT_ID
-	$(error CLOUDFRONT_ID is required)
 endif
 
 .PHONY: check-target-dir
