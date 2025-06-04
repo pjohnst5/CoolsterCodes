@@ -44,107 +44,6 @@ LONG_TTL := 86400
 # that are expected to change more frequently like any HTML file.
 SHORT_TTL := 3600
 
-.PHONY: deploy
-deploy: check-target-dir
-# Note that AWS_ACCESS_KEY_ID will only be set for builds on the master branch
-# because it's stored in GitHub as a secret variable. Secret variables are not
-# made available to non-master branches because of the risk of being leaked
-# through a script in a rogue pull request.
-ifdef AWS_ACCESS_KEY_ID
-	aws --version
-
-	@echo "\n=== Syncing HTML files\n"
-
-	# Force text/html for HTML because we're not using an extension.
-	#
-	# Note that we don't delete because it could result in a race condition in
-	# that files that are uploaded with special directives below could be
-	# removed even while the S3 bucket is actively in-use.
-	aws s3 sync $(TARGET_DIR) s3://$(S3_BUCKET)/ --acl public-read --cache-control max-age=$(SHORT_TTL) --content-type text/html --exclude 'assets*' --exclude 'photographs*' $(AWS_CLI_FLAGS)
-
-	@echo "\n=== Syncing media assets\n"
-
-	# Then move on to assets and allow S3 to detect content type.
-	#
-	# Note use of `--size-only` because mtimes may vary as they're not
-	# preserved by Git. Any updates to a static asset are likely to change its
-	# size though.
-	aws s3 sync $(TARGET_DIR)/assets/ s3://$(S3_BUCKET)/assets/ --acl public-read --cache-control max-age=$(LONG_TTL) --follow-symlinks --size-only $(AWS_CLI_FLAGS)
-
-	@echo "\n=== Syncing photographs\n"
-
-	# Photographs are identical to assets above except without `--delete`
-	# because any given build probably doesn't have the entire set.
-	aws s3 sync $(TARGET_DIR)/photographs/ s3://$(S3_BUCKET)/photographs/ --acl public-read --cache-control max-age=$(LONG_TTL) --follow-symlinks --size-only $(AWS_CLI_FLAGS)
-
-	@echo "\n=== Syncing Atom feeds\n"
-
-	# Upload Atom feed files with their proper content type.
-	find $(TARGET_DIR) -name '*.atom' | sed "s|^\$(TARGET_DIR)/||" | xargs -I{} -n1 aws s3 cp $(TARGET_DIR)/{} s3://$(S3_BUCKET)/{} --acl public-read --cache-control max-age=$(SHORT_TTL) --content-type application/xml
-
-	@echo "\n=== Syncing index HTML files\n"
-
-	# This one is a bit tricker to explain, but what we're doing here is
-	# uploading directory indexes as files at their directory name. So for
-	# example, 'articles/index.html` gets uploaded as `articles`.
-	#
-	# We do all this work because CloudFront/S3 has trouble with index files.
-	# An S3 static site can have index.html set to indexes, but CloudFront only
-	# has the notion of a "root object" which is an index at the top level.
-	#
-	# We do this during deploy instead of during build for two reasons:
-	#
-	# 1. Some directories need to have an index *and* other files. We must name
-	#    index files with `index.html` locally though because a file and
-	#    directory cannot share a name.
-	# 2. The `index.html` files are useful for emulating a live server locally:
-	#    Golang's http.FileServer will respect them as indexes.
-	find $(TARGET_DIR) -name index.html | egrep -v '$(TARGET_DIR)/index.html' | sed "s|^$(TARGET_DIR)/||" | xargs -I{} -n1 dirname {} | xargs -I{} -n1 aws s3 cp $(TARGET_DIR)/{}/index.html s3://$(S3_BUCKET)/{} --acl public-read --cache-control max-age=$(SHORT_TTL) --content-type text/html
-
-	@echo "\n=== Fixing robots.txt content type\n"
-
-	# Give robots.txt (if it exists) a Content-Type of text/plain. Twitter is
-	# rabid about this.
-	[ -f $(TARGET_DIR)/robots.txt ] && aws s3 cp $(TARGET_DIR)/robots.txt s3://$(S3_BUCKET)/ --acl public-read --cache-control max-age=$(SHORT_TTL) --content-type text/plain $(AWS_CLI_FLAGS) || echo "no robots.txt"
-
-	@echo "\n=== Setting redirects\n"
-
-	# Set redirects on specific objects. Generally old stuff that I ended up
-	# refactoring to live somewhere else. Note that for these to work, S3 web
-	# hosting must be on, and CloudFront must be pointed to the S3 web hosting
-	# URL rather than the REST endpoint.
-
-	# Redirects are commented out for now. They should already be in place and
-	# they're quite slow to run in the build process.
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key glass --website-redirect-location /newsletter
-
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/berlin.atom --website-redirect-location /sequences.atom
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/berlin/001 --website-redirect-location /sequences/001
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/berlin/002 --website-redirect-location /sequences/002
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/berlin/003 --website-redirect-location /sequences/003
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/berlin/004 --website-redirect-location /sequences/004
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/berlin/005 --website-redirect-location /sequences/005
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/berlin/006 --website-redirect-location /sequences/006
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/berlin/007 --website-redirect-location /sequences/007
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/berlin/008 --website-redirect-location /sequences/008
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/berlin/009 --website-redirect-location /sequences/009
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/berlin/010 --website-redirect-location /sequences/010
-
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/2020-light.atom --website-redirect-location /sequences.atom
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/2020-light/011 --website-redirect-location /sequences/011
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/2020-light/012 --website-redirect-location /sequences/012
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/2020-light/013 --website-redirect-location /sequences/013
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/2020-light/014 --website-redirect-location /sequences/014
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/2020-light/015 --website-redirect-location /sequences/015
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/2020-light/016 --website-redirect-location /sequences/016
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/2020-light/017 --website-redirect-location /sequences/017
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/2020-light/018 --website-redirect-location /sequences/018
-	# aws s3api put-object --acl public-read --bucket $(S3_BUCKET) --key sequences/2020-light/019 --website-redirect-location /sequences/019
-
-else
-	# No AWS access key. Skipping deploy.
-endif
-
 .PHONY: install
 install:
 	go install .
@@ -200,17 +99,6 @@ watch-go:
 #
 # Helpers
 #
-
-# Requires that variables necessary to make an AWS API call are in the
-# environment.
-.PHONY: check-aws-keys
-check-aws-keys:
-ifndef AWS_ACCESS_KEY_ID
-	$(error AWS_ACCESS_KEY_ID is required)
-endif
-ifndef AWS_SECRET_ACCESS_KEY
-	$(error AWS_SECRET_ACCESS_KEY is required)
-endif
 
 .PHONY: check-target-dir
 check-target-dir:
