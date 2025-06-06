@@ -25,6 +25,7 @@ import (
 	"github.com/brandur/sorg/modules/modulir/mtoml"
 	"github.com/brandur/sorg/modules/scommon"
 	"github.com/brandur/sorg/modules/stemplate"
+	"github.com/brandur/sorg/modules/tag"
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -337,6 +338,9 @@ type Article struct {
 	// Slug is a unique identifier for the article that also helps determine
 	// where it's addressable by URL.
 	Slug string `toml:"-"`
+
+	// Tag is used to group articles together :)
+	Tags []tag.Tag `toml:"tags,omitempty"`
 
 	// Title is the article's title.
 	Title string `toml:"title" validate:"required"`
