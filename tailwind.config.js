@@ -6,7 +6,7 @@ module.exports = {
     content: [
         "./content/articles/*.md",
         "./content/markdown/**/*.md",
-        "./layouts/**/*.{html,js}",
+        "./html/layouts/**/*.{html,js}",
         "./pages/**/*.{html,js}",
         "./html/_*.ace",
         "./html/**/*.{html,js}"

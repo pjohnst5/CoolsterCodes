@@ -34,7 +34,7 @@ const (
 	DataDir = "./data"
 
 	// LayoutsDir is the source directory for view layouts.
-	LayoutsDir = "./layouts"
+	LayoutsDir = "./html/layouts"
 
 	// MainLayout is the site's main layout in the deprecated ACE templating
 	// system. This is no longer used except in a few near retired pages like
