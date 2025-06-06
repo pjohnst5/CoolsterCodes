@@ -17,10 +17,10 @@ func TestDependencyRegistryParseGoTemplate(t *testing.T) {
 		require.NoError(t, err)
 		require.Equal(t, []string{
 			"html/layouts/main.tmpl.html",
-			"html/_style_stylesheets.tmpl.html",
-			"html/_dark_mode_js.tmpl.html",
-			"html/_shiki_js.tmpl.html",
-			"html/_fancybox_js.tmpl.html",
+			"html/helpers/_style_stylesheets.tmpl.html",
+			"html/helpers/_dark_mode_js.tmpl.html",
+			"html/helpers/_shiki_js.tmpl.html",
+			"html/helpers/_fancybox_js.tmpl.html",
 		}, dependencies)
 	}
 }
