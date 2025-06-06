@@ -61,7 +61,7 @@ var (
 var localLocation = mustLocation("America/Denver")
 
 // List of common build dependencies, a change in any of which will trigger a
-// rebuild on everything: partial views, JavaScripts, and stylesheets. Even
+// rebuild on everything: partial html, JavaScripts, and stylesheets. Even
 // though some of those changes will false positives, these sources are
 // pervasive enough, and changes infrequent enough, that it's worth the
 // tradeoff. This variable is a global because so many render functions access
@@ -111,7 +111,7 @@ func build(c *modulir.Context) []error {
 
 	// A set of source paths that rebuild everything when any one of them
 	// changes. These are dependencies that are included in more or less
-	// everything: common partial views, JavaScript sources, and stylesheet
+	// everything: common partial html, JavaScript sources, and stylesheet
 	// sources.
 	universalSources = nil
 
@@ -125,22 +125,22 @@ func build(c *modulir.Context) []error {
 		universalSources = append(universalSources, javaScriptSources...)
 	}
 
-	// Generate a list of partial views to add to universal sources.
+	// Generate a list of partial html to add to universal sources.
 	{
-		sources, err := mfile.ReadDirCached(c, c.SourceDir+"/views",
+		sources, err := mfile.ReadDirCached(c, c.SourceDir+"/html",
 			&mfile.ReadDirOptions{ShowMeta: true})
 		if err != nil {
 			return []error{err}
 		}
 
-		var partialViews []string
+		var partialHTML []string
 		for _, source := range sources {
 			if strings.HasPrefix(filepath.Base(source), "_") {
-				partialViews = append(partialViews, source)
+				partialHTML = append(partialHTML, source)
 			}
 		}
 
-		universalSources = append(universalSources, partialViews...)
+		universalSources = append(universalSources, partialHTML...)
 	}
 
 	// Generate a set of stylesheet sources to add to universal sources.
@@ -519,9 +519,9 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 ) (bool, error) {
 	sourceChanged := c.Changed(source)
 
-	sourceTmpl := scommon.ViewsDir + "/article.tmpl.html"
-	viewsChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
-	if !sourceChanged && !viewsChanged {
+	sourceTmpl := scommon.HTML + "/article.tmpl.html"
+	htmlChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
+	if !sourceChanged && !htmlChanged {
 		return false, nil
 	}
 
@@ -616,9 +616,9 @@ func renderHome(ctx context.Context, c *modulir.Context,
 	articles []*Article,
 	articlesChanged bool,
 ) (bool, error) {
-	sourceTmpl := scommon.ViewsDir + "/index.tmpl.html"
-	viewsChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
-	if !articlesChanged && !viewsChanged {
+	sourceTmpl := scommon.HTML + "/index.tmpl.html"
+	htmlChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
+	if !articlesChanged && !htmlChanged {
 		return false, nil
 	}
 
@@ -649,7 +649,7 @@ func renderPage(ctx context.Context, c *modulir.Context,
 	}
 	mu.RUnlock()
 
-	viewsChanged := c.ChangedAny(append(
+	htmlChanged := c.ChangedAny(append(
 		[]string{
 			scommon.MainLayout,
 			source,
@@ -659,7 +659,7 @@ func renderPage(ctx context.Context, c *modulir.Context,
 			pageDependencies...,
 		)...,
 	)...)
-	if !viewsChanged {
+	if !htmlChanged {
 		return false, nil
 	}
 

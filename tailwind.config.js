@@ -8,8 +8,8 @@ module.exports = {
         "./content/markdown/**/*.md",
         "./layouts/**/*.{html,js}",
         "./pages/**/*.{html,js}",
-        "./views/_*.ace",
-        "./views/**/*.{html,js}"
+        "./html/_*.ace",
+        "./html/**/*.{html,js}"
     ],
     darkMode: 'selector',
     theme: {

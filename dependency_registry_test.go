@@ -17,10 +17,10 @@ func TestDependencyRegistryParseGoTemplate(t *testing.T) {
 		require.NoError(t, err)
 		require.Equal(t, []string{
 			"layouts/main.tmpl.html",
-			"views/_style_stylesheets.tmpl.html",
-			"views/_dark_mode_js.tmpl.html",
-			"views/_shiki_js.tmpl.html",
-			"views/_fancybox_js.tmpl.html",
+			"html/_style_stylesheets.tmpl.html",
+			"html/_dark_mode_js.tmpl.html",
+			"html/_shiki_js.tmpl.html",
+			"html/_fancybox_js.tmpl.html",
 		}, dependencies)
 	}
 }
@@ -29,8 +29,8 @@ func TestFindGoSubTemplates(t *testing.T) {
 	require.Equal(t, []string{"layouts/main.tmpl.html"}, findGoSubTemplates(`{{template "layouts/main.tmpl.html" .}}`))
 	require.Equal(t, []string{"layouts/main.tmpl.html"}, findGoSubTemplates(`{{template "layouts/main.tmpl.html" .}}`))
 	require.Equal(t,
-		[]string{"layouts/main.tmpl.html", "views/_other.tmpl.html"},
-		findGoSubTemplates(`{{template "layouts/main.tmpl.html" .}}{{template "views/_other.tmpl.html" .}}`),
+		[]string{"layouts/main.tmpl.html", "html/_other.tmpl.html"},
+		findGoSubTemplates(`{{template "layouts/main.tmpl.html" .}}{{template "html/_other.tmpl.html" .}}`),
 	)
 	require.Equal(t, []string{}, findGoSubTemplates(`no templates here`))
 	require.Equal(t, []string{}, findGoSubTemplates(``))

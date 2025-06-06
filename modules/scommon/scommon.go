@@ -48,8 +48,8 @@ const (
 	// TitleSuffix is the suffix to add to the end of page and Atom titles.
 	TitleSuffix = " — brandur.org"
 
-	// ViewsDir is the source directory for views.
-	ViewsDir = "./views"
+	// HTML is the source directory for html.
+	HTML = "./html"
 )
 
 //////////////////////////////////////////////////////////////////////////////
