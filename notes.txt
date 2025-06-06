@@ -60,6 +60,7 @@ Remove all "brandur" stuff and make it my own
     - Code: update/play with Shiki
     - Logo
 Add back in GT articles
+Do we need tmp?
 Host it
 
 -- Commands --

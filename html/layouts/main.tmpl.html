@@ -10,7 +10,7 @@
 
     {{Favicon "favicon" "jpg"}}
 
-    {{template "views/_style_stylesheets.tmpl.html" .}}
+    {{template "html/helpers/_style_stylesheets.tmpl.html" .}}
 
     {{block "stylesheets" .}}{{end}}
 
@@ -24,12 +24,12 @@
 
 <body class="antialiased {{block "body_style" .}}{{end}}">
     <!-- load early to avoid ficker -->
-    {{template "views/_dark_mode_js.tmpl.html" .}}
+    {{template "html/helpers/_dark_mode_js.tmpl.html" .}}
 
     {{block "content" .}}{{end}}
 
-    {{template "views/_shiki_js.tmpl.html" .}}
-    {{template "views/_fancybox_js.tmpl.html" .}}
+    {{template "html/helpers/_shiki_js.tmpl.html" .}}
+    {{template "html/helpers/_fancybox_js.tmpl.html" .}}
 
 </body>
 
