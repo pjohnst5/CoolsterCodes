@@ -45,11 +45,11 @@ func TestLexicographicBase32(t *testing.T) {
 }
 
 func TestPagePathKey(t *testing.T) {
-	require.Equal(t, "about", pagePathKey("./pages/about.ace"))
+	require.Equal(t, "about", pagePathKey("./html/pages/about.ace"))
 
-	require.Equal(t, "deep/about", pagePathKey("./pages/deep/about.ace"))
+	require.Equal(t, "deep/about", pagePathKey("./html/pages/deep/about.ace"))
 
-	require.Equal(t, "really/deep/about", pagePathKey("./pages/really/deep/about.ace"))
+	require.Equal(t, "really/deep/about", pagePathKey("./html/pages/really/deep/about.ace"))
 }
 
 func TestSimplifyMarkdownForSummary(t *testing.T) {
