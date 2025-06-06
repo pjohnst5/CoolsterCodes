@@ -48,6 +48,7 @@ Images: ✅
 - Add in figure captions as well ✅
 - Make captions optional ✅
 Figure out how to make Articles main page ✅
+Re-arrange html files
 Implement Tags (can use Victor Zhou's lols)
 Implement Search (can use docfx example lols)
 Auto-create headers
