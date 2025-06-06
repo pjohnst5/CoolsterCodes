@@ -57,7 +57,7 @@ var (
 	pages        = make(map[string]*Page)
 )
 
-// Time zone to show articles / fragments / etc. publishing times in.
+// Time zone to show articles publishing times in.
 var localLocation = mustLocation("America/Denver")
 
 // List of common build dependencies, a change in any of which will trigger a
@@ -181,7 +181,6 @@ func build(c *modulir.Context) []error {
 
 	{
 		commonDirs := []string{
-			c.TargetDir + "/articles",
 			scommon.TempDir,
 			versionedContentDir,
 		}
