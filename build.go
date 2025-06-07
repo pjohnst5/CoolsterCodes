@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"html/template"
 	"net/url"
 	"os"
@@ -288,6 +289,12 @@ func build(c *modulir.Context) []error {
 		})
 	}
 
+	//
+	// Tags
+	//
+	tagMap := getTagMap(articles)
+	fmt.Printf("Tag map: %+v\n", tagMap)
+
 	return nil
 }
 
@@ -339,7 +346,7 @@ type Article struct {
 	Slug string `toml:"-"`
 
 	// Tag is used to group articles together :)
-	Tags []Tag `toml:"tags,omitempty"`
+	Tags []string `toml:"tags,omitempty"`
 
 	// Title is the article's title.
 	Title string `toml:"title" validate:"required"`
@@ -379,9 +386,6 @@ type Page struct {
 	// render.
 	dependencies []string
 }
-
-// Tag
-type Tag string
 
 // articleYear holds a collection of articles grouped by year.
 type articleYear struct {
@@ -697,4 +701,14 @@ func renderPage(ctx context.Context, c *modulir.Context,
 	pageMeta.dependencies = dependencies.getDependencies(source)
 
 	return true, nil
+}
+
+func getTagMap(articles []*Article) map[string][]string {
+	tagMap := make(map[string][]string)
+	for _, article := range articles {
+		for _, tag := range article.Tags {
+			tagMap[tag] = append(tagMap[tag], string(article.Slug))
+		}
+	}
+	return tagMap
 }
