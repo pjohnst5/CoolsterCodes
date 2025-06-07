@@ -1,23 +1,22 @@
 package tag
 
 import (
+	"regexp"
 	"strings"
 )
 
-type Tag struct {
-	PrettyPrint string
-	URL         string
-}
+func ToURL(tag string) string {
+	// Convert to lowercase
+	tag = strings.ToLower(tag)
 
-// Assumes you give it the pretty print version
-func NewTag(tag string) Tag {
-	var t Tag
-	t.PrettyPrint = tag
-	// lowercase and replace spaces with dash
-	lowerStr := strings.ToLower(tag)
-	urlTag := strings.ReplaceAll(lowerStr, " ", "-")
-	t.URL = urlTag
-	return t
+	// Remove all non-word characters and replace with a dash
+	re := regexp.MustCompile(`[\s\W-]+`)
+	tag = re.ReplaceAllString(tag, "-")
+
+	// Trim leading and trailing dashes
+	tag = strings.Trim(tag, "-")
+
+	return tag
 }
 
 // Given a list of articles, return a map of

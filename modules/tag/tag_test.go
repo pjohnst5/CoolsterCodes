@@ -7,7 +7,8 @@ import (
 )
 
 func TestNewTag(t *testing.T) {
-	ta := NewTag("Georgia Tech")
-	assert.Equal(t, "georgia-tech", ta.URL)
-	assert.Equal(t, "Georgia Tech", ta.PrettyPrint)
+	assert.Equal(t, "georgia-tech", ToURL("Georgia Tech"))
+	assert.Equal(t, "ai", ToURL("AI"))
+	assert.Equal(t, "ballin-it-up", ToURL("Ballin' it up"))
+	assert.Equal(t, "hey", ToURL("Hey!"))
 }

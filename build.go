@@ -25,7 +25,6 @@ import (
 	"github.com/brandur/sorg/modules/modulir/mtoml"
 	"github.com/brandur/sorg/modules/scommon"
 	"github.com/brandur/sorg/modules/stemplate"
-	"github.com/brandur/sorg/modules/tag"
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -340,7 +339,7 @@ type Article struct {
 	Slug string `toml:"-"`
 
 	// Tag is used to group articles together :)
-	Tags []tag.Tag `toml:"tags,omitempty"`
+	Tags []Tag `toml:"tags,omitempty"`
 
 	// Title is the article's title.
 	Title string `toml:"title" validate:"required"`
@@ -380,6 +379,9 @@ type Page struct {
 	// render.
 	dependencies []string
 }
+
+// Tag
+type Tag string
 
 // articleYear holds a collection of articles grouped by year.
 type articleYear struct {
