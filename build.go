@@ -397,12 +397,6 @@ type Page struct {
 	dependencies []string
 }
 
-// articleYear holds a collection of articles grouped by year.
-type articleYear struct {
-	Year     int
-	Articles []*Article
-}
-
 //////////////////////////////////////////////////////////////////////////////
 //
 //
@@ -455,22 +449,6 @@ func getLocals(locals map[string]interface{}) map[string]interface{} {
 	}
 
 	return defaults
-}
-
-func groupArticlesByYear(articles []*Article) []*articleYear {
-	var year *articleYear
-	var years []*articleYear
-
-	for _, article := range articles {
-		if year == nil || year.Year != article.PublishedAt.Year() {
-			year = &articleYear{article.PublishedAt.Year(), nil}
-			years = append(years, year)
-		}
-
-		year.Articles = append(year.Articles, article)
-	}
-
-	return years
 }
 
 func insertOrReplaceArticle(articles *[]*Article, article *Article) {
@@ -632,11 +610,9 @@ func renderHome(ctx context.Context, c *modulir.Context,
 		return false, nil
 	}
 
-	articlesByYear := groupArticlesByYear(articles)
-
 	locals := getLocals(map[string]interface{}{
-		"ArticlesByYear": articlesByYear,
-		"TagMap":         tagMap,
+		"Articles": articles,
+		"TagMap":   tagMap,
 	})
 
 	return true, dependencies.renderGoTemplate(ctx, c, sourceTmpl,
@@ -654,11 +630,9 @@ func renderTag(ctx context.Context, c *modulir.Context,
 		return false, nil
 	}
 
-	articlesByYear := groupArticlesByYear(articles)
-
 	locals := getLocals(map[string]interface{}{
-		"Tag":            tag,
-		"ArticlesByYear": articlesByYear,
+		"Tag":      tag,
+		"Articles": articles,
 	})
 
 	targetDir := path.Join(c.TargetDir, "tags")

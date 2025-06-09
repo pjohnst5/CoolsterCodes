@@ -51,12 +51,13 @@ Figure out how to make Articles main page ✅
 Re-arrange html files ✅
 Implement Tags essentials ✅
 Experiment making Tags show up as filtered list ✅
-Give list of Articles without year
+Give list of Articles without year ✅
 Make buttons look nice
 Make articles feed narrower
 Change nav bar to have my logo
 Remove darkmode toggle
 Make a hamburger menu on mobile
+Explore removing "Articles" title
 Make it so only top 10 tags are shown as buttons
 Finish making an "All Tags" tab page
 Change colors of site
