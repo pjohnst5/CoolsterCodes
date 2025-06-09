@@ -4,12 +4,22 @@
 
 {{- define "article_content" -}}
 
-<div class="mb-12 mt-0 md:mb-24 md:mt-16 px-4">
-    <h1 class="font-normal font-serif my-8 text-center text-8xl text-proseLinks tracking-tighter dark:text-proseInvertLinks">
+<!-- <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    Button
+    </button> -->
+
+<div class="mb-12 mt-0 px-4">
+    <h1 class="font-normal font-serif my-8 text-center text-8xl text-proseLinks tracking-tighter dark:text-proseInvertLinks mt-0">
         Articles
     </h1>
+    <div class="container max-w-[800px] mx-auto mt-8 px-8 text-center" id="buttons">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btn active" onclick="filterSelection('all')"> Show all</button>
+        {{range $t, $arts := .TagMap}}
+        <button class="btn" onclick="filterSelection('{{$t}}')"> {{$t}}</button>
+        {{end}}
+    </div>
 
-    <div class="container max-w-[625px] mx-auto
+    <!-- <div class="container max-w-[625px] mx-auto
             prose prose-lg dark:prose-invert
             prose-a:border-b-[1px] prose-a:border-slate-500 prose-a:font-sans prose-a:no-underline
             hover:prose-a:border-slate-200
@@ -19,12 +29,12 @@
             Longer form articles that aim to explore topics in more depth, but which are
             published less frequently. Also available as an <a href="/articles.atom" class="feed_icon">Atom feed</a>.
         </p>
-    </div>
+    </div> -->
 </div>
 
 <div class="container max-w-[800px] mx-auto mt-8 px-8">
     <div class="md:flex">
-        <div> <!-- needed for sticky -->
+        <!-- <div>
             <div class="font-mono my-1 leading-normal text-md text-proseLinks tracking-tighter dark:text-proseInvertLinks md:sticky md:text-right md:top-5">
                 <div class="hidden md:block md:pr-6">
                     <ul>
@@ -36,17 +46,17 @@
                     </ul>
                 </div>
             </div>
-        </div>
-        <div class="pb-8 dark:border-slate-700 md:border-l-[1px] md:flex-grow md:min-w-0 md:pl-6">
+        </div> -->
+        <div class="pb-8 dark:border-slate-700 md:flex-grow md:min-w-0 md:pl-6 md:pr-6">
             {{range .ArticlesByYear}}
-            <h2 id="year_{{.Year}}" class="font-bold text-md text-proseLinks tracking-tighter dark:text-proseInvertLinks">{{.Year}}</h2>
+            <!-- <h2 id="year_{{.Year}}" class="font-bold text-md text-proseLinks tracking-tighter dark:text-proseInvertLinks">{{.Year}}</h2> -->
 
             <ul class="clear-both mb-9">
                 {{- range .Articles -}}
-                <li class="clear-both mb-9 mt-1.5 text-md text-proseBody dark:text-proseInvertBody">
+                <li class="filterDiv {{range .Tags}}{{.}} {{end}} clear-both mb-9 mt-1.5 text-md text-proseBody dark:text-proseInvertBody">
                     {{if .HookImageURL}}
                     <a href="/{{.Slug}}">
-                        <img src="{{.HookImageURL}}" srcset="{{To2X .HookImageURL}} 2x, {{.HookImageURL}} 1x"
+                        <img src="{{.HookImageURL}}"
                             class="float-left mr-4 rounded-lg">
                     </a>
                     {{end}}
