@@ -50,17 +50,23 @@ Images: ✅
 Figure out how to make Articles main page ✅
 Re-arrange html files ✅
 Implement Tags essentials ✅
-Experiment making Tags show up as filtered list
+Experiment making Tags show up as filtered list ✅
+Make buttons look nice
+Make articles feed narrower
+Change nav bar to have my logo
+Remove darkmode toggle
+Make a hamburger menu on mobile
+Make it so only top 10 tags are shown as buttons
+Finish making an "All Tags" tab page
+Change colors of site
 Implement Search (can use docfx example lols)
 Rearrange content folder
 Auto-create headers
+Auto-link hook images
 Remove all other Articles
-Remove all "brandur" stuff and make it my own
-    - Make preview images mine (favico)
-    - Colors
-    - What CSS is used here?
-    - Code: update/play with Shiki
-    - Logo
+Make preview images mine (favico)
+What CSS is used here?
+Code: update/play with Shiki
 Add back in GT articles
 Do we need tmp?
 Host it
