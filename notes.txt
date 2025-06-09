@@ -49,7 +49,8 @@ Images: ✅
 - Make captions optional ✅
 Figure out how to make Articles main page ✅
 Re-arrange html files ✅
-Implement Tags (can use Victor Zhou's lols)
+Implement Tags essentials ✅
+Experiment making Tags show up as filtered list
 Implement Search (can use docfx example lols)
 Auto-create headers
 Remove all other Articles
