@@ -283,9 +283,10 @@ func build(c *modulir.Context) []error {
 	//
 
 	{
+		tagMap := getTagMap(articles)
 		c.AddJob("home", func() (bool, error) {
 			return renderHome(ctx, c, articles,
-				articlesChanged)
+				articlesChanged, tagMap)
 		})
 	}
 
@@ -623,6 +624,7 @@ func truncateString(str string, maxLength int) string {
 func renderHome(ctx context.Context, c *modulir.Context,
 	articles []*Article,
 	articlesChanged bool,
+	tagMap map[string][]*Article,
 ) (bool, error) {
 	sourceTmpl := scommon.HTML + "/index.tmpl.html"
 	htmlChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
@@ -634,6 +636,7 @@ func renderHome(ctx context.Context, c *modulir.Context,
 
 	locals := getLocals(map[string]interface{}{
 		"ArticlesByYear": articlesByYear,
+		"TagMap":         tagMap,
 	})
 
 	return true, dependencies.renderGoTemplate(ctx, c, sourceTmpl,
