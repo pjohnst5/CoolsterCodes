@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"html/template"
 	"net/url"
 	"os"
@@ -182,6 +181,7 @@ func build(c *modulir.Context) []error {
 
 	{
 		commonDirs := []string{
+			c.TargetDir + "/tags",
 			scommon.TempDir,
 			versionedContentDir,
 		}
@@ -292,8 +292,17 @@ func build(c *modulir.Context) []error {
 	//
 	// Tags
 	//
-	tagMap := getTagMap(articles)
-	fmt.Printf("Tag map: %+v\n", tagMap)
+	{
+		tagMap := getTagMap(articles)
+		for tag, articles := range tagMap {
+			c.AddJob(tag, func() (bool, error) {
+				return renderTag(ctx, c,
+					tag,
+					articles,
+					articlesChanged)
+			})
+		}
+	}
 
 	return nil
 }
@@ -631,6 +640,30 @@ func renderHome(ctx context.Context, c *modulir.Context,
 		path.Join(c.TargetDir, "index.html"), locals)
 }
 
+func renderTag(ctx context.Context, c *modulir.Context,
+	tag string,
+	articles []*Article,
+	articlesChanged bool,
+) (bool, error) {
+	sourceTmpl := scommon.HTML + "/tags/tag.tmpl.html"
+	htmlChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
+	if !articlesChanged && !htmlChanged {
+		return false, nil
+	}
+
+	articlesByYear := groupArticlesByYear(articles)
+
+	locals := getLocals(map[string]interface{}{
+		"Tag":            tag,
+		"ArticlesByYear": articlesByYear,
+	})
+
+	targetDir := path.Join(c.TargetDir, "tags")
+
+	return true, dependencies.renderGoTemplate(ctx, c, sourceTmpl,
+		path.Join(targetDir, tagToURL(tag)), locals)
+}
+
 func renderPage(ctx context.Context, c *modulir.Context,
 	source string, meta map[string]*Page, mu *sync.RWMutex,
 ) (bool, error) {
@@ -703,12 +736,26 @@ func renderPage(ctx context.Context, c *modulir.Context,
 	return true, nil
 }
 
-func getTagMap(articles []*Article) map[string][]string {
-	tagMap := make(map[string][]string)
+func getTagMap(articles []*Article) map[string][]*Article {
+	tagMap := make(map[string][]*Article)
 	for _, article := range articles {
 		for _, tag := range article.Tags {
-			tagMap[tag] = append(tagMap[tag], string(article.Slug))
+			tagMap[tag] = append(tagMap[tag], article)
 		}
 	}
 	return tagMap
+}
+
+func tagToURL(tag string) string {
+	// Convert to lowercase
+	tag = strings.ToLower(tag)
+
+	// Remove all non-word characters and replace with a dash
+	re := regexp.MustCompile(`[\s\W-]+`)
+	tag = re.ReplaceAllString(tag, "-")
+
+	// Trim leading and trailing dashes
+	tag = strings.Trim(tag, "-")
+
+	return tag
 }
