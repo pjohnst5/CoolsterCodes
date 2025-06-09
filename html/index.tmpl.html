@@ -8,6 +8,16 @@
     <h1 class="font-normal font-serif my-8 text-center text-8xl text-proseLinks tracking-tighter dark:text-proseInvertLinks mt-0">
         Articles
     </h1>
+    <div class="container max-w-[625px] mx-auto
+                prose prose-lg dark:prose-invert
+                prose-a:border-b-[1px] prose-a:border-slate-500 prose-a:font-sans prose-a:no-underline
+                hover:prose-a:border-slate-200
+                prose-p:text-center prose-p:italic
+                ">
+        <p>
+            Pick a category, any category.
+        </p>
+    </div>
     <div class="container max-w-[800px] mx-auto mt-8 px-8 text-center" id="buttons">
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btn active" onclick="filterSelection('all')"> Show all</button>
         {{range $t, $arts := .TagMap}}
