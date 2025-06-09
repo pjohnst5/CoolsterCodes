@@ -57,6 +57,7 @@ Make articles feed narrower
 Change nav bar to have my logo
 Remove darkmode toggle
 Make a hamburger menu on mobile
+Explore removing "Articles" title
 Make it so only top 10 tags are shown as buttons
 Finish making an "All Tags" tab page
 Change colors of site
