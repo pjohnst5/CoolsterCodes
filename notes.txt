@@ -52,6 +52,7 @@ Re-arrange html files ✅
 Implement Tags essentials ✅
 Experiment making Tags show up as filtered list
 Implement Search (can use docfx example lols)
+Rearrange content folder
 Auto-create headers
 Remove all other Articles
 Remove all "brandur" stuff and make it my own
