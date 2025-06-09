@@ -5,6 +5,7 @@ image = "/contents/images/heroku-values/heroku-values.jpg"
 location = "San Francisco"
 published_at = 2015-11-05T06:20:16Z
 title = "My Heroku Values"
+tags = ["AI"]
 +++
 
 In the spirit of [Adam Wiggins' inspiring list of Heroku

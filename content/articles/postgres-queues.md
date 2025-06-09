@@ -3,7 +3,6 @@ hn_link = "https://news.ycombinator.com/item?id=9576864"
 hook = "How Postgres' concurrency model coupled with long-lived transactions can degrade the performance of indexes on hot tables in your database."
 location = "San Francisco"
 published_at = 2015-05-18T23:13:23Z
-tags = ["postgres"]
 title = "Postgres Job Queues & Failure By MVCC"
 +++
 

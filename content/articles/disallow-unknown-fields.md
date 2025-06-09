@@ -3,6 +3,7 @@ hook = "Using Go's `DisallowUnknownFields` option to improve an API's integratio
 location = "Berlin"
 published_at = 2024-05-05T08:21:27+02:00
 title = "Web APIs: Enriched DX By Disallowing Unknown Fields"
+tags = ["Ballin' it up", "AI"]
 +++
 
 Go's JSON library provides the [decoder option `DisallowUnknownFields`](https://pkg.go.dev/encoding/json#Decoder.DisallowUnknownFields) which even if not intuitively obvious, is a handy option fo adding a layer of improved DX to web APIs. As the name would suggest, it causes a decoder to error when encountering a property in a JSON object being decoded that's not present in the struct being decoded to.

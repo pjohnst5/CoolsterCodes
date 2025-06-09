@@ -2,7 +2,6 @@
 hook = "How Postgres makes sorting really fast by comparing small, memory-friendly abbreviated keys as proxies for arbitrarily large values on the heap."
 location = "San Francisco"
 published_at = 2019-02-04T16:56:52Z
-tags = ["postgres"]
 title = "SortSupport: Sorting in Postgres at Speed"
 +++
 

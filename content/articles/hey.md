@@ -4,6 +4,7 @@ image = "/contents/images/two-phase-render/vista.jpg"
 location = "Utah"
 published_at = 2025-05-19T14:52:52Z
 title = "Ballin' like a baller"
+tags = ["Georgia Tech", "AI", "Ballin' it up"]
 +++
 
 *Author’s note:* Paul is known to ball really hard, beware.

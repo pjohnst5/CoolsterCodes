@@ -2,7 +2,6 @@
 hook = "On ensuring system integrity, operability, and correctness through a solid foundational database, and how ACID transactions and strong constraints work in your favor. Why to prefer Postgres over MongoDB."
 location = "San Francisco"
 published_at = 2017-05-16T14:03:01Z
-tags = ["postgres"]
 title = "Building Robust Systems with ACID and Constraints"
 +++
 

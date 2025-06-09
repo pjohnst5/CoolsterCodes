@@ -2,7 +2,6 @@
 hook = "The `text` type in Postgres, why it's awesome, and why you might want to use `varchar` anyway. Also, a story about trying to get string parameters bounded at Stripe."
 location = "San Francisco"
 published_at = 2021-09-10T15:55:19Z
-tags = ["postgres"]
 title = "Postgres: Boundless `text` and Back Again"
 +++
 

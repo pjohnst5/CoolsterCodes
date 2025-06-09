@@ -2,7 +2,6 @@
 hook = "Databases shed important RDMS features as they get big. Examining why this tends to be the case, and some ideas for preventing it."
 location = "San Francisco"
 published_at = 2020-12-01T20:06:51Z
-tags = ["postgres"]
 title = "Feature Casualties of Large Databases"
 +++
 
