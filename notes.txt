@@ -51,7 +51,7 @@ Figure out how to make Articles main page ✅
 Re-arrange html files ✅
 Implement Tags essentials ✅
 Experiment making Tags show up as filtered list ✅
-Give list of Articles without year
+Give list of Articles without year ✅
 Make buttons look nice
 Make articles feed narrower
 Change nav bar to have my logo
