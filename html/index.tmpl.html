@@ -4,7 +4,11 @@
 
 {{- define "article_content" -}}
 
-<div class="mb-12 mt-0 md:mb-24 md:mt-16 px-4">
+<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    Button
+    </button>
+
+<div class="mb-12 mt-0 px-4">
     <h1 class="font-normal font-serif my-8 text-center text-8xl text-proseLinks tracking-tighter dark:text-proseInvertLinks">
         Articles
     </h1>
@@ -43,7 +47,7 @@
                 </div>
             </div>
         </div> -->
-        <div class="pb-8 dark:border-slate-700 md:border-l-[1px] md:flex-grow md:min-w-0 md:pl-6">
+        <div class="pb-8 dark:border-slate-700 md:flex-grow md:min-w-0 md:pl-6">
             {{range .ArticlesByYear}}
             <!-- <h2 id="year_{{.Year}}" class="font-bold text-md text-proseLinks tracking-tighter dark:text-proseInvertLinks">{{.Year}}</h2> -->
 
