@@ -2,14 +2,8 @@
 .env
 .envrc
 
-/content/photographs/**/*.jpg
-/content/photographs/**/*.png
-/content/photographs/**/*.webp
 /public/
 /sorg
 /tmp/
-/tags
 
 *.csv
-
-*.marker
