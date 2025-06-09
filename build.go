@@ -397,12 +397,6 @@ type Page struct {
 	dependencies []string
 }
 
-// articleYear holds a collection of articles grouped by year.
-type articleYear struct {
-	Year     int
-	Articles []*Article
-}
-
 //////////////////////////////////////////////////////////////////////////////
 //
 //
