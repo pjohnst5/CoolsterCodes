@@ -1689,6 +1689,11 @@ video {
   margin-bottom: 4rem;
 }
 
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 .my-8 {
   margin-top: 2rem;
   margin-bottom: 2rem;
@@ -2048,10 +2053,6 @@ video {
   padding-bottom: 1rem;
 }
 
-.pb-1 {
-  padding-bottom: 0.25rem;
-}
-
 .pb-20 {
   padding-bottom: 5rem;
 }
@@ -2086,10 +2087,6 @@ video {
 
 .text-center {
   text-align: center;
-}
-
-.font-mono {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 .font-sans {
@@ -2509,14 +2506,6 @@ video {
 }
 
 @media (min-width: 768px) {
-  .md\:sticky {
-    position: sticky;
-  }
-
-  .md\:top-5 {
-    top: 1.25rem;
-  }
-
   .md\:my-16 {
     margin-top: 4rem;
     margin-bottom: 4rem;
@@ -2566,10 +2555,6 @@ video {
     border-left-width: 1px;
   }
 
-  .md\:border-l-\[1px\] {
-    border-left-width: 1px;
-  }
-
   .md\:py-6 {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
@@ -2593,10 +2578,6 @@ video {
 
   .md\:pr-6 {
     padding-right: 1.5rem;
-  }
-
-  .md\:text-right {
-    text-align: right;
   }
 
   .md\:text-8xl {
