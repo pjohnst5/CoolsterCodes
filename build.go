@@ -736,7 +736,7 @@ func getTopNTags(tagMap map[string][]*Article, n int) []TagCount {
 	tagsProcessed := 0
 	for tag, articles := range tagMap {
 		topNTags = append(topNTags, TagCount{Tag: tag, Count: len(articles)})
-		tagsProcessed += 1
+		tagsProcessed++
 		if tagsProcessed == n {
 			break
 		}
