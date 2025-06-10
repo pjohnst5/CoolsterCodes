@@ -3,6 +3,7 @@ hook = "A non-exhaustive primer of modern cloud database solutions like Aurora, 
 location = "San Francisco"
 published_at = 2017-05-22T17:24:13Z
 title = "A Comparison of Advanced, Modern Cloud Databases"
+tags = ["Databases"]
 +++
 
 In the last few years we've seen the emergency of some

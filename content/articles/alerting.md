@@ -3,6 +3,7 @@ hook = "A set of general guidelines to consider when designing a alerts for a pr
 location = "Leipzig (finished in San Francisco)"
 published_at = 2015-08-18T11:28:48Z
 title = "Designing Alerts"
+tags = ["Dogs", "Cats"]
 +++
 
 Adding alerts to systems has become a widespread standard practice that helps

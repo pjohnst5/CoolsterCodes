@@ -3,6 +3,7 @@ hook = "Notes on the language after spending a few weeks building a large projec
 location = "San Francisco"
 published_at = 2016-03-31T20:37:11Z
 title = "Notes on Go"
+tags = ["Change"]
 +++
 
 Despite having worked for so many years with colleagues who were major
