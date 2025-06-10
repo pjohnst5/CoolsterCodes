@@ -55,14 +55,15 @@ Give list of Articles without year ✅
 Make articles feed narrower ✅
 Make buttons look nice ✅
 Remove "Show All" functionality
-Change nav bar to have my logo
+Add link to "Articles"
+Make it so only top 10 tags are shown as buttons
 Remove darkmode toggle
+Change colors of site
+Change nav bar to have my logo
 Make a hamburger menu on mobile
 Explore removing "Articles" title
-Make it so only top 10 tags are shown as buttons
 Maybe make count show next to tag (experiment)
 Finish making an "All Tags" tab page
-Change colors of site
 Implement Search (can use docfx example lols)
 Rearrange content folder
 Auto-create headers
