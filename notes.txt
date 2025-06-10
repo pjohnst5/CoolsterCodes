@@ -56,14 +56,16 @@ Make articles feed narrower ✅
 Make buttons look nice ✅
 Remove "Show All" functionality ✅
 Add link to "Articles" ✅
-Make it so only top 10 tags are shown as buttons
+Make it so only top 10 tags are shown as buttons ✅
+Explore making tag count show next to tag ✅
 Remove darkmode toggle
 Change colors of site
 Change nav bar to have my logo
 Make a hamburger menu on mobile
 Explore removing "Articles" title
-Maybe make count show next to tag (experiment)
 Finish making an "All Tags" tab page
+- (Do I even need that?)
+- If I do take it out, put back "Show all" button
 Implement Search (can use docfx example lols)
 Rearrange content folder
 Auto-create headers
