@@ -52,8 +52,9 @@ Re-arrange html files ✅
 Implement Tags essentials ✅
 Experiment making Tags show up as filtered list ✅
 Give list of Articles without year ✅
+Make articles feed narrower ✅
 Make buttons look nice
-Make articles feed narrower
+Remove "Show All" functionality
 Change nav bar to have my logo
 Remove darkmode toggle
 Make a hamburger menu on mobile
