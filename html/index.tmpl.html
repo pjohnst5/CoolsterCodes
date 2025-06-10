@@ -15,13 +15,13 @@
                 prose-p:text-center prose-p:italic
                 ">
         <p>
-            Pick a category, any category.
+            Pick a tag, any tag.
         </p>
     </div>
     <div class="container max-w-[800px] mx-auto mt-8 px-8 text-center" id="buttons">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btn active" onclick="filterSelection('all')"> Show all</button>
+        <button class="btn btn-white" onclick="filterSelection('all')"> Show all</button>
         {{range $t, $arts := .TagMap}}
-        <button class="btn" onclick="filterSelection('{{$t}}')"> {{$t}}</button>
+        <button class="btn btn-blue" onclick="filterSelection('{{$t}}')"> {{$t}}</button>
         {{end}}
     </div>
 </div>
@@ -31,7 +31,7 @@
         <div class="pb-8 dark:border-slate-700 md:flex-grow md:min-w-0 md:pl-6 md:pr-6">
             <ul class="clear-both mb-9">
                 {{- range .Articles -}}
-                <li class="filterDiv {{range .Tags}}{{.}} {{end}} clear-both mb-9 mt-1.5 text-md text-proseBody dark:text-proseInvertBody">
+                <li class="filterTag {{range .Tags}}{{.}} {{end}} clear-both mb-9 mt-1.5 text-md text-proseBody dark:text-proseInvertBody">
                     {{if .HookImageURL}}
                     <a href="/{{.Slug}}">
                         <img src="{{.HookImageURL}}"

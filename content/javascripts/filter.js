@@ -1,8 +1,7 @@
-
 filterSelection("all")
 function filterSelection(c) {
   var x, i;
-    x = document.getElementsByClassName("filterDiv");
+    x = document.getElementsByClassName("filterTag");
     if (c == "all") c = "";
     for (i = 0; i < x.length; i++) {
         w3RemoveClass(x[i], "show");
@@ -36,9 +35,9 @@ var btnContainer = document.getElementById("buttons");
 var btns = btnContainer.getElementsByClassName("btn");
 for (var i = 0; i < btns.length; i++) {
     btns[i].addEventListener("click", function () {
-        var current = document.getElementsByClassName("active");
-        current[0].className = current[0].className.replace(" active", "");
-        this.className += " active";
+        var current = document.getElementsByClassName("btn-white");
+        current[0].className = current[0].className.replace(" btn-white", " btn-blue");
+        this.className += " btn-white";
     });
 }
 

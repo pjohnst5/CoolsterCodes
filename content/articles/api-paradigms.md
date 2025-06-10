@@ -4,6 +4,7 @@ hook = "Musings on the next API technology, and whether REST-ish JSON over HTTP 
 location = "San Francisco"
 published_at = 2017-03-29T21:00:36Z
 title = "Is GraphQL the Next Frontier for Web APIs?"
+tags = ["Tacos", "Databases"]
 +++
 
 For a long time the API community spent a lot of effort

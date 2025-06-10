@@ -3,6 +3,7 @@ hook = "Building a static site on AWS with a global CDN, free HTTPS with automat
 location = "San Francisco"
 published_at = 2016-04-09T02:11:19Z
 title = "The Intrinsic Static Site"
+tags = ["Change"]
 +++
 
 I've written previously [about my misgivings with static sites on
