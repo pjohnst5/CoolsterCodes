@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"slices"
+	"sort"
 	"strings"
 	"sync"
 	"time"
@@ -36,6 +37,8 @@ import (
 //
 //
 //////////////////////////////////////////////////////////////////////////////
+
+const NTags = 10
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -282,11 +285,12 @@ func build(c *modulir.Context) []error {
 	// Home
 	//
 
+	tagMap := getTagMap(articles)
 	{
-		tagMap := getTagMap(articles)
+		topNTags := getTopNTags(tagMap, NTags)
 		c.AddJob("home", func() (bool, error) {
 			return renderHome(ctx, c, articles,
-				articlesChanged, tagMap)
+				articlesChanged, topNTags)
 		})
 	}
 
@@ -294,7 +298,6 @@ func build(c *modulir.Context) []error {
 	// Tags
 	//
 	{
-		tagMap := getTagMap(articles)
 		for tag, articles := range tagMap {
 			c.AddJob(tag, func() (bool, error) {
 				return renderTag(ctx, c,
@@ -395,6 +398,11 @@ type Page struct {
 	// Set the first time a page is rendered and updated every subsequent
 	// render.
 	dependencies []string
+}
+
+type TagCount struct {
+	Tag   string
+	Count int
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -602,7 +610,7 @@ func truncateString(str string, maxLength int) string {
 func renderHome(ctx context.Context, c *modulir.Context,
 	articles []*Article,
 	articlesChanged bool,
-	tagMap map[string][]*Article,
+	topNTags []TagCount,
 ) (bool, error) {
 	sourceTmpl := scommon.HTML + "/index.tmpl.html"
 	htmlChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
@@ -612,7 +620,7 @@ func renderHome(ctx context.Context, c *modulir.Context,
 
 	locals := getLocals(map[string]interface{}{
 		"Articles": articles,
-		"TagMap":   tagMap,
+		"TopNTags": topNTags,
 	})
 
 	return true, dependencies.renderGoTemplate(ctx, c, sourceTmpl,
@@ -721,6 +729,27 @@ func getTagMap(articles []*Article) map[string][]*Article {
 		}
 	}
 	return tagMap
+}
+
+func getTopNTags(tagMap map[string][]*Article, n int) []TagCount {
+	topNTags := []TagCount{}
+	tagsProcessed := 0
+	for tag, articles := range tagMap {
+		topNTags = append(topNTags, TagCount{Tag: tag, Count: len(articles)})
+		tagsProcessed += 1
+		if tagsProcessed == n {
+			break
+		}
+	}
+
+	// Sort by Score (ascending), then Name (alphabetical)
+	sort.Slice(topNTags, func(i, j int) bool {
+		if topNTags[i].Count == topNTags[j].Count {
+			return topNTags[i].Tag < topNTags[j].Tag
+		}
+		return topNTags[i].Count > topNTags[j].Count
+	})
+	return topNTags
 }
 
 func tagToURL(tag string) string {
