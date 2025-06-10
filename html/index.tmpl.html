@@ -6,7 +6,9 @@
 
 <div class="mb-12 mt-0 px-4">
     <h1 class="font-normal font-serif my-4 text-center text-8xl text-proseLinks tracking-tighter dark:text-proseInvertLinks mt-0">
-        Articles
+        <a href="/">
+            Articles
+        </a>
     </h1>
     <div class="container max-w-[625px] mx-auto
                 prose prose-lg dark:prose-invert
@@ -19,7 +21,6 @@
         </p>
     </div>
     <div class="container max-w-[800px] mx-auto mt-8 px-8 text-center" id="buttons">
-        <button class="btn btn-white" onclick="filterSelection('all')"> Show all</button>
         {{range $t, $arts := .TagMap}}
         <button class="btn btn-blue" onclick="filterSelection('{{$t}}')"> {{$t}}</button>
         {{end}}
