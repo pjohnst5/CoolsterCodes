@@ -53,13 +53,14 @@ Implement Tags essentials ✅
 Experiment making Tags show up as filtered list ✅
 Give list of Articles without year ✅
 Make articles feed narrower ✅
-Make buttons look nice
+Make buttons look nice ✅
 Remove "Show All" functionality
 Change nav bar to have my logo
 Remove darkmode toggle
 Make a hamburger menu on mobile
 Explore removing "Articles" title
 Make it so only top 10 tags are shown as buttons
+Maybe make count show next to tag (experiment)
 Finish making an "All Tags" tab page
 Change colors of site
 Implement Search (can use docfx example lols)
@@ -89,3 +90,7 @@ With Fragments, there was a "content/fragments-drafts" and "content/fragments-de
 -- Eventually --
 Make it so articles with YouTube tutorial have it linked on the side
 Change header bar to be hamburger or something
+
+
+-- Maybe maybe haha --
+Eventually make it so year bar shows even when clicking button (and filtering them out/back in)
