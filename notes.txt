@@ -58,11 +58,12 @@ Remove "Show All" functionality ✅
 Add link to "Articles" ✅
 Make it so only top 10 tags are shown as buttons ✅
 Explore making tag count show next to tag ✅
-Remove darkmode toggle
+Remove darkmode toggle ✅
+Make clicking tag again show all
 Change colors of site
+Remove prose
+Work out nav bar / image
 Fix broken code block
-Probably remove "prose" all-together and just use "white"
-Explore going super minimalist (no nav bar)
 Change nav bar to have my logo
 Make a hamburger menu on mobile
 Explore removing "Articles" title
