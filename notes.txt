@@ -60,6 +60,10 @@ Make it so only top 10 tags are shown as buttons ✅
 Explore making tag count show next to tag ✅
 Remove darkmode toggle
 Change colors of site
+- Make hovers nice
+- Change nav to not have blue that aren't links
+- Remove bg-no-repeat
+- Remove bg-gradient-to-br
 Change nav bar to have my logo
 Make a hamburger menu on mobile
 Explore removing "Articles" title
@@ -68,6 +72,8 @@ Finish making an "All Tags" tab page
 - If I do take it out, put back "Show all" button
 Implement Search (can use docfx example lols)
 Rearrange content folder
+Rename "article.tmpl.html" to something else
+Make it so re-clicking the curren tag shows all
 Auto-create headers
 Auto-link hook images
 Remove all other Articles
