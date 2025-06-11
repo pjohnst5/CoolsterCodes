@@ -4,36 +4,18 @@
 
 {{- define "article_content" -}}
 
-<div class="mb-12 mt-0 px-4 md:mb-24 md:mt-16">
+<div class="mb-12 mt-0 px-4">
     <div class="container max-w-[950px] mx-auto">
-        <h1 class="font-semibold font-sans leading-none my-8 text-center text-6xl text-proseLinks tracking-tighter dark:text-proseInvertLinks md:font-normal md:text-8xl">
+        <h1 class="font-semibold font-sans leading-none my-8 text-center text-6xl text-white tracking-tighter md:font-normal md:text-8xl">
             {{.Article.Title}}
         </h1>
     </div>
-
-    {{if ne .Article.Hook "UNWRITTEN. This should not appear on the front page."}}
-    <!-- <div class="container max-w-[625px] mx-auto
-                prose prose-md dark:prose-invert
-                prose-a:border-b prose-a:border-slate-500 prose-a:font-sans prose-a:no-underline
-                hover:prose-a:border-slate-200
-                text-center">
-            <p>{{.Article.Hook}}</p>
-        </div> -->
-    {{end}}
 </div>
-
-{{if ne .Article.Image ""}}
-<div>
-    <div class="mx-auto my-12 md:my-16">
-        <img class="w-full" src="{{.Article.Image}}">
-    </div>
-</div>
-{{end}}
 
 <div class="container max-w-[900px] mx-auto mt-8 px-4 xl:max-w-[1125px]">
     <div class="md:flex">
         <div class="basis-[170px] flex-grow-0 flex-shrink-0 hidden md:block"> <!-- needed for sticky -->
-            <div class="leading-normal text-xs tracking-tighter sticky text-center text-proseBody top-5 dark:text-proseInvertBody">
+            <div class="leading-normal text-xs tracking-tighter sticky text-center text-proseBody top-5">
                 <div class="border-b px-4 pb-4 dark:border-slate-700">
                     <div class="font-bold mb-0.5 text-proseLinks dark:text-proseInvertLinks">Article</div>
                     <div>
@@ -120,7 +102,7 @@
 
             <div class="hyphens-auto
                 max-w-none
-                prose prose-lg dark:prose-invert
+                text-white prose-lg
                 prose-a:border-b prose-a:border-slate-500 prose-a:font-sans prose-a:no-underline
                 prose-blockquote:font-normal prose-blockquote:text-slate-800 dark:prose-blockquote:text-slate-300
                 hover:prose-a:border-b-slate-200

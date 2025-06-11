@@ -22,15 +22,15 @@
 }
 
 .btn-blue {
-    @apply bg-blue-500 text-white;
+    @apply bg-[#2c80b8] text-white;
 }
 
 .btn-blue:hover {
-    @apply bg-white text-blue-500;
+    @apply bg-white text-[#2c80b8];
 }
 
 .btn-white {
-    @apply bg-white text-blue-500;
+    @apply bg-white text-[#2c80b8];
 }
 
 .filterTag {
