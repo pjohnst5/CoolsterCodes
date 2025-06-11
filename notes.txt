@@ -60,6 +60,7 @@ Explore making tag count show next to tag ✅
 Remove darkmode toggle ✅
 Make clicking tag again show all ✅
 Change colors of site
+Remove hacker news link
 Remove prose
 Work out nav bar / image
 Fix broken code block

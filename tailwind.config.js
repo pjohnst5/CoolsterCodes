@@ -15,10 +15,7 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                proseBody: '#eeeeee',       // --tw-prose-body
-                proseLinks: '#5da7d8',      // --tw-prose-links
-                proseInvertBody: '#d1d5db', // --tw-prose-invert-body
-                proseInvertLinks: '#fff',   // --tw-prose-invert-links
+                myblue: '#5da7d8',
             },
             fontFamily: {
             },

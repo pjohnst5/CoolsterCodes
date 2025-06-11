@@ -17,7 +17,7 @@
         <div class="basis-[170px] flex-grow-0 flex-shrink-0 hidden md:block"> <!-- needed for sticky -->
             <div class="leading-normal text-xs tracking-tighter sticky text-center text-proseBody top-5">
                 <div class="border-b px-4 pb-4 dark:border-slate-700">
-                    <div class="font-bold mb-0.5 text-proseLinks dark:text-proseInvertLinks">Article</div>
+                    <div class="font-bold mb-0.5 text-white">Article</div>
                     <div>
                         <a href="/{{.Article.Slug}}">
                             {{.Article.Title}} <span class="mx-0.5 opacity-60">🔗</span>
@@ -38,7 +38,7 @@
                     <div class="border-r flex-grow dark:border-slate-700">
                         <div class="flex h-full items-center">
                             <div class="px-4 py-4">
-                                <div class="font-bold mb-0.5 text-proseLinks dark:text-proseInvertLinks">Published</div>
+                                <div class="font-bold mb-0.5 text-white">Published</div>
                                 <div class="leading-tight">{{FormatTime .Article.PublishedAt "Jan 2, 2006"}}</div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                     <div class="flex-grow h-full min-w-0">
                         <div class="flex items-center">
                             <div class="px-4 py-4">
-                                <div class="font-bold mb-0.5 text-proseLinks dark:text-proseInvertLinks">Location</div>
+                                <div class="font-bold mb-0.5 text-white">Location</div>
                                 <div class="leading-tight">{{.Article.Location}}</div>
                             </div>
                         </div>
@@ -55,17 +55,17 @@
 
                 {{if .Article.HNLink}}
                     <div class="border-b px-4 py-4 dark:border-slate-700">
-                        See comments and reaction <strong><a href="{{.Article.HNLink}}" class="text-proseLinks dark:text-proseInvertLinks">on Hacker News</a></strong>.
+                        See comments and reaction <strong><a href="{{.Article.HNLink}}" class="text-myblue dark:text-proseInvertLinks">on Hacker News</a></strong>.
                     </div>
                 {{end}}
 
                 <div class="italic px-4 py-4">
-                    <p class="mb-2">YouTube<br> <a href="https://www.youtube.com/@coolstercodes" class="font-bold text-proseLinks dark:text-proseInvertLinks">@coolstercodes</a>.</p>
+                    <p class="mb-2">YouTube<br> <a href="https://www.youtube.com/@coolstercodes" class="font-bold text-myblue">@coolstercodes</a>.</p>
                 </div>
             </div>
         </div>
 
-        <div class="font-bold my-1 text-proseLinks text-sm dark:text-proseInvertLinks md:hidden">{{FormatTime .Article.PublishedAt "Jan 2, 2006"}}</div>
+        <div class="font-bold my-1 text-myblue text-sm dark:text-proseInvertLinks md:hidden">{{FormatTime .Article.PublishedAt "Jan 2, 2006"}}</div>
 
         <div class="pb-8 md:border-l md:flex-grow md:min-w-0 dark:border-slate-700 md:pl-8 xl:pr-8">
             {{if ne .Article.TOC ""}}
@@ -75,7 +75,7 @@
                     ones. Make changes in both places.
                 -->
                 <div class="
-                    border-b border-l dark:border-slate-700
+                    border-b border-l border-slate-700
                     hidden md:block xl:hidden
                     float-right
                     max-w-[190px]
@@ -85,7 +85,7 @@
                     pl-3
                     pb-5
                     pt-3
-                    prose prose-sm dark:prose-invert
+                    prose prose-sm
                     prose-li:my-2
 
                     prose-ol:prose-li:list-[lower-alpha] prose-ol:prose-li:my-2
@@ -104,7 +104,7 @@
                 max-w-none
                 text-white prose-lg
                 prose-a:border-b prose-a:border-slate-500 prose-a:font-sans prose-a:no-underline
-                prose-blockquote:font-normal prose-blockquote:text-slate-800 dark:prose-blockquote:text-slate-300
+                prose-blockquote:text-slate-300
                 hover:prose-a:border-b-slate-200
                 prose-code:prose-a:text-sm prose-code:prose-p:text-sm
                 prose-img:w-full
@@ -112,11 +112,11 @@
                 prose-h2:text-base prose-h2:mb-1 prose-a:prose-h2:border-b-0 prose-a:prose-h2:font-bold
                 prose-h3:text-sm prose-h3:mb-1 prose-a:prose-h3:border-b-0 prose-a:prose-h3:font-bold
                 prose-h4:text-sm prose-h4:mb-1 prose-a:prose-h4:border-b-0 prose-a:prose-h4:font-bold
-                prose-hr:my-10 prose-hr:md:-mx-[2rem] prose-hr:md:w-[calc(100%+4rem)] dark:prose-hr:border-slate-700
+                prose-hr:my-10 prose-hr:md:-mx-[2rem] prose-hr:md:w-[calc(100%+4rem)] prose-hr:border-slate-700
                 prose-p:font-serif
                 prose-p:prose-blockquote:font-sans
                 prose-pre:leading-[1.15rem] prose-pre:text-[0.9rem]
-                prose-strong:font-sans dark:prose-strong:text-slate-100
+                prose-strong:text-slate-100
                 prose-ol:font-serif
                 prose-ul:font-serif
                 ">
@@ -125,7 +125,7 @@
             </div>
         </div>
         {{if ne .Article.TOC ""}}
-            <div class="basis-[190px] border-l flex-grow-0 flex-shrink-0 hidden dark:border-slate-700 xl:block">
+            <div class="basis-[190px] border-l flex-grow-0 flex-shrink-0 hidden border-slate-700 xl:block">
                 <!--
                     IMPORTANT: The TOC is duplicated above so that it can be part of
                     the flexbox at large sizes, but inlined at contents at smaller
