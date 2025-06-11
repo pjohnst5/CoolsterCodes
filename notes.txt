@@ -59,7 +59,7 @@ Add link to "Articles" ✅
 Make it so only top 10 tags are shown as buttons ✅
 Explore making tag count show next to tag ✅
 Remove darkmode toggle ✅
-Make clicking tag again show all
+Make clicking tag again show all ✅
 Change colors of site
 Remove prose
 Work out nav bar / image
