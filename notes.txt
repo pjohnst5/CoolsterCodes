@@ -60,10 +60,9 @@ Make it so only top 10 tags are shown as buttons ✅
 Explore making tag count show next to tag ✅
 Remove darkmode toggle
 Change colors of site
-- Make hovers nice
-- Change nav to not have blue that aren't links
-- Remove bg-no-repeat
-- Remove bg-gradient-to-br
+Fix broken code block
+Probably remove "prose" all-together and just use "white"
+Explore going super minimalist (no nav bar)
 Change nav bar to have my logo
 Make a hamburger menu on mobile
 Explore removing "Articles" title
