@@ -1,11 +1,43 @@
-filterSelection("all")
-function filterSelection(c) {
-  var x, i;
-    x = document.getElementsByClassName("filterTag");
-    if (c == "all") c = "";
-    for (i = 0; i < x.length; i++) {
-        w3RemoveClass(x[i], "show");
-    if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+filterByTag("all")
+function filterByTag(tag) {
+  // If a current button is white, you KNOW you have to make it blue again (for the functionality we want)
+  var b = document.getElementsByClassName("btn-white");
+  if (b.length > 0) {
+    // Get it by id though, so it doesn't disappear from "btn-white" list when class is removed
+    b = document.getElementById(b[0].id)
+    w3RemoveClass(b, "btn-white");
+    w3AddClass(b, "btn-blue");
+    // If incoming button clicked was white button before, "show all" functionality
+    if (b.id == tag) {
+      tag = "all";
+    }
+    // Otherwise, we just let it fall through, so it is filtered accordingly
+  }
+
+  // If tag is "all", then match empty string to class name (always matches)
+  // This is only relevant for the first time around
+  if (tag == "all") {
+    tag = "";
+  }
+
+  // Get all elements with the "filterTag" class
+  var x = document.getElementsByClassName("filterTag");
+
+  // Go through each element
+  for (var i = 0; i < x.length; i++) {
+    // We hide all elements first (by removing "show")
+    w3RemoveClass(x[i], "show");
+    // Then, only add "show" in if it has the tag
+    if (x[i].className.indexOf(tag) > -1) {
+      w3AddClass(x[i], "show");
+    }
+  }
+
+  // If tag is not empty (from "all"), then make that button white lols
+  if (tag != "") {
+    var b = document.getElementById(tag);
+    w3RemoveClass(b, "btn-blue");
+    w3AddClass(b, "btn-white");
   }
 }
 
@@ -20,24 +52,12 @@ function w3AddClass(element, name) {
 
 function w3RemoveClass(element, name) {
   var i, arr1, arr2;
-    arr1 = element.className.split(" ");
-    arr2 = name.split(" ");
-    for (i = 0; i < arr2.length; i++) {
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
     while (arr1.indexOf(arr2[i]) > -1) {
         arr1.splice(arr1.indexOf(arr2[i]), 1);
     }
   }
-    element.className = arr1.join(" ");
+  element.className = arr1.join(" ");
 }
-
-// Add active class to the current button (highlight it)
-var btnContainer = document.getElementById("buttons");
-var btns = btnContainer.getElementsByClassName("btn");
-for (var i = 0; i < btns.length; i++) {
-    btns[i].addEventListener("click", function () {
-        var current = document.getElementsByClassName("btn-white");
-        current[0].className = current[0].className.replace(" btn-white", " btn-blue");
-        this.className += " btn-white";
-    });
-}
-
