@@ -55,7 +55,6 @@ Give list of Articles without year ✅
 Make articles feed narrower ✅
 Make buttons look nice ✅
 Remove "Show All" functionality ✅
-Add link to "Articles" ✅
 Make it so only top 10 tags are shown as buttons ✅
 Explore making tag count show next to tag ✅
 Remove darkmode toggle ✅
