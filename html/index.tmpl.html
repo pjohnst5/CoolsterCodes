@@ -5,16 +5,17 @@
 {{- define "article_content" -}}
 
 <div class="pt-8 pb-4 px-4">
-    <h1 class="font-normal font-serif text-center text-8xl text-white tracking-tighter">
+    <h1 class="prose prose-lg font-normal font-serif text-center text-8xl tracking-tighter">
         Articles
     </h1>
 </div>
 <div class="mb-12 px-4">
     <div class="container max-w-[625px] mx-auto
-                    text-white
-                    italic
-                    text-center
-                    ">
+            prose prose-lg
+            prose-a:border-b-[1px] prose-a:border-slate-500 prose-a:font-sans prose-a:no-underline
+            hover:prose-a:border-slate-200
+            prose-p:text-center prose-p:italic
+            ">
         <p>
             Pick a tag, any tag.
         </p>
