@@ -16,7 +16,7 @@
     <div class="md:flex">
         <div class="basis-[170px] flex-grow-0 flex-shrink-0 hidden md:block"> <!-- needed for sticky -->
             <div class="leading-normal text-xs tracking-tighter sticky text-center text-white top-5">
-                <div class="border-b px-4 pb-4 border-myblue">
+                <div class="border-b px-4 pb-4 ">
                     <div class="font-bold mb-0.5 text-white">Article</div>
                     <div class="text-myblue">
                         <a href="/{{.Article.Slug}}">
@@ -34,8 +34,8 @@
                     the right, it centers itself, and its border is only partial
                     height.
                 -->
-                <div class="border-b flex items-stretch text-center border-myblue">
-                    <div class="border-r flex-grow border-myblue">
+                <div class="border-b flex items-stretch text-center ">
+                    <div class="border-r flex-grow ">
                         <div class="flex h-full items-center">
                             <div class="px-4 py-4">
                                 <div class="font-bold mb-0.5 text-white">Published</div>
@@ -60,7 +60,7 @@
 
         <div class="font-bold my-1 text-myblue text-sm md:hidden">{{FormatTime .Article.PublishedAt "Jan 2, 2006"}}</div>
 
-        <div class="pb-8 md:border-l md:flex-grow md:min-w-0 md:pl-8 xl:pr-8 border-myblue">
+        <div class="pb-8 md:border-l md:flex-grow md:min-w-0 md:pl-8 xl:pr-8 ">
             {{if ne .Article.TOC ""}}
                 <!--
                     IMPORTANT: The TOC is duplicated below so that it can be part of
@@ -68,7 +68,7 @@
                     ones. Make changes in both places.
                 -->
                 <div class="
-                    border-l border-myblue
+                    border-l
                     hidden md:block xl:hidden
                     float-right
                     max-w-[190px]
@@ -106,7 +106,7 @@
                 prose-h2:text-base prose-h2:mb-1 prose-a:prose-h2:border-b-0 prose-a:prose-h2:font-bold prose-h2:text-myblue
                 prose-h3:text-sm prose-h3:mb-1 prose-a:prose-h3:border-b-0 prose-a:prose-h3:font-bold prose-h3:text-myblue
                 prose-h4:text-sm prose-h4:mb-1 prose-a:prose-h4:border-b-0 prose-a:prose-h4:font-bold prose-h4:text-myblue
-                prose-hr:my-10 prose-hr:md:-mx-[2rem] prose-hr:md:w-[calc(100%+4rem)] prose-hr:border-myblue
+                prose-hr:my-10 prose-hr:md:-mx-[2rem] prose-hr:md:w-[calc(100%+4rem)]
                 prose-p:font-serif
                 prose-p:prose-blockquote:font-sans
                 prose-pre:leading-[1.15rem] prose-pre:text-[0.9rem]
@@ -119,7 +119,7 @@
             </div>
         </div>
         {{if ne .Article.TOC ""}}
-            <div class="basis-[190px] border-l flex-grow-0 flex-shrink-0 hidden xl:block border-myblue">
+            <div class="basis-[190px] border-l flex-grow-0 flex-shrink-0 hidden xl:block ">
                 <!--
                     IMPORTANT: The TOC is duplicated above so that it can be part of
                     the flexbox at large sizes, but inlined at contents at smaller
@@ -149,7 +149,7 @@
 </div>
 
 {{if .Article.Footnotes}}
-<div class="border-t p-8 w-vp border-myblue">
+<div class="border-t p-8 w-vp ">
     <div class="container max-w-[650px] mx-auto">
         <div class="hyphens-auto
                 max-w-none
@@ -167,7 +167,7 @@
 {{end}}
 
 {{if .Article.Attributions}}
-<div class="border-t p-8 w-vp border-myblue">
+<div class="border-t p-8 w-vp ">
     <div class="container max-w-[650px] mx-auto">
         <div class="hyphens-auto
                 max-w-none
@@ -186,7 +186,7 @@
 </div>
 {{end}}
 
-<div class="border-t pb-20 p-8 w-vp border-myblue">
+<div class="border-t pb-20 p-8 w-vp ">
     <div class="container max-w-[650px] mx-auto">
         <div class="hyphens-auto
             italic
