@@ -64,11 +64,12 @@ Rename "article.tmpl.html" to something else ✅
 Change colors of site ✅
 What CSS is used here? ✅
     - It is called "tailwind" and it is crazy ✅
-Remove prose
 Fix hover links
 Fix color links in main body
 Fix broken code block
-Nav bar?
+Make in-line code nicer
+Remove prose?
+Nav bar - yes
 Explore removing "Articles" title
 Finish making an "All Tags" tab page
 - (Do I even need that?)
