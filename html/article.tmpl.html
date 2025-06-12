@@ -19,7 +19,7 @@
                 <div class="border-b px-4 pb-4 ">
                     <div class="font-bold mb-0.5 text-white">Article</div>
                     <div class="text-myblue">
-                        <a href="/{{.Article.Slug}}">
+                        <a class="underline" href="/{{.Article.Slug}}">
                             {{.Article.Title}} <span class="mx-0.5 opacity-60">🔗</span>
                         </a>
                     </div>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="italic px-4 py-4">
-                    <p class="mb-2">YouTube<br> <a href="https://www.youtube.com/@coolstercodes" class="font-bold text-myblue">@coolstercodes</a></p>
+                    <p class="mb-2">YouTube<br> <a class="font-bold text-myblue underline" href="https://www.youtube.com/@coolstercodes">@coolstercodes</a></p>
                 </div>
             </div>
         </div>
@@ -97,15 +97,15 @@
             <div class="hyphens-auto
                 max-w-none
                 text-white prose-lg
-                prose-a:border-b prose-a:border-slate-500 prose-a:font-sans prose-a:no-underline
+                prose-a:border-b prose-a:border-slate-500 prose-a:font-sans
                 prose-blockquote:text-slate-300
                 hover:prose-a:border-b-slate-200
                 prose-code:prose-a:text-sm prose-code:prose-p:text-sm
                 prose-img:w-full
-                prose-h1:font-bold prose-h1:text-base prose-h1:text-myblue
-                prose-h2:text-base prose-h2:mb-1 prose-a:prose-h2:border-b-0 prose-a:prose-h2:font-bold prose-h2:text-myblue
-                prose-h3:text-sm prose-h3:mb-1 prose-a:prose-h3:border-b-0 prose-a:prose-h3:font-bold prose-h3:text-myblue
-                prose-h4:text-sm prose-h4:mb-1 prose-a:prose-h4:border-b-0 prose-a:prose-h4:font-bold prose-h4:text-myblue
+                prose-h1:font-bold prose-h1:text-base prose-h1:text-myblue prose-a:prose-h1:underline
+                prose-h2:text-base prose-h2:mb-1 prose-a:prose-h2:border-b-0 prose-a:prose-h2:font-bold prose-h2:text-myblue prose-a:prose-h2:underline
+                prose-h3:text-sm prose-h3:mb-1 prose-a:prose-h3:border-b-0 prose-a:prose-h3:font-bold prose-h3:text-myblue prose-a:prose-h3:underline
+                prose-h4:text-sm prose-h4:mb-1 prose-a:prose-h4:border-b-0 prose-a:prose-h4:font-bold prose-h4:text-myblue prose-a:prose-h4:underline
                 prose-hr:my-10 prose-hr:md:-mx-[2rem] prose-hr:md:w-[calc(100%+4rem)]
                 prose-p:font-serif
                 prose-p:prose-blockquote:font-sans
@@ -154,7 +154,7 @@
         <div class="hyphens-auto
                 max-w-none
                 prose prose-sm dark:prose-invert
-                prose-a:border-b prose-a:border-slate-500 prose-a:font-sans prose-a:no-underline
+                prose-a:border-b prose-a:border-slate-500 prose-a:font-sans
                 hover:prose-a:border-b-slate-200
                 prose-code:prose-a:text-sm prose-code:prose-p:text-sm
                 prose-p:font-serif
@@ -172,7 +172,7 @@
         <div class="hyphens-auto
                 max-w-none
                 prose prose-sm
-                prose-a:border-b prose-a:border-slate-500 prose-a:font-sans prose-a:no-underline
+                prose-a:border-b prose-a:border-slate-500 prose-a:font-sans
                 hover:prose-a:border-b-slate-200
                 prose-code:prose-a:text-sm prose-code:prose-p:text-sm
                 prose-p:font-serif
@@ -192,7 +192,7 @@
             italic
             max-w-none
             prose prose-sm dark:prose-invert
-            prose-a:border-b prose-a:border-slate-500 prose-a:font-sans prose-a:no-underline
+            prose-a:border-b prose-a:border-slate-500 prose-a:font-sans
             hover:prose-a:border-b-slate-200
             prose-p:font-serif
             text-white

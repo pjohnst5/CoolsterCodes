@@ -30,6 +30,7 @@ module.exports = {
                             // name) or include a list.
                             quotes: "none",
                         },
+                        '--tw-prose-links': '#5da7d8', // This was so annoying to figure out
                     },
                 },
             },

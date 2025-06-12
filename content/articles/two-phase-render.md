@@ -43,7 +43,7 @@ In this naive loop, the number of database queries issued to render all products
 
 This practically invisible problem is probably number two to only forgotten indexes as the most common reason for poor performance of web apps around. It's an easy mistake to make, and there's a broad lack of guard rails to protect against it.
 
-<img src="/contents/images/two-phase-render/n_plus_one.svg" alt="N+1.">
+<img src="/content/images/two-phase-render/n_plus_one.svg" alt="N+1.">
 
 ### N*M+1 and more (#n-m-plus-one)
 
