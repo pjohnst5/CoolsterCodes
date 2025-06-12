@@ -11,6 +11,9 @@ tags = ["Georgia Tech", "AI", "Ballin' it up"]
 
 ---
 
+This is `inline code` according to markdown
+
+What `does it do?`
 ## Markdown without caption (#no-cap)
 ![](/content/images/10000-years/hook.jpg)
 
