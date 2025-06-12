@@ -12,6 +12,7 @@ tags = ["Georgia Tech", "AI", "Ballin' it up"]
 ---
 
 This is `inline code` according to markdown
+This is my first [1] footnote.
 
 What `does it do?`
 ## Markdown without caption (#no-cap)
@@ -35,3 +36,5 @@ Markdown
 *screenshot of stuff*
 
 ![](/content/images/river/bishop-pass.jpg)
+
+[1] Hey what's up
