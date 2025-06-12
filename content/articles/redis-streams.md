@@ -1,5 +1,4 @@
 +++
-hn_link = "https://news.ycombinator.com/item?id=15653544"
 hook = "Building a log-based architecture that's fast, efficient, and resilient on the new stream data structure in Redis."
 location = "San Francisco"
 published_at = 2017-11-08T15:15:31Z

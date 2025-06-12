@@ -1,5 +1,4 @@
 +++
-hn_link = "https://news.ycombinator.com/item?id=14003134"
 hook = "Musings on the next API technology, and whether REST-ish JSON over HTTP is just \"good enough\" to never be displaced in a significant way."
 location = "San Francisco"
 published_at = 2017-03-29T21:00:36Z
