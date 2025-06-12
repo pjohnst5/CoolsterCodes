@@ -6,10 +6,10 @@ module.exports = {
     content: [
         "./content/articles/*.md",
         "./content/markdown/**/*.md",
-        "./html/layouts/**/*.{html,js}",
-        "./html/pages/**/*.{html,js}",
-        "./html/_*.ace",
-        "./html/**/*.{html,js}"
+        "./web/html/layouts/**/*.{html,js}",
+        "./web/html/pages/**/*.{html,js}",
+        "./web/html/_*.ace",
+        "./web/html/**/*.{html,js}"
     ],
     darkMode: 'selector',
     theme: {

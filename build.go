@@ -130,7 +130,7 @@ func build(c *modulir.Context) []error {
 
 	// Generate a list of partial html to add to universal sources.
 	{
-		sources, err := mfile.ReadDirCached(c, c.SourceDir+"/html",
+		sources, err := mfile.ReadDirCached(c, c.SourceDir+"/web/html",
 			&mfile.ReadDirOptions{ShowMeta: true})
 		if err != nil {
 			return []error{err}
@@ -245,7 +245,7 @@ func build(c *modulir.Context) []error {
 	var pagesMu sync.RWMutex
 
 	{
-		sources, err := mfile.ReadDirCached(c, c.SourceDir+"/html/pages", &mfile.ReadDirOptions{RecurseDirs: true})
+		sources, err := mfile.ReadDirCached(c, c.SourceDir+"/web/html/pages", &mfile.ReadDirOptions{RecurseDirs: true})
 		if err != nil {
 			return []error{err}
 		}
@@ -481,7 +481,7 @@ func mustLocation(locationName string) *time.Location {
 // Looks something like "about", or "nested/about".
 func pagePathKey(source string) string {
 	pagePath := mfile.MustAbs(source)
-	pagePath = strings.TrimPrefix(pagePath, mfile.MustAbs("./html/pages")+"/")
+	pagePath = strings.TrimPrefix(pagePath, mfile.MustAbs("./web/html/pages")+"/")
 	pagePath = strings.TrimSuffix(pagePath, path.Ext(pagePath))
 	pagePath = strings.TrimSuffix(pagePath, path.Ext(pagePath)) // again, for `.tmpl.html`
 	return pagePath

@@ -72,9 +72,9 @@ Fix caption text color ✅
 Make in-line code nicer ✅
 Maybe invert links colors (nah) ✅
 Check out footnotes (like make them optimized) ✅
+Rearrange content folder
 Have links open in new tab
 Nav bar - yes
-Rearrange content folder
 Explore removing "Articles" title
 Finish making an "All Tags" tab page
 Experiment with more tags on medium
