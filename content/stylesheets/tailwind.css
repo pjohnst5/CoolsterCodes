@@ -947,7 +947,7 @@ video {
 }
 
 .prose {
-  --tw-prose-body: #374151;
+  --tw-prose-body: #fff;
   --tw-prose-headings: #111827;
   --tw-prose-lead: #4b5563;
   --tw-prose-links: #5da7d8;
@@ -957,7 +957,7 @@ video {
   --tw-prose-hr: #e5e7eb;
   --tw-prose-quotes: #111827;
   --tw-prose-quote-borders: #e5e7eb;
-  --tw-prose-captions: #6b7280;
+  --tw-prose-captions: #adb1ba;
   --tw-prose-kbd: #111827;
   --tw-prose-kbd-shadows: 17 24 39;
   --tw-prose-code: #111827;
@@ -2266,10 +2266,6 @@ video {
 
 .prose-p\:italic :is(:where(p):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   font-style: italic;
-}
-
-.prose-a\:border-b :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  border-bottom-width: 1px;
 }
 
 .prose-a\:border-b-\[1px\] :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
