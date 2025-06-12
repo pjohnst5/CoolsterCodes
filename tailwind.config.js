@@ -31,6 +31,7 @@ module.exports = {
                             quotes: "none",
                         },
                         '--tw-prose-links': '#5da7d8', // This was so annoying to figure out
+                        '--tw-prose-counters': '#fff', // Make numbers next to TOC white
                     },
                 },
             },

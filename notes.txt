@@ -65,7 +65,8 @@ Change colors of site ✅
 What CSS is used here? ✅
     - It is called "tailwind" and it is crazy ✅
 Fix hover links
-Fix color links in main body
+Fix color links in main body ✅
+Have links open in new tab
 Fix broken code block
 Make in-line code nicer
 Remove prose?

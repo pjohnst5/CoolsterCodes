@@ -952,7 +952,7 @@ video {
   --tw-prose-lead: #4b5563;
   --tw-prose-links: #5da7d8;
   --tw-prose-bold: #111827;
-  --tw-prose-counters: #6b7280;
+  --tw-prose-counters: #fff;
   --tw-prose-bullets: #d1d5db;
   --tw-prose-hr: #e5e7eb;
   --tw-prose-quotes: #111827;
@@ -2185,9 +2185,14 @@ video {
   border-bottom-color: rgb(0 0 0 / var(--tw-border-opacity, 1));
 }
 
-.hover\:border-b-white:hover {
+.hover\:border-b-sky-500:hover {
   --tw-border-opacity: 1;
-  border-bottom-color: rgb(255 255 255 / var(--tw-border-opacity, 1));
+  border-bottom-color: rgb(14 165 233 / var(--tw-border-opacity, 1));
+}
+
+.hover\:text-sky-500:hover {
+  --tw-text-opacity: 1;
+  color: rgb(14 165 233 / var(--tw-text-opacity, 1));
 }
 
 .hover\:text-slate-500:hover {
@@ -2276,8 +2281,18 @@ video {
   border-color: rgb(100 116 139 / var(--tw-border-opacity, 1));
 }
 
+.prose-a\:border-b-myblue :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  --tw-border-opacity: 1;
+  border-bottom-color: rgb(93 167 216 / var(--tw-border-opacity, 1));
+}
+
 .prose-a\:font-sans :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.prose-a\:text-myblue :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  --tw-text-opacity: 1;
+  color: rgb(93 167 216 / var(--tw-text-opacity, 1));
 }
 
 .prose-a\:no-underline :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
@@ -2289,9 +2304,19 @@ video {
   border-color: rgb(226 232 240 / var(--tw-border-opacity, 1));
 }
 
+.hover\:prose-a\:border-b-sky-500 :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))):hover {
+  --tw-border-opacity: 1;
+  border-bottom-color: rgb(14 165 233 / var(--tw-border-opacity, 1));
+}
+
 .hover\:prose-a\:border-b-slate-200 :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))):hover {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(226 232 240 / var(--tw-border-opacity, 1));
+}
+
+.hover\:prose-a\:text-sky-500 :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))):hover {
+  --tw-text-opacity: 1;
+  color: rgb(14 165 233 / var(--tw-text-opacity, 1));
 }
 
 .prose-a\:prose-h1\:underline :is(:where(h1):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
@@ -2403,6 +2428,16 @@ video {
 
 .prose-a\:prose-li\:prose-li\:font-normal :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   font-weight: 400;
+}
+
+.hover\:prose-a\:prose-li\:border-b-sky-500 :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))):hover {
+  --tw-border-opacity: 1;
+  border-bottom-color: rgb(14 165 233 / var(--tw-border-opacity, 1));
+}
+
+.hover\:prose-a\:prose-li\:text-sky-500 :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))):hover {
+  --tw-text-opacity: 1;
+  color: rgb(14 165 233 / var(--tw-text-opacity, 1));
 }
 
 .prose-ol\:prose-li\:my-2 :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(ol):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
