@@ -70,11 +70,11 @@ Fix broken code block
 Make in-line code nicer
 Remove prose?
 Nav bar - yes
+Rearrange content folder
 Explore removing "Articles" title
 Finish making an "All Tags" tab page
-- (Do I even need that?)
+Experiment with more tags on medium
 Implement Search (can use docfx example lols)
-Rearrange content folder
 Make it so re-clicking the current tag shows all
 Auto-create headers
 Auto-link hook images
