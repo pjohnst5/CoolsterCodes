@@ -72,7 +72,7 @@ Fix caption text color ✅
 Make in-line code nicer ✅
 Maybe invert links colors (nah) ✅
 Check out footnotes (like make them optimized) ✅
-Rearrange content folder
+Rearrange content folder ✅
 Have links open in new tab
 Nav bar - yes
 Explore removing "Articles" title
