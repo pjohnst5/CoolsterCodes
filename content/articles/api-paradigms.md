@@ -279,7 +279,7 @@ YouCompleteMe) to success.
     facilities in the form of discovery and content
     negotiation, but in practice these just don't see a lot
     of use, which is why I normally say that convention is
-    REST's strongest attribute.
+    REST's strongest attribute. [Google.com](google.com) is where I go `code it up`
 
 [grpc]: http://www.grpc.io/
 [graphql]: http://graphql.org/

@@ -19,7 +19,7 @@
                 <div class="border-b px-4 pb-4 ">
                     <div class="font-bold mb-0.5 text-white">Article</div>
                     <div class="text-myblue">
-                        <a class="underline" href="/{{.Article.Slug}}">
+                        <a class="hover:border-b-sky-500 hover:text-sky-500 underline" href="/{{.Article.Slug}}">
                             {{.Article.Title}} <span class="mx-0.5 opacity-60">🔗</span>
                         </a>
                     </div>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="italic px-4 py-4">
-                    <p class="mb-2">YouTube<br> <a class="font-bold text-myblue underline" href="https://www.youtube.com/@coolstercodes">@coolstercodes</a></p>
+                    <p class="mb-2">YouTube<br> <a class="hover:border-b-sky-500 hover:text-sky-500 font-bold text-myblue underline" href="https://www.youtube.com/@coolstercodes">@coolstercodes</a></p>
                 </div>
             </div>
         </div>
@@ -67,6 +67,7 @@
                     the flexbox at large sizes, but inlined at contents at smaller
                     ones. Make changes in both places.
                 -->
+                <!-- This is the one that shows up halfway -->
                 <div class="
                     border-l
                     hidden md:block xl:hidden
@@ -78,12 +79,12 @@
                     pl-3
                     pb-5
                     pt-3
+
                     prose prose-sm
                     prose-li:my-2
 
-
                     prose-ol:prose-li:list-[lower-alpha] prose-ol:prose-li:my-2
-                    prose-a:prose-li:prose-li:font-normal prose-li:prose-li:my-1 prose-li:prose-li:text-[0.65rem]
+                    prose-a:prose-li:prose-li:font-normal prose-li:prose-li:my-1 prose-li:prose-li:text-[0.65rem] hover:prose-a:prose-li:text-sky-500 hover:prose-a:prose-li:border-b-sky-500
 
                     prose-ol:prose-li:prose-li:list-[lower-roman]
                     prose-li:prose-li:prose-li:text-[0.6rem]
@@ -96,10 +97,9 @@
 
             <div class="hyphens-auto
                 max-w-none
-                text-white prose-lg
-                prose-a:border-b prose-a:border-slate-500 prose-a:font-sans
+                prose prose-lg
+                prose-a:font-sans
                 prose-blockquote:text-slate-300
-                hover:prose-a:border-b-slate-200
                 prose-code:prose-a:text-sm prose-code:prose-p:text-sm
                 prose-img:w-full
                 prose-h1:font-bold prose-h1:text-base prose-h1:text-myblue prose-a:prose-h1:underline
@@ -113,6 +113,10 @@
                 prose-strong:text-slate-100
                 prose-ol:font-serif
                 prose-ul:font-serif
+                prose-a:text-myblue
+                prose-a:border-b-myblue
+                hover:prose-a:border-b-sky-500
+                hover:prose-a:text-sky-500
                 ">
 
                 {{.Article.Content}}
@@ -125,15 +129,17 @@
                     the flexbox at large sizes, but inlined at contents at smaller
                     ones. Make changes in both places.
                 -->
+                <!-- This is just the normal one on a big screen -->
                 <div class="
                     mb-3
                     pl-3
                     pb-5
+
                     prose prose-sm
                     prose-li:my-2
 
                     prose-ol:prose-li:list-[lower-alpha] prose-ol:prose-li:my-2
-                    prose-a:prose-li:prose-li:font-normal prose-li:prose-li:my-1 prose-li:prose-li:text-[0.65rem]
+                    prose-a:prose-li:prose-li:font-normal prose-li:prose-li:my-1 prose-li:prose-li:text-[0.65rem] hover:prose-a:prose-li:text-sky-500 hover:prose-a:prose-li:border-b-sky-500
 
                     prose-ol:prose-li:prose-li:list-[lower-roman]
                     prose-li:prose-li:prose-li:text-[0.6rem]
@@ -153,9 +159,10 @@
     <div class="container max-w-[650px] mx-auto">
         <div class="hyphens-auto
                 max-w-none
-                prose prose-sm dark:prose-invert
-                prose-a:border-b prose-a:border-slate-500 prose-a:font-sans
-                hover:prose-a:border-b-slate-200
+                prose prose-sm
+                prose-a:border-b-myblue prose-a:font-sans
+                hover:prose-a:border-b-sky-500
+                hover:prose-a:text-sky-500
                 prose-code:prose-a:text-sm prose-code:prose-p:text-sm
                 prose-p:font-serif
                 prose-strong:font-sans
@@ -172,9 +179,8 @@
         <div class="hyphens-auto
                 max-w-none
                 prose prose-sm
-                prose-a:border-b prose-a:border-slate-500 prose-a:font-sans
-                hover:prose-a:border-b-slate-200
-                prose-code:prose-a:text-sm prose-code:prose-p:text-sm
+                prose-a:border-b-myblue prose-a:font-sans
+                hover:prose-a:text-sky-500
                 prose-p:font-serif
                 prose-strong:font-sans
                 ">
@@ -191,11 +197,10 @@
         <div class="hyphens-auto
             italic
             max-w-none
-            prose prose-sm dark:prose-invert
-            prose-a:border-b prose-a:border-slate-500 prose-a:font-sans
-            hover:prose-a:border-b-slate-200
+            prose prose-sm
+            prose-a:border-b-myblue prose-a:font-sans
+            hover:prose-a:text-sky-500
             prose-p:font-serif
-            text-white
             ">
             <p>
                 Care to contact me? Please see my hidden <a
