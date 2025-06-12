@@ -82,6 +82,7 @@ Make preview images mine (favico)
 Code: update/play with Shiki
 Add back in GT articles
 Do we need tmp?
+Update readme
 Host it
 
 -- Commands --
