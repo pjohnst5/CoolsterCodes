@@ -812,11 +812,11 @@ video {
 }
 
 .prose :where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))::before {
-  content: "`";
+  content: "";
 }
 
 .prose :where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))::after {
-  content: "`";
+  content: "";
 }
 
 .prose :where(a code):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
@@ -960,7 +960,7 @@ video {
   --tw-prose-captions: #adb1ba;
   --tw-prose-kbd: #111827;
   --tw-prose-kbd-shadows: 17 24 39;
-  --tw-prose-code: #bd8eb5;
+  --tw-prose-code: #c8d1d9;
   --tw-prose-pre-code: #e5e7eb;
   --tw-prose-pre-bg: #1f2937;
   --tw-prose-th-borders: #d1d5db;
@@ -2371,6 +2371,25 @@ video {
 .prose-strong\:text-slate-100 :is(:where(strong):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   --tw-text-opacity: 1;
   color: rgb(241 245 249 / var(--tw-text-opacity, 1));
+}
+
+.prose-code\:rounded :is(:where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  border-radius: 0.25rem;
+}
+
+.prose-code\:bg-\[\#414242\] :is(:where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(65 66 66 / var(--tw-bg-opacity, 1));
+}
+
+.prose-code\:px-2 :is(:where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.prose-code\:py-1 :is(:where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 
 .prose-code\:prose-p\:text-sm :is(:where(p):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))) {

@@ -30,8 +30,15 @@ module.exports = {
                             // name) or include a list.
                             quotes: "none",
                         },
+                        // Removes backtick before and after inline code
+                        'code::before': {
+                            content: '""',
+                        },
+                        'code::after': {
+                            content: '""',
+                        },
                         '--tw-prose-body': '#fff',       // prose body white
-                        '--tw-prose-code': '#bd8eb5',
+                        '--tw-prose-code': '#c8d1d9',    // inline code
                         '--tw-prose-links': '#5da7d8',   // This was so annoying to figure out
                         '--tw-prose-counters': '#fff',   // Make numbers next to TOC white
                         '--tw-prose-captions': '#adb1ba' // Figure captions
