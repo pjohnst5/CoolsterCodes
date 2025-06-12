@@ -120,7 +120,7 @@ func build(c *modulir.Context) []error {
 
 	// Generate a set of JavaScript sources to add to universal sources.
 	{
-		javaScriptSources, err := mfile.ReadDirCached(c, c.SourceDir+"/content/javascripts",
+		javaScriptSources, err := mfile.ReadDirCached(c, c.SourceDir+"/web/javascripts",
 			&mfile.ReadDirOptions{ShowMeta: true})
 		if err != nil {
 			return []error{err}
@@ -130,7 +130,7 @@ func build(c *modulir.Context) []error {
 
 	// Generate a list of partial html to add to universal sources.
 	{
-		sources, err := mfile.ReadDirCached(c, c.SourceDir+"/html",
+		sources, err := mfile.ReadDirCached(c, c.SourceDir+"/web/html",
 			&mfile.ReadDirOptions{ShowMeta: true})
 		if err != nil {
 			return []error{err}
@@ -148,7 +148,7 @@ func build(c *modulir.Context) []error {
 
 	// Generate a set of stylesheet sources to add to universal sources.
 	{
-		stylesheetSources, err := mfile.ReadDirCached(c, c.SourceDir+"/content/stylesheets",
+		stylesheetSources, err := mfile.ReadDirCached(c, c.SourceDir+"/web/stylesheets",
 			&mfile.ReadDirOptions{ShowMeta: true})
 		if err != nil {
 			return []error{err}
@@ -203,8 +203,8 @@ func build(c *modulir.Context) []error {
 	{
 		commonSymlinks := [][2]string{
 			{c.SourceDir + "/content/images", c.TargetDir + "/content/images"},
-			{c.SourceDir + "/content/javascripts", versionedContentDir + "/javascripts"},
-			{c.SourceDir + "/content/stylesheets", versionedContentDir + "/stylesheets"},
+			{c.SourceDir + "/web/javascripts", versionedContentDir + "/javascripts"},
+			{c.SourceDir + "/web/stylesheets", versionedContentDir + "/stylesheets"},
 		}
 		for _, link := range commonSymlinks {
 			err := mfile.EnsureSymlink(c, link[0], link[1])
@@ -245,7 +245,7 @@ func build(c *modulir.Context) []error {
 	var pagesMu sync.RWMutex
 
 	{
-		sources, err := mfile.ReadDirCached(c, c.SourceDir+"/html/pages", &mfile.ReadDirOptions{RecurseDirs: true})
+		sources, err := mfile.ReadDirCached(c, c.SourceDir+"/web/html/pages", &mfile.ReadDirOptions{RecurseDirs: true})
 		if err != nil {
 			return []error{err}
 		}
@@ -481,7 +481,7 @@ func mustLocation(locationName string) *time.Location {
 // Looks something like "about", or "nested/about".
 func pagePathKey(source string) string {
 	pagePath := mfile.MustAbs(source)
-	pagePath = strings.TrimPrefix(pagePath, mfile.MustAbs("./html/pages")+"/")
+	pagePath = strings.TrimPrefix(pagePath, mfile.MustAbs("./web/html/pages")+"/")
 	pagePath = strings.TrimSuffix(pagePath, path.Ext(pagePath))
 	pagePath = strings.TrimSuffix(pagePath, path.Ext(pagePath)) // again, for `.tmpl.html`
 	return pagePath

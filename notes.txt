@@ -72,9 +72,9 @@ Fix caption text color ✅
 Make in-line code nicer ✅
 Maybe invert links colors (nah) ✅
 Check out footnotes (like make them optimized) ✅
+Rearrange content folder ✅
 Have links open in new tab
 Nav bar - yes
-Rearrange content folder
 Explore removing "Articles" title
 Finish making an "All Tags" tab page
 Experiment with more tags on medium
@@ -93,8 +93,8 @@ Host it
 curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.15/tailwindcss-macos-arm64
 mv tailwindcss-macos-arm64 tailwindcss
 chmod +x tailwindcss
-./tailwindcss -i ./content/stylesheets/tailwind_base.css -o ./content/stylesheets/tailwind.css
-./tailwindcss -i ./content/stylesheets/tailwind_base.css -o ./content/stylesheets/tailwind.min.css --minify
+./tailwindcss -i ./web/stylesheets/tailwind_base.css -o ./web/stylesheets/tailwind.css
+./tailwindcss -i ./web/stylesheets/tailwind_base.css -o ./web/stylesheets/tailwind.min.css --minify
 rm tailwindcss
 
 --- Misc ---
