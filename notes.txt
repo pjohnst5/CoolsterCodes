@@ -69,7 +69,8 @@ Fix color links in main body ✅
 Reintroduce Prose (understand it better) ✅
 Fix broken code block ✅
 Fix caption text color ✅
-Make in-line code nicer
+Make in-line code nicer ✅
+Maybe invert links colors
 Check out footnotes (like make them optimized)
 Have links open in new tab
 Nav bar - yes
