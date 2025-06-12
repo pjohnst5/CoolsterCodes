@@ -148,7 +148,7 @@ func build(c *modulir.Context) []error {
 
 	// Generate a set of stylesheet sources to add to universal sources.
 	{
-		stylesheetSources, err := mfile.ReadDirCached(c, c.SourceDir+"/content/stylesheets",
+		stylesheetSources, err := mfile.ReadDirCached(c, c.SourceDir+"/web/stylesheets",
 			&mfile.ReadDirOptions{ShowMeta: true})
 		if err != nil {
 			return []error{err}
@@ -204,7 +204,7 @@ func build(c *modulir.Context) []error {
 		commonSymlinks := [][2]string{
 			{c.SourceDir + "/content/images", c.TargetDir + "/content/images"},
 			{c.SourceDir + "/web/javascripts", versionedContentDir + "/javascripts"},
-			{c.SourceDir + "/content/stylesheets", versionedContentDir + "/stylesheets"},
+			{c.SourceDir + "/web/stylesheets", versionedContentDir + "/stylesheets"},
 		}
 		for _, link := range commonSymlinks {
 			err := mfile.EnsureSymlink(c, link[0], link[1])
