@@ -1,5 +1,4 @@
 +++
-hn_link = "https://news.ycombinator.com/item?id=15118307"
 hook = "Why Ruby's scheme for memory allocation doesn't play nicely with copy-on-write, and how a compacting garbage collector will help."
 location = "San Francisco"
 published_at = 2017-08-28T14:07:33Z

@@ -335,9 +335,6 @@ type Article struct {
 	// Footnotes are HTML footnotes extracted from content.
 	Footnotes template.HTML `toml:"-"`
 
-	// HNLink is an optional link to comments on Hacker News.
-	HNLink string `toml:"hn_link,omitempty"`
-
 	// Hook is a leading sentence or two to succinctly introduce the article.
 	Hook template.HTML `toml:"hook"`
 

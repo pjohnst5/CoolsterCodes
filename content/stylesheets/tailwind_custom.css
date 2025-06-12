@@ -9,7 +9,7 @@ a.feed_icon::after {
     width: 15px;
 }
 
-.dark a.feed_icon::after {
+a.feed_icon::after {
     filter: invert(100%);
 }
 
@@ -30,28 +30,16 @@ a.feed_icon::after {
     width: 80%;
 }
 
-html.dark .nav_item:hover:after {
+html .nav_item:hover:after {
     background: #e2e8f0;
 }
 
-html.dark img[src$=".svg"], .dark svg {
+html img[src$=".svg"], .dark svg {
     filter: invert(80%);
 }
 
-.theme_toggle input:checked ~ span {
-    opacity: 1;
-}
-
-html.dark_override .theme_toggle .track_dot {
-    left: 2rem;
-}
-
-html.light_override .theme_toggle .track_dot {
-    left: 0;
-}
-
-html.dark .shiki,
-html.dark .shiki span {
+html .shiki,
+html .shiki span {
     background-color: var(--shiki-dark-bg) !important;
     color: var(--shiki-dark) !important;
     font-style: var(--shiki-dark-font-style) !important;

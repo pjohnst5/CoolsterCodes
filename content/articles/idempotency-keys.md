@@ -1,5 +1,4 @@
 +++
-hn_link = "https://news.ycombinator.com/item?id=15569478"
 hook = "Building resilient services by identifying foreign state mutations and grouping local changes into restartable atomic phases so that every request can be driven to completion."
 location = "San Francisco"
 published_at = 2017-10-27T13:52:12Z

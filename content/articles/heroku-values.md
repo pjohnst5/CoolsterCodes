@@ -1,5 +1,4 @@
 +++
-hn_link = "https://news.ycombinator.com/item?id=14286143"
 hook = "Some of my favorite practices and ideas from almost four years at Heroku."
 image = "/contents/images/heroku-values/heroku-values.jpg"
 location = "San Francisco"

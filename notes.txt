@@ -55,30 +55,30 @@ Give list of Articles without year ✅
 Make articles feed narrower ✅
 Make buttons look nice ✅
 Remove "Show All" functionality ✅
-Add link to "Articles" ✅
 Make it so only top 10 tags are shown as buttons ✅
 Explore making tag count show next to tag ✅
 Remove darkmode toggle ✅
 Make clicking tag again show all ✅
-Change colors of site
+Remove hacker news link ✅
+Rename "article.tmpl.html" to something else ✅
+Change colors of site ✅
+What CSS is used here? ✅
+    - It is called "tailwind" and it is crazy ✅
 Remove prose
-Work out nav bar / image
+Fix hover links
+Fix color links in main body
 Fix broken code block
-Change nav bar to have my logo
-Make a hamburger menu on mobile
+Nav bar?
 Explore removing "Articles" title
 Finish making an "All Tags" tab page
 - (Do I even need that?)
-- If I do take it out, put back "Show all" button
 Implement Search (can use docfx example lols)
 Rearrange content folder
-Rename "article.tmpl.html" to something else
-Make it so re-clicking the curren tag shows all
+Make it so re-clicking the current tag shows all
 Auto-create headers
 Auto-link hook images
 Remove all other Articles
 Make preview images mine (favico)
-What CSS is used here?
 Code: update/play with Shiki
 Add back in GT articles
 Do we need tmp?
