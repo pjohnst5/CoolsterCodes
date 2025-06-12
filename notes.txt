@@ -69,9 +69,9 @@ Fix color links in main body ✅
 Reintroduce Prose (understand it better) ✅
 Fix broken code block ✅
 Fix caption text color ✅
+Make in-line code nicer
 Check out footnotes (like make them optimized)
 Have links open in new tab
-Make in-line code nicer
 Nav bar - yes
 Rearrange content folder
 Explore removing "Articles" title
