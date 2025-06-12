@@ -1,5 +1,4 @@
 +++
-hn_link = "https://news.ycombinator.com/item?id=18220906"
 hook = "Hitting the limit for maximum allowed connections is a common operational problem in Postgres. Here we look at a few techniques for managing connections and making efficient use of those that are available."
 location = "San Francisco"
 published_at = 2018-10-15T15:42:51Z

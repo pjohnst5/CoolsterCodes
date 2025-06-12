@@ -1,4 +1,4 @@
-{{- template "html/layouts/article.tmpl.html" . -}}
+{{- template "html/layouts/root.tmpl.html" . -}}
 
 {{- define "title" -}}About{{.TitleSuffix}}{{- end -}}
 
@@ -6,23 +6,9 @@
 
 <div class="mb-12 mt-0 md:mb-24 md:mt-16 px-4">
     <div class="my-16">
-        <h1 class="font-normal font-serif my-8 text-center text-8xl text-proseLinks tracking-tighter dark:text-proseInvertLinks">
+        <h1 class="font-normal font-serif my-8 text-center text-8xl text-myblue tracking-tighter dark:text-proseInvertLinks">
             About
         </h1>
-
-        <!--
-        <div class="container max-w-[625px] mx-auto
-            prose prose-lg dark:prose-invert
-            prose-a:border-b-[1px] prose-a:border-slate-500 prose-a:font-sans prose-a:no-underline
-            hover:prose-a:border-slate-200">
-            <p>
-                Sent via the only universal medium of communication we have
-                (email) in the most open format (HTML), my small resistance to
-                the continued centralization and confinement of content in
-                closed platforms. Sent infrequently.
-            </p>
-        </div>
-        -->
     </div>
 
     <div class="container hyphens-auto max-w-[800px] mx-auto my-8

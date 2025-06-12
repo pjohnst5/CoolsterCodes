@@ -4,8 +4,7 @@ image = "/contents/images/two-phase-render/vista.jpg"
 location = "Berlin"
 published_at = 2024-05-28T20:50:47+02:00
 title = "Eradicating N+1s: The Two-phase Data Load and Render Pattern in Go"
-# hn_link = "https://news.ycombinator.com/item?id=38349716"
-+++
+# +++
 
 *Author’s note:* This is a longer piece that starts off with exposition into the nature of the N+1 query problem. If you're already well familiar with it, you may want to skip my description of N+1 to a story involving a creative use of [Ruby fibers at Stripe](#fibers-and-intents) to try and plug this hole, or the [two-phase load and render](#two-phase) that I've put in my current company's Go codebase, a pattern we've been using for two years now that's rid of us N+1s, and for which I'd have trouble citing any deficiency (aside from Go's normal trouble with verbosity). It works.
 
@@ -44,7 +43,7 @@ In this naive loop, the number of database queries issued to render all products
 
 This practically invisible problem is probably number two to only forgotten indexes as the most common reason for poor performance of web apps around. It's an easy mistake to make, and there's a broad lack of guard rails to protect against it.
 
-<img src="/contents/images/two-phase-render/n_plus_one.svg" alt="N+1.">
+<img src="/content/images/two-phase-render/n_plus_one.svg" alt="N+1.">
 
 ### N*M+1 and more (#n-m-plus-one)
 

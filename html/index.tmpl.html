@@ -1,4 +1,4 @@
-{{- template "html/layouts/article.tmpl.html" . -}}
+{{- template "html/layouts/root.tmpl.html" . -}}
 
 {{- define "title" -}}Articles{{.TitleSuffix}}{{- end -}}
 
@@ -6,17 +6,14 @@
 
 <div class="pt-8 pb-4 px-4">
     <h1 class="font-normal font-serif text-center text-8xl text-white tracking-tighter">
-        <a href="/">
-            Articles
-        </a>
+        Articles
     </h1>
 </div>
 <div class="mb-12 px-4">
     <div class="container max-w-[625px] mx-auto
-                    prose prose-lg
-                    prose-a:border-b-[1px] text-proseBody prose-a:border-slate-500 prose-a:font-sans prose-a:no-underline
-                    hover:prose-a:border-slate-200
-                    prose-p:text-center prose-p:italic
+                    text-white
+                    italic
+                    text-center
                     ">
         <p>
             Pick a tag, any tag.
@@ -43,7 +40,7 @@
                     {{end}}
                     <div class="mb-2">
                         <a href="/{{.Slug}}"
-                            class="border-b-[1px] border-proseLinks font-semibold text-proseLinks hover:border-b-blue-800">{{.Title}}</a>
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-white">{{.Title}}</a>
                         <span
                             class="italic ml-0.5 text-gray-300 text-xs">{{FormatTime .PublishedAt "Jan 2, 2006"}}</span>
                     </div>

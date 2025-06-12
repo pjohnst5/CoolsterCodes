@@ -1,5 +1,4 @@
 +++
-hn_link = "https://news.ycombinator.com/item?id=17682494"
 hook = "How we overvalue the wrong technology and novel aspects of interface design at the expense of substantial gains to our productivity."
 location = "San Francisco"
 published_at = 2017-01-28T13:24:00Z

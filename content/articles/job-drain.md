@@ -1,5 +1,4 @@
 +++
-hn_link = "https://news.ycombinator.com/item?id=15294722"
 hook = "Building a robust background worker system that leverages transactional isolation to never work a job too early, and transactional durability to never let one drop."
 location = "Calgary"
 published_at = 2017-09-20T14:58:14Z

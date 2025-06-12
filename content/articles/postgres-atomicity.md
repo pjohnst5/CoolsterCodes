@@ -1,5 +1,4 @@
 +++
-hn_link = "https://news.ycombinator.com/item?id=15027870"
 hook = "A dive into the mechanics that allow Postgres to provide strong atomic guarantees despite the chaotic entropy of production."
 location = "San Francisco"
 published_at = 2017-08-16T14:20:53Z
