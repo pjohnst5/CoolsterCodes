@@ -120,7 +120,7 @@ func build(c *modulir.Context) []error {
 
 	// Generate a set of JavaScript sources to add to universal sources.
 	{
-		javaScriptSources, err := mfile.ReadDirCached(c, c.SourceDir+"/content/javascripts",
+		javaScriptSources, err := mfile.ReadDirCached(c, c.SourceDir+"/web/javascripts",
 			&mfile.ReadDirOptions{ShowMeta: true})
 		if err != nil {
 			return []error{err}
@@ -203,7 +203,7 @@ func build(c *modulir.Context) []error {
 	{
 		commonSymlinks := [][2]string{
 			{c.SourceDir + "/content/images", c.TargetDir + "/content/images"},
-			{c.SourceDir + "/content/javascripts", versionedContentDir + "/javascripts"},
+			{c.SourceDir + "/web/javascripts", versionedContentDir + "/javascripts"},
 			{c.SourceDir + "/content/stylesheets", versionedContentDir + "/stylesheets"},
 		}
 		for _, link := range commonSymlinks {
