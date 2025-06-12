@@ -75,7 +75,6 @@ Explore removing "Articles" title
 Finish making an "All Tags" tab page
 Experiment with more tags on medium
 Implement Search (can use docfx example lols)
-Make it so re-clicking the current tag shows all
 Auto-create headers
 Auto-link hook images
 Remove all other Articles
