@@ -1,4 +1,4 @@
-{{- template "html/layouts/main.tmpl.html" . -}}
+{{- template "web/html/layouts/main.tmpl.html" . -}}
 
 {{- define "javascripts" -}}
 {{- end -}}
@@ -10,7 +10,7 @@
 min-h-screen{{- end -}}
 
 {{- define "content" -}}
-{{- template "html/_nav.tmpl.html" . -}}
+{{- template "web/html/_nav.tmpl.html" . -}}
 
 <div class="">
     {{block "article_content" .}}{{end}}

@@ -10,7 +10,7 @@
 
     {{Favicon "favicon" "jpg"}}
 
-    {{template "html/helpers/_style_stylesheets.tmpl.html" .}}
+    {{template "web/html/helpers/_style_stylesheets.tmpl.html" .}}
 
     {{block "stylesheets" .}}{{end}}
 
@@ -25,9 +25,9 @@
 <body class="antialiased {{block "body_style" .}}{{end}}">
     {{block "content" .}}{{end}}
 
-    {{template "html/helpers/_shiki_js.tmpl.html" .}}
-    {{template "html/helpers/_fancybox_js.tmpl.html" .}}
-    {{template "html/helpers/_filters_js.tmpl.html" .}}
+    {{template "web/html/helpers/_shiki_js.tmpl.html" .}}
+    {{template "web/html/helpers/_fancybox_js.tmpl.html" .}}
+    {{template "web/html/helpers/_filters_js.tmpl.html" .}}
 
 </body>
 

@@ -23,7 +23,7 @@ import (
 
 const (
 	// LayoutsDir is the source directory for view layouts.
-	LayoutsDir = "./html/layouts"
+	LayoutsDir = "./web/html/layouts"
 
 	// MainLayout is the site's main layout in the deprecated ACE templating
 	// system. This is no longer used except in a few near retired pages like
@@ -38,7 +38,7 @@ const (
 	TitleSuffix = " — brandur.org"
 
 	// HTML is the source directory for html.
-	HTML = "./html"
+	HTML = "./web/html"
 )
 
 //////////////////////////////////////////////////////////////////////////////

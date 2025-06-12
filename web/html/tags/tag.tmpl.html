@@ -1,38 +1,32 @@
-{{- template "html/layouts/root.tmpl.html" . -}}
+{{- template "web/html/layouts/root.tmpl.html" . -}}
 
-{{- define "title" -}}Articles{{.TitleSuffix}}{{- end -}}
+{{- define "title" -}}Tags{{.TitleSuffix}}{{- end -}}
 
 {{- define "article_content" -}}
 
-<div class="pt-8 pb-4 px-4">
-    <h1 class="prose prose-lg font-normal font-serif text-center text-8xl tracking-tighter">
-        Articles
+<div class="mt-0 md:mb-24 px-4">
+    <h1 class="font-normal font-serif my-8 text-center text-8xl text-myblue tracking-tighter dark:text-proseInvertLinks">
+        Tags: {{.Tag}}
     </h1>
-</div>
-<div class="mb-12 px-4">
+
     <div class="container max-w-[625px] mx-auto
-            prose prose-lg
+            prose prose-lg dark:prose-invert
             prose-a:border-b-[1px] prose-a:border-slate-500 prose-a:font-sans prose-a:no-underline
             hover:prose-a:border-slate-200
             prose-p:text-center prose-p:italic
             ">
         <p>
-            Pick a tag, any tag.
+            My articles about <strong>{{.Tag}}</strong>.
         </p>
-    </div>
-    <div class="container max-w-[800px] mx-auto mt-8 px-8 text-center" id="buttons">
-        {{range .TopNTags}}
-        <button id="{{.Tag}}" class="btn btn-blue" onclick="filterByTag('{{.Tag}}')">{{.Tag}}</button>
-        {{end}}
     </div>
 </div>
 
 <div class="container max-w-[800px] mx-auto mt-8 px-8">
     <div class="md:flex">
-        <div class="pb-8 md:flex-grow md:min-w-0 md:pl-6 md:pr-6">
+        <div class="pb-8 dark:border-slate-700 md:flex-grow md:min-w-0 md:pl-6 md:pr-6">
             <ul class="clear-both mb-9">
                 {{- range .Articles -}}
-                <li class="filterTag {{range .Tags}}{{.}} {{end}} clear-both mb-9 mt-1.5 text-md text-white">
+                <li class="clear-both mb-9 mt-1.5 text-md text-proseBody dark:text-proseInvertBody">
                     {{if .HookImageURL}}
                     <a href="/{{.Slug}}">
                         <img src="{{.HookImageURL}}"
@@ -41,9 +35,9 @@
                     {{end}}
                     <div class="mb-2">
                         <a href="/{{.Slug}}"
-                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-500 hover:text-sky-500">{{.Title}}</a>
+                            class="border-b-[1px] border-b-slate-200 font-semibold text-myblue dark:text-proseInvertLinks dark:border-b-slate-700 hover:border-b-black dark:hover:border-b-proseInvertLinks">{{.Title}}</a>
                         <span
-                            class="italic ml-0.5 text-gray-300 text-xs">{{FormatTime .PublishedAt "Jan 2, 2006"}}</span>
+                            class="italic ml-0.5 text-slate-500 text-xs">{{FormatTime .PublishedAt "Jan 2, 2006"}}</span>
                     </div>
                     <p class="font-serif leading-7">{{.Hook}}</p>
                 </li>
