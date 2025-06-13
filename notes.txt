@@ -73,6 +73,10 @@ Make in-line code nicer ✅
 Maybe invert links colors (nah) ✅
 Check out footnotes (like make them optimized) ✅
 Rearrange content folder ✅
+Fix code:
+    - Remove backticks (without adding on space either on sides or below code) ✅
+    - Make in-line code have a grey background (without breaking code blocks) ✅
+    - Make in-line code round (without breaking code blocks lols)
 Have links open in new tab
 Nav bar - yes
 Explore removing "Articles" title
@@ -108,3 +112,4 @@ Change header bar to be hamburger or something
 
 -- Maybe maybe haha --
 Eventually make it so year bar shows even when clicking button (and filtering them out/back in)
+Make code blocks copy-able
