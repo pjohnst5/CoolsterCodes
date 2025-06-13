@@ -77,8 +77,8 @@ Fix code: ✅
     - Remove backticks (without adding on space either on sides or below code) ✅
     - Make in-line code have a grey background (without breaking code blocks) ✅
     - Make in-line code round (without breaking code blocks lols) ✅
-Have links open in new tab
 Nav bar - yes
+Have links open in new tab
 Explore removing "Articles" title
 Finish making an "All Tags" tab page
 Experiment with more tags on medium
