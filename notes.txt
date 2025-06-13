@@ -75,7 +75,7 @@ Check out footnotes (like make them optimized) ✅
 Rearrange content folder ✅
 Fix code:
     - Remove backticks (without adding on space either on sides or below code) ✅
-    - Make in-line code have a grey background (without breaking code blocks)
+    - Make in-line code have a grey background (without breaking code blocks) ✅
     - Make in-line code round (without breaking code blocks lols)
 Have links open in new tab
 Nav bar - yes
