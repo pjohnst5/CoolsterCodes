@@ -112,3 +112,4 @@ Change header bar to be hamburger or something
 
 -- Maybe maybe haha --
 Eventually make it so year bar shows even when clicking button (and filtering them out/back in)
+Make code blocks copy-able
