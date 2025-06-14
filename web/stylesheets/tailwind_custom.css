@@ -13,7 +13,7 @@ a.feed_icon::after {
     filter: invert(100%);
 }
 
-.nav_item:after {
+/* .nav_item:after {
     background: transparent;
     content: '';
     display: block;
@@ -32,7 +32,7 @@ a.feed_icon::after {
 
 html .nav_item:hover:after {
     background: #e2e8f0;
-}
+} */
 
 html img[src$=".svg"], .dark svg {
     filter: invert(80%);
