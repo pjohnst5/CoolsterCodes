@@ -1,22 +1,32 @@
-<div class="flex justify-between">
+<div class="flex">
         <div class="w-60 h-12 bg-pink-300">
             <img class="" src="/content/images/CoolsterCodes.png">
         </div>
-        <div class="w-10 h-12 flex-grow bg-green-300">
+        <div class="w-10 h-12 flex-grow bg-green-300 justify-items-center">
             <ul class="flex">
                 <li>
-                    <a class="nav_item block mx-2 text-white hover:text-slate-500 dark:text-slate-200 dark:hover:text-slate-400"
+                    <a class="block mx-2 text-white hover:text-slate-500 dark:text-slate-200 dark:hover:text-slate-400"
                         href="/">Articles</a>
                 </li>
                 <li>
-                    <a class="nav_item block mx-2 text-white hover:text-slate-500 dark:text-slate-200 dark:hover:text-slate-400"
+                    <a class="block mx-2 text-white hover:text-slate-500 dark:text-slate-200 dark:hover:text-slate-400"
                         href="/about">About</a>
                 </li>
                 <li>
-                    <a class="nav_item block mx-2 text-white hover:text-slate-500 dark:text-slate-200 dark:hover:text-slate-400"
+                    <a class="block mx-2 text-white hover:text-slate-500 dark:text-slate-200 dark:hover:text-slate-400"
                         href="/about">Tags</a>
                 </li>
             </ul>
         </div>
-        <div class="w-60 h-12 bg-pink-300"></div>
+        <div class="w-60 h-12 bg-pink-300">
+            <form role="search" id="search"
+                class="flex items-center bg-gray-800 text-gray-400 border border-gray-600 rounded-lg px-3 py-2 w-80">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+                </svg>
+                <input id="search-query" type="search" placeholder="Search" autocomplete="off" aria-label="Search"
+                    class="bg-transparent focus:outline-none w-full text-gray-200 placeholder-gray-400" />
+            </form>
+        </div>
 </div>
