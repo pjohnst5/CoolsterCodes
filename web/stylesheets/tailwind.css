@@ -1640,6 +1640,10 @@ video {
   clear: both;
 }
 
+.m-3 {
+  margin: 0.75rem;
+}
+
 .mx-0\.5 {
   margin-left: 0.125rem;
   margin-right: 0.125rem;
@@ -2007,8 +2011,8 @@ video {
   padding-bottom: 2rem;
 }
 
-.pl-1 {
-  padding-left: 0.25rem;
+.pl-2 {
+  padding-left: 0.5rem;
 }
 
 .pl-3 {
