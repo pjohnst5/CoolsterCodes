@@ -2362,6 +2362,11 @@ video {
   color: rgb(93 167 216 / var(--tw-text-opacity, 1));
 }
 
+.prose-a\:text-white :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
 .prose-a\:no-underline :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   text-decoration-line: none;
 }
