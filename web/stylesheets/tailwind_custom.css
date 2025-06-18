@@ -13,6 +13,7 @@ a.feed_icon::after {
     filter: invert(100%);
 }
 
+/* Nav */
 .nav_item:after {
     background: transparent;
     content: '';
@@ -34,10 +35,7 @@ html .nav_item:hover:after {
     background: #e2e8f0;
 }
 
-html img[src$=".svg"], .dark svg {
-    filter: invert(80%);
-}
-
+/* Shiki */
 html .shiki,
 html .shiki span {
     background-color: var(--shiki-dark-bg) !important;
@@ -47,6 +45,7 @@ html .shiki span {
     text-decoration: var(--shiki-dark-text-decoration) !important;
 }
 
+/* Hamburger menu  */
 .hamburger {
     display: inline-block;
     cursor: pointer;
@@ -58,14 +57,19 @@ html .shiki span {
     background-color: #5da7d8;
     margin: 6px 0;
     transition: 0.4s;
-  }
+}
 
-  .change .bar1 {
+.change .bar1 {
     transform: translate(0, 11px) rotate(-45deg);
-  }
+}
 
-  .change .bar2 {opacity: 0;}
+.change .bar2 {opacity: 0;}
 
-  .change .bar3 {
+.change .bar3 {
     transform: translate(0, -11px) rotate(45deg);
-  }
+}
+
+/* Random */
+html img[src$=".svg"], .dark svg {
+    filter: invert(80%);
+}
