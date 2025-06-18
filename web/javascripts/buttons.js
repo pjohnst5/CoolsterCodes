@@ -61,3 +61,7 @@ function w3RemoveClass(element, name) {
   }
   element.className = arr1.join(" ");
 }
+
+function toggle(x) {
+  x.classList.toggle("change");
+}
