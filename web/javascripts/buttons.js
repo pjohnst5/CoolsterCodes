@@ -64,4 +64,6 @@ function w3RemoveClass(element, name) {
 
 function toggle(x) {
   x.classList.toggle("change");
+  var dropdown = document.getElementById("drop-down");
+  dropdown.classList.toggle("hidden");
 }
