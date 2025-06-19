@@ -36,8 +36,8 @@ function filterByTag(tag) {
   // If tag is not empty (from "all"), then make that button white lols
   if (tag != "") {
     var b = document.getElementById(tag);
-    w3RemoveClass(b, "btn-blue");
-    w3AddClass(b, "btn-white");
+    b.classList.toggle("btn-blue");
+    b.classList.toggle("btn-white");
   }
 }
 
