@@ -5,8 +5,8 @@ function filterByTag(tag) {
   if (b.length > 0) {
     // Get it by id though, so it doesn't disappear from "btn-white" list when class is removed
     b = document.getElementById(b[0].id)
-    w3RemoveClass(b, "btn-white");
-    w3AddClass(b, "btn-blue");
+    b.classList.toggle("btn-white");
+    b.classList.toggle("btn-blue");
     // If incoming button clicked was white button before, "show all" functionality
     if (b.id == tag) {
       tag = "all";
