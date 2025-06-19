@@ -2224,11 +2224,13 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
-.btn-blue:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
-  --tw-text-opacity: 1;
-  color: rgb(44 128 184 / var(--tw-text-opacity, 1));
+@media (min-width: 768px) {
+  .btn-blue:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+    --tw-text-opacity: 1;
+    color: rgb(44 128 184 / var(--tw-text-opacity, 1));
+  }
 }
 
 .btn-white {
