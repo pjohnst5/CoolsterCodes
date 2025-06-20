@@ -20,7 +20,7 @@ func TestDependencyRegistryParseGoTemplate(t *testing.T) {
 			"web/html/helpers/_style_stylesheets.tmpl.html",
 			"web/html/helpers/_shiki_js.tmpl.html",
 			"web/html/helpers/_fancybox_js.tmpl.html",
-			"web/html/helpers/_filters_js.tmpl.html",
+			"web/html/helpers/_buttons_js.tmpl.html",
 		}, dependencies)
 	}
 }
