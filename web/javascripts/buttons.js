@@ -5,8 +5,8 @@ function filterByTag(tag) {
   if (b.length > 0) {
     // Get it by id though, so it doesn't disappear from "btn-white" list when class is removed
     b = document.getElementById(b[0].id)
-    w3RemoveClass(b, "btn-white");
-    w3AddClass(b, "btn-blue");
+    b.classList.toggle("btn-white");
+    b.classList.toggle("btn-blue");
     // If incoming button clicked was white button before, "show all" functionality
     if (b.id == tag) {
       tag = "all";
@@ -36,8 +36,8 @@ function filterByTag(tag) {
   // If tag is not empty (from "all"), then make that button white lols
   if (tag != "") {
     var b = document.getElementById(tag);
-    w3RemoveClass(b, "btn-blue");
-    w3AddClass(b, "btn-white");
+    b.classList.toggle("btn-blue");
+    b.classList.toggle("btn-white");
   }
 }
 
@@ -60,4 +60,10 @@ function w3RemoveClass(element, name) {
     }
   }
   element.className = arr1.join(" ");
+}
+
+function toggle(x) {
+  x.classList.toggle("change");
+  var dropdown = document.getElementById("drop-down");
+  dropdown.classList.toggle("hidden");
 }
