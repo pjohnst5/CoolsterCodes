@@ -78,9 +78,9 @@ Fix code: ✅
     - Make in-line code have a grey background (without breaking code blocks) ✅
     - Make in-line code round (without breaking code blocks lols) ✅
 Nav bar ✅
+Implement Search (can use docfx example lols)
 Finish About page
 Finish making an "All Tags" tab page
-Implement Search (can use docfx example lols)
 Auto-create headers
 Auto-link hook images
 Make preview images mine (favico)
@@ -92,6 +92,7 @@ Explore removing "Articles" title
 Remove all other Articles
 Do we need tmp?
 Add back in all my articles
+Embed Youtube and make tutorial link
 Host it
 
 -- Commands --
@@ -105,10 +106,6 @@ rm tailwindcss
 --- Misc ---
 When removing atoms, in build.go there was a video thingy
 With Fragments, there was a "content/fragments-drafts" and "content/fragments-defunct"
-
--- Eventually --
-Make it so articles with YouTube tutorial have it linked on the side
-
 
 -- Maybe maybe haha --
 Eventually make it so year bar shows even when clicking button (and filtering them out/back in)
