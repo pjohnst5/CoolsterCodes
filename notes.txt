@@ -78,7 +78,11 @@ Fix code: ✅
     - Make in-line code have a grey background (without breaking code blocks) ✅
     - Make in-line code round (without breaking code blocks lols) ✅
 Nav bar ✅
-Implement Search (can use docfx example lols)
+Implement Search
+    - Change urls
+    - Make index.json
+    - Make it look nice
+
 Finish About page
 Finish making an "All Tags" tab page
 Auto-create headers
