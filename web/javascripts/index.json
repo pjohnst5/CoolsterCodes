@@ -1,0 +1,32 @@
+{
+  "articles/getting-started.html": {
+    "href": "articles/getting-started.html",
+    "title": "Getting Started | CoolsterCodes",
+    "summary": "Getting Started"
+  },
+  "articles/hey.html": {
+    "href": "articles/hey.html",
+    "title": "Hey | CoolsterCodes",
+    "summary": "Hey Tech is cool"
+  },
+  "articles/introduction.html": {
+    "href": "articles/introduction.html",
+    "title": "Introduction | CoolsterCodes",
+    "summary": "Introduction Hey I'm Paul this is my blog point 2 to make This is my second point Point 3 final point My final point thanks Finally, a picture"
+  },
+  "articles/me.html": {
+    "href": "articles/me.html",
+    "title": "hey | CoolsterCodes",
+    "summary": "hey What's up AI Tech"
+  },
+  "articles/night.html": {
+    "href": "articles/night.html",
+    "title": "Night | CoolsterCodes",
+    "summary": "Night The best thing in tech is"
+  },
+  "index.html": {
+    "href": "index.html",
+    "title": "This is the HOMEPAGE. | CoolsterCodes",
+    "summary": "This is the HOMEPAGE. Refer to Markdown for how to write markdown files. Quick Start Notes: Add images to the images folder if the file is referencing an image."
+  }
+}
