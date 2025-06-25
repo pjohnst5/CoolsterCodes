@@ -82,7 +82,7 @@ Implement Search
     - Change urls
     - Make index.json
     - Make it look nice
-
+Maybe go back to pink inline, idk
 Finish About page
 Finish making an "All Tags" tab page
 Auto-create headers
