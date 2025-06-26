@@ -30,12 +30,12 @@ export async function enableSearch() {
     console.error('Error occurred at search-worker. message: ' + event.message)
   }
 
-  worker.onmessage = function(oEvent) {
+  worker.onmessage = function (oEvent) {
     switch (oEvent.data.e) {
       case 'index-ready':
         searchQuery.disabled = false
         searchQuery.addEventListener('input', onSearchQueryInput)
-        searchQuery.addEventListener('keypress', function(e) {
+        searchQuery.addEventListener('keypress', function (e) {
           if (e.key === 'Enter') {
             event.preventDefault()
           }
@@ -112,18 +112,18 @@ export async function enableSearch() {
       const items = html`
         <div class="search-list">${loc('searchResultsCount', { count: hits.length.toString(), query })}</div>
         <div class="sr-items">${curHits.map(hit => {
-          const currentUrl = window.location.href
-          const itemRawHref = relativeUrlToAbsoluteUrl(currentUrl, relHref + hit.href)
-          const itemHref = relHref + hit.href
-          const itemBrief = hit.summary ? extractContentBrief(hit.summary) : ''
+        const currentUrl = window.location.href
+        const itemRawHref = relativeUrlToAbsoluteUrl(currentUrl, relHref + hit.href)
+        const itemHref = relHref + hit.href
+        const itemBrief = hit.summary ? extractContentBrief(hit.summary) : ''
 
-          return html`
+        return html`
             <div class="sr-item">
               <div class="item-title"><a href="${itemHref}" target="_blank" rel="noopener noreferrer">${mark(hit.title, query)}</a></div>
               <div class="item-href">${mark(itemRawHref, query)}</div>
               <div class="item-brief">${mark(itemBrief, query)}</div>
             </div>`
-          })}
+      })}
         </div>`
 
       return html`${items} ${renderPagination()}`
