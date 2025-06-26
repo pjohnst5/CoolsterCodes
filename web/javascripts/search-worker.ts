@@ -43,7 +43,7 @@ async function loadIndex({ lunrLanguages }: { lunrLanguages?: string[] }) {
       }
     }
 
-    const index = lunr(function() {
+    const index = lunr(function () {
       lunr.tokenizer.separator = /[\s\-.()]+/
 
       this.ref('href')
@@ -68,7 +68,7 @@ async function loadIndex({ lunrLanguages }: { lunrLanguages?: string[] }) {
   }
 }
 
-onmessage = function(e) {
+onmessage = function (e) {
   if (e.data.q && search) {
     postMessage({ e: 'query-ready', d: search(e.data.q) })
   } else if (e.data.init) {
