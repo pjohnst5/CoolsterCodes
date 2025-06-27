@@ -12,7 +12,8 @@ min-h-screen{{- end -}}
 {{- define "content" -}}
 {{- template "web/html/_nav.tmpl.html" . -}}
 
-<div class="">
+<div id="main-div">
     {{block "article_content" .}}{{end}}
 </div>
+<div id="search-results"></div>
 {{- end -}}
