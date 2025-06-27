@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"html/template"
 	"net/url"
 	"os"
@@ -308,6 +309,14 @@ func build(c *modulir.Context) []error {
 		}
 	}
 
+	//
+	// Index
+	//
+	{
+		indexPath := versionedContentDir + "/javascripts/index.json"
+		generateIndex(indexPath, articles)
+	}
+
 	return nil
 }
 
@@ -365,6 +374,14 @@ type Article struct {
 	// included as TOML frontmatter, but rather calculated from the article's
 	// content, rendered, and then added separately.
 	TOC template.HTML `toml:"-"`
+
+	Body string `toml:"body"`
+}
+
+type IndexEntry struct {
+	Href    string `json:"href"`
+	Title   string `json:"title"`
+	Summary string `json:"summary"`
 }
 
 // publishingInfo produces a brief spiel about publication which is intended to
@@ -522,6 +539,7 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	if err != nil {
 		return true, err
 	}
+	article.Body = string(data)
 
 	err = article.validate(source)
 	if err != nil {
@@ -761,4 +779,28 @@ func tagToURL(tag string) string {
 	tag = strings.Trim(tag, "-")
 
 	return tag
+}
+
+func generateIndex(path string, articles []*Article) error {
+	entries := map[string]IndexEntry{}
+	for _, a := range articles {
+		entries[a.Slug] = IndexEntry{
+			Href:    a.Slug,
+			Title:   a.Title,
+			Summary: a.Body,
+		}
+	}
+
+	file, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	encoder := json.NewEncoder(file)
+	encoder.SetIndent("", " ") // pretty-print
+	if err := encoder.Encode(entries); err != nil {
+		return err
+	}
+	return nil
 }
