@@ -314,7 +314,9 @@ func build(c *modulir.Context) []error {
 	//
 	{
 		indexPath := versionedContentDir + "/javascripts/index.json"
-		generateIndex(indexPath, articles)
+		c.AddJob("index", func() (bool, error) {
+			return generateIndex(indexPath, articles)
+		})
 	}
 
 	return nil
@@ -781,7 +783,7 @@ func tagToURL(tag string) string {
 	return tag
 }
 
-func generateIndex(path string, articles []*Article) error {
+func generateIndex(path string, articles []*Article) (bool, error) {
 	entries := map[string]IndexEntry{}
 	for _, a := range articles {
 		entries[a.Slug] = IndexEntry{
@@ -793,14 +795,14 @@ func generateIndex(path string, articles []*Article) error {
 
 	file, err := os.Create(path)
 	if err != nil {
-		return err
+		return false, err
 	}
 	defer file.Close()
 
 	encoder := json.NewEncoder(file)
 	encoder.SetIndent("", " ") // pretty-print
 	if err := encoder.Encode(entries); err != nil {
-		return err
+		return false, err
 	}
-	return nil
+	return true, nil
 }
