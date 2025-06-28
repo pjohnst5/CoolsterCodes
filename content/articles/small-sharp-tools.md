@@ -17,7 +17,7 @@ The best documented original source for this idea is the book [_The Art of Unix 
 
 More background for the idea is described under a section on Unix philosophy titled _Tradeoffs between Interface and Implementation Complexity_:
 
-> One strain of Unix thinking emphasizes small sharp tools, starting designs from zero, and interfaces that are simple and consistent. This point of view has been most famously championed by Doug McIlroy. Another strain emphasizes doing simple implementations that work, and that ship quickly, even if the methods are brute-force and some edge cases have to be punted. Ken Thompson’s code and his maxims about programming have often seemed to lean in this direction.
+> One strain of Unix thinking emphasizes small sharp tools, starting designs from zero, and interfaces that are simple and consistent. This point of view has been most famously championed by Doug McIlroy. Another strain emphasizes doing simple implementations that work, and that ship quickly, even if the methods are brute-force and some edge cases have to be punted. Ken Thompson's code and his maxims about programming have often seemed to lean in this direction.
 
 One example of the Unix-based small, sharp tools that are being referred to here are the basic shell primitives like `cd`, `ls`, `cat`, `grep`, and `tail`, which can be composed in the context of pipelines, redirections, the shell, and the file system itself to work in tandem to build more complex workflows than any could provide on their own. The "simple and consistent" interfaces are the Unix conventions such as common idioms between programs for specifying input to consume, and [exit codes](/exit-status) that are re-used between programs.
 
@@ -33,7 +33,7 @@ This may be especially applicable to today with the recent popularization of [mi
 
 Unfortunately, rather than being a solution that's perfectly applicable to all problems, the trade-offs of small, sharp tools are fairly well understood. In a section discussing the "compromise between the minimalism of ed and the all-singing-all-dancing comprehensiveness of Emacs", Raymond talks about how building tools that are too small can result in an increased burden on their users:
 
-> Then the religion of “small, sharp tools”, the pressure to keep interface complexity and codebase size down, may lead right to a manularity trap — the user has to maintain all the shared context himself, because the tools won’t do it for him.
+> Then the religion of “small, sharp tools”, the pressure to keep interface complexity and codebase size down, may lead right to a manularity trap — the user has to maintain all the shared context himself, because the tools won't do it for him.
 
 He continues with another passage on the subject under the section titled _The Right Size of Software_:
 

@@ -193,7 +193,7 @@ about Spanner][spanner-truetime]:
 > partitions below.
 >
 > Given that Spanner always provides consistency, the real
-> question for a claim of CA is whether or not Spanner’s
+> question for a claim of CA is whether or not Spanner's
 > serious users assume its availability. If its actual
 > availability is so high that users can ignore outages,
 > then Spanner can justify an “effectively CA” claim. This
@@ -202,7 +202,7 @@ about Spanner][spanner-truetime]:
 > more “9s” (1 failure in 10^5 or less). In turn, the real
 > litmus test is whether or not users (that want their own
 > service to be highly available) write the code to handle
-> outage exceptions: if they haven’t written that code,
+> outage exceptions: if they haven't written that code,
 > then they are assuming high availability. Based on a
 > large number of internal users of Spanner, we know that
 > they assume Spanner is highly available.
@@ -329,7 +329,7 @@ off, and less so, an anti-feature:
 
 > Both relational and NoSQL databases force you to deal
 > with schema & index management, versioning and migration
-> [...] But don’t worry -- Cosmos DB makes this problem go
+> [...] But don't worry -- Cosmos DB makes this problem go
 > away!
 
 That said, it's got a pretty good set of features:

@@ -27,6 +27,7 @@ import (
 	"github.com/brandur/sorg/modules/modulir/mtoml"
 	"github.com/brandur/sorg/modules/scommon"
 	"github.com/brandur/sorg/modules/stemplate"
+	stripmd "github.com/writeas/go-strip-markdown"
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -541,7 +542,8 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	if err != nil {
 		return true, err
 	}
-	article.Body = string(data)
+	stripped := stripmd.Strip(string(data))
+	article.Body = strings.ReplaceAll(stripped, "\n", " ")
 
 	err = article.validate(source)
 	if err != nil {

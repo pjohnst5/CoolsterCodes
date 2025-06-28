@@ -7,7 +7,7 @@ title = "Ballin' like a baller"
 tags = ["Georgia Tech", "AI", "Ballin' it up"]
 +++
 
-*Author’s note:* Paul is known to ball really hard, beware.
+*Author's note:* Paul is known to ball really hard, beware.
 
 ---
 
