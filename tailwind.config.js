@@ -38,7 +38,7 @@ module.exports = {
                             content: '""',
                         },
                         '--tw-prose-body': '#fff',       // prose body white
-                        '--tw-prose-code': '#c8d1d9',    // inline code
+                        '--tw-prose-code': '#e070c4',    // inline code
                         '--tw-prose-links': '#5da7d8',   // This was so annoying to figure out
                         '--tw-prose-counters': '#fff',   // Make numbers next to TOC white
                         '--tw-prose-captions': '#adb1ba' // Figure captions
