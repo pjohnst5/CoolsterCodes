@@ -314,7 +314,7 @@ func build(c *modulir.Context) []error {
 	// Index
 	//
 	{
-		indexPath := versionedContentDir + "/javascripts/index.json"
+		indexPath := versionedContentDir + "/index.json"
 		c.AddJob("index", func() (bool, error) {
 			return generateIndex(indexPath, articles)
 		})
