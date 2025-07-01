@@ -568,7 +568,10 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 
 	content, footnotes, ok := strings.Cut(content, `<div class="footnotes">`)
 	if ok {
-		footnotes = strings.TrimSuffix(footnotes, "</div>")
+		if i := strings.LastIndex(footnotes, "</div>"); i != -1 {
+			footnotes = footnotes[:i]
+		}
+		footnotes = strings.TrimSpace(footnotes)
 	}
 
 	article.Content = template.HTML(content)
