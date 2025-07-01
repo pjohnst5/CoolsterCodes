@@ -3,7 +3,9 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"html/template"
+	"io"
 	"net/url"
 	"os"
 	"path"
@@ -314,9 +316,11 @@ func build(c *modulir.Context) []error {
 	// Index
 	//
 	{
-		indexPath := versionedContentDir + "/index.json"
+		indexFileName := "index.json"
+		srcPath := "./web/" + indexFileName
+		dstPath := versionedContentDir + "/" + indexFileName
 		c.AddJob("index", func() (bool, error) {
-			return generateIndex(indexPath, articles)
+			return generateIndex(srcPath, dstPath, articles)
 		})
 	}
 
@@ -786,7 +790,7 @@ func tagToURL(tag string) string {
 	return tag
 }
 
-func generateIndex(path string, articles []*Article) (bool, error) {
+func generateIndex(srcPath, dstPath string, articles []*Article) (bool, error) {
 	entries := map[string]IndexEntry{}
 	for _, a := range articles {
 		entries[a.Slug] = IndexEntry{
@@ -797,7 +801,7 @@ func generateIndex(path string, articles []*Article) (bool, error) {
 		}
 	}
 
-	file, err := os.Create(path)
+	file, err := os.Create(srcPath)
 	if err != nil {
 		return false, err
 	}
@@ -808,5 +812,31 @@ func generateIndex(path string, articles []*Article) (bool, error) {
 	if err := encoder.Encode(entries); err != nil {
 		return false, err
 	}
+
+	copyFile(srcPath, dstPath)
 	return true, nil
+}
+
+func copyFile(src, dst string) error {
+	// Open the source file
+	sourceFile, err := os.Open(src)
+	if err != nil {
+		return fmt.Errorf("failed to open source file: %w", err)
+	}
+	defer sourceFile.Close() // Ensure the source file is closed
+
+	// Create the destination file
+	destinationFile, err := os.Create(dst)
+	if err != nil {
+		return fmt.Errorf("failed to create destination file: %w", err)
+	}
+	defer destinationFile.Close() // Ensure the destination file is closed
+
+	// Copy the contents
+	_, err = io.Copy(destinationFile, sourceFile)
+	if err != nil {
+		return fmt.Errorf("failed to copy file contents: %w", err)
+	}
+
+	return nil
 }
