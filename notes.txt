@@ -87,9 +87,9 @@ Auto-link hook images
 Make preview images mine (favico)
 Play with Shiki code
 Explore colors thoroughly (inline and search)
+Pictures with articles
 Update readme
-Have links open in new tab
-Experiment with more tags on medium
+Experiment with more tags on medium sized page
 Explore removing "Articles" title
 Remove all other Articles
 Do we need tmp?
