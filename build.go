@@ -2,7 +2,9 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"html/template"
+	"io"
 	"net/url"
 	"os"
 	"path"
@@ -16,6 +18,7 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	_ "github.com/lib/pq"
+	stripmd "github.com/writeas/go-strip-markdown"
 	"golang.org/x/xerrors"
 
 	"github.com/brandur/sorg/modules/modulir"
@@ -308,6 +311,18 @@ func build(c *modulir.Context) []error {
 		}
 	}
 
+	//
+	// Index
+	//
+	{
+		indexFileName := "index.json"
+		srcPath := "./web/" + indexFileName
+		dstPath := versionedContentDir + "/" + indexFileName
+		c.AddJob("index", func() (bool, error) {
+			return generateIndex(srcPath, dstPath, articles)
+		})
+	}
+
 	return nil
 }
 
@@ -365,6 +380,16 @@ type Article struct {
 	// included as TOML frontmatter, but rather calculated from the article's
 	// content, rendered, and then added separately.
 	TOC template.HTML `toml:"-"`
+
+	// The searchable body for index.json
+	Body string `toml:"body"`
+}
+
+type IndexEntry struct {
+	Href    string   `json:"href"`
+	Title   string   `json:"title"`
+	Summary string   `json:"summary"`
+	Tags    []string `json:"tags"`
 }
 
 // publishingInfo produces a brief spiel about publication which is intended to
@@ -522,6 +547,8 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	if err != nil {
 		return true, err
 	}
+	stripped := stripmd.Strip(string(data))
+	article.Body = strings.ReplaceAll(stripped, "\n", " ")
 
 	err = article.validate(source)
 	if err != nil {
@@ -541,7 +568,10 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 
 	content, footnotes, ok := strings.Cut(content, `<div class="footnotes">`)
 	if ok {
-		footnotes = strings.TrimSuffix(footnotes, "</div>")
+		if i := strings.LastIndex(footnotes, "</div>"); i != -1 {
+			footnotes = footnotes[:i]
+		}
+		footnotes = strings.TrimSpace(footnotes)
 	}
 
 	article.Content = template.HTML(content)
@@ -761,4 +791,57 @@ func tagToURL(tag string) string {
 	tag = strings.Trim(tag, "-")
 
 	return tag
+}
+
+func generateIndex(srcPath, dstPath string, articles []*Article) (bool, error) {
+	entries := map[string]IndexEntry{}
+	for _, a := range articles {
+		entries[a.Slug] = IndexEntry{
+			Href:    a.Slug,
+			Title:   a.Title,
+			Summary: a.Body,
+			Tags:    a.Tags,
+		}
+	}
+
+	file, err := os.Create(srcPath)
+	if err != nil {
+		return false, xerrors.Errorf("error creating src file %s: %v", srcPath, err)
+	}
+	defer file.Close()
+
+	encoder := json.NewEncoder(file)
+	encoder.SetIndent("", " ") // pretty-print
+	if err := encoder.Encode(entries); err != nil {
+		return false, xerrors.Errorf("error encoding %v", err)
+	}
+
+	if err := copyFile(srcPath, dstPath); err != nil {
+		return false, xerrors.Errorf("error copying file %v", err)
+	}
+	return true, nil
+}
+
+func copyFile(src, dst string) error {
+	// Open the source file
+	sourceFile, err := os.Open(src)
+	if err != nil {
+		return xerrors.Errorf("error creating src file %s: %v", src, err)
+	}
+	defer sourceFile.Close() // Ensure the source file is closed
+
+	// Create the destination file
+	destinationFile, err := os.Create(dst)
+	if err != nil {
+		return xerrors.Errorf("error creating dst file %s: %v", dst, err)
+	}
+	defer destinationFile.Close() // Ensure the destination file is closed
+
+	// Copy the contents
+	_, err = io.Copy(destinationFile, sourceFile)
+	if err != nil {
+		return xerrors.Errorf("error copying file %v", err)
+	}
+
+	return nil
 }

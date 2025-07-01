@@ -21,6 +21,7 @@ func TestDependencyRegistryParseGoTemplate(t *testing.T) {
 			"web/html/helpers/_shiki_js.tmpl.html",
 			"web/html/helpers/_fancybox_js.tmpl.html",
 			"web/html/helpers/_buttons_js.tmpl.html",
+			"web/html/helpers/_search_js.tmpl.html",
 		}, dependencies)
 	}
 }

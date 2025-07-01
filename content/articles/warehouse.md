@@ -81,7 +81,7 @@ As another example, I've been using a similar technique for years to [archive my
 ---------------------+----------------------------------------------------
  2013-07-22 04:24:57 | Half of Iceland now wants the old centre-right par
  2012-11-04 23:18:24 | The British, with a help of a Canadian (!) task fo
- 2012-10-05 12:22:18 | What’s happening in Iceland’s metal scene? http://
+ 2012-10-05 12:22:18 | What's happening in Iceland's metal scene? http://
  2011-12-28 20:55:46 | Have Icelandic lineage/ancestors? Then check out:
  2011-10-02 00:34:33 | Bar tending at the annual Icelandic fall feast. Dr
  2011-07-11 14:48:56 | Awesome. My brother just pointed out that there's

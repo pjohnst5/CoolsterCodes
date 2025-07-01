@@ -1,0 +1,4 @@
+All that you get with Brandur'sAdd commentMore actions
+
+Footnotes [1] (see api-paradigms.md for example)
+Attributions (see page.md for example) (but probably don't use that since you need to input html)
