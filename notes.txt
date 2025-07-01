@@ -78,11 +78,7 @@ Fix code: ✅
     - Make in-line code have a grey background (without breaking code blocks) ✅
     - Make in-line code round (without breaking code blocks lols) ✅
 Nav bar ✅
-Implement Search
-    - Change urls
-    - Make index.json
-    - Make it look nice
-Maybe go back to pink inline, idk
+Implement Search ✅
 Finish About page
 Finish making an "All Tags" tab page
 Make tags visible in article and maybe home page as well
@@ -90,6 +86,7 @@ Auto-create headers
 Auto-link hook images
 Make preview images mine (favico)
 Play with Shiki code
+Explore colors thoroughly (inline and search)
 Update readme
 Have links open in new tab
 Experiment with more tags on medium
