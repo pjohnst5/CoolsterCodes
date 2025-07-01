@@ -6,7 +6,7 @@ published_at = 2024-05-28T20:50:47+02:00
 title = "Eradicating N+1s: The Two-phase Data Load and Render Pattern in Go"
 # +++
 
-*Author’s note:* This is a longer piece that starts off with exposition into the nature of the N+1 query problem. If you're already well familiar with it, you may want to skip my description of N+1 to a story involving a creative use of [Ruby fibers at Stripe](#fibers-and-intents) to try and plug this hole, or the [two-phase load and render](#two-phase) that I've put in my current company's Go codebase, a pattern we've been using for two years now that's rid of us N+1s, and for which I'd have trouble citing any deficiency (aside from Go's normal trouble with verbosity). It works.
+*Author's note:* This is a longer piece that starts off with exposition into the nature of the N+1 query problem. If you're already well familiar with it, you may want to skip my description of N+1 to a story involving a creative use of [Ruby fibers at Stripe](#fibers-and-intents) to try and plug this hole, or the [two-phase load and render](#two-phase) that I've put in my current company's Go codebase, a pattern we've been using for two years now that's rid of us N+1s, and for which I'd have trouble citing any deficiency (aside from Go's normal trouble with verbosity). It works.
 
 ---
 
@@ -100,11 +100,11 @@ But even these sophisticated strategies have their own problems. In a large appl
 
 Sometimes you have to get creative to solve N+1s.
 
-A story from Stripe: due to an architecture built around Mongo, records were almost always point loaded by nothing more complex than a point index lookup (i.e. no fancy joins, eager loading, or anything else, just the equivalent of `WHERE id = @id`). N+1s were the rule, not the exception, but with fast hardware and modest performance expectations, it’s amazing how far you can get with this brute force approach. An API request could easily run thousands of database ops.
+A story from Stripe: due to an architecture built around Mongo, records were almost always point loaded by nothing more complex than a point index lookup (i.e. no fancy joins, eager loading, or anything else, just the equivalent of `WHERE id = @id`). N+1s were the rule, not the exception, but with fast hardware and modest performance expectations, it's amazing how far you can get with this brute force approach. An API request could easily run thousands of database ops.
 
-It’s a good example of how pernicious N+1s can be. Databases are fast, and especially in the beginning, you can have the least sophisticated internal practices imaginable and they’ll still be viable. A request might be making 50 database calls, 45 of which would be unnecessary in a better-designed system, but with each taking only 1-2 ms, everything’s still done in 50-100 ms.
+It's a good example of how pernicious N+1s can be. Databases are fast, and especially in the beginning, you can have the least sophisticated internal practices imaginable and they'll still be viable. A request might be making 50 database calls, 45 of which would be unnecessary in a better-designed system, but with each taking only 1-2 ms, everything's still done in 50-100 ms.
 
-But over the years 50 calls becomes 1,000, and users start to notice that things are slow. And once things are this far gone, there’s no obvious fix. The latency isn’t due to only one factor, it’s a confluence of years worth of haphazardly written code, and now there's millions of lines of it.
+But over the years 50 calls becomes 1,000, and users start to notice that things are slow. And once things are this far gone, there's no obvious fix. The latency isn't due to only one factor, it's a confluence of years worth of haphazardly written code, and now there's millions of lines of it.
 
 With no easy solutions in sight, one of my colleagues came up with what to this day is still the most novel and effective hack I've ever seen work in production.
 
@@ -164,7 +164,7 @@ Importantly, options were limited and this was one of the few ways to have a lar
 
 ## Rails strict loading (#rails-strict-loading)
 
-N+1s are a constant threat in frameworks like ActiveRecord where lazy loading is common. Lazy loading is preventable with eager loading like `#includes` / `#eager_load` / `#preload`, but is difficult to guarantee because even if all relations were eager loaded initially, it’s easy to accidentally regress as a new lazy load is introduced.
+N+1s are a constant threat in frameworks like ActiveRecord where lazy loading is common. Lazy loading is preventable with eager loading like `#includes` / `#eager_load` / `#preload`, but is difficult to guarantee because even if all relations were eager loaded initially, it's easy to accidentally regress as a new lazy load is introduced.
 
 To help ratchet down on the problem, [Rails 6.1 introduced **strict loading**](https://rubyonrails.org/2020/12/9/Rails-6-1-0-release#strict-loading-associations), wherein lazy loading becomes an error. The idea is that tests will exercise code which will fail if it performs a lazy load, allowing all instances of it to be banished before deployment.
 
@@ -188,7 +188,7 @@ Strict loading is an important feature and _major_ innovation in this area, but 
 
 This brings us to Go, where loading data is hard even without considering N+1s.
 
-Go can aptly be described as a newer, safer C, but with even less flexibility. You couldn’t write a good ORM for the language if you wanted to (they do exist, but rely on a lot of untyped `any` shenanigans, which defeats the type advantages of Go in the first place since problems are only caught at runtime), and in the absence of one, the Go philosophy is to avoid abstraction. If you need something like an API resource, piece it together query-by-query, with requisite `if err != nil { ... }` blocks after every statement.
+Go can aptly be described as a newer, safer C, but with even less flexibility. You couldn't write a good ORM for the language if you wanted to (they do exist, but rely on a lot of untyped `any` shenanigans, which defeats the type advantages of Go in the first place since problems are only caught at runtime), and in the absence of one, the Go philosophy is to avoid abstraction. If you need something like an API resource, piece it together query-by-query, with requisite `if err != nil { ... }` blocks after every statement.
 
 For larger applications with dozens or hundreds of associations, the default result is a breathtaking amount of boilerplate to accomplish what would be a modest amount of code in a language with more succinct syntax and a dynamic ORM.
 

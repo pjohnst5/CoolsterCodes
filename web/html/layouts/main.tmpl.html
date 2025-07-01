@@ -5,6 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+    <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
 
     <title>{{block "title" .}}Needs Title{{.TitleSuffix}}{{end}}</title>
 
@@ -28,6 +30,7 @@
     {{template "web/html/helpers/_shiki_js.tmpl.html" .}}
     {{template "web/html/helpers/_fancybox_js.tmpl.html" .}}
     {{template "web/html/helpers/_buttons_js.tmpl.html" .}}
+    {{template "web/html/helpers/_search_js.tmpl.html" .}}
 
 </body>
 
