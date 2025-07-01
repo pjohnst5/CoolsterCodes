@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"html/template"
 	"io"
 	"net/url"
@@ -19,6 +18,7 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	_ "github.com/lib/pq"
+	stripmd "github.com/writeas/go-strip-markdown"
 	"golang.org/x/xerrors"
 
 	"github.com/brandur/sorg/modules/modulir"
@@ -29,7 +29,6 @@ import (
 	"github.com/brandur/sorg/modules/modulir/mtoml"
 	"github.com/brandur/sorg/modules/scommon"
 	"github.com/brandur/sorg/modules/stemplate"
-	stripmd "github.com/writeas/go-strip-markdown"
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -807,17 +806,19 @@ func generateIndex(srcPath, dstPath string, articles []*Article) (bool, error) {
 
 	file, err := os.Create(srcPath)
 	if err != nil {
-		return false, err
+		return false, xerrors.Errorf("error creating src file %s: %v", srcPath, err)
 	}
 	defer file.Close()
 
 	encoder := json.NewEncoder(file)
 	encoder.SetIndent("", " ") // pretty-print
 	if err := encoder.Encode(entries); err != nil {
-		return false, err
+		return false, xerrors.Errorf("error encoding %v", err)
 	}
 
-	copyFile(srcPath, dstPath)
+	if err := copyFile(srcPath, dstPath); err != nil {
+		return false, xerrors.Errorf("error copying file %v", err)
+	}
 	return true, nil
 }
 
@@ -825,21 +826,21 @@ func copyFile(src, dst string) error {
 	// Open the source file
 	sourceFile, err := os.Open(src)
 	if err != nil {
-		return fmt.Errorf("failed to open source file: %w", err)
+		return xerrors.Errorf("error creating src file %s: %v", src, err)
 	}
 	defer sourceFile.Close() // Ensure the source file is closed
 
 	// Create the destination file
 	destinationFile, err := os.Create(dst)
 	if err != nil {
-		return fmt.Errorf("failed to create destination file: %w", err)
+		return xerrors.Errorf("error creating dst file %s: %v", dst, err)
 	}
 	defer destinationFile.Close() // Ensure the destination file is closed
 
 	// Copy the contents
 	_, err = io.Copy(destinationFile, sourceFile)
 	if err != nil {
-		return fmt.Errorf("failed to copy file contents: %w", err)
+		return xerrors.Errorf("error copying file %v", err)
 	}
 
 	return nil
