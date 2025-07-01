@@ -382,9 +382,10 @@ type Article struct {
 }
 
 type IndexEntry struct {
-	Href    string `json:"href"`
-	Title   string `json:"title"`
-	Summary string `json:"summary"`
+	Href    string   `json:"href"`
+	Title   string   `json:"title"`
+	Summary string   `json:"summary"`
+	Tags    []string `json:"tags"`
 }
 
 // publishingInfo produces a brief spiel about publication which is intended to
@@ -792,6 +793,7 @@ func generateIndex(path string, articles []*Article) (bool, error) {
 			Href:    a.Slug,
 			Title:   a.Title,
 			Summary: a.Body,
+			Tags:    a.Tags,
 		}
 	}
 

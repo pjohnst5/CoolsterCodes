@@ -85,6 +85,7 @@ Implement Search
 Maybe go back to pink inline, idk
 Finish About page
 Finish making an "All Tags" tab page
+Make tags visible in article and maybe home page as well
 Auto-create headers
 Auto-link hook images
 Make preview images mine (favico)
