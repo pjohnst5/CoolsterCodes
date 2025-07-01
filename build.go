@@ -382,6 +382,7 @@ type Article struct {
 	// content, rendered, and then added separately.
 	TOC template.HTML `toml:"-"`
 
+	// The searchable body for index.json
 	Body string `toml:"body"`
 }
 
