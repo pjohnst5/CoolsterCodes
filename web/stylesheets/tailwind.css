@@ -2322,19 +2322,9 @@ video {
   border-bottom-color: rgb(0 0 0 / var(--tw-border-opacity, 1));
 }
 
-.hover\:border-b-sky-500:hover {
-  --tw-border-opacity: 1;
-  border-bottom-color: rgb(14 165 233 / var(--tw-border-opacity, 1));
-}
-
 .hover\:border-b-sky-600:hover {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(2 132 199 / var(--tw-border-opacity, 1));
-}
-
-.hover\:text-sky-500:hover {
-  --tw-text-opacity: 1;
-  color: rgb(14 165 233 / var(--tw-text-opacity, 1));
 }
 
 .hover\:text-sky-600:hover {
@@ -2462,19 +2452,9 @@ video {
   border-color: rgb(226 232 240 / var(--tw-border-opacity, 1));
 }
 
-.hover\:prose-a\:border-b-sky-500 :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))):hover {
-  --tw-border-opacity: 1;
-  border-bottom-color: rgb(14 165 233 / var(--tw-border-opacity, 1));
-}
-
 .hover\:prose-a\:border-b-sky-600 :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))):hover {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(2 132 199 / var(--tw-border-opacity, 1));
-}
-
-.hover\:prose-a\:text-sky-500 :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))):hover {
-  --tw-text-opacity: 1;
-  color: rgb(14 165 233 / var(--tw-text-opacity, 1));
 }
 
 .hover\:prose-a\:text-sky-600 :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))):hover {
@@ -2622,19 +2602,9 @@ video {
   font-weight: 400;
 }
 
-.hover\:prose-a\:prose-li\:border-b-sky-500 :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))):hover {
-  --tw-border-opacity: 1;
-  border-bottom-color: rgb(14 165 233 / var(--tw-border-opacity, 1));
-}
-
 .hover\:prose-a\:prose-li\:border-b-sky-600 :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))):hover {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(2 132 199 / var(--tw-border-opacity, 1));
-}
-
-.hover\:prose-a\:prose-li\:text-sky-500 :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))):hover {
-  --tw-text-opacity: 1;
-  color: rgb(14 165 233 / var(--tw-text-opacity, 1));
 }
 
 .hover\:prose-a\:prose-li\:text-sky-600 :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))):hover {
