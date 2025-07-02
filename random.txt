@@ -1,4 +1,5 @@
-container max-w-[625px] mx-auto text-[#d1d5db] text-center italic
+Be able to disable fancybox on linked images
+Include About page in search
 
 Generate index.json ✅
 Make no "q?" in url ✅
