@@ -8,6 +8,12 @@
    "AI"
   ]
  },
+ "about": {
+  "href": "about",
+  "title": "About",
+  "summary": "  Sup I'm Paul. I work full-time for Microsoft, and like to make YouTube videos by night. ",
+  "tags": null
+ },
  "accessible-apis": {
   "href": "accessible-apis",
   "title": "Developer Accessible APIs",
