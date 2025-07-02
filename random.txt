@@ -39,15 +39,15 @@ Secret sauce:
                 <a class="bg-gray-600 rounded-md px-[5px] py-[2px] text-myblue" href="hey">#AI</a>
                 <a class="mx-1 bg-gray-600 rounded-md px-[5px] py-[2px] text-myblue" href="hey">#Georgia Tech</a>
             </div>
-            
+
 Georgia Tech
-        
+
 <div id="search-results" class="text-white p-4"><!----><!--?lit$513469674$-->
     <div class="text-gray-400 pb-2"><!--?lit$513469674$-->1 results for "Hey"</div>
     <div class="sr-items"><!--?lit$513469674$--><!---->
         <div class="sr-item">
             <div class="pt-2 pb-1">
-                <a class="text-myblue text-xl border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-500 hover:text-sky-500"
+                <a class="text-myblue text-xl border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600"
                     rel="noopener noreferrer"
                     href="hey"><!--?lit$513469674$--><!--?lit$513469674$--><!----><!--?lit$513469674$-->Ballin' like a
                     baller<!--?--><!----><!--?--></a>
