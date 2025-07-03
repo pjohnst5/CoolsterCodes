@@ -379,10 +379,10 @@ func transformImagesAndLinksToAbsoluteURLs(source string, options *RenderOptions
 	return source, nil
 }
 
-// This just always transforms any "http*" links to blank targets to open in new tabs
+// This just always transforms any "http*" links to blank targets to open in new tabs.
 var absoluteLinkRE = regexp.MustCompile(`<a href="http[^"]+"`)
 
-func transformLinksToTargetBlank(source string, options *RenderOptions) (string, error) {
+func transformLinksToTargetBlank(source string, _ *RenderOptions) (string, error) {
 	return absoluteLinkRE.ReplaceAllStringFunc(source, func(link string) string {
 		return link + " target=\"_blank\""
 	}), nil
