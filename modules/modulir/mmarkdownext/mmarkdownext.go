@@ -35,9 +35,6 @@ type RenderOptions struct {
 	// relative URLs with absolute URLs.
 	AbsoluteURL string
 
-	// NoFollow adds `rel="nofollow"` to any external links.
-	NoFollow bool
-
 	// NoFootnoteLinks disables linking to and from footnotes.
 	NoFootnoteLinks bool
 
@@ -100,7 +97,7 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	// Should come before `transformImagesAndLinksToAbsoluteURLs` so that
 	// relative links that are later converted to absolute aren't tagged with
 	// `rel="nofollow"`.
-	transformLinksToNoFollow,
+	transformLinksToTargetBlank,
 
 	transformImagesAndLinksToAbsoluteURLs,
 }
@@ -382,14 +379,11 @@ func transformImagesAndLinksToAbsoluteURLs(source string, options *RenderOptions
 	return source, nil
 }
 
+// This just always transforms any "http*" links to blank targets to open in new tabs
 var absoluteLinkRE = regexp.MustCompile(`<a href="http[^"]+"`)
 
-func transformLinksToNoFollow(source string, options *RenderOptions) (string, error) {
-	if options == nil || !options.NoFollow {
-		return source, nil
-	}
-
+func transformLinksToTargetBlank(source string, options *RenderOptions) (string, error) {
 	return absoluteLinkRE.ReplaceAllStringFunc(source, func(link string) string {
-		return link + " rel=\"nofollow\""
+		return link + " target=\"_blank\""
 	}), nil
 }

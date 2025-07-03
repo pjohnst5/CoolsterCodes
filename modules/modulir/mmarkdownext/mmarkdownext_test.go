@@ -211,32 +211,23 @@ func TestTransformImagesToAbsoluteURLs(t *testing.T) {
 	)
 }
 
-func TestTransformLinksToNoFollow(t *testing.T) {
+func TestTransformLinksTargetBlank(t *testing.T) {
 	assert.Equal(t,
-		`<a href="https://example.com" rel="nofollow">Example</a>`+
+		`<a href="https://example.com" target="_blank">Example</a>`+
 			`<span class="hello">Hello</span>`,
-		must(transformLinksToNoFollow(
+		must(transformLinksToTargetBlank(
 			`<a href="https://example.com">Example</a>`+
 				`<span class="hello">Hello</span>`,
-			&RenderOptions{NoFollow: true},
+			&RenderOptions{},
 		)),
 	)
 
 	// URLs that are relative should be left alone.
 	assert.Equal(t,
 		`<a href="/relative">Relative link</a>`,
-		must(transformLinksToNoFollow(
+		must(transformLinksToTargetBlank(
 			`<a href="/relative">Relative link</a>`,
-			&RenderOptions{NoFollow: true},
-		)),
-	)
-
-	// Should pass through if options are nil.
-	assert.Equal(t,
-		`<a href="https://example.com">Example</a>`,
-		must(transformLinksToNoFollow(
-			`<a href="https://example.com">Example</a>`,
-			nil,
+			&RenderOptions{},
 		)),
 	)
 }
