@@ -80,7 +80,7 @@ Fix code: ✅
 Nav bar ✅
 Implement Search ✅
 Finish About page ✅
-Figure out contact info
+Figure out contact info ✅
 Settle debate, links go to new tab or no?
 Finish making an "All Tags" tab page
 Make tags visible in article and maybe home page as well
