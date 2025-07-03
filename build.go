@@ -15,6 +15,7 @@ import (
 	"strings"
 	"sync"
 	"time"
+	"unicode"
 
 	"github.com/go-playground/validator/v10"
 	_ "github.com/lib/pq"
@@ -319,7 +320,7 @@ func build(c *modulir.Context) []error {
 		srcPath := "./web/" + indexFileName
 		dstPath := versionedContentDir + "/" + indexFileName
 		c.AddJob("index", func() (bool, error) {
-			return generateIndex(srcPath, dstPath, articles)
+			return generateIndex(srcPath, dstPath, articles, pages)
 		})
 	}
 
@@ -420,6 +421,10 @@ type Page struct {
 	// Set the first time a page is rendered and updated every subsequent
 	// render.
 	dependencies []string
+
+	body string
+
+	title string
 }
 
 type TagCount struct {
@@ -710,13 +715,6 @@ func renderPage(ctx context.Context, c *modulir.Context,
 	// Looks something like "./public/about".
 	target := path.Join(c.TargetDir, pagePath)
 
-	// Put a ".html" on if this page is an index. This will allow our local
-	// server to serve it at a directory path, and our upload script is smart
-	// enough to do the right thing with it as well.
-	if path.Base(pagePath) == "index" {
-		target += ".html"
-	}
-
 	// Reuse existing metadata for this page, or create metadata if this is the
 	// first time we're rendering it.
 	if pageMeta == nil {
@@ -745,7 +743,25 @@ func renderPage(ctx context.Context, c *modulir.Context,
 
 	pageMeta.dependencies = dependencies.getDependencies(source)
 
+	// Get the markdown content at least
+	data, err := os.ReadFile("./content/pages/" + pagePath + ".md")
+	if err != nil {
+		return false, xerrors.Errorf("error reading file %s: %v", pagePath, err)
+	}
+
+	meta[pagePath].title = capitalizeFirst(pagePath)
+	stripped := stripmd.Strip(string(data))
+	meta[pagePath].body = strings.ReplaceAll(stripped, "\n", " ")
 	return true, nil
+}
+
+func capitalizeFirst(s string) string {
+	if s == "" {
+		return s
+	}
+	runes := []rune(s)
+	runes[0] = unicode.ToUpper(runes[0])
+	return string(runes)
 }
 
 func getTagMap(articles []*Article) map[string][]*Article {
@@ -793,7 +809,7 @@ func tagToURL(tag string) string {
 	return tag
 }
 
-func generateIndex(srcPath, dstPath string, articles []*Article) (bool, error) {
+func generateIndex(srcPath, dstPath string, articles []*Article, pages map[string]*Page) (bool, error) {
 	entries := map[string]IndexEntry{}
 	for _, a := range articles {
 		entries[a.Slug] = IndexEntry{
@@ -801,6 +817,14 @@ func generateIndex(srcPath, dstPath string, articles []*Article) (bool, error) {
 			Title:   a.Title,
 			Summary: a.Body,
 			Tags:    a.Tags,
+		}
+	}
+
+	for key, p := range pages {
+		entries[key] = IndexEntry{
+			Href:    key,
+			Title:   p.title,
+			Summary: p.body,
 		}
 	}
 
