@@ -30,10 +30,6 @@ var FuncMap = template.FuncMap{}
 
 // RenderOptions describes a rendering operation to be customized.
 type RenderOptions struct {
-	// AbsoluteURL is the absolute URL of the final site. If set, the Markdown
-	// renderer replaces the sources of any images or links that pointed to
-	// relative URLs with absolute URLs.
-	AbsoluteURL string
 
 	// NoFootnoteLinks disables linking to and from footnotes.
 	NoFootnoteLinks bool
@@ -94,12 +90,7 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 
 	transformFootnotes,
 
-	// Should come before `transformImagesAndLinksToAbsoluteURLs` so that
-	// relative links that are later converted to absolute aren't tagged with
-	// `rel="nofollow"`.
 	transformLinksToTargetBlank,
-
-	transformImagesAndLinksToAbsoluteURLs,
 }
 
 // Look for any whitespace between HTML tags.
@@ -359,22 +350,6 @@ func transformFootnotes(source string, options *RenderOptions) (string, error) {
 		footer = fmt.Sprintf(footerWrapper, footer)
 		source += footer
 	}
-
-	return source, nil
-}
-
-var relativeImageRE = regexp.MustCompile(`<img src="/`)
-
-var relativeLinkRE = regexp.MustCompile(`<a href="/`)
-
-func transformImagesAndLinksToAbsoluteURLs(source string, options *RenderOptions) (string, error) {
-	if options == nil || options.AbsoluteURL == "" {
-		return source, nil
-	}
-
-	source = relativeImageRE.ReplaceAllString(source, `<img src="`+options.AbsoluteURL+`/`)
-
-	source = relativeLinkRE.ReplaceAllString(source, `<a href="`+options.AbsoluteURL+`/`)
 
 	return source, nil
 }
