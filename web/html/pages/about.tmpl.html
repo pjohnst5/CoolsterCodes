@@ -4,28 +4,32 @@
 
 {{- define "article_content" -}}
 
-<div class="mb-12 mt-0 md:mb-24 md:mt-16 px-4">
-    <div class="my-16">
-        <h1 class="font-normal font-serif my-8 text-center text-8xl text-myblue tracking-tighter dark:text-proseInvertLinks">
+<div class="pt-2 pb-4 px-4">
+    <h1 class="prose prose-lg font-normal font-serif text-center text-8xl tracking-tighter
+                prose-a:text-white prose-a:no-underline">
+        <a href="/about">
             About
-        </h1>
-    </div>
+        </a>
+    </h1>
+</div>
 
-    <div class="container hyphens-auto max-w-[800px] mx-auto my-8
-        prose prose-lg dark:prose-invert
-        prose-a:border-b-[1px] prose-a:border-slate-500 prose-a:font-sans prose-a:no-underline
-        hover:prose-a:border-b-slate-200
-        prose-code:prose-a:text-xs prose-code:prose-p:text-sm
-        prose-h2:text-base prose-h2:mb-1 prose-a:prose-h2:border-b-0 prose-a:prose-h2:font-bold
-        prose-p:font-serif
-        prose-p:prose-blockquote:font-sans
-        prose-strong:font-sans
-        prose-ol:font-serif
-        prose-ul:font-serif
-        ">
-        {{IncludeMarkdown .Ctx "content/markdown/about.md"}}
-    </div>
-
+<div class="container hyphens-auto max-w-[800px] mx-auto mt-0 mb-8
+    prose prose-lg
+    prose-a:border-b-[1px] prose-a:border-b-myblue prose-a:font-sans prose-a:no-underline
+    hover:prose-a:border-b-sky-600
+    hover:prose-a:text-sky-600
+    prose-code:prose-a:text-xs prose-code:prose-p:text-sm
+    prose-h1:text-white
+    prose-h2:text-white
+    prose-a:prose-h2:font-bold
+    prose-p:font-serif
+    prose-p:prose-blockquote:font-sans
+    prose-strong:font-sans
+    prose-ol:font-serif
+    prose-ul:font-serif
+    px-4
+    ">
+    {{IncludeMarkdown .Ctx "content/pages/about.md"}}
 </div>
 
 {{- end -}}

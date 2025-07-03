@@ -79,7 +79,9 @@ Fix code: ✅
     - Make in-line code round (without breaking code blocks lols) ✅
 Nav bar ✅
 Implement Search ✅
-Finish About page
+Finish About page ✅
+Figure out contact info
+Settle debate, links go to new tab or no?
 Finish making an "All Tags" tab page
 Make tags visible in article and maybe home page as well
 Auto-create headers
