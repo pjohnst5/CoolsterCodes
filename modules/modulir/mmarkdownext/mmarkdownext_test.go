@@ -173,70 +173,23 @@ Conclusion.
 	)
 }
 
-func TestTransformImagesToAbsoluteURLs(t *testing.T) {
-	// An image
+func TestTransformLinksTargetBlank(t *testing.T) {
 	assert.Equal(t,
-		`<img src="https://brandur.org/content/hello.jpg">`,
-		must(transformImagesAndLinksToAbsoluteURLs(
-			`<img src="/content/hello.jpg">`,
-			&RenderOptions{AbsoluteURL: "https://brandur.org"},
-		)),
-	)
-
-	// A link
-	assert.Equal(t,
-		`<a href="https://brandur.org/relative">Relative</a>`,
-		must(transformImagesAndLinksToAbsoluteURLs(
-			`<a href="/relative">Relative</a>`,
-			&RenderOptions{AbsoluteURL: "https://brandur.org"},
-		)),
-	)
-
-	// URLs that are already absolute are left alone.
-	assert.Equal(t,
-		`<img src="https://example.com/content/hello.jpg">`,
-		must(transformImagesAndLinksToAbsoluteURLs(
-			`<img src="https://example.com/content/hello.jpg">`,
-			&RenderOptions{AbsoluteURL: "https://brandur.org"},
-		)),
-	)
-
-	// Should pass through if options are nil.
-	assert.Equal(t,
-		`<img src="/content/hello.jpg">`,
-		must(transformImagesAndLinksToAbsoluteURLs(
-			`<img src="/content/hello.jpg">`,
-			nil,
-		)),
-	)
-}
-
-func TestTransformLinksToNoFollow(t *testing.T) {
-	assert.Equal(t,
-		`<a href="https://example.com" rel="nofollow">Example</a>`+
+		`<a href="https://example.com" target="_blank">Example</a>`+
 			`<span class="hello">Hello</span>`,
-		must(transformLinksToNoFollow(
+		must(transformLinksToTargetBlank(
 			`<a href="https://example.com">Example</a>`+
 				`<span class="hello">Hello</span>`,
-			&RenderOptions{NoFollow: true},
+			&RenderOptions{},
 		)),
 	)
 
 	// URLs that are relative should be left alone.
 	assert.Equal(t,
 		`<a href="/relative">Relative link</a>`,
-		must(transformLinksToNoFollow(
+		must(transformLinksToTargetBlank(
 			`<a href="/relative">Relative link</a>`,
-			&RenderOptions{NoFollow: true},
-		)),
-	)
-
-	// Should pass through if options are nil.
-	assert.Equal(t,
-		`<a href="https://example.com">Example</a>`,
-		must(transformLinksToNoFollow(
-			`<a href="https://example.com">Example</a>`,
-			nil,
+			&RenderOptions{},
 		)),
 	)
 }

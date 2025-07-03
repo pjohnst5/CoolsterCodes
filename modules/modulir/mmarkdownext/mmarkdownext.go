@@ -30,14 +30,6 @@ var FuncMap = template.FuncMap{}
 
 // RenderOptions describes a rendering operation to be customized.
 type RenderOptions struct {
-	// AbsoluteURL is the absolute URL of the final site. If set, the Markdown
-	// renderer replaces the sources of any images or links that pointed to
-	// relative URLs with absolute URLs.
-	AbsoluteURL string
-
-	// NoFollow adds `rel="nofollow"` to any external links.
-	NoFollow bool
-
 	// NoFootnoteLinks disables linking to and from footnotes.
 	NoFootnoteLinks bool
 
@@ -97,12 +89,7 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 
 	transformFootnotes,
 
-	// Should come before `transformImagesAndLinksToAbsoluteURLs` so that
-	// relative links that are later converted to absolute aren't tagged with
-	// `rel="nofollow"`.
-	transformLinksToNoFollow,
-
-	transformImagesAndLinksToAbsoluteURLs,
+	transformLinksToTargetBlank,
 }
 
 // Look for any whitespace between HTML tags.
@@ -366,30 +353,11 @@ func transformFootnotes(source string, options *RenderOptions) (string, error) {
 	return source, nil
 }
 
-var relativeImageRE = regexp.MustCompile(`<img src="/`)
-
-var relativeLinkRE = regexp.MustCompile(`<a href="/`)
-
-func transformImagesAndLinksToAbsoluteURLs(source string, options *RenderOptions) (string, error) {
-	if options == nil || options.AbsoluteURL == "" {
-		return source, nil
-	}
-
-	source = relativeImageRE.ReplaceAllString(source, `<img src="`+options.AbsoluteURL+`/`)
-
-	source = relativeLinkRE.ReplaceAllString(source, `<a href="`+options.AbsoluteURL+`/`)
-
-	return source, nil
-}
-
+// This just always transforms any "http*" links to blank targets to open in new tabs.
 var absoluteLinkRE = regexp.MustCompile(`<a href="http[^"]+"`)
 
-func transformLinksToNoFollow(source string, options *RenderOptions) (string, error) {
-	if options == nil || !options.NoFollow {
-		return source, nil
-	}
-
+func transformLinksToTargetBlank(source string, _ *RenderOptions) (string, error) {
 	return absoluteLinkRE.ReplaceAllStringFunc(source, func(link string) string {
-		return link + " rel=\"nofollow\""
+		return link + " target=\"_blank\""
 	}), nil
 }

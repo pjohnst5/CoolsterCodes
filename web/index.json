@@ -180,7 +180,7 @@
  "hey": {
   "href": "hey",
   "title": "Ballin' like a baller",
-  "summary": "Author's note: Paul is known to ball really hard, beware.  ---  This is inline code according to markdown This is my first [1] footnote.  What does it do? ## Markdown without caption (#no-cap)  ## Caption (#cap)  Markdown  Some friggin' cute puppies  ## Back to no caption (#no-cap)  ## And finally caption (#cap)  me being a baller  screenshot of stuff  [1] Hey what's up",
+  "summary": "This is a link  This is a relative link",
   "tags": [
    "Georgia Tech",
    "AI",
