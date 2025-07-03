@@ -30,7 +30,6 @@ var FuncMap = template.FuncMap{}
 
 // RenderOptions describes a rendering operation to be customized.
 type RenderOptions struct {
-
 	// NoFootnoteLinks disables linking to and from footnotes.
 	NoFootnoteLinks bool
 
