@@ -16,8 +16,8 @@
         <div class="pb-8 md:flex-grow md:min-w-0 md:pl-6 md:pr-6">
             {{- range  .TagCount -}}
             <div class="clear-both mb-9 mt-1.5 text-md text-white">
-                <a href="/tags/{{.URLTag}}">
-                    <p>{{.Tag}} ({{.Count}})</p>
+                <a class="text-myblue border-b-[1px] border-b-myblue hover:border-b-sky-600 hover:text-sky-600" href="/tags/{{.URLTag}}">
+                    {{.Tag}} ({{.Count}})
                 </a>
             </div>
             {{- end -}}
