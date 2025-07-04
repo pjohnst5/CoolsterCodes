@@ -316,7 +316,6 @@ func build(c *modulir.Context) []error {
 		c.AddJob("tags", func() (bool, error) {
 			return renderAllTags(ctx, c, tagMap, articlesChanged)
 		})
-
 	}
 
 	//
