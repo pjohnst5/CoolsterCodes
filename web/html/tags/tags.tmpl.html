@@ -1,0 +1,28 @@
+{{- template "web/html/layouts/root.tmpl.html" . -}}
+
+{{- define "article_content" -}}
+
+<div class="pt-2 pb-4 px-4">
+    <h1 class="prose prose-lg font-normal font-serif text-center text-8xl tracking-tighter
+                prose-a:text-white prose-a:no-underline">
+        <a href="/tags">
+            Tags
+        </a>
+    </h1>
+</div>
+
+<div class="container max-w-[800px] mx-auto mt-8 px-8">
+    <div class="md:flex">
+        <div class="pb-8 md:flex-grow md:min-w-0 md:pl-6 md:pr-6">
+            {{- range  .TagCount -}}
+            <div class="clear-both mb-9 mt-1.5 text-md text-white">
+                <a href="/tags/{{.URLTag}}">
+                    <p>{{.Tag}} ({{.Count}})</p>
+                </a>
+            </div>
+            {{- end -}}
+        </div>
+    </div>
+</div>
+
+{{- end -}}

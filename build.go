@@ -312,6 +312,13 @@ func build(c *modulir.Context) []error {
 		}
 	}
 
+	{
+		c.AddJob("tags", func() (bool, error) {
+			return renderAllTags(ctx, c, tagMap, articlesChanged)
+		})
+
+	}
+
 	//
 	// Index
 	//
@@ -428,8 +435,9 @@ type Page struct {
 }
 
 type TagCount struct {
-	Tag   string
-	Count int
+	Tag    string
+	Count  int
+	URLTag string
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -681,6 +689,26 @@ func renderTag(ctx context.Context, c *modulir.Context,
 		path.Join(targetDir, tagToURL(tag)), locals)
 }
 
+func renderAllTags(ctx context.Context, c *modulir.Context,
+	tagMap map[string][]*Article,
+	articlesChanged bool,
+) (bool, error) {
+	srcTmpl := scommon.HTML + "/tags/tags.tmpl.html"
+	htmlChanged := c.ChangedAny(dependencies.getDependencies(srcTmpl)...)
+	if !articlesChanged && !htmlChanged {
+		return false, nil
+	}
+
+	tagCount := getAllTagCounts(tagMap)
+
+	locals := getLocals(map[string]interface{}{
+		"TagCount": tagCount,
+	})
+
+	return true, dependencies.renderGoTemplate(ctx, c, srcTmpl,
+		path.Join(c.TargetDir, "tags/index.html"), locals)
+}
+
 func renderPage(ctx context.Context, c *modulir.Context,
 	source string, meta map[string]*Page, mu *sync.RWMutex,
 ) (bool, error) {
@@ -778,7 +806,10 @@ func getTopNTags(tagMap map[string][]*Article, n int) []TagCount {
 	topNTags := []TagCount{}
 	tagsProcessed := 0
 	for tag, articles := range tagMap {
-		topNTags = append(topNTags, TagCount{Tag: tag, Count: len(articles)})
+		topNTags = append(topNTags, TagCount{
+			Tag:   tag,
+			Count: len(articles),
+		})
 		tagsProcessed++
 		if tagsProcessed == n {
 			break
@@ -793,6 +824,23 @@ func getTopNTags(tagMap map[string][]*Article, n int) []TagCount {
 		return topNTags[i].Count > topNTags[j].Count
 	})
 	return topNTags
+}
+
+func getAllTagCounts(tagMap map[string][]*Article) []TagCount {
+	tagCounts := []TagCount{}
+	for tag, articles := range tagMap {
+		tagCounts = append(tagCounts, TagCount{
+			Tag:    tag,
+			Count:  len(articles),
+			URLTag: tagToURL(tag),
+		})
+	}
+
+	sort.Slice(tagCounts, func(i, j int) bool {
+		return tagCounts[i].Tag < tagCounts[j].Tag
+	})
+
+	return tagCounts
 }
 
 func tagToURL(tag string) string {
