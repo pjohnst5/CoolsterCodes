@@ -91,6 +91,7 @@ Play with Shiki code
 Explore colors thoroughly (inline and search)
 Pictures with articles
 Update readme
+Current tab
 Experiment with more tags on medium sized page
 Explore removing "Articles" title
 Remove all other Articles
@@ -98,6 +99,7 @@ Do we need tmp?
 Add back in all my articles
 Refine articles
 Embed Youtube and make tutorial link
+Final cosmetic review
 Host it
 
 -- Commands --
