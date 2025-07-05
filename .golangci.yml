@@ -20,6 +20,7 @@ linters:
     - lll
     - mnd
     - nlreturn
+    - nolintlint
     - paralleltest
     - testpackage
     - varnamelen
