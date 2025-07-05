@@ -804,23 +804,26 @@ func getTagMap(articles []*Article) map[string][]*Article {
 }
 
 func getTopNAndMTags(tagCount []TagCount, n, m int) ([]TagCount, []TagCount) {
+	tagCopy := make([]TagCount, len(tagCount))
+	copy(tagCopy, tagCount)
+
 	// Sort by Score (ascending), then Name (alphabetical)
-	sort.Slice(tagCount, func(i, j int) bool {
-		if tagCount[i].Count == tagCount[j].Count {
-			return tagCount[i].Tag < tagCount[j].Tag
+	sort.Slice(tagCopy, func(i, j int) bool {
+		if tagCopy[i].Count == tagCopy[j].Count {
+			return tagCopy[i].Tag < tagCopy[j].Tag
 		}
-		return tagCount[i].Count > tagCount[j].Count
+		return tagCopy[i].Count > tagCopy[j].Count
 	})
 
-	if n >= len(tagCount) {
-		return tagCount, []TagCount{}
+	if n >= len(tagCopy) {
+		return tagCopy, []TagCount{}
 	}
 
 	end := n + m
-	if end > len(tagCount) {
-		end = len(tagCount)
+	if end > len(tagCopy) {
+		end = len(tagCopy)
 	}
-	return tagCount[0:n], tagCount[n:end]
+	return tagCopy[0:n], tagCopy[n:end]
 }
 
 func getAllTagCounts(tagMap map[string][]*Article) []TagCount {
