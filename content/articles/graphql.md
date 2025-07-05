@@ -3,6 +3,7 @@ hook = "Why it makes sense to model APIs as graphs, and what GraphQL can do for 
 location = "San Francisco"
 published_at = 2018-06-08T19:26:48Z
 title = "Living APIs, and the Case for GraphQL"
+tags = ["Georgia Tech", "GraphQL"]
 +++
 
 It's hard to read exactly where GraphQL stands in the API
