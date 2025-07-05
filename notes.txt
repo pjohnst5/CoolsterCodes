@@ -88,6 +88,7 @@ Make tags visible in article and maybe home page as well
 Auto-create headers
 Auto-link hook images
 Make preview images mine (favico)
+Make it so pictures with links are not fancy boxed
 Play with Shiki code
 Explore colors thoroughly (inline and search)
 Pictures with articles
