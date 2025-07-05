@@ -42,7 +42,10 @@ import (
 //
 //////////////////////////////////////////////////////////////////////////////
 
-const NTags = 10
+const (
+	NTags = 10
+	MTags = 10
+)
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -290,11 +293,12 @@ func build(c *modulir.Context) []error {
 	//
 
 	tagMap := getTagMap(articles)
+	tagCount := getAllTagCounts(tagMap)
+	topNTags, topMTags := getTopNAndMTags(tagCount, NTags, MTags)
 	{
-		topNTags := getTopNTags(tagMap, NTags)
 		c.AddJob("home", func() (bool, error) {
 			return renderHome(ctx, c, articles,
-				articlesChanged, topNTags)
+				articlesChanged, topNTags, topMTags)
 		})
 	}
 
@@ -314,7 +318,7 @@ func build(c *modulir.Context) []error {
 
 	{
 		c.AddJob("tags", func() (bool, error) {
-			return renderAllTags(ctx, c, tagMap, articlesChanged)
+			return renderAllTags(ctx, c, tagCount, articlesChanged)
 		})
 	}
 
@@ -650,6 +654,7 @@ func renderHome(ctx context.Context, c *modulir.Context,
 	articles []*Article,
 	articlesChanged bool,
 	topNTags []TagCount,
+	topMTags []TagCount,
 ) (bool, error) {
 	sourceTmpl := scommon.HTML + "/index.tmpl.html"
 	htmlChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
@@ -660,6 +665,7 @@ func renderHome(ctx context.Context, c *modulir.Context,
 	locals := getLocals(map[string]interface{}{
 		"Articles": articles,
 		"TopNTags": topNTags,
+		"TopMTags": topMTags,
 	})
 
 	return true, dependencies.renderGoTemplate(ctx, c, sourceTmpl,
@@ -689,7 +695,7 @@ func renderTag(ctx context.Context, c *modulir.Context,
 }
 
 func renderAllTags(ctx context.Context, c *modulir.Context,
-	tagMap map[string][]*Article,
+	tagCount []TagCount,
 	articlesChanged bool,
 ) (bool, error) {
 	srcTmpl := scommon.HTML + "/tags/tags.tmpl.html"
@@ -697,8 +703,6 @@ func renderAllTags(ctx context.Context, c *modulir.Context,
 	if !articlesChanged && !htmlChanged {
 		return false, nil
 	}
-
-	tagCount := getAllTagCounts(tagMap)
 
 	locals := getLocals(map[string]interface{}{
 		"TagCount": tagCount,
@@ -801,28 +805,27 @@ func getTagMap(articles []*Article) map[string][]*Article {
 	return tagMap
 }
 
-func getTopNTags(tagMap map[string][]*Article, n int) []TagCount {
-	topNTags := []TagCount{}
-	tagsProcessed := 0
-	for tag, articles := range tagMap {
-		topNTags = append(topNTags, TagCount{
-			Tag:   tag,
-			Count: len(articles),
-		})
-		tagsProcessed++
-		if tagsProcessed == n {
-			break
-		}
-	}
+func getTopNAndMTags(tagCount []TagCount, n, m int) ([]TagCount, []TagCount) {
+	tagCopy := make([]TagCount, len(tagCount))
+	copy(tagCopy, tagCount)
 
 	// Sort by Score (ascending), then Name (alphabetical)
-	sort.Slice(topNTags, func(i, j int) bool {
-		if topNTags[i].Count == topNTags[j].Count {
-			return topNTags[i].Tag < topNTags[j].Tag
+	sort.Slice(tagCopy, func(i, j int) bool {
+		if tagCopy[i].Count == tagCopy[j].Count {
+			return tagCopy[i].Tag < tagCopy[j].Tag
 		}
-		return topNTags[i].Count > topNTags[j].Count
+		return tagCopy[i].Count > tagCopy[j].Count
 	})
-	return topNTags
+
+	if n >= len(tagCopy) {
+		return tagCopy, []TagCount{}
+	}
+
+	end := n + m
+	if end > len(tagCopy) {
+		end = len(tagCopy)
+	}
+	return tagCopy[0:n], tagCopy[n:end]
 }
 
 func getAllTagCounts(tagMap map[string][]*Article) []TagCount {
@@ -835,6 +838,7 @@ func getAllTagCounts(tagMap map[string][]*Article) []TagCount {
 		})
 	}
 
+	// Organizes alphabetically
 	sort.Slice(tagCounts, func(i, j int) bool {
 		return tagCounts[i].Tag < tagCounts[j].Tag
 	})

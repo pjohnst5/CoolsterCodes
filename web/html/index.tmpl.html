@@ -27,6 +27,9 @@
         {{range .TopNTags}}
         <button id="{{.Tag}}" class="btn btn-blue" onclick="filterByTag('{{.Tag}}')">{{.Tag}}</button>
         {{end}}
+        {{range .TopMTags}}
+        <button id="{{.Tag}}" class="hidden md:inline-block btn btn-blue" onclick="filterByTag('{{.Tag}}')">{{.Tag}}</button>
+        {{end}}
     </div>
 </div>
 
