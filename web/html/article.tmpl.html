@@ -123,11 +123,11 @@
                 {{.Article.Content}}
             </div>
             {{if gt (len .Article.TagCounts) 0}}
-            <div class="italic pt-4">
+            <div class="pt-4">
                 <div class="flex items-center py-1">
                     <div class="font-bold mb-0.5 text-white">Tags: </div>
                     {{range .Article.TagCounts}}
-                    <a class="bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                    <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
                         href="/tags/{{.URLTag}}">#{{.Tag}}</a>
                     {{end}}
                 </div>
