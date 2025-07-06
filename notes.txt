@@ -102,6 +102,7 @@ Refine articles
 Embed Youtube and make tutorial link
 Final cosmetic review
 Does linking titles of pages break design?
+Figure out linting once and for all
 Host it
 
 -- Commands --
