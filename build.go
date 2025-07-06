@@ -384,6 +384,9 @@ type Article struct {
 	// Tag is used to group articles together :)
 	Tags []string `toml:"tags,omitempty"`
 
+	// Both tags as string and url (not really using count)
+	TagCounts []TagCount `toml:"tagcounts,omitempty"`
+
 	// Title is the article's title.
 	Title string `toml:"title" validate:"required"`
 
@@ -614,6 +617,10 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	)
 	if ok {
 		article.HookImageURL = "/content/images/" + article.Slug + "/hook." + format
+	}
+
+	for _, tag := range article.Tags {
+		article.TagCounts = append(article.TagCounts, TagCount{Tag: tag, URLTag: tagToURL(tag)})
 	}
 
 	locals := getLocals(map[string]interface{}{
