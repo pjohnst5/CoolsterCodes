@@ -690,8 +690,11 @@ func renderTag(ctx context.Context, c *modulir.Context,
 		return false, nil
 	}
 
+	urlTag := tagToURL(tag)
+
 	locals := getLocals(map[string]interface{}{
 		"Tag":      tag,
+		"URLTag":   urlTag,
 		"Articles": articles,
 	})
 
