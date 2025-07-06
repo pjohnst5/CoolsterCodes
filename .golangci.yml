@@ -3,6 +3,9 @@ version: "2"
 linters:
   default: all
 
+  enable:
+    - ireturn
+
   disable:
     # obnoxious
     - cyclop
