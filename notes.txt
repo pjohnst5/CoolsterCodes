@@ -101,6 +101,7 @@ Add back in all my articles
 Refine articles
 Embed Youtube and make tutorial link
 Final cosmetic review
+Does linking titles of pages break design?
 Host it
 
 -- Commands --
