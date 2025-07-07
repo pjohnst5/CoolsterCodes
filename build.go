@@ -364,10 +364,6 @@ type Article struct {
 	// Hook is a leading sentence or two to succinctly introduce the article.
 	Hook template.HTML `toml:"hook"`
 
-	// HookImageURL is the URL for a hook image for the article (to be shown on
-	// the article index) if one was found.
-	HookImageURL string `toml:"-"`
-
 	// Image is an optional image that may be included with an article.
 	Image string `toml:"image,omitempty"`
 
@@ -531,25 +527,6 @@ func pagePathKey(source string) string {
 	return pagePath
 }
 
-// Checks if the path exists as a common image format (.jpg or .png only). If
-// so, returns the discovered extension (e.g. "jpg") and boolean true.
-// Otherwise returns an empty string and boolean false.
-func pathAsImage(extensionlessPath string) (string, bool) {
-	// extensions must be lowercased
-	formats := []string{"jpg", "png"}
-
-	for _, format := range formats {
-		_, err := os.Stat(extensionlessPath + "." + format)
-		if err != nil {
-			continue
-		}
-
-		return format, true
-	}
-
-	return "", false
-}
-
 func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	articles *[]*Article, articlesChanged *bool, mu *sync.Mutex,
 ) (bool, error) {
@@ -610,13 +587,6 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 		}
 
 		article.Hook = template.HTML(mtemplate.CollapseParagraphs(hook))
-	}
-
-	format, ok := pathAsImage(
-		path.Join(c.SourceDir, "content", "images", article.Slug, "hook"),
-	)
-	if ok {
-		article.HookImageURL = "/content/images/" + article.Slug + "/hook." + format
 	}
 
 	for _, tag := range article.Tags {
