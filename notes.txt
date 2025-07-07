@@ -88,6 +88,7 @@ Make tags visible in article and maybe home page as well ✅
 Auto-create headers ✅
 Make it so pictures with links are not fancy boxed ✅
 And captions on linked images ✅
+Change auto-header logic to not include extra "(#n)" stuff ✅
 Remove weird newline constraint on headers
 Auto-link hook images
 Make preview images mine (favico)
@@ -100,7 +101,6 @@ Explore removing "Articles" title
 Remove all other Articles
 Do we need tmp?
 Add back in all my articles
-Change auto-header logic to not include extra "(#n)" stuff
 Refine articles
 Embed Youtube and make tutorial link
 Final cosmetic review
