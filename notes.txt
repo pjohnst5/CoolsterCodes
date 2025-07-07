@@ -87,6 +87,7 @@ Make more tags on medium sized page ✅
 Make tags visible in article and maybe home page as well ✅
 Auto-create headers ✅
 Make it so pictures with links are not fancy boxed ✅
+And captions on linked images ✅
 Auto-link hook images
 Make preview images mine (favico)
 Play with Shiki code
