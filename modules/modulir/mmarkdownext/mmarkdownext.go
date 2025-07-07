@@ -176,7 +176,7 @@ const imgWithLinkCap = `
 </figure>
 `
 
-// This is basically the same as above but matches the extra "[" in front, "]" to close, then "()" for the link
+// This is basically the same as above but matches the extra "[" in front, "]" to close, then "()" for the link.
 var linkedPictureRE = regexp.MustCompile(`(\[!\[\]\((.*)\)\]\((.*)\))(\n\*(.*)\*)?`)
 
 func transformLinkedImages(source string, _ *RenderOptions) (string, error) {
@@ -257,7 +257,7 @@ func slugify(s string) string {
 	return s
 }
 
-func transformHeaders(source string, options *RenderOptions) (string, error) {
+func transformHeaders(source string, _ *RenderOptions) (string, error) {
 	source = headerRE.ReplaceAllStringFunc(source, func(header string) string {
 		matches := headerRE.FindStringSubmatch(header)
 
@@ -306,7 +306,7 @@ var footnoteRE = regexp.MustCompile(`\[(\d+)\](\s+.*)`)
 // Note that this must be a post-transform filter. If it wasn't, our Markdown
 // renderer would not render the Markdown inside the footnotes layer because it
 // would already be wrapped in HTML.
-func transformFootnotes(source string, options *RenderOptions) (string, error) {
+func transformFootnotes(source string, _ *RenderOptions) (string, error) {
 	footer := footerRE.FindString(source)
 
 	if footer != "" {
