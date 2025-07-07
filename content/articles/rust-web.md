@@ -71,7 +71,7 @@ with contrived C++ and Java code. But regardless of how you
 feel about the validity of benchmark programs, the takeaway
 is that `actix-web` is _fast_.
 
-{{Figure "Rust is consistently ranking alongside C++ and Java on TechEmpower." (ImgSrcAndAltAndClass "/contents/images/rust-web/techempower.png" "Rust is consistently ranking alongside C++ and Java on TechEmpower." "overflowing")}}
+{{Figure "Rust is consistently ranking alongside C++ and Java on TechEmpower." (ImgSrcAndAltAndClass "/content/images/rust-web/techempower.png" "Rust is consistently ranking alongside C++ and Java on TechEmpower." "overflowing")}}
 
 The author of `actix-web` (and `actix`) commits a
 prodigious amount of code -- the project is only about six
@@ -133,7 +133,7 @@ time_helpers::log_timed(&log.new(o!("step" => "upsert_episodes")), |_log| {
 More complex SQL is difficult to represent using the DSL,
 but luckily there's a great alternative in the form of
 Rust's built-in `include_str!` macro. It ingests a file's
-contents during compilation, and we can easily hand them
+content during compilation, and we can easily hand them
 off them to `diesel` for parameter binding and execution:
 
 ``` rust
@@ -211,7 +211,7 @@ waiting on a response from our database. While waiting on a
 future's result, the underlying `tokio` reactor will
 happily fulfill other requests.
 
-{{Figure "An example of a concurrency model with actix-web." (ImgSrcAndAltAndClass "/contents/images/rust-web/concurrency-model.svg" "An example of a concurrency model with actix-web." "overflowing")}}
+{{Figure "An example of a concurrency model with actix-web." (ImgSrcAndAltAndClass "/content/images/rust-web/concurrency-model.svg" "An example of a concurrency model with actix-web." "overflowing")}}
 
 ### Synchronous actors (#sync-actors)
 
@@ -276,7 +276,7 @@ also implies the maximum number of connections that a
 service will use, which leads to perfect control over its
 connection usage.
 
-{{Figure "Connections are held only when a synchronous actor needs one." (ImgSrcAndAltAndClass "/contents/images/rust-web/connection-management.svg" "Connections are held only when a synchronous actor needs one." "overflowing")}}
+{{Figure "Connections are held only when a synchronous actor needs one." (ImgSrcAndAltAndClass "/content/images/rust-web/connection-management.svg" "Connections are held only when a synchronous actor needs one." "overflowing")}}
 
 I've written my synchronous actors to check out individual
 connections from a connection pool ([`r2d2`][r2d2]) only
@@ -543,7 +543,7 @@ Should you write your next web service in Rust? I don't
 know yet, but we're getting to the point now where you
 should at least consider it.
 
-{{Figure "Your daily dose of tangentially related photography: Rust on a beam near Pier 28 in San Francisco." (ImgSrcAndAltAndClass "/contents/images/rust-web/rust.jpg" "Your daily dose of tangentially related photography: Rust on a beam near Pier 28 in San Francisco." "overflowing")}}
+{{Figure "Your daily dose of tangentially related photography: Rust on a beam near Pier 28 in San Francisco." (ImgSrcAndAltAndClass "/content/images/rust-web/rust.jpg" "Your daily dose of tangentially related photography: Rust on a beam near Pier 28 in San Francisco." "overflowing")}}
 
 [1] You can think of `tokio` like the event loop core to
     runtimes like Node.JS, but one which isn't limited to a
