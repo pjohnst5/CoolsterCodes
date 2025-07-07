@@ -30,12 +30,6 @@ var FuncMap = template.FuncMap{}
 
 // RenderOptions describes a rendering operation to be customized.
 type RenderOptions struct {
-	// NoFootnoteLinks disables linking to and from footnotes.
-	NoFootnoteLinks bool
-
-	// NoHeaderLinks disables automatic permalinks on headers.
-	NoHeaderLinks bool
-
 	// TemplateData is data injected while rendering Go templates.
 	TemplateData interface{}
 }
@@ -302,11 +296,6 @@ func transformHeaders(source string, options *RenderOptions) (string, error) {
 
 		headerNum++
 
-		// Replace the Markdown header with HTML equivalent.
-		if options != nil && options.NoHeaderLinks {
-			return collapseHTML(fmt.Sprintf(headerHTMLNoLink, level, title, level))
-		}
-
 		return collapseHTML(fmt.Sprintf(headerHTML, level, newID, newID, title, level))
 	})
 
@@ -372,11 +361,7 @@ func transformFootnotes(source string, options *RenderOptions) (string, error) {
 			number := matches[1]
 
 			var anchor string
-			if options != nil && options.NoFootnoteLinks {
-				anchor = fmt.Sprintf(footnoteAnchorHTMLWithoutLink, number) + matches[2]
-			} else {
-				anchor = fmt.Sprintf(footnoteAnchorHTML, number, number, number) + matches[2]
-			}
+			anchor = fmt.Sprintf(footnoteAnchorHTML, number, number, number) + matches[2]
 
 			// Then replace all references in the body to this footnote.
 			//
@@ -385,12 +370,8 @@ func transformFootnotes(source string, options *RenderOptions) (string, error) {
 			// strings that look like footnote references, but aren't.
 			// `KEYS[1]` from `/redis-cluster` is an example of one of these
 			// strings that might be a false positive.
-			var reference string
-			if options != nil && options.NoFootnoteLinks {
-				reference = fmt.Sprintf(footnoteReferenceHTMLWithoutLink, number)
-			} else {
-				reference = fmt.Sprintf(footnoteReferenceHTML, number, number, number)
-			}
+			reference := fmt.Sprintf(footnoteReferenceHTML, number, number, number)
+
 			source = strings.ReplaceAll(source,
 				fmt.Sprintf(` [%s]`, number),
 				" "+collapseHTML(reference))
