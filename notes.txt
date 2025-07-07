@@ -96,6 +96,7 @@ Current tab
 Explore removing "Articles" title
 Does linking titles of pages break design? Probably does
 Remove all other Articles
+Remove weird newline constraint on headers
 Do we need tmp?
 Figure out linting once and for all
 Add back in all my articles
@@ -123,9 +124,6 @@ With Fragments, there was a "content/fragments-drafts" and "content/fragments-de
 -- Maybe maybe haha --
 Eventually make it so year bar shows even when clicking button (and filtering them out/back in)
 Make code blocks copy-able
-
-Maybe later:
-Remove weird newline constraint on headers
 
 Could never do:
 Link in figure captions ❌
