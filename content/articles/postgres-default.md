@@ -73,7 +73,7 @@ other operation until it's released; even simple `SELECT`
 statements have to wait. In any system with a lot of
 ongoing access to the table, that's a huge problem.
 
-{{Figure "Transactions blocking during a table rewrite." (ImgSrcAndAltAndClass "/contents/images/postgres-default/blocking.svg" "Transactions blocking during a table rewrite." "overflowing")}}
+{{Figure "Transactions blocking during a table rewrite." (ImgSrcAndAltAndClass "/content/images/postgres-default/blocking.svg" "Transactions blocking during a table rewrite." "overflowing")}}
 
 Historically, accidentally locking access to a table when
 adding a column has been a common pitfall for new Postgres
@@ -149,9 +149,9 @@ As scans are returning rows, they check these new fields
 and return missing values where appropriate. New rows
 inserted into the table pick up the default values as
 they're created so that there's no need to check
-`atthasmissing` when returning their contents.
+`atthasmissing` when returning their content.
 
-{{Figure "Fast column creation with existing rows loading defaults from pg_attribute." (ImgSrcAndAltAndClass "/contents/images/postgres-default/implementation.svg" "Fast column creation with existing rows loading defaults from pg_attribute." "overflowing")}}
+{{Figure "Fast column creation with existing rows loading defaults from pg_attribute." (ImgSrcAndAltAndClass "/content/images/postgres-default/implementation.svg" "Fast column creation with existing rows loading defaults from pg_attribute." "overflowing")}}
 
 The `pg_attribute` fields are only used as long as they
 have to be. If at any point the table is rewritten,

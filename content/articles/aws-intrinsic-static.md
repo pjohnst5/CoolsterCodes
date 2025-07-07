@@ -64,7 +64,7 @@ configure a default region because some of the commands below will require one.
 
 ### S3 (#s3)
 
-Amazon's storage system, S3, will be used to store the contents of our static
+Amazon's storage system, S3, will be used to store the content of our static
 site. First create a bucket named according to the custom domain that you'll be
 using for your site:
 
@@ -88,7 +88,7 @@ ifdef AWS_ACCESS_KEY_ID
         --acl public-read --delete --content-type text/html --exclude 'assets*'
 
 	# Then move on to assets and allow S3 to detect content type.
-	aws s3 sync ./public/contents/images/ s3://$(S3_BUCKET)/contents/images/ \
+	aws s3 sync ./public/content/images/ s3://$(S3_BUCKET)/content/images/ \
         --acl public-read --delete --follow-symlinks
 else
 	# No AWS access key. Skipping deploy.

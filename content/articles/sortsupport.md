@@ -67,14 +67,14 @@ pass-by-reference types). Postgres is very fast, so that
 still happens quickly, but it's slower than comparing
 values readily available in memory.
 
-{{Figure "An array of sort tuples." (ImgSrcAndAltAndClass "/contents/images/sortsupport/sort-tuples.svg" "An array of sort tuples." "overflowing")}}
+{{Figure "An array of sort tuples." (ImgSrcAndAltAndClass "/content/images/sortsupport/sort-tuples.svg" "An array of sort tuples." "overflowing")}}
 
 SortSupport augments pass-by-reference types by bringing a
 representative part of their value into the sort tuple to
 save trips to the heap. Because sort tuples usually don't
 have the space to store the entirety of the value,
 SortSupport generates a digest of the full value called an
-**abbreviated key**, and stores it instead. The contents of
+**abbreviated key**, and stores it instead. The content of
 an abbreviated key vary by type, but they'll aim to store
 as much sorting-relevant information as possible while
 remaining faithful to pre-existing sorting rules.
@@ -85,7 +85,7 @@ If two abbreviated keys look equal, Postgres will fall back
 to comparing their full heap values to make sure it gets
 the right result (called an "authoritative comparison").
 
-{{Figure "A sort tuple with an abbreviated key and pointer to the heap." (ImgSrcAndAltAndClass "/contents/images/sortsupport/abbreviated-keys.svg" "A sort tuple with an abbreviated key and pointer to the heap." "overflowing")}}
+{{Figure "A sort tuple with an abbreviated key and pointer to the heap." (ImgSrcAndAltAndClass "/content/images/sortsupport/abbreviated-keys.svg" "A sort tuple with an abbreviated key and pointer to the heap." "overflowing")}}
 
 Implementing an abbreviated key is straightforward in many
 cases. UUIDs are a good example of that: at 128 bits long
@@ -205,7 +205,7 @@ the whole UUID, but we'll be taking its 4 or 8 most
 significant bytes, which will be enough information for
 most comparisons.
 
-{{Figure "Abbreviated key formats for the `uuid` type." (ImgSrcAndAltAndClass "/contents/images/sortsupport/uuid.svg" "Abbreviated key formats for the `uuid` type." "overflowing")}}
+{{Figure "Abbreviated key formats for the `uuid` type." (ImgSrcAndAltAndClass "/content/images/sortsupport/uuid.svg" "Abbreviated key formats for the `uuid` type." "overflowing")}}
 
 The call `DatumBigEndianToNative` is there to help with an
 optimization. When comparing our abbreviated keys, we could
@@ -251,7 +251,7 @@ on little-endian systems, the resulting integer would be
 wrong. The answer is to byteswap, which reverses the order
 of the bytes, and corrects the integer.
 
-{{Figure "Example placement of integer bytes on little and big endian architectures." (ImgSrcAndAltAndClass "/contents/images/sortsupport/endianness.svg" "Example placement of integer bytes on little and big endian architectures." "overflowing")}}
+{{Figure "Example placement of integer bytes on little and big endian architectures." (ImgSrcAndAltAndClass "/content/images/sortsupport/endianness.svg" "Example placement of integer bytes on little and big endian architectures." "overflowing")}}
 
 You can see in [`pg_bswap.h`][pgbswap] that
 `DatumBigEndianToNative` is defined as a no-op on a
@@ -280,7 +280,7 @@ Let's touch upon one more feature of `uuid_abbrev_convert`.
 In data sets with very low cardinality (i.e, many
 duplicated items) SortSupport introduces some danger of
 worsening performance. With so many duplicates, the
-contents of abbreviated keys would often show equality, in
+content of abbreviated keys would often show equality, in
 which cases Postgres would often have to fall back to the
 authoritative comparator. In effect, by adding SortSupport
 we would have added a useless additional comparison that

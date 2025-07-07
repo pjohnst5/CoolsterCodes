@@ -101,8 +101,8 @@ describe API::Mediators::SSLEndpoints::Creator do
   def run(options = {})
     API::Mediators::SSLEndpoints::Creator.run({
       app:  @app,
-      key:  @key_contents,
-      pem:  @pem_contents,
+      key:  @key_content,
+      pem:  @pem_content,
       user: @app.owner,
     }.merge(options))
   end

@@ -96,7 +96,7 @@ Just like it's more expensive enterprise cousins, this warehouse has [its own ET
 
 ## A file warehouse (#file-warehouse)
 
-As a final practical example, let's build a small Postgres data warehouse containing the contents of our home directories. I find myself consistently running into the problem where my disk is near full, but my operating system does a poor job of helping me to identify the best candidates for removal.
+As a final practical example, let's build a small Postgres data warehouse containing the content of our home directories. I find myself consistently running into the problem where my disk is near full, but my operating system does a poor job of helping me to identify the best candidates for removal.
 
 First create a database (you'll need Postgres and Ruby installed to follow along):
 

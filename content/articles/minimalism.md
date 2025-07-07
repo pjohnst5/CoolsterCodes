@@ -26,7 +26,7 @@ planes like the U-2 and SR-71; so notable for their
 engineering excellence that they've left a legacy that we
 reflect on even today.
 
-{{Figure "The famous SR-71, one of the flag ships of Lockheed's Skunk Works. Very fast even if not particularly simple." (ImgSrcAndAltAndClass "/contents/images/minimalism/sr71.jpg" "The famous SR-71, one of the flag ships of Lockheed's Skunk Works. Very fast even if not particularly simple." "overflowing")}}
+{{Figure "The famous SR-71, one of the flag ships of Lockheed's Skunk Works. Very fast even if not particularly simple." (ImgSrcAndAltAndClass "/content/images/minimalism/sr71.jpg" "The famous SR-71, one of the flag ships of Lockheed's Skunk Works. Very fast even if not particularly simple." "overflowing")}}
 
 ## Minimalism in technology (#in-technology)
 
@@ -157,7 +157,7 @@ party](/fragments/burn-parties). The time and energy spent
 on some of these projects would in some cases be as great,
 or even greater, as it would for shipping a new product.
 
-{{Figure "At Heroku, we'd hold regular \"burn parties\" to recognize the effort that went into deprecating old products and technology." (ImgSrcAndAltAndClass "/contents/images/minimalism/fire.jpg" "At Heroku, we'd hold regular \"burn parties\" to recognize the effort that went into deprecating old products and technology." "overflowing")}}
+{{Figure "At Heroku, we'd hold regular \"burn parties\" to recognize the effort that went into deprecating old products and technology." (ImgSrcAndAltAndClass "/content/images/minimalism/fire.jpg" "At Heroku, we'd hold regular \"burn parties\" to recognize the effort that went into deprecating old products and technology." "overflowing")}}
 
 ## In ideas (#in-ideas)
 
@@ -218,7 +218,7 @@ aviator, had this to say on the subject:
 > nothing left to add, but when there is nothing left to
 > take away.
 
-{{Figure "Nothing left to add. Nothing left to take away." (ImgSrcAndAltAndClass "/contents/images/minimalism/sea.jpg" "Nothing left to add. Nothing left to take away." "overflowing")}}
+{{Figure "Nothing left to add. Nothing left to take away." (ImgSrcAndAltAndClass "/content/images/minimalism/sea.jpg" "Nothing left to add. Nothing left to take away." "overflowing")}}
 
 Most of us can benefit from architecture that's a little
 simpler, a little more conservative, and a little more

@@ -18,7 +18,7 @@ we're all used to it.
 <figure>
   <p>
     <video autoplay controls loop muted class="overflowing">
-      <source src="/contents/images/interfaces/slack-45s.mp4" type="video/mp4">
+      <source src="/content/images/interfaces/slack-45s.mp4" type="video/mp4">
     </video>
   </p>
   <figcaption>This is a video of me waiting for Slack
@@ -45,7 +45,7 @@ animations a thousand times a day, are perfectly normal.
 
 <figure>
   <p>
-    <img src="/contents/images/interfaces/yahoo-1995.jpg" class="overflowing">
+    <img src="/content/images/interfaces/yahoo-1995.jpg" class="overflowing">
   </p>
   <figcaption>Yahoo circa 1995.</figcaption>
 </figure>
@@ -128,7 +128,7 @@ Mac OS app, or switching between tabs in mobile Safari.
 <figure>
   <p>
     <video controls loop class="overflowing">
-      <source src="/contents/images/interfaces/1password.mp4" type="video/mp4">
+      <source src="/content/images/interfaces/1password.mp4" type="video/mp4">
     </video>
   </p>
   <figcaption>1Password's unlock animation. The stuttering
@@ -139,7 +139,7 @@ Mac OS app, or switching between tabs in mobile Safari.
 <figure>
   <p>
     <video controls loop class="overflowing">
-      <source src="/contents/images/interfaces/spaces.mp4" type="video/mp4">
+      <source src="/content/images/interfaces/spaces.mp4" type="video/mp4">
     </video>
   </p>
   <figcaption>OS X Spaces, introduced in Leopard. A
@@ -153,7 +153,7 @@ all the flourishes in this class -- they look great in
 screenshots and demos, but don't advance our ability to be
 productive; in fact, they do the opposite.
 
-{{Figure "Will Cmd + Tab be the next victim of overzealous animation?" (ImgSrcAndAltAndClass "/contents/images/interfaces/cmd-tab.png" "Will Cmd + Tab be the next victim of overzealous animation?" "overflowing")}}
+{{Figure "Will Cmd + Tab be the next victim of overzealous animation?" (ImgSrcAndAltAndClass "/content/images/interfaces/cmd-tab.png" "Will Cmd + Tab be the next victim of overzealous animation?" "overflowing")}}
 
 I live in fear that one day Apple will realize that they've
 left a gaping hole in their UX strategy and that task
@@ -176,7 +176,7 @@ obscure content. The list goes on.
 <figure>
   <p>
     <video controls loop class="overflowing">
-      <source src="/contents/images/interfaces/terminal.mp4" type="video/mp4">
+      <source src="/content/images/interfaces/terminal.mp4" type="video/mp4">
     </video>
   </p>
   <figcaption>Contrary to any "modern" interfaces, a
@@ -218,7 +218,7 @@ Here's why I like using terminals and terminal programs:
 <figure>
   <p>
     <video controls loop class="overflowing">
-      <source src="/contents/images/interfaces/uncomposable.mp4" type="video/mp4">
+      <source src="/content/images/interfaces/uncomposable.mp4" type="video/mp4">
     </video>
   </p>
   <figcaption>Modern UIs have next to zero composability.
@@ -246,7 +246,7 @@ video][minority-report] of it in action.
 <figure>
   <p>
     <a href="https://www.youtube.com/watch?v=PJqbivkm0Ms">
-      <img src="/contents/images/interfaces/minority-report.jpg" srcset="/contents/images/interfaces/minority-report@2x.jpg 2x, /contents/images/interfaces/minority-report.jpg 1x" class="overflowing">
+      <img src="/content/images/interfaces/minority-report.jpg" srcset="/content/images/interfaces/minority-report@2x.jpg 2x, /content/images/interfaces/minority-report.jpg 1x" class="overflowing">
     </a>
   </p>
   <figcaption>A futuristic and unrealistic concept interface:

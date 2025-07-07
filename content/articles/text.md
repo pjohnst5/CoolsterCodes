@@ -2,6 +2,7 @@
 hook = "The `text` type in Postgres, why it's awesome, and why you might want to use `varchar` anyway. Also, a story about trying to get string parameters bounded at Stripe."
 location = "San Francisco"
 published_at = 2021-09-10T15:55:19Z
+image = "/content/images/text/hook.jpg"
 title = "Postgres: Boundless `text` and Back Again"
 +++
 
@@ -57,7 +58,7 @@ Back in the old days, there was a decent argument to avoid `varchar` for operati
 
 Luckily, when it comes to _relaxing_ constraints, this isn't too much of a problem anymore. From the [Postgres docs on `ALTER TABLE`](https://www.postgresql.org/docs/current/sql-altertable.html):
 
-> Adding a column with a volatile `DEFAULT` or changing the type of an existing column will require the entire table and its indexes to be rewritten. As an exception, when changing the type of an existing column, if the `USING` clause does not change the column contents and the old type is either binary coercible to the new type or an unconstrained domain over the new type, a table rewrite is not needed; but any indexes on the affected columns must still be rebuilt.
+> Adding a column with a volatile `DEFAULT` or changing the type of an existing column will require the entire table and its indexes to be rewritten. As an exception, when changing the type of an existing column, if the `USING` clause does not change the column content and the old type is either binary coercible to the new type or an unconstrained domain over the new type, a table rewrite is not needed; but any indexes on the affected columns must still be rebuilt.
 
 Note the wording of "unconstrained domain". A `varchar(200)` is an unconstrained domain over a `varchar(100)` because it's strictly longer. Postgres can relax the constraint without needing to lock the table for a scan. Going back the other way isn't as easy, but you shouldn't need to do that.
 

@@ -27,7 +27,7 @@ problem in Go, but a worker pool can still be useful in controlling the number
 of concurrently running tasks, especially when those tasks are accessing
 resources that can easily be saturated like I/O or remote APIs.
 
-{{Figure "A visualization of a worker pool: few workers working many work items." (ImgSrcAndAltAndClass "/contents/images/go-worker-pool/worker-pool.svg" "A visualization of a worker pool: few workers working many work items." "overflowing")}}
+{{Figure "A visualization of a worker pool: few workers working many work items." (ImgSrcAndAltAndClass "/content/images/go-worker-pool/worker-pool.svg" "A visualization of a worker pool: few workers working many work items." "overflowing")}}
 
 Implementing a worker pool in Go is by no means a tremendously difficult feat.
 In fact, [Go By Example][gobyexample] describes one implementation that's only

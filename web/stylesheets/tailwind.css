@@ -1761,6 +1761,10 @@ video {
   display: none;
 }
 
+.aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
 .h-14 {
   height: 3.5rem;
 }
@@ -1807,6 +1811,10 @@ video {
 
 .w-80 {
   width: 20rem;
+}
+
+.w-\[75px\] {
+  width: 75px;
 }
 
 .w-full {
@@ -1897,6 +1905,10 @@ video {
   justify-content: space-evenly;
 }
 
+.overflow-hidden {
+  overflow: hidden;
+}
+
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1984,6 +1996,16 @@ video {
 
 .bg-no-repeat {
   background-repeat: no-repeat;
+}
+
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.object-center {
+  -o-object-position: center;
+     object-position: center;
 }
 
 .p-4 {
