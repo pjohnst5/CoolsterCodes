@@ -4,12 +4,11 @@
 
 {{- define "article_content" -}}
 
+<meta name="docfx:rel" content="../">
 <div class="pt-2 pb-4 px-4">
     <h1 class="prose prose-lg font-normal font-serif text-center text-8xl tracking-tighter
                 prose-a:text-white prose-a:no-underline">
-        <a href="/">
-            {{.Tag}}
-        </a>
+        <a href="/tags/{{.URLTag}}">{{.Tag}}</a>
     </h1>
 </div>
 <div class="mb-12 px-4">

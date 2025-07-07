@@ -60,7 +60,7 @@
 
         <div class="font-bold my-1 text-myblue text-sm md:hidden">{{FormatTime .Article.PublishedAt "Jan 2, 2006"}}</div>
 
-        <div class="pb-8 md:border-l md:flex-grow md:min-w-0 md:pl-8 xl:pr-8 ">
+        <div class="pb-4 md:border-l md:flex-grow md:min-w-0 md:pl-8 xl:pr-8 ">
             {{if ne .Article.TOC ""}}
                 <!--
                     IMPORTANT: The TOC is duplicated below so that it can be part of
@@ -122,6 +122,17 @@
 
                 {{.Article.Content}}
             </div>
+            {{if gt (len .Article.TagCounts) 0}}
+            <div class="pt-4">
+                <div class="flex items-center py-1">
+                    <div class="font-bold mb-0.5 text-white mr-0.5">Tags: </div>
+                    {{range .Article.TagCounts}}
+                    <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                        href="/tags/{{.URLTag}}">#{{.Tag}}</a>
+                    {{end}}
+                </div>
+            </div>
+            {{end}}
         </div>
         {{if ne .Article.TOC ""}}
             <div class="basis-[190px] border-l flex-grow-0 flex-shrink-0 hidden xl:block ">

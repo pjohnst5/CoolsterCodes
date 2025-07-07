@@ -4,6 +4,7 @@ image = "/contents/images/two-phase-render/vista.jpg"
 location = "Berlin"
 published_at = 2024-05-28T20:50:47+02:00
 title = "Eradicating N+1s: The Two-phase Data Load and Render Pattern in Go"
+tags = ["Go", "Tacos"]
 # +++
 
 *Author's note:* This is a longer piece that starts off with exposition into the nature of the N+1 query problem. If you're already well familiar with it, you may want to skip my description of N+1 to a story involving a creative use of [Ruby fibers at Stripe](#fibers-and-intents) to try and plug this hole, or the [two-phase load and render](#two-phase) that I've put in my current company's Go codebase, a pattern we've been using for two years now that's rid of us N+1s, and for which I'd have trouble citing any deficiency (aside from Go's normal trouble with verbosity). It works.

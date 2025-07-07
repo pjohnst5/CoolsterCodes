@@ -1,5 +1,3 @@
-//nolint:nolintlint
-
 package modulir
 
 import (
