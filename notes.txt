@@ -89,7 +89,7 @@ Auto-create headers ✅
 Make it so pictures with links are not fancy boxed ✅
 And captions on linked images ✅
 Change auto-header logic to not include extra "(#n)" stuff ✅
-Auto-link hook images
+Auto-link hook images ✅
 Make preview images mine (favico)
 Play with Shiki code
 Explore colors thoroughly (inline and search)
@@ -128,3 +128,7 @@ Remove weird newline constraint on headers
 
 Could never do:
 Link in figure captions ❌
+
+Random notes:
+I won't be linking the image in the article
+    If I have an image for the article, it is most likely a YT video
