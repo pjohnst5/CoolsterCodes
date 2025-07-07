@@ -238,14 +238,13 @@ const headerHTML = `
 </h%v>
 `
 
-// Matches one of the following:
+// Matches the following:
 //
 //	# header
-//	# header (#header-id)
 //
 // For now, only match ## or more so as to remove code comments from
 // matches. We need a better way of doing that though.
-var headerRE = regexp.MustCompile(`(?m:^(#{2,})\s+(.*?)(\s+\(#(.*)\))?$)`)
+var headerRE = regexp.MustCompile(`(?m:^(#{2,})\s+(.*?)?$)`)
 
 var slugRegexp = regexp.MustCompile(`[^\w\s-]`) // allows word chars, space, and hyphen
 
@@ -259,38 +258,12 @@ func slugify(s string) string {
 }
 
 func transformHeaders(source string, options *RenderOptions) (string, error) {
-	headerNum := 0
-
-	// Tracks previously assigned headers so that we can detect duplicates.
-	headers := make(map[string]int)
-
 	source = headerRE.ReplaceAllStringFunc(source, func(header string) string {
 		matches := headerRE.FindStringSubmatch(header)
 
 		level := len(matches[1])
 		title := matches[2]
-		id := matches[4]
-
-		var newID string
-
-		if id == "" {
-			// Header with no name, convert that shii
-			newID = slugify(title)
-		} else {
-			occurrence, ok := headers[id]
-
-			if ok {
-				// Give duplicate IDs a suffix.
-				newID = fmt.Sprintf("%s-%d", id, occurrence)
-				headers[id]++
-			} else {
-				// Otherwise this is the first such ID we've seen.
-				newID = id
-				headers[id] = 1
-			}
-		}
-
-		headerNum++
+		newID := slugify(title)
 
 		return collapseHTML(fmt.Sprintf(headerHTML, level, newID, newID, title, level))
 	})
