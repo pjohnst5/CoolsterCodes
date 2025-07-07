@@ -84,7 +84,7 @@ Figure out contact info ✅
 Settle debate, links go to new tab or no? Yes ✅
 Finish making an "All Tags" tab page ✅
 Make more tags on medium sized page ✅
-Make tags visible in article and maybe home page as well
+Make tags visible in article and maybe home page as well ✅
 Auto-create headers
 Auto-link hook images
 Make preview images mine (favico)
