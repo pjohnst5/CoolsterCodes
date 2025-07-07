@@ -215,6 +215,17 @@ const headerHTMLNoLink = `
 // matches. We need a better way of doing that though.
 var headerRE = regexp.MustCompile(`(?m:^(#{2,})\s+(.*?)(\s+\(#(.*)\))?$)`)
 
+var slugRegexp = regexp.MustCompile(`[^\w\s-]`) // allows word chars, space, and hyphen
+
+func slugify(s string) string {
+	s = strings.ToLower(s)
+	s = slugRegexp.ReplaceAllString(s, "") // remove punctuation/symbols
+	s = strings.TrimSpace(s)
+	s = strings.ReplaceAll(s, " ", "-")  // replace spaces with hyphens
+	s = strings.ReplaceAll(s, "--", "-") // collapse double hyphens (optional)
+	return s
+}
+
 func transformHeaders(source string, options *RenderOptions) (string, error) {
 	headerNum := 0
 
@@ -231,8 +242,8 @@ func transformHeaders(source string, options *RenderOptions) (string, error) {
 		var newID string
 
 		if id == "" {
-			// Header with no name, assign a prefixed number.
-			newID = fmt.Sprintf("section-%v", headerNum)
+			// Header with no name, convert that shii
+			newID = slugify(title)
 		} else {
 			occurrence, ok := headers[id]
 

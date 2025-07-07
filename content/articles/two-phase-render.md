@@ -11,7 +11,7 @@ tags = ["Go", "Tacos"]
 
 ---
 
-## N+1 in a nutshell (#n-plus-one)
+## N+1 in a nutshell
 
 Let's say we have a model `Product` that can render a public-facing API resource for itself by implementing `#render`. I'll be talking about API resources a lot because that's what I'm used, but keep in mind that this could also be an object that's used to render an HTML view and all the same concepts apply.
 
