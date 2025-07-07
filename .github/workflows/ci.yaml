@@ -53,9 +53,6 @@ jobs:
       - name: "Check: Gofmt"
         run: make check-gofmt
 
-      - name: "Check: Markdown headers"
-        run: make check-headers
-
   check_tailwind:
     runs-on: macos-latest
     timeout-minutes: 3

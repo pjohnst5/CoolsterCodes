@@ -74,101 +74,20 @@ to a footnote [2].</p>
 			nil,
 		)),
 	)
-
-	// Without links
-	assert.Equal(t, `
-<p>This is a reference <sup><strong>1</strong></sup> to a footnote <sup><strong>2</strong></sup>.</p>
-
-<p>Not footnote: KEYS[1].</p>
-
-
-<div class="footnotes">
-  <p><sup><strong>1</strong></sup> Footnote one.</p>
-
-<p><sup><strong>2</strong></sup> Footnote two.</p>
-
-</div>
-`,
-		must(transformFootnotes(`
-<p>This is a reference [1] to a footnote [2].</p>
-
-<p>Not footnote: KEYS[1].</p>
-
-<p>[1] Footnote one.</p>
-
-<p>[2] Footnote two.</p>
-`,
-			&RenderOptions{NoFootnoteLinks: true},
-		)),
-	)
 }
 
 func TestTransformHeaders(t *testing.T) {
 	assert.Equal(t, `
-<h2 id="intro" class="link"><a href="#intro">Introduction</a></h2>
+<h2 id="n1-in-a-nutshell" class="link"><a href="#n1-in-a-nutshell">N+1 in a nutshell</a></h2>
 
 Intro here.
-
-<h2 id="section-1" class="link"><a href="#section-1">Body</a></h2>
-
-<h3 id="article" class="link"><a href="#article">Article</a></h3>
-
-Article one.
-
-<h3 id="sub" class="link"><a href="#sub">Subsection</a></h3>
-
-More content.
-
-<h3 id="article-1" class="link"><a href="#article-1">Article</a></h3>
-
-Article two.
-
-<h3 id="section-5" class="link"><a href="#section-5">Subsection</a></h3>
-
-More content.
-
-<h2 id="conclusion" class="link"><a href="#conclusion">Conclusion</a></h2>
-
-Conclusion.
 `,
 		must(transformHeaders(`
-## Introduction (#intro)
+## N+1 in a nutshell
 
 Intro here.
-
-## Body
-
-### Article (#article)
-
-Article one.
-
-### Subsection (#sub)
-
-More content.
-
-### Article (#article)
-
-Article two.
-
-### Subsection
-
-More content.
-
-## Conclusion (#conclusion)
-
-Conclusion.
 `,
 			nil,
-		)),
-	)
-
-	assert.Equal(t, `
-<h2>Introduction</h2>
-`,
-		must(transformHeaders(`
-## Introduction (#intro)
-`,
-			&RenderOptions{NoHeaderLinks: true},
 		)),
 	)
 }

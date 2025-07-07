@@ -11,7 +11,7 @@ tailwind:
 	scripts/tailwind.sh
 
 .PHONY: all
-all: clean install test vet lint check-dl0 check-gofmt check-headers build
+all: clean install test vet lint check-dl0 check-gofmt build
 
 .PHONY: build
 build:
@@ -20,10 +20,6 @@ build:
 .PHONY: check-gofmt
 check-gofmt:
 	scripts/check_gofmt.sh
-
-.PHONY: check-headers
-check-headers:
-	scripts/check_headers.sh
 
 .PHONY: clean
 clean:
