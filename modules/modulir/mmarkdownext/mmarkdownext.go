@@ -238,10 +238,6 @@ const headerHTML = `
 </h%v>
 `
 
-const headerHTMLNoLink = `
-<h%v>%s</h%v>
-`
-
 // Matches one of the following:
 //
 //	# header
@@ -316,10 +312,6 @@ const footnoteAnchorHTML = `
 </sup>
 `
 
-// Same as footnoteAnchorHTML but without a link(this is used when sending
-// emails).
-const footnoteAnchorHTMLWithoutLink = `<sup><strong>%s</strong></sup>`
-
 // HTML for a reference to a footnote within the document.
 //
 // Make sure there's a single space before the <sup> because we're replacing
@@ -329,13 +321,6 @@ const footnoteReferenceHTML = `
   <a href="#footnote-%s">%s</a>
 </sup>
 `
-
-// Same as footnoteReferenceHTML but without a link (this is used when sending
-// emails).
-//
-// Make sure there's a single space before the <sup> because we're replacing
-// one as part of our search.
-const footnoteReferenceHTMLWithoutLink = `<sup><strong>%s</strong></sup>`
 
 // Look for the section the section at the bottom of the page that looks like
 // <p>[1] (the paragraph tag is there because Markdown will have already
@@ -360,8 +345,7 @@ func transformFootnotes(source string, options *RenderOptions) (string, error) {
 			matches := footnoteRE.FindStringSubmatch(footnote)
 			number := matches[1]
 
-			var anchor string
-			anchor = fmt.Sprintf(footnoteAnchorHTML, number, number, number) + matches[2]
+			anchor := fmt.Sprintf(footnoteAnchorHTML, number, number, number) + matches[2]
 
 			// Then replace all references in the body to this footnote.
 			//
