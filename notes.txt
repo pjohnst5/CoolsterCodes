@@ -87,7 +87,6 @@ Make more tags on medium sized page ✅
 Make tags visible in article and maybe home page as well ✅
 Auto-create headers ✅
 Make it so pictures with links are not fancy boxed ✅
-Link in figure captions
 Auto-link hook images
 Make preview images mine (favico)
 Play with Shiki code
@@ -99,6 +98,7 @@ Explore removing "Articles" title
 Remove all other Articles
 Do we need tmp?
 Add back in all my articles
+Change auto-header logic to not include extra "(#n)" stuff
 Refine articles
 Embed Youtube and make tutorial link
 Final cosmetic review
@@ -121,3 +121,6 @@ With Fragments, there was a "content/fragments-drafts" and "content/fragments-de
 -- Maybe maybe haha --
 Eventually make it so year bar shows even when clicking button (and filtering them out/back in)
 Make code blocks copy-able
+
+Could never do:
+Link in figure captions ❌
