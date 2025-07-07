@@ -30,12 +30,6 @@ var FuncMap = template.FuncMap{}
 
 // RenderOptions describes a rendering operation to be customized.
 type RenderOptions struct {
-	// NoFootnoteLinks disables linking to and from footnotes.
-	NoFootnoteLinks bool
-
-	// NoHeaderLinks disables automatic permalinks on headers.
-	NoHeaderLinks bool
-
 	// TemplateData is data injected while rendering Go templates.
 	TemplateData interface{}
 }
@@ -73,6 +67,7 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 
 	transformGoTemplate,
 	transformHeaders,
+	transformLinkedImages,
 	transformImages,
 
 	// The actual Blackfriday rendering
@@ -166,6 +161,47 @@ func transformImages(source string, _ *RenderOptions) (string, error) {
 	}), nil
 }
 
+const imgWithLinkNoCap = `
+<a href="%s">
+  <img src="%s" />
+</a>
+`
+
+const imgWithLinkCap = `
+<figure>
+  <a href="%s">
+    <img src="%s" />
+  </a>
+  <figcaption>%s</figcaption>
+</figure>
+`
+
+// This is basically the same as above but matches the extra "[" in front, "]" to close, then "()" for the link.
+var linkedPictureRE = regexp.MustCompile(`(\[!\[\]\((.*)\)\]\((.*)\))(\n\*(.*)\*)?`)
+
+func transformLinkedImages(source string, _ *RenderOptions) (string, error) {
+	return linkedPictureRE.ReplaceAllStringFunc(source, func(figure string) string {
+		matches := linkedPictureRE.FindStringSubmatch(figure)
+		if len(matches) != 6 {
+			return figure
+		}
+		// Grab the image (it's the same every time)
+		img := matches[2]
+
+		// href
+		href := matches[3]
+
+		// No caption option
+		if matches[4] == "" {
+			return fmt.Sprintf(imgWithLinkNoCap, href, img)
+		}
+
+		// Grab the caption (only if 4th arg isn't empty)
+		caption := matches[5]
+		return fmt.Sprintf(imgWithLinkCap, href, img, caption)
+	}), nil
+}
+
 // Note that this should come early as we currently rely on a later step to
 // give images a retina srcset.
 func transformGoTemplate(source string, options *RenderOptions) (string, error) {
@@ -202,57 +238,32 @@ const headerHTML = `
 </h%v>
 `
 
-const headerHTMLNoLink = `
-<h%v>%s</h%v>
-`
-
-// Matches one of the following:
+// Matches the following:
 //
 //	# header
-//	# header (#header-id)
 //
 // For now, only match ## or more so as to remove code comments from
 // matches. We need a better way of doing that though.
-var headerRE = regexp.MustCompile(`(?m:^(#{2,})\s+(.*?)(\s+\(#(.*)\))?$)`)
+var headerRE = regexp.MustCompile(`(?m:^(#{2,})\s+(.*?)?$)`)
 
-func transformHeaders(source string, options *RenderOptions) (string, error) {
-	headerNum := 0
+var slugRegexp = regexp.MustCompile(`[^\w\s-]`) // allows word chars, space, and hyphen
 
-	// Tracks previously assigned headers so that we can detect duplicates.
-	headers := make(map[string]int)
+func slugify(s string) string {
+	s = strings.ToLower(s)
+	s = slugRegexp.ReplaceAllString(s, "") // remove punctuation/symbols
+	s = strings.TrimSpace(s)
+	s = strings.ReplaceAll(s, " ", "-")  // replace spaces with hyphens
+	s = strings.ReplaceAll(s, "--", "-") // collapse double hyphens (optional)
+	return s
+}
 
+func transformHeaders(source string, _ *RenderOptions) (string, error) {
 	source = headerRE.ReplaceAllStringFunc(source, func(header string) string {
 		matches := headerRE.FindStringSubmatch(header)
 
 		level := len(matches[1])
 		title := matches[2]
-		id := matches[4]
-
-		var newID string
-
-		if id == "" {
-			// Header with no name, assign a prefixed number.
-			newID = fmt.Sprintf("section-%v", headerNum)
-		} else {
-			occurrence, ok := headers[id]
-
-			if ok {
-				// Give duplicate IDs a suffix.
-				newID = fmt.Sprintf("%s-%d", id, occurrence)
-				headers[id]++
-			} else {
-				// Otherwise this is the first such ID we've seen.
-				newID = id
-				headers[id] = 1
-			}
-		}
-
-		headerNum++
-
-		// Replace the Markdown header with HTML equivalent.
-		if options != nil && options.NoHeaderLinks {
-			return collapseHTML(fmt.Sprintf(headerHTMLNoLink, level, title, level))
-		}
+		newID := slugify(title)
 
 		return collapseHTML(fmt.Sprintf(headerHTML, level, newID, newID, title, level))
 	})
@@ -274,10 +285,6 @@ const footnoteAnchorHTML = `
 </sup>
 `
 
-// Same as footnoteAnchorHTML but without a link(this is used when sending
-// emails).
-const footnoteAnchorHTMLWithoutLink = `<sup><strong>%s</strong></sup>`
-
 // HTML for a reference to a footnote within the document.
 //
 // Make sure there's a single space before the <sup> because we're replacing
@@ -287,13 +294,6 @@ const footnoteReferenceHTML = `
   <a href="#footnote-%s">%s</a>
 </sup>
 `
-
-// Same as footnoteReferenceHTML but without a link (this is used when sending
-// emails).
-//
-// Make sure there's a single space before the <sup> because we're replacing
-// one as part of our search.
-const footnoteReferenceHTMLWithoutLink = `<sup><strong>%s</strong></sup>`
 
 // Look for the section the section at the bottom of the page that looks like
 // <p>[1] (the paragraph tag is there because Markdown will have already
@@ -306,7 +306,7 @@ var footnoteRE = regexp.MustCompile(`\[(\d+)\](\s+.*)`)
 // Note that this must be a post-transform filter. If it wasn't, our Markdown
 // renderer would not render the Markdown inside the footnotes layer because it
 // would already be wrapped in HTML.
-func transformFootnotes(source string, options *RenderOptions) (string, error) {
+func transformFootnotes(source string, _ *RenderOptions) (string, error) {
 	footer := footerRE.FindString(source)
 
 	if footer != "" {
@@ -318,12 +318,7 @@ func transformFootnotes(source string, options *RenderOptions) (string, error) {
 			matches := footnoteRE.FindStringSubmatch(footnote)
 			number := matches[1]
 
-			var anchor string
-			if options != nil && options.NoFootnoteLinks {
-				anchor = fmt.Sprintf(footnoteAnchorHTMLWithoutLink, number) + matches[2]
-			} else {
-				anchor = fmt.Sprintf(footnoteAnchorHTML, number, number, number) + matches[2]
-			}
+			anchor := fmt.Sprintf(footnoteAnchorHTML, number, number, number) + matches[2]
 
 			// Then replace all references in the body to this footnote.
 			//
@@ -332,12 +327,8 @@ func transformFootnotes(source string, options *RenderOptions) (string, error) {
 			// strings that look like footnote references, but aren't.
 			// `KEYS[1]` from `/redis-cluster` is an example of one of these
 			// strings that might be a false positive.
-			var reference string
-			if options != nil && options.NoFootnoteLinks {
-				reference = fmt.Sprintf(footnoteReferenceHTMLWithoutLink, number)
-			} else {
-				reference = fmt.Sprintf(footnoteReferenceHTML, number, number, number)
-			}
+			reference := fmt.Sprintf(footnoteReferenceHTML, number, number, number)
+
 			source = strings.ReplaceAll(source,
 				fmt.Sprintf(` [%s]`, number),
 				" "+collapseHTML(reference))

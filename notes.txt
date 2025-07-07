@@ -84,11 +84,13 @@ Figure out contact info ✅
 Settle debate, links go to new tab or no? Yes ✅
 Finish making an "All Tags" tab page ✅
 Make more tags on medium sized page ✅
-Make tags visible in article and maybe home page as well
-Auto-create headers
+Make tags visible in article and maybe home page as well ✅
+Auto-create headers ✅
+Make it so pictures with links are not fancy boxed ✅
+And captions on linked images ✅
+Change auto-header logic to not include extra "(#n)" stuff ✅
 Auto-link hook images
 Make preview images mine (favico)
-Make it so pictures with links are not fancy boxed
 Play with Shiki code
 Explore colors thoroughly (inline and search)
 Pictures with articles
@@ -101,7 +103,7 @@ Add back in all my articles
 Refine articles
 Embed Youtube and make tutorial link
 Final cosmetic review
-Does linking titles of pages break design?
+Does linking titles of pages break design? Probably does
 Figure out linting once and for all
 Host it
 
@@ -120,3 +122,9 @@ With Fragments, there was a "content/fragments-drafts" and "content/fragments-de
 -- Maybe maybe haha --
 Eventually make it so year bar shows even when clicking button (and filtering them out/back in)
 Make code blocks copy-able
+
+Maybe later:
+Remove weird newline constraint on headers
+
+Could never do:
+Link in figure captions ❌
