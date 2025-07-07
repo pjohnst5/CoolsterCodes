@@ -13,10 +13,10 @@ This is a [link](https://google.com)
 This is a [relative link](/about)
 
 ![](/content/images/hey/new_profile_seattle.jpg)
-*Me being a baller*
+*Me being a baller [Link to site](https://google.com)*
 
 
 [![](/content/images/hey/new_profile_seattle.jpg)](https://google.com)
 
 [![](/content/images/hey/new_profile_seattle.jpg)](https://google.com)
-*this has a caption*
+*this has a caption [Link to site](https://google.com)*
