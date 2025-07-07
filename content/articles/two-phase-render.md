@@ -1,6 +1,6 @@
 +++
 hook = "Using a two-phase data load and render pattern to prevent N+1 queries in a generalized way. Especially useful in Go, but applicable in any language."
-image = "/contents/images/two-phase-render/vista.jpg"
+image = "/content/images/two-phase-render/spec3.jpg"
 location = "Berlin"
 published_at = 2024-05-28T20:50:47+02:00
 title = "Eradicating N+1s: The Two-phase Data Load and Render Pattern in Go"
@@ -85,7 +85,7 @@ end
 
 We're now at more like N*M+1. This is the more realistic example, and in real life it just keeps snowballing from there. Models have dozens of associations, and their subresources have subresources which have subresources. Rendering a single API resource/web page might take hundreds, or even thousands, of database queries.
 
-<img src="/contents/images/two-phase-render/n_times_m_plus_one.svg" alt="N*M+1.">
+<img src="/content/images/two-phase-render/n_times_m_plus_one.svg" alt="N*M+1.">
 
 Luckily for all of us, databases are pretty fast, and even when abused in this fashion can still tend get the job done in a timely manner. ORMs like ActiveRecord also have features like [eager loading](https://guides.rubyonrails.org/active_record_querying.html#eager-loading-associations), that can be used to prefetch what otherwise would've been loaded lazily.
 
@@ -155,7 +155,7 @@ class Charge < APIResource
 end
 ```
 
-<img src="/contents/images/two-phase-render/fibers.svg" alt="Loading data via fibers.">
+<img src="/content/images/two-phase-render/fibers.svg" alt="Loading data via fibers.">
 
 The system had broad limitations (e.g. only point loads could be aggregated; no complex queries were supported), but despite some gnarly code, it worked, and helped knock considerable latency off API calls.
 
@@ -276,7 +276,7 @@ As the name suggests, it's broken down into two distinct render phases:
 
 The key insight is that the load phase knows how to load data to a bundle that's sufficient to render N resources. For a list endpoint, render may then be called using that bundle for N resources in the list. For a point retrieval endpoint, it'll render only one resource. Either way, the process is the same.
 
-<img src="/contents/images/two-phase-render/render_load_bundle.svg" alt="Rendering a load bundle.">
+<img src="/content/images/two-phase-render/render_load_bundle.svg" alt="Rendering a load bundle.">
 
 Let's look at a basic example. A product API resource, each of which has one admin and belongs to a team:
 
@@ -339,7 +339,7 @@ func (_ *Product) LoadBundle(
 
 (Once again, please forgive the verbosity -- there is literally no way to make this code more succinct in Go. It's already boiled down as far as possible.)
 
-<img src="/contents/images/two-phase-render/product_load_bundle.svg" alt="Product load bundle.">
+<img src="/content/images/two-phase-render/product_load_bundle.svg" alt="Product load bundle.">
 
 ``` go
 //
@@ -529,7 +529,7 @@ func (_ *Widget) Render(ctx context.Context, baseParams *pbaseparam.BaseParams, 
 }
 ```
 
-<img src="/contents/images/two-phase-render/product_load_bundle_with_widget.svg" alt="Product load bundle with internalized widget load bundle.">
+<img src="/content/images/two-phase-render/product_load_bundle_with_widget.svg" alt="Product load bundle with internalized widget load bundle.">
 
 Now, back to product's (the parent resource) `Renderable` implementation, now modified to include widgets. `WidgetLoadBundle` is embedded on `ProductLoadBundle` and populated on `Load`. Product's `Render` invokes `Render` for each of its embedded widgets, passing through the common load bundle:
 

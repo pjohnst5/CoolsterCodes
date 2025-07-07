@@ -23,7 +23,7 @@ Only when the child starts to modify one of them does the
 kernel intercept the call, copy the page, and reassign it
 to the new process.
 
-{{Figure "Child processes transitioning from mostly shared memory to mostly copied as they mature." (ImgSrcAndAltAndClass "/contents/images/ruby-memory/child-processes.svg" "Child processes transitioning from mostly shared memory to mostly copied as they mature." "overflowing")}}
+{{Figure "Child processes transitioning from mostly shared memory to mostly copied as they mature." (ImgSrcAndAltAndClass "/content/images/ruby-memory/child-processes.svg" "Child processes transitioning from mostly shared memory to mostly copied as they mature." "overflowing")}}
 
 So why aren't Unicorn workers sharing more memory? Most
 software has a sizeable collection of static objects that
@@ -46,7 +46,7 @@ Ruby sizes its heap pages so that they'll maximize use of
 OS pages by occupying an even multiple of them (usually
 4x4k OS pages = 1x16k heap page).
 
-{{Figure "A heap, its heap pages, and slots within each page." (ImgSrcAndAltAndClass "/contents/images/ruby-memory/heap-slots.svg" "A heap, its heap pages, and slots within each page." "overflowing")}}
+{{Figure "A heap, its heap pages, and slots within each page." (ImgSrcAndAltAndClass "/content/images/ruby-memory/heap-slots.svg" "A heap, its heap pages, and slots within each page." "overflowing")}}
 
 You might also hear a heap page referred to as a "heap"
 (plural "heaps"), "slab", or "arena". I'd prefer one of the
@@ -184,7 +184,7 @@ interests:
   between them.
 
 * A union with `char ary[RSTRING_EMBED_LEN_MAX + 1]` shows
-  that while the contents of a string might be stored in
+  that while the content of a string might be stored in
   the OS heap, a short string will be inlined right into an
   `RString` value. Its entire value can fit into a slot
   without allocating additional memory.
@@ -450,7 +450,7 @@ are found by following a `free.next` on the `RVALUE`
 itself. All known free slots are chained together by a long
 linked list that `heap_page_add_freeobj` has constructed.
 
-{{Figure "A heap's freelist pointer to a free RVALUE, and the continuing linked list." (ImgSrcAndAltAndClass "/contents/images/ruby-memory/freelist.svg" "A heap's freelist pointer to a free RVALUE, and the continuing linked list." "overflowing")}}
+{{Figure "A heap's freelist pointer to a free RVALUE, and the continuing linked list." (ImgSrcAndAltAndClass "/content/images/ruby-memory/freelist.svg" "A heap's freelist pointer to a free RVALUE, and the continuing linked list." "overflowing")}}
 
 `heap_page_add_freeobj` is called initializing a page. It's
 also called by the garbage collector when it frees an
@@ -530,7 +530,7 @@ still living and move them into slots on a minimal set of
 pages that are likely to be stable for a long time. Forked
 workers can share memory with their parent for longer.
 
-{{Figure "A fragmented heap before and after GC compaction." (ImgSrcAndAltAndClass "/contents/images/ruby-memory/compaction.svg" "A fragmented heap before and after GC compaction." "overflowing")}}
+{{Figure "A fragmented heap before and after GC compaction." (ImgSrcAndAltAndClass "/content/images/ruby-memory/compaction.svg" "A fragmented heap before and after GC compaction." "overflowing")}}
 
 For anyone running big Ruby installations (GitHub, Heroku,
 or like we are at Stripe), this is _really_ exciting work.

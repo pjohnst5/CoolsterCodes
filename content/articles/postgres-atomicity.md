@@ -47,7 +47,7 @@ One opens the CSV file, reads, modifies, and writes some
 data, but that change is immediately clobbered by another
 client trying to do the same.
 
-{{Figure "Data loss from contention between two clients." (ImgSrcAndAltAndClass "/contents/images/postgres-atomicity/csv-database.svg" "Data loss from contention between two clients." "overflowing")}}
+{{Figure "Data loss from contention between two clients." (ImgSrcAndAltAndClass "/content/images/postgres-atomicity/csv-database.svg" "Data loss from contention between two clients." "overflowing")}}
 
 This is a problem of concurrent access and it's addressed
 by introducing _concurrency control_. There are plenty of
@@ -174,7 +174,7 @@ that created it). It also tracks `xmax` to be the _last_
 transaction where the tuple is visible (i.e. the one that
 deleted it) [2].
 
-{{Figure "A heap tuple's lifetime being tracked with xmin and xmax." (ImgSrcAndAltAndClass "/contents/images/postgres-atomicity/heap-tuple-visibility.svg" "A heap tuple's lifetime being tracked with xmin and xmax." "overflowing")}}
+{{Figure "A heap tuple's lifetime being tracked with xmin and xmax." (ImgSrcAndAltAndClass "/content/images/postgres-atomicity/heap-tuple-visibility.svg" "A heap tuple's lifetime being tracked with xmin and xmax." "overflowing")}}
 
 `xmin` and `xmax` are internal concepts, but they can be
 revealed as hidden columns on any Postgres table. Just
@@ -251,7 +251,7 @@ flight hidden. `*xip` stores the list of transactions that
 were active when the snapshot was created so that we can
 tell which is which.
 
-{{Figure "Transactions executing against a database and a snapshot capturing a moment in time." (ImgSrcAndAltAndClass "/contents/images/postgres-atomicity/snapshot-creation.svg" "Transactions executing against a database and a snapshot capturing a moment in time." "overflowing")}}
+{{Figure "Transactions executing against a database and a snapshot capturing a moment in time." (ImgSrcAndAltAndClass "/content/images/postgres-atomicity/snapshot-creation.svg" "Transactions executing against a database and a snapshot capturing a moment in time." "overflowing")}}
 
 ## Beginning a transaction (#begin)
 
