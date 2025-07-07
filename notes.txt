@@ -85,10 +85,10 @@ Settle debate, links go to new tab or no? Yes ✅
 Finish making an "All Tags" tab page ✅
 Make more tags on medium sized page ✅
 Make tags visible in article and maybe home page as well ✅
-Auto-create headers
+Auto-create headers ✅
+Make it so pictures with links are not fancy boxed ✅
 Auto-link hook images
 Make preview images mine (favico)
-Make it so pictures with links are not fancy boxed
 Play with Shiki code
 Explore colors thoroughly (inline and search)
 Pictures with articles
