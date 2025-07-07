@@ -46,7 +46,7 @@ This practically invisible problem is probably number two to only forgotten inde
 
 <img src="/content/images/two-phase-render/n_plus_one.svg" alt="N+1.">
 
-### N*M+1 and more (#n-m-plus-one)
+### N*M+1 and more
 
 11 queries doesn't sound like much, but in the real world it never stops there. Let's look at a more complicated example where `Product` now has multiple associated resources along with a `Widget` subresource that has its own associations.
 
@@ -97,7 +97,7 @@ But even these sophisticated strategies have their own problems. In a large appl
 
 ---
 
-## A digression: Fibers and intents (#fibers-and-intents)
+## A digression: Fibers and intents
 
 Sometimes you have to get creative to solve N+1s.
 
@@ -129,7 +129,7 @@ end
 
 It was these custom overrides where N+1s were most pervasive. Models used an ORM similar to ActiveRecord or Sequel that lazily loaded related records, and rendering would more often than not require loading relations. Custom overrides often rendered subresources of their own, each of which might have its own N+1s, amplifying expense to unbounded proportions.
 
-### Dynamic aggregates (#dynamic-aggregates)
+### Dynamic aggregates
 
 This is where the innovation came in. Ruby has a construct called [fibers](https://docs.ruby-lang.org/en/master/Fiber.html) which are coroutines with a smaller memory footprint than a thread (using only small 4 kB stacks), and which can be paused and started again. The devised scheme:
 
@@ -163,7 +163,7 @@ Importantly, options were limited and this was one of the few ways to have a lar
 
 ---
 
-## Rails strict loading (#rails-strict-loading)
+## Rails strict loading
 
 N+1s are a constant threat in frameworks like ActiveRecord where lazy loading is common. Lazy loading is preventable with eager loading like `#includes` / `#eager_load` / `#preload`, but is difficult to guarantee because even if all relations were eager loaded initially, it's easy to accidentally regress as a new lazy load is introduced.
 
@@ -185,7 +185,7 @@ Strict loading is an important feature and _major_ innovation in this area, but 
 
 ---
 
-## Loading data in Go, exceptional verbosity (#go-verbosity)
+## Loading data in Go, exceptional verbosity
 
 This brings us to Go, where loading data is hard even without considering N+1s.
 
@@ -264,7 +264,7 @@ Despite Go's ad nauseum verbosity, it's no less susceptible to N+1s than a langu
 
 ---
 
-## Two-phase load and render (#two-phase)
+## Two-phase load and render
 
 This is where our generalized data loading pattern comes in. It doesn't make N+1s impossible, but it forces developers to break convention to introduce them, making adding a new one harder than not doing so.
 
@@ -371,7 +371,7 @@ So, the full render process is:
     * Properties like `ID` and `Name` map directly from model to API resource.
     * Indirect properties like `OwnerEmail` and `TeamName` are pulled off the records added to the load bundle in (1).
 
-### Renderable (#renderable)
+### Renderable
 
 Implementing a full two-phase render involves a fair bit of code (again, it's Go), but once it's done, that type of API resource can easily be rendered from anywhere else:
 
@@ -472,7 +472,7 @@ func RenderMany[TRenderable Renderable[TLoadBundle, TModel, TRenderable], TLoadB
 
 **Edit (2024/06/14):** This section was updated after [Roman](https://github.com/roman-vanesyan) [pointed out](https://github.com/brandur/sorg/issues/368) that by swapping the positions of two generic parameters, most of them can be inferred by the compiler, and `Render` can be called with only a single generic parameter.
 
-### Nested resources (#nested-resources)
+### Nested resources
 
 But what about subresources? If we need to call `apiresource.Render` inside the `Render` implementation of another resource, N+1s boomerang right back.
 
@@ -613,7 +613,7 @@ func (_ *Product) Render(ctx context.Context, baseParams *pbaseparam.BaseParams,
 
 The beauty of this approach is that even if your resources which have subresources _which have subresources_, it's still okay. All load bundles map 1:1:1, and regardless of number of resources or hierarchy, we still perform a constant number of database operations. Predictable performance is always maintained.
 
-### Beyond Go (#beyond-go)
+### Beyond Go
 
 Go is special because of its overwhelming verbosity and total lack of dynamic features. Even if we hadn't designed a framework to avoid N+1s, we would've had to build one to help with basic data loading, so with the two-phase load and render approach we kill two birds with one stone.
 
