@@ -130,6 +130,7 @@ type colorizer struct {
 	LogColor bool
 }
 
+//nolint:ireturn
 func (c *colorizer) Blue(arg interface{}) aurora.Value {
 	if !c.LogColor {
 		return aurora.Reset(arg)
@@ -137,6 +138,7 @@ func (c *colorizer) Blue(arg interface{}) aurora.Value {
 	return aurora.Blue(arg)
 }
 
+//nolint:ireturn
 func (c *colorizer) Bold(arg interface{}) aurora.Value {
 	if !c.LogColor {
 		return aurora.Reset(arg)
@@ -144,6 +146,7 @@ func (c *colorizer) Bold(arg interface{}) aurora.Value {
 	return aurora.Bold(arg)
 }
 
+//nolint:ireturn
 func (c *colorizer) BrightBlue(arg interface{}) aurora.Value {
 	if !c.LogColor {
 		return aurora.Reset(arg)
