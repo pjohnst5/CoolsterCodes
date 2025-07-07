@@ -89,7 +89,6 @@ Auto-create headers ✅
 Make it so pictures with links are not fancy boxed ✅
 And captions on linked images ✅
 Change auto-header logic to not include extra "(#n)" stuff ✅
-Remove weird newline constraint on headers
 Auto-link hook images
 Make preview images mine (favico)
 Play with Shiki code
@@ -123,6 +122,9 @@ With Fragments, there was a "content/fragments-drafts" and "content/fragments-de
 -- Maybe maybe haha --
 Eventually make it so year bar shows even when clicking button (and filtering them out/back in)
 Make code blocks copy-able
+
+Maybe later:
+Remove weird newline constraint on headers
 
 Could never do:
 Link in figure captions ❌
