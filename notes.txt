@@ -106,6 +106,7 @@ Make it mine (title, everything)
 See if you can figure out preview images and how they work
 Play with Shiki code
 Explore colors thoroughly (inline and search)
+Play around with published time
 Final cosmetic review
 Update readme
 Host it
