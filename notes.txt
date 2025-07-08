@@ -91,7 +91,7 @@ And captions on linked images ✅
 Change auto-header logic to not include extra "(#n)" stuff ✅
 Auto-link hook images ✅
 Pictures with articles ✅
-Make preview images mine (favico)
+Make preview images mine (favico) ✅
 Current tab
 Explore removing "Articles" title
 Does linking titles of pages break design? Probably does
