@@ -8,6 +8,7 @@
 {{ else }}
 <meta property="og:image" content="{{.AbsoluteURL}}{{.FavIcon}}">
 {{ end }}
+<meta property="og:url" content="{{.AbsoluteURL}}/{{.Article.Slug}}">
 {{- end -}}
 
 {{- define "title" -}}{{.Article.Title}}{{.TitleSuffix}}{{- end -}}
