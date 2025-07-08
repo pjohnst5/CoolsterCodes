@@ -1,5 +1,24 @@
 {{- template "web/html/layouts/root.tmpl.html" . -}}
 
+{{- define "og" -}}
+<meta property="og:title" content="{{.Article.Title}}">
+<meta property="og:description" content="{{.Article.Hook}}">
+<meta name="description" content="{{.Article.Hook}}">
+{{ if .Article.Image }}
+<meta property="og:image" content="{{.AbsoluteURL}}{{.Article.Image}}">
+{{ else }}
+<meta property="og:image" content="{{.AbsoluteURL}}{{.FavIcon}}">
+{{ end }}
+<meta property="og:url" content="{{.AbsoluteURL}}/{{.Article.Slug}}">
+<link rel="canonical" href="{{.AbsoluteURL}}/{{.Article.Slug}}">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="{{FormatTimeRFC3339UTC .Article.PublishedAt}}">
+<meta property="article:author" content="https://coolstercodes.com">
+{{range .Article.Tags}}
+<meta property="article:tag" content="{{.}}">
+{{end}}
+{{- end -}}
+
 {{- define "title" -}}{{.Article.Title}}{{.TitleSuffix}}{{- end -}}
 
 {{- define "article_content" -}}

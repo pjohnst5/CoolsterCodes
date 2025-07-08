@@ -98,7 +98,7 @@ var conf Conf
 type Conf struct {
 	// AbsoluteURL is the absolute URL where the compiled site will be hosted.
 	// It's used for things like Atom feeds and sending email.
-	AbsoluteURL string `env:"ABSOLUTE_URL,default=https://brandur.org"`
+	AbsoluteURL string `env:"ABSOLUTE_URL,default=https://coolstercodes.com"`
 
 	// Concurrency is the number of build Goroutines that will be used to
 	// perform build work items.

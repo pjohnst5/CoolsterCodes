@@ -484,6 +484,7 @@ func extImageTarget(canonicalExt string) string {
 func getLocals(locals map[string]interface{}) map[string]interface{} {
 	defaults := map[string]interface{}{
 		"AbsoluteURL": conf.AbsoluteURL,
+		"FavIcon":     "/content/images/favicon/favicon.png",
 		"Release":     Release,
 		"SorgEnv":     conf.SorgEnv,
 		"TitleSuffix": scommon.TitleSuffix,
