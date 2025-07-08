@@ -1,6 +1,8 @@
 {{- template "web/html/layouts/root.tmpl.html" . -}}
 
-{{- define "title" -}}Tags{{.TitleSuffix}}{{- end -}}
+<!-- Needs og section -->
+
+{{- define "title" -}}{{.Tag}}{{.TitleSuffix}}{{- end -}}
 
 {{- define "article_content" -}}
 

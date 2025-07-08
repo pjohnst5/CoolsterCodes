@@ -4,3 +4,9 @@ Author's note
 Footnotes [1] (see api-paradigms.md for example)
 Attributions (see page.md for example) (but probably don't use that since you need to input html)
 You can also link your own headers like this: [two-phase load and render](#two-phase)
+
+
+Things you'll always need
+- title
+- hook (description)
+- if image, put it "/content/..."

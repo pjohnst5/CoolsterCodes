@@ -3,6 +3,11 @@
 {{- define "og" -}}
 <meta property="og:title" content="{{.Article.Title}}">
 <meta property="og:description" content="{{.Article.Hook}}">
+{{ if .Article.Image }}
+<meta property="og:image" content="{{.AbsoluteURL}}{{.Article.Image}}">
+{{ else }}
+<meta property="og:image" content="{{.AbsoluteURL}}{{.FavIcon}}">
+{{ end }}
 {{- end -}}
 
 {{- define "title" -}}{{.Article.Title}}{{.TitleSuffix}}{{- end -}}

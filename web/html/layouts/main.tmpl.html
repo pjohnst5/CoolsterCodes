@@ -12,7 +12,7 @@
 
     <title>{{block "title" .}}Needs Title{{.TitleSuffix}}{{end}}</title>
 
-    <link rel="shortcut icon" type="image/png" href="/content/images/favicon/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="{{.FavIcon}}">
 
     {{template "web/html/helpers/_style_stylesheets.tmpl.html" .}}
 

@@ -35,7 +35,7 @@ const (
 	TempDir = "./tmp"
 
 	// TitleSuffix is the suffix to add to the end of page and Atom titles.
-	TitleSuffix = " — brandur.org"
+	TitleSuffix = " — coolstercodes.com"
 
 	// HTML is the source directory for html.
 	HTML = "./web/html"
