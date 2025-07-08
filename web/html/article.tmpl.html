@@ -1,5 +1,9 @@
 {{- template "web/html/layouts/root.tmpl.html" . -}}
 
+{{- define "og" -}}
+<meta property="og:title" content="{{.Article.Title}}">
+{{- end -}}
+
 {{- define "title" -}}{{.Article.Title}}{{.TitleSuffix}}{{- end -}}
 
 {{- define "article_content" -}}

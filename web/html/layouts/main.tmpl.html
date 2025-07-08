@@ -8,6 +8,8 @@
     <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
     <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
 
+    {{block "og" .}}{{end}}
+
     <title>{{block "title" .}}Needs Title{{.TitleSuffix}}{{end}}</title>
 
     <link rel="shortcut icon" type="image/png" href="/content/images/favicon/favicon.png">
