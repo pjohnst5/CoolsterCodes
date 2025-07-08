@@ -94,8 +94,8 @@ Pictures with articles ✅
 Make preview images mine (favico) ✅
 See if you can figure out preview images and how they work ✅
 Current tab ✅ (nah)
-Explore removing "Articles" title
-Does linking titles of pages break design? Probably does
+Explore removing "Articles" title ✅
+Does linking titles of pages break design? Probably does ✅
 Remove all other Articles
 Remove weird newline constraint on headers
 Do we need tmp?
