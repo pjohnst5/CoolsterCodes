@@ -96,7 +96,9 @@ See if you can figure out preview images and how they work ✅
 Current tab ✅ (nah)
 Explore removing "Articles" title ✅
 Does linking titles of pages break design? Probably does ✅
-Remove weird newline constraint on headers
+Remove weird newline constraint on headers ✅
+    - I think it's working just fine actually, on new articles it's fine ✅
+Make it so single # is header
 Do we need tmp?
 Remove mtemplate FuncMap such as ImgSrcAndAlt
 Figure out linting once and for all
