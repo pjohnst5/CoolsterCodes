@@ -2,6 +2,7 @@
 
 {{- define "og" -}}
 <meta property="og:title" content="{{.Article.Title}}">
+<meta property="og:description" content="{{.Article.Hook}}">
 {{- end -}}
 
 {{- define "title" -}}{{.Article.Title}}{{.TitleSuffix}}{{- end -}}
