@@ -92,6 +92,7 @@ Change auto-header logic to not include extra "(#n)" stuff ✅
 Auto-link hook images ✅
 Pictures with articles ✅
 Make preview images mine (favico) ✅
+See if you can figure out preview images and how they work ✅
 Current tab
 Explore removing "Articles" title
 Does linking titles of pages break design? Probably does
@@ -103,9 +104,9 @@ Add back in all my articles
 Embed Youtube and make tutorial link
 Refine articles
 Make it mine (title, everything)
-See if you can figure out preview images and how they work
 Play with Shiki code
 Explore colors thoroughly (inline and search)
+Play around with published time
 Final cosmetic review
 Update readme
 Host it
