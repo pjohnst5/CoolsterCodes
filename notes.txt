@@ -98,6 +98,7 @@ Explore removing "Articles" title ✅
 Does linking titles of pages break design? Probably does ✅
 Remove weird newline constraint on headers
 Do we need tmp?
+Remove mtemplate FuncMap such as ImgSrcAndAlt
 Figure out linting once and for all
 Make it mine (title, everything)
 Remove all Articles
