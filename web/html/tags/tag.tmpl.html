@@ -29,17 +29,17 @@
             <ul class="clear-both mb-9">
                 {{- range .Articles -}}
                 <li class="clear-both mb-9 mt-1.5 text-md text-white">
-                    {{if .HookImageURL}}
-                    <a href="/{{.Slug}}">
-                        <img src="{{.HookImageURL}}"
-                            class="float-left mr-4 rounded-lg">
-                    </a>
-                    {{end}}
                     <div class="mb-2">
+                        {{if .Image}}
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/{{.Slug}}">
+                                <img src="{{.Image}}" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        {{end}}
                         <a href="/{{.Slug}}"
                             class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">{{.Title}}</a>
-                        <span
-                            class="italic ml-0.5 text-gray-300 text-xs">{{FormatTime .PublishedAt "Jan 2, 2006"}}</span>
+                        <span class="italic ml-0.5 text-gray-300 text-xs">{{FormatTime .PublishedAt "Jan 2, 2006"}}</span>
                     </div>
                     <p class="font-serif leading-7">{{.Hook}}</p>
                 </li>
