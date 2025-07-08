@@ -102,6 +102,7 @@ Figure out linting once and for all
 Add back in all my articles
 Embed Youtube and make tutorial link
 Refine articles
+Make it mine (title, everything)
 See if you can figure out preview images and how they work
 Play with Shiki code
 Explore colors thoroughly (inline and search)
