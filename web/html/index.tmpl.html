@@ -1,6 +1,13 @@
 {{- template "web/html/layouts/root.tmpl.html" . -}}
 
-<!-- Needs og section -->
+{{- define "og" -}}
+{{- template "web/html/helpers/_og_common.tmpl.html" . -}}
+<meta property="og:title" content="Coolster Codes">
+<meta property="og:description" content="It's easy as 001 010 011!">
+<meta name="description" content="It's easy as 001 010 011!">
+<meta property="og:url" content="{{.AbsoluteURL}}">
+<link rel="canonical" href="{{.AbsoluteURL}}">
+{{- end -}}
 
 {{- define "title" -}}Coolster Codes{{- end -}}
 

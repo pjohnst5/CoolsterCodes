@@ -1,6 +1,13 @@
 {{- template "web/html/layouts/root.tmpl.html" . -}}
 
-<!-- Needs og section -->
+{{- define "og" -}}
+{{- template "web/html/helpers/_og_common.tmpl.html" . -}}
+<meta property="og:title" content="{{.Tag}}{{.TitleSuffix}}">
+<meta property="og:description" content="My articles about {{.Tag}}">
+<meta name="description" content="My articles about {{.Tag}}">
+<meta property="og:url" content="{{.AbsoluteURL}}/tags/{{.URLTag}}">
+<link rel="canonical" href="{{.AbsoluteURL}}/tags/{{.URLTag}}">
+{{- end -}}
 
 {{- define "title" -}}{{.Tag}}{{.TitleSuffix}}{{- end -}}
 
