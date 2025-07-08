@@ -93,17 +93,17 @@ Auto-link hook images ✅
 Pictures with articles ✅
 Make preview images mine (favico) ✅
 See if you can figure out preview images and how they work ✅
-Current tab
-Explore removing "Articles" title
-Does linking titles of pages break design? Probably does
-Remove all other Articles
+Current tab ✅ (nah)
+Explore removing "Articles" title ✅
+Does linking titles of pages break design? Probably does ✅
 Remove weird newline constraint on headers
 Do we need tmp?
 Figure out linting once and for all
+Make it mine (title, everything)
+Remove all Articles
 Add back in all my articles
 Embed Youtube and make tutorial link
 Refine articles
-Make it mine (title, everything)
 Play with Shiki code
 Explore colors thoroughly (inline and search)
 Play around with published time
