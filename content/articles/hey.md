@@ -20,7 +20,7 @@ ey yo whats up
 
 ## What now?
 
-Let's say we have a model `Product` that can render a public-facing API resource for itself by implementing `#render`. I'll be talking about API resources a lot because that's what I'm used, but keep in mind that this could also be an object that's used to render an HTML view and all the same concepts apply.
+Let's say we have a model `Product` that can render [1] a public-facing API resource for itself by implementing `#render`. I'll be talking about API resources a lot because that's what I'm used, but keep in mind that this could also be an object that's used to render an HTML view and all the same concepts apply.
 ``` ruby
 class Product < ApplicationRecord
   belongs_to :owner # needs to lazy load an owner
@@ -54,3 +54,9 @@ This is a [relative link](/about)
 
 ![](/content/images/hey/pexels-photo-1108099.jpeg)
 *back to normal*
+
+[1] I realize that REST is designed to provide much greater
+    facilities in the form of discovery and content
+    negotiation, but in practice these just don't see a lot
+    of use, which is why I normally say that convention is
+    REST's strongest attribute. [Google.com](google.com) is where I go `code it up`
