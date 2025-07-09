@@ -30,10 +30,6 @@ const (
 	// runs and Twitter.
 	MainLayout = LayoutsDir + "/main.ace"
 
-	// TempDir is a temporary directory used to download images that will be
-	// processed and such.
-	TempDir = "./tmp"
-
 	// TitleSuffix is the suffix to add to the end of page and Atom titles.
 	TitleSuffix = " - Coolster Codes"
 
