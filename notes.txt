@@ -96,7 +96,7 @@ See if you can figure out preview images and how they work ✅
 Current tab ✅ (nah)
 Explore removing "Articles" title ✅
 Does linking titles of pages break design? Probably does ✅
-Analytics
+Analytics ✅
 Do we need tmp?
 Figure out linting once and for all
 Make it mine (title, everything)
