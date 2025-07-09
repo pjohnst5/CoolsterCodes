@@ -97,7 +97,6 @@ Current tab ✅ (nah)
 Explore removing "Articles" title ✅
 Does linking titles of pages break design? Probably does ✅
 Remove weird newline constraint on headers ✅
-    - I think it's working just fine actually, on new articles it's fine ✅
 Make it so single # is header
 Analytics
 Do we need tmp?
