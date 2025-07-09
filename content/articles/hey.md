@@ -7,15 +7,21 @@ title = "Ballin' like a baller"
 tags = ["Georgia Tech", "AI", "Ballin' it up"]
 +++
 
+*Author's note:* This is a longer piece that starts off with exposition into the nature of the N+1 query problem. If you're already well familiar with it, you may want to skip my description of N+1 to a story involving a creative use of [Ruby fibers at Stripe](#fibers-and-intents) to try and plug this hole, or the [two-phase load and render](#two-phase) that I've put in my current company's Go codebase, a pattern we've been using for two years now that's rid of us N+1s, and for which I'd have trouble citing any deficiency (aside from Go's normal trouble with verbosity). It works.
+
+---
+
 ## This is a header
+
 And code `two lines after it`
 ```ruby
 ey yo whats up
 ```
 
 ## What now?
+
 Let's say we have a model `Product` that can render a public-facing API resource for itself by implementing `#render`. I'll be talking about API resources a lot because that's what I'm used, but keep in mind that this could also be an object that's used to render an HTML view and all the same concepts apply.
-```ruby
+``` ruby
 class Product < ApplicationRecord
   belongs_to :owner # needs to lazy load an owner
 
@@ -29,6 +35,7 @@ class Product < ApplicationRecord
   end
 end
 ```
+
 <img src="/content/images/two-phase-render/n_plus_one.svg" alt="N+1.">
 
 This is a [link](https://google.com)
