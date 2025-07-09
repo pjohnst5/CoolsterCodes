@@ -1,4 +1,4 @@
-module github.com/brandur/sorg
+module coolstercodes
 
 go 1.24
 

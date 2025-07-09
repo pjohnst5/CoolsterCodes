@@ -62,7 +62,7 @@ func formatTimeWithMinute(t time.Time) string {
 // same line. This is useful for a star count for example, because it's easy to
 // misread a rating if it's broken up. See here for details:
 //
-// https://github.com/brandur/sorg/pull/60
+// https://coolstercodes/pull/60
 func toNonBreakingWhitespace(str string) string {
 	return strings.ReplaceAll(str, " ", " ")
 }

@@ -22,14 +22,15 @@ import (
 	stripmd "github.com/writeas/go-strip-markdown"
 	"golang.org/x/xerrors"
 
-	"github.com/brandur/sorg/modules/modulir"
-	"github.com/brandur/sorg/modules/modulir/mfile"
-	"github.com/brandur/sorg/modules/modulir/mmarkdownext"
-	"github.com/brandur/sorg/modules/modulir/mtemplate"
-	"github.com/brandur/sorg/modules/modulir/mtoc"
-	"github.com/brandur/sorg/modules/modulir/mtoml"
-	"github.com/brandur/sorg/modules/scommon"
-	"github.com/brandur/sorg/modules/stemplate"
+	"coolstercodes/modules/modulir"
+
+	"coolstercodes/modules/modulir/mfile"
+	"coolstercodes/modules/modulir/mmarkdownext"
+	"coolstercodes/modules/modulir/mtemplate"
+	"coolstercodes/modules/modulir/mtoc"
+	"coolstercodes/modules/modulir/mtoml"
+	"coolstercodes/modules/scommon"
+	"coolstercodes/modules/stemplate"
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -482,7 +483,7 @@ func getLocals(locals map[string]interface{}) map[string]interface{} {
 	defaults := map[string]interface{}{
 		"AbsoluteURL": conf.AbsoluteURL,
 		"FavIcon":     "/content/images/favicon/favicon.png",
-		"SorgEnv":     conf.SorgEnv,
+		"CCEnv":       conf.CCEnv,
 		"TitleSuffix": scommon.TitleSuffix,
 	}
 

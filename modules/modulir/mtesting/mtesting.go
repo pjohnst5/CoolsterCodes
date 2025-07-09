@@ -6,7 +6,7 @@ import (
 
 	assert "github.com/stretchr/testify/require"
 
-	"github.com/brandur/sorg/modules/modulir"
+	"coolstercodes/modules/modulir"
 )
 
 // NewContext is a convenience helper to create a new modulir.Context suitable

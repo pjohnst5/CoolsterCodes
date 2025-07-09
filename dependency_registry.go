@@ -11,9 +11,9 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/brandur/sorg/modules/modulir"
-	"github.com/brandur/sorg/modules/modulir/mtemplatemd"
-	"github.com/brandur/sorg/modules/scommon"
+	"coolstercodes/modules/modulir"
+	"coolstercodes/modules/modulir/mtemplatemd"
+	"coolstercodes/modules/scommon"
 )
 
 //

@@ -25,6 +25,11 @@ Optional things
     - This is an example of me linking the header [What now](#what-now)
     - Just make sure it's the same as the desluggified version lols
 
+- Quotes
+    > Why am I so cool?
+    >
+    > Will always be a mystery
+
 Headers:
 Use ## headers, and leave blank line after
 
