@@ -114,10 +114,8 @@ func build(c *modulir.Context) []error {
 
 	c.Log.Debugf("Running build loop")
 
-	// This is where we stored "versioned" content like compiled JS and CSS.
-	// These content have a release number that we can increment and by
-	// extension quickly invalidate.
-	versionedContentDir := path.Join(c.TargetDir, "content", Release)
+	// This is where we stored content like compiled JS and CSS.
+	contentDir := path.Join(c.TargetDir, "content")
 
 	// A set of source paths that rebuild everything when any one of them
 	// changes. These are dependencies that are included in more or less
@@ -192,7 +190,7 @@ func build(c *modulir.Context) []error {
 	{
 		commonDirs := []string{
 			c.TargetDir + "/tags",
-			versionedContentDir,
+			contentDir,
 		}
 		for _, dir := range commonDirs {
 			err := mfile.EnsureDir(c, dir)
@@ -209,8 +207,8 @@ func build(c *modulir.Context) []error {
 	{
 		commonSymlinks := [][2]string{
 			{c.SourceDir + "/content/images", c.TargetDir + "/content/images"},
-			{c.SourceDir + "/web/javascripts", versionedContentDir + "/javascripts"},
-			{c.SourceDir + "/web/stylesheets", versionedContentDir + "/stylesheets"},
+			{c.SourceDir + "/web/javascripts", contentDir + "/javascripts"},
+			{c.SourceDir + "/web/stylesheets", contentDir + "/stylesheets"},
 		}
 		for _, link := range commonSymlinks {
 			err := mfile.EnsureSymlink(c, link[0], link[1])
@@ -327,7 +325,7 @@ func build(c *modulir.Context) []error {
 	{
 		indexFileName := "index.json"
 		srcPath := "./web/" + indexFileName
-		dstPath := versionedContentDir + "/" + indexFileName
+		dstPath := contentDir + "/" + indexFileName
 		c.AddJob("index", func() (bool, error) {
 			return generateIndex(srcPath, dstPath, articles, pages)
 		})
@@ -484,7 +482,6 @@ func getLocals(locals map[string]interface{}) map[string]interface{} {
 	defaults := map[string]interface{}{
 		"AbsoluteURL": conf.AbsoluteURL,
 		"FavIcon":     "/content/images/favicon/favicon.png",
-		"Release":     Release,
 		"SorgEnv":     conf.SorgEnv,
 		"TitleSuffix": scommon.TitleSuffix,
 	}
