@@ -134,7 +134,8 @@ Link in figure captions ❌
 Make it so single # is header ❌
     - It then makes headers out of single "#" code comments
 Remove weird newline constraint on headers ❌
-    - It cannot do this, it then does not treat text as paragraph tags (I suppose I could dig deeper)
+    - You can, but then the text isn't in <p> Tags
+    - Would need to change blackfriday
 
 Random notes:
 I won't be linking the image in the article
