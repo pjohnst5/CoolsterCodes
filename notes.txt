@@ -96,11 +96,12 @@ See if you can figure out preview images and how they work ✅
 Current tab ✅ (nah)
 Explore removing "Articles" title ✅
 Does linking titles of pages break design? Probably does ✅
-Remove weird newline constraint on headers
+Analytics
 Do we need tmp?
 Figure out linting once and for all
 Make it mine (title, everything)
 Remove all Articles
+Remove mtemplate FuncMap such as ImgSrcAndAlt
 Add back in all my articles
 Embed Youtube and make tutorial link
 Refine articles
@@ -129,6 +130,12 @@ Make code blocks copy-able
 
 Could never do:
 Link in figure captions ❌
+    - It gets super-imposed by fancy box, would need to change fancybox
+Make it so single # is header ❌
+    - It then makes headers out of single "#" code comments
+Remove weird newline constraint on headers ❌
+    - You can, but then the text isn't in <p> Tags
+    - Would need to change blackfriday
 
 Random notes:
 I won't be linking the image in the article
