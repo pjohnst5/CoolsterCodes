@@ -98,10 +98,10 @@ Explore removing "Articles" title ✅
 Does linking titles of pages break design? Probably does ✅
 Analytics
 Do we need tmp?
-Remove mtemplate FuncMap such as ImgSrcAndAlt
 Figure out linting once and for all
 Make it mine (title, everything)
 Remove all Articles
+Remove mtemplate FuncMap such as ImgSrcAndAlt
 Add back in all my articles
 Embed Youtube and make tutorial link
 Refine articles
