@@ -192,7 +192,6 @@ func build(c *modulir.Context) []error {
 	{
 		commonDirs := []string{
 			c.TargetDir + "/tags",
-			scommon.TempDir,
 			versionedContentDir,
 		}
 		for _, dir := range commonDirs {
