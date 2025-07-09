@@ -111,10 +111,13 @@ Final cosmetic review
 Update readme
 Host it
     - Make sure to make CC_Env=Prod
-Make some kind of automation for:
-    - Pre-PR check (like gofmt, and tailwind)
-        - Call it "make check" or something"
+Automation:
+    - Target for creating new article
+        - "make article article_title"
+    - Pre-PR check (like gofmt, and tailwind) ✅
+        - "make check" ✅
     - Posting new content (uploading new stuff and resetting it)
+        - "make deploy" in ci action
 
 -- Commands --
 curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.15/tailwindcss-macos-arm64

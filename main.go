@@ -25,12 +25,9 @@ import (
 
 func main() {
 	rootCmd := &cobra.Command{
-		Use:   "sorg",
-		Short: "Sorg is a static site generator",
-		Long: strings.TrimSpace(`
-Sorg is a static site generator for Brandur's personal
-homepage and some of its adjacent functions. See the product
-in action at https://brandur.org.`),
+		Use:   "coolstercodes",
+		Short: "Coolster Codes is my blog",
+		Long:  "Coolster Codes is my blog, see https://coolstercodes.com",
 	}
 
 	buildCommand := &cobra.Command{
