@@ -539,7 +539,7 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	var article Article
 	data, err := mtoml.ParseFileFrontmatter(c, source, &article)
 	if err != nil {
-		return true, err
+		return true, xerrors.Errorf("error parsing frontmatter %v", err)
 	}
 	stripped := stripmd.Strip(string(data))
 	article.Body = strings.ReplaceAll(stripped, "\n", " ")
@@ -557,7 +557,7 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 		},
 	})
 	if err != nil {
-		return true, err
+		return true, xerrors.Errorf("error rendering markdown %v", err)
 	}
 
 	content, footnotes, ok := strings.Cut(content, `<div class="footnotes">`)
@@ -573,7 +573,7 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 
 	toc, err := mtoc.RenderFromHTML(string(article.Content))
 	if err != nil {
-		return true, err
+		return true, xerrors.Errorf("error rendering html %v", err)
 	}
 
 	article.TOC = template.HTML(toc)
@@ -581,7 +581,7 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	if article.Hook != "" {
 		hook, err := mmarkdownext.Render(string(article.Hook), nil)
 		if err != nil {
-			return true, err
+			return true, xerrors.Errorf("error rendering hook %v", err)
 		}
 
 		article.Hook = template.HTML(mtemplate.CollapseParagraphs(hook))
@@ -738,7 +738,7 @@ func renderPage(ctx context.Context, c *modulir.Context,
 	// by sending an empty string as `Title`.
 	err := mfile.EnsureDir(c, path.Dir(target))
 	if err != nil {
-		return true, err
+		return true, xerrors.Errorf("error ensuring dir %v", err)
 	}
 
 	pageMeta.dependencies = nil
