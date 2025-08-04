@@ -63,4 +63,4 @@ formatters:
       sections:
         - Standard
         - Default
-        - Prefix(github.com/brandur)
+        - Prefix(coolstercodes)
