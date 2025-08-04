@@ -19,7 +19,6 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	stripmd "github.com/writeas/go-strip-markdown"
-
 	"golang.org/x/xerrors"
 
 	"coolstercodes/modules/modulir"
