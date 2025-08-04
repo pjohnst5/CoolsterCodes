@@ -42,7 +42,7 @@ linters:
 
     wrapcheck:
       ignore-package-globs:
-        - github.com/brandur/*
+        - coolstercodes/*
 
   exclusions:
     generated: lax
