@@ -11,7 +11,7 @@ import (
 	gocache "github.com/patrickmn/go-cache"
 	"golang.org/x/xerrors"
 
-	"github.com/brandur/sorg/modules/modulir"
+	"coolstercodes/modules/modulir"
 )
 
 //////////////////////////////////////////////////////////////////////////////

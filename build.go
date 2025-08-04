@@ -18,18 +18,17 @@ import (
 	"unicode"
 
 	"github.com/go-playground/validator/v10"
-	_ "github.com/lib/pq"
 	stripmd "github.com/writeas/go-strip-markdown"
 	"golang.org/x/xerrors"
 
-	"github.com/brandur/sorg/modules/modulir"
-	"github.com/brandur/sorg/modules/modulir/mfile"
-	"github.com/brandur/sorg/modules/modulir/mmarkdownext"
-	"github.com/brandur/sorg/modules/modulir/mtemplate"
-	"github.com/brandur/sorg/modules/modulir/mtoc"
-	"github.com/brandur/sorg/modules/modulir/mtoml"
-	"github.com/brandur/sorg/modules/scommon"
-	"github.com/brandur/sorg/modules/stemplate"
+	"coolstercodes/modules/modulir"
+	"coolstercodes/modules/modulir/mfile"
+	"coolstercodes/modules/modulir/mmarkdownext"
+	"coolstercodes/modules/modulir/mtemplate"
+	"coolstercodes/modules/modulir/mtoc"
+	"coolstercodes/modules/modulir/mtoml"
+	"coolstercodes/modules/scommon"
+	"coolstercodes/modules/stemplate"
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -114,10 +113,8 @@ func build(c *modulir.Context) []error {
 
 	c.Log.Debugf("Running build loop")
 
-	// This is where we stored "versioned" content like compiled JS and CSS.
-	// These content have a release number that we can increment and by
-	// extension quickly invalidate.
-	versionedContentDir := path.Join(c.TargetDir, "content", Release)
+	// This is where we stored content like compiled JS and CSS.
+	contentDir := path.Join(c.TargetDir, "content")
 
 	// A set of source paths that rebuild everything when any one of them
 	// changes. These are dependencies that are included in more or less
@@ -192,7 +189,7 @@ func build(c *modulir.Context) []error {
 	{
 		commonDirs := []string{
 			c.TargetDir + "/tags",
-			versionedContentDir,
+			contentDir,
 		}
 		for _, dir := range commonDirs {
 			err := mfile.EnsureDir(c, dir)
@@ -209,8 +206,8 @@ func build(c *modulir.Context) []error {
 	{
 		commonSymlinks := [][2]string{
 			{c.SourceDir + "/content/images", c.TargetDir + "/content/images"},
-			{c.SourceDir + "/web/javascripts", versionedContentDir + "/javascripts"},
-			{c.SourceDir + "/web/stylesheets", versionedContentDir + "/stylesheets"},
+			{c.SourceDir + "/web/javascripts", contentDir + "/javascripts"},
+			{c.SourceDir + "/web/stylesheets", contentDir + "/stylesheets"},
 		}
 		for _, link := range commonSymlinks {
 			err := mfile.EnsureSymlink(c, link[0], link[1])
@@ -327,7 +324,7 @@ func build(c *modulir.Context) []error {
 	{
 		indexFileName := "index.json"
 		srcPath := "./web/" + indexFileName
-		dstPath := versionedContentDir + "/" + indexFileName
+		dstPath := contentDir + "/" + indexFileName
 		c.AddJob("index", func() (bool, error) {
 			return generateIndex(srcPath, dstPath, articles, pages)
 		})
@@ -484,8 +481,7 @@ func getLocals(locals map[string]interface{}) map[string]interface{} {
 	defaults := map[string]interface{}{
 		"AbsoluteURL": conf.AbsoluteURL,
 		"FavIcon":     "/content/images/favicon/favicon.png",
-		"Release":     Release,
-		"SorgEnv":     conf.SorgEnv,
+		"CCEnv":       conf.CCEnv,
 		"TitleSuffix": scommon.TitleSuffix,
 	}
 
@@ -541,7 +537,7 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	var article Article
 	data, err := mtoml.ParseFileFrontmatter(c, source, &article)
 	if err != nil {
-		return true, err
+		return true, xerrors.Errorf("error parsing frontmatter %v", err)
 	}
 	stripped := stripmd.Strip(string(data))
 	article.Body = strings.ReplaceAll(stripped, "\n", " ")
@@ -559,7 +555,7 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 		},
 	})
 	if err != nil {
-		return true, err
+		return true, xerrors.Errorf("error rendering markdown %v", err)
 	}
 
 	content, footnotes, ok := strings.Cut(content, `<div class="footnotes">`)
@@ -575,7 +571,7 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 
 	toc, err := mtoc.RenderFromHTML(string(article.Content))
 	if err != nil {
-		return true, err
+		return true, xerrors.Errorf("error rendering html %v", err)
 	}
 
 	article.TOC = template.HTML(toc)
@@ -583,7 +579,7 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	if article.Hook != "" {
 		hook, err := mmarkdownext.Render(string(article.Hook), nil)
 		if err != nil {
-			return true, err
+			return true, xerrors.Errorf("error rendering hook %v", err)
 		}
 
 		article.Hook = template.HTML(mtemplate.CollapseParagraphs(hook))
@@ -740,7 +736,7 @@ func renderPage(ctx context.Context, c *modulir.Context,
 	// by sending an empty string as `Title`.
 	err := mfile.EnsureDir(c, path.Dir(target))
 	if err != nil {
-		return true, err
+		return true, xerrors.Errorf("error ensuring dir %v", err)
 	}
 
 	pageMeta.dependencies = nil

@@ -60,9 +60,7 @@ func formatTimeWithMinute(t time.Time) string {
 // This is a little tricky, but converts normal spaces to non-breaking spaces
 // so that we can guarantee that certain strings will appear entirely on the
 // same line. This is useful for a star count for example, because it's easy to
-// misread a rating if it's broken up. See here for details:
-//
-// https://github.com/brandur/sorg/pull/60
+// misread a rating if it's broken up.
 func toNonBreakingWhitespace(str string) string {
 	return strings.ReplaceAll(str, " ", " ")
 }

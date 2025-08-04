@@ -4,9 +4,9 @@ import (
 	"os"
 	"testing"
 
-	assert "github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/require"
 
-	"github.com/brandur/sorg/modules/modulir"
+	"coolstercodes/modules/modulir"
 )
 
 // NewContext is a convenience helper to create a new modulir.Context suitable
@@ -21,13 +21,13 @@ func WriteTempFile(t *testing.T, data []byte) string {
 	t.Helper()
 
 	tempFile, err := os.CreateTemp(t.TempDir(), "modulir")
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	_, err = tempFile.Write(data)
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	err = tempFile.Close()
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	return tempFile.Name()
 }

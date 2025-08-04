@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/cobra"
 	"golang.org/x/term"
 
-	"github.com/brandur/sorg/modules/modulir"
+	"coolstercodes/modules/modulir"
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -25,12 +25,9 @@ import (
 
 func main() {
 	rootCmd := &cobra.Command{
-		Use:   "sorg",
-		Short: "Sorg is a static site generator",
-		Long: strings.TrimSpace(`
-Sorg is a static site generator for Brandur's personal
-homepage and some of its adjacent functions. See the product
-in action at https://brandur.org.`),
+		Use:   "coolstercodes",
+		Short: "Coolster Codes is my blog",
+		Long:  "Coolster Codes is my blog, see https://coolstercodes.com",
 	}
 
 	buildCommand := &cobra.Command{
@@ -107,9 +104,9 @@ type Conf struct {
 	// Port is the port on which to serve HTTP when looping in development.
 	Port int `env:"PORT,default=5002"`
 
-	// SorgEnv is the environment to run the app with. Use "development" to
+	// CCEnv is the environment to run the app with. Use "development" to
 	// activate development features.
-	SorgEnv string `env:"SORG_ENV,default=production"`
+	CCEnv string `env:"CC_ENV,default=development"`
 
 	// TargetDir is the target location where the site will be built to.
 	TargetDir string `env:"TARGET_DIR,default=./public"`
@@ -129,7 +126,7 @@ type Conf struct {
 //////////////////////////////////////////////////////////////////////////////
 
 const (
-	sorgEnvDevelopment = "development"
+	ccEnvDevelopment = "development"
 )
 
 func getLog() *logrus.Logger {
@@ -154,6 +151,6 @@ func getModulirConfig() *modulir.Config {
 		Port:        conf.Port,
 		SourceDir:   ".",
 		TargetDir:   conf.TargetDir,
-		Websocket:   conf.SorgEnv == sorgEnvDevelopment,
+		Websocket:   conf.CCEnv == ccEnvDevelopment,
 	}
 }

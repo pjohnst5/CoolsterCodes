@@ -8,7 +8,7 @@ import (
 	"github.com/pelletier/go-toml/v2"
 	"golang.org/x/xerrors"
 
-	"github.com/brandur/sorg/modules/modulir"
+	"coolstercodes/modules/modulir"
 )
 
 // ParseFile is a shortcut from parsing a source file as TOML.

@@ -6,9 +6,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/brandur/sorg/modules/modulir/mtemplate"
-	"github.com/brandur/sorg/modules/modulir/mtemplatemd"
-	"github.com/brandur/sorg/modules/stemplate"
+	"coolstercodes/modules/modulir/mtemplate"
+	"coolstercodes/modules/modulir/mtemplatemd"
+	"coolstercodes/modules/stemplate"
 )
 
 //////////////////////////////////////////////////////////////////////////////

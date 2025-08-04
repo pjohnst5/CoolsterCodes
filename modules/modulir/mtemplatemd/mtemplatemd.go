@@ -13,7 +13,7 @@ import (
 	"html/template"
 	"os"
 
-	"github.com/brandur/sorg/modules/modulir/mmarkdownext"
+	"coolstercodes/modules/modulir/mmarkdownext"
 )
 
 // FuncMap is a set of helper functions to make available in templates for the

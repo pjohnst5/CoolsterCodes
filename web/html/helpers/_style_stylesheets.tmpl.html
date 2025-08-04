@@ -1,9 +1,9 @@
-{{if eq .SorgEnv "development" -}}
-<link href="/content/{{.Release}}/stylesheets/tailwind.css" media="screen" rel="stylesheet" type="text/css">
+{{if eq .CCEnv "development" -}}
+<link href="/content/stylesheets/tailwind.css" media="screen" rel="stylesheet" type="text/css">
 {{else -}}
-<link href="/content/{{.Release}}/stylesheets/tailwind.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/content/stylesheets/tailwind.min.css" media="screen" rel="stylesheet" type="text/css">
 {{end -}}
 
-<link href="/content/{{.Release}}/stylesheets/tailwind_custom.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/content/stylesheets/tailwind_custom.css" media="screen" rel="stylesheet" type="text/css">
 
-<link href="/content/{{.Release}}/stylesheets/fancybox.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/content/stylesheets/fancybox.css" media="screen" rel="stylesheet" type="text/css">
