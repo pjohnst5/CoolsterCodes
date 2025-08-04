@@ -27,7 +27,7 @@
 
     {{block "stylesheets" .}}{{end}}
 
-    {{if eq .SorgEnv "development" -}}
+    {{if eq .CCEnv "development" -}}
     {{- /* Served by Modulir itself (but only if websockets are enabled). */ -}}
     <script src="/websocket.js" type="text/javascript"></script>
     {{end -}}

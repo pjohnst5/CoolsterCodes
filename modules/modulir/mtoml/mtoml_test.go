@@ -6,7 +6,7 @@ import (
 
 	assert "github.com/stretchr/testify/require"
 
-	"github.com/brandur/sorg/modules/modulir/mtesting"
+	"coolstercodes/modules/modulir/mtesting"
 )
 
 func TestSplitFrontmatter(t *testing.T) {

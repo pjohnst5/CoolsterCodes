@@ -98,7 +98,6 @@ Explore removing "Articles" title ✅
 Does linking titles of pages break design? Probably does ✅
 Analytics ✅
 Do we need tmp? ✅
-Figure out linting once and for all
 Make it mine (title, everything)
 Remove all Articles
 Remove mtemplate FuncMap such as ImgSrcAndAlt
@@ -111,6 +110,14 @@ Play around with published time
 Final cosmetic review
 Update readme
 Host it
+    - Make sure to make CC_Env=Prod
+Automation:
+    - Target for creating new article
+        - "make article article_title"
+    - Pre-PR check (like gofmt, and tailwind) ✅
+        - "make check" ✅
+    - Posting new content (uploading new stuff and resetting it)
+        - "make deploy" in ci action
 
 -- Commands --
 curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.15/tailwindcss-macos-arm64
@@ -136,6 +143,8 @@ Make it so single # is header ❌
 Remove weird newline constraint on headers ❌
     - You can, but then the text isn't in <p> Tags
     - Would need to change blackfriday
+Figure out linting once and for all ❌
+    - IDK if it happens again we'll deal with it lols
 
 Random notes:
 I won't be linking the image in the article

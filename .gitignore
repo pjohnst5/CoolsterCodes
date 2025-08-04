@@ -1,9 +1,2 @@
 .DS_Store
-.env
-.envrc
-
 /public/
-/sorg
-/tmp/
-
-*.csv

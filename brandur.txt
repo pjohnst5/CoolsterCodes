@@ -1,20 +1,37 @@
 All that you get with Brandur's
 
-Author's note
-Footnotes [1] (see api-paradigms.md for example)
-Attributions (see page.md for example) (but probably don't use that since you need to input html)
-You can also link your own headers like this: [two-phase load and render](#two-phase)
-
-
 Things you'll always need
 - title
 - hook (description)
 - published_at = 2024-05-28T20:50:47+02:00 (how to get this time stamp? Can it be auto?)
-- if image, put it "/content/..."
-- If putting author's note, put a "---" below it
+- location (as of now)
 
-Rules:
-Put an empty line after ## headers:
+Optional things
+- image
+    -  put it "/content/..."
+- attributions
+    - attributions = "Header image by <strong><a href=\"https://www.flickr.com/photos/67499195@N00/717747166\">Andreas Levers</a></strong>. Licensed under Creative Commons BY-NC 2.0."
+- Author's note
+    *Author's note:* This is my author's note
+
+    ---
+- Footnotes [1]
+    This is a paragraph [1] with a Footnotes
+
+    <last thing in post>
+    [1] Now back to that footnote
+
+- You can also link your own headers:
+    - This is an example of me linking the header [What now](#what-now)
+    - Just make sure it's the same as the desluggified version lols
+
+- Quotes
+    > Why am I so cool?
+    >
+    > Will always be a mystery
+
+Headers:
+Use ## headers, and leave blank line after
 
     ## Hey this is a title
 

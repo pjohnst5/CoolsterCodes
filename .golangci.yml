@@ -42,7 +42,7 @@ linters:
 
     wrapcheck:
       ignore-package-globs:
-        - github.com/brandur/*
+        - coolstercodes/*
 
   exclusions:
     generated: lax
@@ -56,11 +56,10 @@ formatters:
   enable:
     - gci
     - gofmt
-    - gofumpt
     - goimports
   settings:
     gci:
       sections:
         - Standard
         - Default
-        - Prefix(github.com/brandur)
+        - Prefix(coolstercodes)
