@@ -98,7 +98,7 @@ Explore removing "Articles" title ✅
 Does linking titles of pages break design? Probably does ✅
 Analytics ✅
 Do we need tmp? ✅
-Make it mine (title, everything)
+Make it mine (title, everything) ✅
 Remove all Articles
 Remove mtemplate FuncMap such as ImgSrcAndAlt
 Add back in all my articles
