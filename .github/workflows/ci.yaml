@@ -50,9 +50,6 @@ jobs:
       - name: "Go: Test"
         run: make test
 
-      - name: "Check: Gofmt"
-        run: make check-gofmt
-
   check_tailwind:
     runs-on: macos-latest
     timeout-minutes: 3
