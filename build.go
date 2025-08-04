@@ -18,7 +18,6 @@ import (
 	"unicode"
 
 	"github.com/go-playground/validator/v10"
-	_ "github.com/lib/pq"
 	stripmd "github.com/writeas/go-strip-markdown"
 
 	"golang.org/x/xerrors"
