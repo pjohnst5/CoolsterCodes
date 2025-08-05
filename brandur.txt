@@ -9,6 +9,8 @@ Things you'll always need
 Optional things
 - image
     -  put it "/content/..."
+- YT video
+    - https://youtu.be/dC9ICFpRNYs
 - attributions
     - attributions = "Header image by <strong><a href=\"https://www.flickr.com/photos/67499195@N00/717747166\">Andreas Levers</a></strong>. Licensed under Creative Commons BY-NC 2.0."
 - Author's note

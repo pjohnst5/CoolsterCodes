@@ -69,6 +69,7 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	transformHeaders,
 	transformLinkedImages,
 	transformImages,
+	transformYoutubeLinks,
 
 	// The actual Blackfriday rendering
 	func(source string, _ *RenderOptions) (string, error) {
@@ -199,6 +200,27 @@ func transformLinkedImages(source string, _ *RenderOptions) (string, error) {
 		// Grab the caption (only if 4th arg isn't empty)
 		caption := matches[5]
 		return fmt.Sprintf(imgWithLinkCap, href, img, caption)
+	}), nil
+}
+
+const youtubeEmbed = `
+<div class="relative pb-[56.25%%] h-0 overflow-hidden">
+    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/%s">
+    </iframe>
+</div>
+`
+
+var youtubeRE = regexp.MustCompile(`https:\/\/youtu.*\/(.*)`)
+
+func transformYoutubeLinks(source string, _ *RenderOptions) (string, error) {
+	return youtubeRE.ReplaceAllStringFunc(source, func(ytLink string) string {
+		matches := youtubeRE.FindStringSubmatch(ytLink)
+		if len(matches) != 2 {
+			return ytLink
+		}
+
+		videoID := matches[1]
+		return fmt.Sprintf(youtubeEmbed, videoID)
 	}), nil
 }
 
