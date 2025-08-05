@@ -3,7 +3,7 @@ hook = "This is my first blog post"
 location = "Utah"
 published_at = 2025-05-19T14:52:52Z
 title = "Ballin' like a baller"
-tags = ["Georgia Tech", "AI", "Ballin' it up"]
+tags = ["Georgia Tech", "AI", "Ballin' it up", "OMSCS"]
 +++
 
 *Author's note:* This is a longer piece that starts off with exposition into the nature of the N+1 query problem. If you're already well familiar with it, you may want to skip my description of N+1 to a story involving a creative use of [What now](#what-now) to try and plug this hole, or the [two-phase load and render](#two-phase) that I've put in my current company's Go codebase, a pattern we've been using for two years now that's rid of us N+1s, and for which I'd have trouble citing any deficiency (aside from Go's normal trouble with verbosity). It works.
