@@ -99,9 +99,11 @@ Does linking titles of pages break design? Probably does ✅
 Analytics ✅
 Do we need tmp? ✅
 Make it mine (title, everything) ✅
+Add all my articles
+    - Youtube embed automatically
+    - Tags in side bar
 Remove all Articles
 Remove mtemplate FuncMap such as ImgSrcAndAlt
-Add back in all my articles
 Embed Youtube and make tutorial link
 Refine articles
 Play with Shiki code
