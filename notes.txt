@@ -153,3 +153,9 @@ Figure out linting once and for all ❌
 Random notes:
 I won't be linking the image in the article
     If I have an image for the article, it is most likely a YT video
+
+Dev notes:
+We have slugification in 3 places:
+    - mmarkdownnext.go to slugify "##" headers
+    - search.ts - tagToURL to link tags in search results
+    - article.sh - slugify new article idea

@@ -10,6 +10,10 @@ check: tailwind lint test
 tailwind:
 	scripts/tailwind.sh
 
+.PHONY: article
+article:
+	scripts/article.sh
+
 .PHONY: all
 all: clean install test vet lint build
 

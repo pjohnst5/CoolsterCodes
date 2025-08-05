@@ -33,7 +33,6 @@ var FuncMap = template.FuncMap{
 	"CollapseParagraphs":           CollapseParagraphs,
 	"DistanceOfTimeInWords":        DistanceOfTimeInWords,
 	"DistanceOfTimeInWordsFromNow": DistanceOfTimeInWordsFromNow,
-	"DownloadedImage":              DownloadedImage,
 	"Figure":                       Figure,
 	"FigureSingle":                 FigureSingle,
 	"FigureSingleWithClass":        FigureSingleWithClass,
@@ -170,40 +169,6 @@ func (p *DownloadedImageInfo) OriginalExt() string {
 func DownloadedImageContext(ctx context.Context) (context.Context, *DownloadedImageContextContainer) {
 	container := &DownloadedImageContextContainer{}
 	return context.WithValue(ctx, downloadedImageContextKey{}, container), container
-}
-
-// DownloadedImage represents an image that's available remotely, and which will
-// be downloaded and stored as the local target slug. This doesn't happen
-// automatically though -- DownloadedImageContext must be called first to set a
-// context container, and from there any downloaded image slugs and URLs can be
-// extracted after all sources are rendered to be sent to mimage for processing.
-func DownloadedImage(ctx context.Context, slug, imageURL string, width int) string {
-	v := ctx.Value(downloadedImageContextKey{})
-	if v == nil {
-		panic("context key not set; DownloadedImageContext must be called")
-	}
-
-	u, err := url.Parse(imageURL)
-	if err != nil {
-		panic(fmt.Sprintf("error parsing image URL %q: %v", imageURL, err))
-	}
-
-	container := v.(*DownloadedImageContextContainer)
-	container.Images = append(container.Images, &DownloadedImageInfo{slug, u, width, ""})
-
-	// This isn't great because the target extension is defined in the caller
-	// project (sorg) so it'd be better if this was also defined there. Doing so
-	// will need some refactoring though.
-	//
-	// We don't use HEIC because it's not web friendly. At some I made the
-	// decision to convert HEICs to WebPs, so I just left it like this, but this
-	// could just as plausibly by JPG as well.
-	ext := strings.ToLower(filepath.Ext(u.Path))
-	if ext == ".heic" {
-		ext = ".webp"
-	}
-
-	return slug + ext
 }
 
 // Figure wraps a number of images into a figure and assigns them a caption as
