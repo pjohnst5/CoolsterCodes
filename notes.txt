@@ -128,6 +128,7 @@ chmod +x tailwindcss
 ./tailwindcss -i ./web/stylesheets/tailwind_base.css -o ./web/stylesheets/tailwind.css
 ./tailwindcss -i ./web/stylesheets/tailwind_base.css -o ./web/stylesheets/tailwind.min.css --minify
 rm tailwindcss
+./tailwindcss -i ./web/stylesheets/tailwind_base.css -o ./web/stylesheets/tailwind.css --watch
 
 --- Misc ---
 When removing atoms, in build.go there was a video thingy
