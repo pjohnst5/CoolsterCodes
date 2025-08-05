@@ -1,9 +1,9 @@
 +++
+title = "OMSCS: Which Specialization Should You Choose?"
 hook = "Helping you choose the right OMSCS specialization"
 image = "/content/images/omscs-which-specialization-should-you-choose/spec3.jpg"
 location = "Earth"
 published_at = 2024-10-05T20:09:00-06:00
-title = "OMSCS: Which Specialization Should You Choose?"
 tags = ["OMSCS"]
 +++
 
