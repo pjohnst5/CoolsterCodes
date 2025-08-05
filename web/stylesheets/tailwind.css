@@ -1620,6 +1620,14 @@ video {
   position: sticky;
 }
 
+.left-0 {
+  left: 0px;
+}
+
+.top-0 {
+  top: 0px;
+}
+
 .top-5 {
   top: 1.25rem;
 }
@@ -1763,6 +1771,10 @@ video {
 
 .aspect-square {
   aspect-ratio: 1 / 1;
+}
+
+.h-0 {
+  height: 0px;
 }
 
 .h-14 {
@@ -1936,6 +1948,10 @@ video {
   border-width: 1px;
 }
 
+.border-0 {
+  border-width: 0px;
+}
+
 .border-b {
   border-bottom-width: 1px;
 }
@@ -2074,6 +2090,10 @@ video {
 
 .pb-8 {
   padding-bottom: 2rem;
+}
+
+.pb-\[56\.25\%\] {
+  padding-bottom: 56.25%;
 }
 
 .pl-1 {
