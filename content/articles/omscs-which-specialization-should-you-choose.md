@@ -6,13 +6,21 @@ title = "OMSCS: Which Specialization Should You Choose?"
 tags = ["OMSCS"]
 +++
 
-<div class="relative pb-[56.25%] h-0 overflow-hidden">
-    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/0R-XlpVCoM0">
-    </iframe>
-</div>
-
-## Start
-Hey what's up
-
-
 https://youtu.be/0R-XlpVCoM0
+
+## OSMCS: Which Specialization Should You Choose?
+
+There are two schools of thought:
+
+1. Get a degree as fast as you can (in which case, I suggest Interactive Intelligence)
+2. Learn something specialized (ML, Robotics, HCI, etc.)
+
+Either way, there’s a general way you’ll want to go about this, which is, see which classes fulfill multiple specializations your interested in:
+
+![](/content/images/omscs-which-specialization-should-you-choose/IfNotNowVenn.jpg)
+*Classes that overlap*
+
+One thing you’ll want to make sure is, you don’t re-do too many class requirements from the specializations list:
+
+![](/content/images/omscs-which-specialization-should-you-choose/specializations.png)
+*The OMSCS specializations*
