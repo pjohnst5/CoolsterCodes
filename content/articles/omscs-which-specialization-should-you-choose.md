@@ -6,8 +6,8 @@ title = "OMSCS: Which Specialization Should You Choose?"
 tags = ["OMSCS"]
 +++
 
-<div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" src="https://www.youtube.com/embed/0R-XlpVCoM0">
+<div class="relative pb-[56.25%] h-0 overflow-hidden">
+    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/0R-XlpVCoM0">
     </iframe>
 </div>
 
