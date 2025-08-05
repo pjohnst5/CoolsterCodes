@@ -99,10 +99,11 @@ Does linking titles of pages break design? Probably does ✅
 Analytics ✅
 Do we need tmp? ✅
 Make it mine (title, everything) ✅
+Remove all Articles ✅
 Add all my articles
-    - Youtube embed automatically
+    - Youtube embed automatically ✅
     - Tags in side bar
-Remove all Articles
+    - Rename to "Home" and "Tags"
 Remove mtemplate FuncMap such as ImgSrcAndAlt
 Embed Youtube and make tutorial link
 Refine articles
