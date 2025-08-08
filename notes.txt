@@ -107,6 +107,8 @@ Add all my articles
     - Make clicking article link copy it
     - Find home for Tags in single article view
     - Check mobile date
+Make it so that on mobile when you click a nav item it changes background color
+Highlight current page in nav
 Remove mtemplate FuncMap such as ImgSrcAndAlt ✅
 Embed Youtube and make tutorial link
 Play with Shiki code
