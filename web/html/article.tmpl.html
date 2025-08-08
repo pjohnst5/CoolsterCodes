@@ -57,16 +57,19 @@
                     <div class="border-r flex-grow ">
                         <div class="flex h-full items-center">
                             <div class="px-4 py-4">
-                                <div class="font-bold mb-0.5 text-white">Published</div>
-                                <div class="leading-tight">{{FormatTime .Article.PublishedAt "Jan 2, 2006"}}</div>
+                                <div class="font-bold mb-0.5 text-white">Author</div>
+                                <div class="leading-tight text-myblue">
+                                    <a target="_blank" class="hover:border-b-sky-600 hover:text-sky-600 underline"
+                                        href="https://www.linkedin.com/in/paul-alonso-johnston/">Me</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="flex-grow h-full min-w-0">
                         <div class="flex items-center">
                             <div class="px-4 py-4">
-                                <div class="font-bold mb-0.5 text-white">Location</div>
-                                <div class="leading-tight">{{.Article.Location}}</div>
+                                <div class="font-bold mb-0.5 text-white">Published</div>
+                                <div class="leading-tight">{{FormatTime .Article.PublishedAt "Jan 2, 2006"}}</div>
                             </div>
                         </div>
                     </div>
@@ -138,6 +141,12 @@
                 prose-code:prose-pre:px-0 prose-code:prose-pre:py-0
                 prose-code:bg-[#414242] prose-code:px-1 prose-code:py-0.5 prose-code:rounded
                 ">
+                {{ if .Article.YouTube }}
+                <div class="relative pb-[56.25%] h-0 overflow-hidden w-full">
+                    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="{{.Article.YouTube}}">
+                    </iframe>
+                </div>
+                {{ end }}
 
                 {{.Article.Content}}
             </div>

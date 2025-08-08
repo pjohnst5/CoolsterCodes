@@ -58,6 +58,16 @@
                             class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">{{.Title}}</a>
                         <span
                             class="italic ml-0.5 text-gray-300 text-xs">{{FormatTime .PublishedAt "Jan 2, 2006"}}</span>
+                        
+                        {{if gt (len .TagCounts) 0}}
+                        <div class="flex items-center pt-2">
+                            {{range .TagCounts}}
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/{{.URLTag}}">#{{.Tag}}</a>
+                            {{end}}
+                        </div>
+                        {{end}}
+
                     </div>
                     <p class="font-serif leading-7">{{.Hook}}</p>
                 </li>

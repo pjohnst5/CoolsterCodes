@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"html/template"
 	"io"
 	"net/url"
@@ -28,7 +29,6 @@ import (
 	"coolstercodes/modules/modulir/mtoc"
 	"coolstercodes/modules/modulir/mtoml"
 	"coolstercodes/modules/scommon"
-	"coolstercodes/modules/stemplate"
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -91,7 +91,6 @@ var validate = validator.New()
 
 func init() {
 	mmarkdownext.FuncMap = scommon.TextTemplateFuncMap
-	stemplate.LocalLocation = localLocation
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -363,15 +362,15 @@ type Article struct {
 	// Image is an optional image that may be included with an article.
 	Image string `toml:"image,omitempty"`
 
-	// Location is the geographical location where this article was written.
-	Location string `toml:"location,omitempty" validate:"required"`
-
 	// PublishedAt is when the article was published.
 	PublishedAt time.Time `toml:"published_at" validate:"required"`
 
 	// Slug is a unique identifier for the article that also helps determine
 	// where it's addressable by URL.
 	Slug string `toml:"-"`
+
+	// Youtube video if applicable
+	YouTube string `toml:"youtube"`
 
 	// Tag is used to group articles together :)
 	Tags []string `toml:"tags,omitempty"`
@@ -396,18 +395,6 @@ type IndexEntry struct {
 	Title   string   `json:"title"`
 	Summary string   `json:"summary"`
 	Tags    []string `json:"tags"`
-}
-
-// publishingInfo produces a brief spiel about publication which is intended to
-// go into the left sidebar when an article is shown.
-func (a *Article) publishingInfo() map[string]string {
-	info := make(map[string]string)
-
-	info["Article"] = a.Title
-	info["Published"] = a.PublishedAt.In(localLocation).Format("January 2, 2006")
-	info["Location"] = a.Location
-
-	return info
 }
 
 func (a *Article) validate(source string) error {
@@ -539,6 +526,9 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	if err != nil {
 		return true, xerrors.Errorf("error parsing frontmatter %v", err)
 	}
+	if article.YouTube != "" {
+		article.YouTube = getYouTubeEmbedLink(article.YouTube)
+	}
 	stripped := stripmd.Strip(string(data))
 	article.Body = strings.ReplaceAll(stripped, "\n", " ")
 
@@ -590,8 +580,7 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	}
 
 	locals := getLocals(map[string]interface{}{
-		"Article":        article,
-		"PublishingInfo": article.publishingInfo(),
+		"Article": article,
 	})
 
 	err = dependencies.renderGoTemplate(ctx, c, sourceTmpl, path.Join(c.TargetDir, article.Slug), locals)
@@ -834,6 +823,12 @@ func tagToURL(tag string) string {
 	tag = strings.Trim(tag, "-")
 
 	return tag
+}
+
+func getYouTubeEmbedLink(link string) string {
+	// Get everything after the last "/"
+	id := link[strings.LastIndex(link, "/")+1:]
+	return fmt.Sprintf("https://www.youtube.com/embed/%s", id)
 }
 
 func generateIndex(srcPath, dstPath string, articles []*Article, pages map[string]*Page) (bool, error) {

@@ -101,12 +101,14 @@ Do we need tmp? ✅
 Make it mine (title, everything) ✅
 Remove all Articles ✅
 Add all my articles
-    - Youtube embed automatically ✅
-    - Tags in side bar
-    - Rename to "Home" and "Tags"
-Remove mtemplate FuncMap such as ImgSrcAndAlt
+    - Put YouTube link in article and embed ✅
+    - Rename to "Home" and "Tags" ✅
+    - Remove location ✅
+    - Make clicking article link copy it
+    - Find home for Tags in single article view
+    - Check mobile date
+Remove mtemplate FuncMap such as ImgSrcAndAlt ✅
 Embed Youtube and make tutorial link
-Refine articles
 Play with Shiki code
 Explore colors thoroughly (inline and search)
 Play around with published time

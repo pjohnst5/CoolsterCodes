@@ -5,9 +5,8 @@ image = "/content/images/omscs-which-specialization-should-you-choose/spec3.jpg"
 location = "Earth"
 published_at = 2024-10-05T20:09:00-06:00
 tags = ["OMSCS"]
+youtube = "https://youtu.be/0R-XlpVCoM0"
 +++
-
-https://youtu.be/0R-XlpVCoM0
 
 ## OSMCS: Which Specialization Should You Choose?
 
@@ -25,3 +24,10 @@ One thing you’ll want to make sure is, you don’t re-do too many class requir
 
 ![](/content/images/omscs-which-specialization-should-you-choose/specializations.png)
 *The OMSCS specializations*
+
+## Hey this is a nother title
+
+And then some text, maybe a list
+
+- What is in a name
+- Hey
