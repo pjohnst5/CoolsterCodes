@@ -67,7 +67,6 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 
 	transformGoTemplate,
 	transformHeaders,
-	transformLinkedImages,
 	transformImages,
 
 	// The actual Blackfriday rendering
@@ -175,32 +174,6 @@ const imgWithLinkCap = `
   <figcaption>%s</figcaption>
 </figure>
 `
-
-// This is basically the same as above but matches the extra "[" in front, "]" to close, then "()" for the link.
-var linkedPictureRE = regexp.MustCompile(`(\[!\[\]\((.*)\)\]\((.*)\))(\n\*(.*)\*)?`)
-
-func transformLinkedImages(source string, _ *RenderOptions) (string, error) {
-	return linkedPictureRE.ReplaceAllStringFunc(source, func(figure string) string {
-		matches := linkedPictureRE.FindStringSubmatch(figure)
-		if len(matches) != 6 {
-			return figure
-		}
-		// Grab the image (it's the same every time)
-		img := matches[2]
-
-		// href
-		href := matches[3]
-
-		// No caption option
-		if matches[4] == "" {
-			return fmt.Sprintf(imgWithLinkNoCap, href, img)
-		}
-
-		// Grab the caption (only if 4th arg isn't empty)
-		caption := matches[5]
-		return fmt.Sprintf(imgWithLinkCap, href, img, caption)
-	}), nil
-}
 
 // Note that this should come early as we currently rely on a later step to
 // give images a retina srcset.
