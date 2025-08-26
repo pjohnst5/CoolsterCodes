@@ -160,21 +160,6 @@ func transformImages(source string, _ *RenderOptions) (string, error) {
 	}), nil
 }
 
-const imgWithLinkNoCap = `
-<a href="%s">
-  <img src="%s" />
-</a>
-`
-
-const imgWithLinkCap = `
-<figure>
-  <a href="%s">
-    <img src="%s" />
-  </a>
-  <figcaption>%s</figcaption>
-</figure>
-`
-
 // Note that this should come early as we currently rely on a later step to
 // give images a retina srcset.
 func transformGoTemplate(source string, options *RenderOptions) (string, error) {
