@@ -1616,44 +1616,8 @@ video {
   top: 0px;
 }
 
-.top-16 {
-  top: 4rem;
-}
-
 .top-5 {
   top: 1.25rem;
-}
-
-.top-8 {
-  top: 2rem;
-}
-
-.top-4 {
-  top: 1rem;
-}
-
-.-top-8 {
-  top: -2rem;
-}
-
-.-top-32 {
-  top: -8rem;
-}
-
-.top-32 {
-  top: 8rem;
-}
-
-.-top-2 {
-  top: -0.5rem;
-}
-
-.top-2 {
-  top: 0.5rem;
-}
-
-.bottom-4 {
-  bottom: 1rem;
 }
 
 .float-right {
@@ -2256,10 +2220,6 @@ video {
 
 .opacity-0 {
   opacity: 0;
-}
-
-.opacity-60 {
-  opacity: 0.6;
 }
 
 .transition-opacity {
