@@ -67,3 +67,36 @@ function toggle(x) {
   var dropdown = document.getElementById("drop-down");
   dropdown.classList.toggle("hidden");
 }
+
+async function copyText(text) {
+  try {
+    if (navigator.clipboard && document.hasFocus()) {
+      // Modern API
+      await navigator.clipboard.writeText(text);
+      console.log('Copied to clipboard:', text);
+    } else {
+      // Fallback for older browsers or unfocused document
+      fallbackCopyText(text);
+    }
+  } catch (err) {
+    console.warn('Clipboard API failed, using fallback:', err);
+    fallbackCopyText(text);
+  }
+}
+
+function fallbackCopyText(text) {
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.style.position = 'fixed'; // Avoid scrolling
+  textarea.style.opacity = '0';
+  document.body.appendChild(textarea);
+  textarea.focus();
+  textarea.select();
+  try {
+    document.execCommand('copy');
+    console.log('Fallback copy successful:', text);
+  } catch (err) {
+    console.error('Fallback copy failed:', err);
+  }
+  document.body.removeChild(textarea);
+}

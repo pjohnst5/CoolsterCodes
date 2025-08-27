@@ -38,7 +38,7 @@
                 <div class="border-b px-4 pb-4 ">
                     <div class="font-bold mb-0.5 text-white">Article</div>
                     <div class="text-myblue">
-                        <a class="hover:border-b-sky-600 hover:text-sky-600 underline" href="/{{.Article.Slug}}">
+                        <a class="hover:border-b-sky-600 hover:text-sky-600 underline" href="javascript:void(0)" onclick="copyText('{{.AbsoluteURL}}/{{.Article.Slug}}')">
                             {{.Article.Title}} <span class="mx-0.5 opacity-60">🔗</span>
                         </a>
                     </div>
