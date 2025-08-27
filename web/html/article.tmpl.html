@@ -80,7 +80,7 @@
                     </div>
                 </div>
                 <div class="font-bold mb-0.5 text-white px-4 py-4">
-                    <p class="mb-2">YouTube<br> <a class="hover:border-b-sky-600 hover:text-sky-600 font-bold text-myblue underline" href="https://www.youtube.com/@coolstercodes" target="_blank">@coolstercodes</a></p>
+                    <p class="mb-2">YouTube<br> <a class="hover:border-b-sky-600 hover:text-sky-600 font-bold text-myblue underline" href="{{ if .Article.YouTube }}{{.Article.YouTube}}{{ else }}https://www.youtube.com/@coolstercodes{{ end }}" target="_blank">@coolstercodes</a></p>
                 </div>
             </div>
         </div>
@@ -114,9 +114,9 @@
                 prose-code:prose-pre:px-0 prose-code:prose-pre:py-0
                 prose-code:bg-[#414242] prose-code:px-1 prose-code:py-0.5 prose-code:rounded
                 ">
-                {{ if .Article.YouTube }}
+                {{ if .Article.YouTubeEmbed }}
                 <div class="relative pb-[56.25%] h-0 overflow-hidden w-full">
-                    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="{{.Article.YouTube}}">
+                    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="{{.Article.YouTubeEmbed}}">
                     </iframe>
                 </div>
                 {{ end }}

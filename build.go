@@ -369,8 +369,11 @@ type Article struct {
 	// where it's addressable by URL.
 	Slug string `toml:"-"`
 
-	// Youtube video if applicable
+	// Youtube video link if applicable
 	YouTube string `toml:"youtube"`
+
+	// YoutubeEmbed link if applicable
+	YouTubeEmbed string `toml:"-"`
 
 	// Tag is used to group articles together :)
 	Tags []string `toml:"tags,omitempty"`
@@ -527,7 +530,7 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 		return true, xerrors.Errorf("error parsing frontmatter %v", err)
 	}
 	if article.YouTube != "" {
-		article.YouTube = getYouTubeEmbedLink(article.YouTube)
+		article.YouTubeEmbed = getYouTubeEmbedLink(article.YouTube)
 	}
 	stripped := stripmd.Strip(string(data))
 	article.Body = strings.ReplaceAll(stripped, "\n", " ")
