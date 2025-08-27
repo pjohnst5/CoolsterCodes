@@ -73,7 +73,6 @@ async function copyText(text) {
     if (navigator.clipboard && document.hasFocus()) {
       // Modern API
       await navigator.clipboard.writeText(text);
-      console.log('Copied to clipboard:', text);
     } else {
       // Fallback for older browsers or unfocused document
       fallbackCopyText(text);
@@ -104,11 +103,6 @@ function fallbackCopyText(text) {
   document.body.appendChild(textarea);
   textarea.focus();
   textarea.select();
-  try {
-    document.execCommand('copy');
-    console.log('Fallback copy successful:', text);
-  } catch (err) {
-    console.error('Fallback copy failed:', err);
-  }
+  document.execCommand('copy');
   document.body.removeChild(textarea);
 }
