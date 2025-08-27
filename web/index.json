@@ -12,5 +12,13 @@
   "tags": [
    "OMSCS"
   ]
+ },
+ "reference": {
+  "href": "reference",
+  "title": "Reference post",
+  "summary": "Author's note: This is just my first blog post, testing out all the features in one post. Jump to What now?  ---  This is a header  And code two lines after it ey yo whats up    Sometimes people ask me, why am I so cool?     Then I answer, just cuz  What now?  Let's say we have a model Product that can render [1] a public-facing API resource for itself by implementing #render. I'll be talking about API resources a lot because that's what I'm used, but keep in mind that this could also be an object that's used to render an HTML view and all the same concepts apply. class Product \u003c ApplicationRecord   belongsto :owner # needs to lazy load an owner    def render     {       id:          self.id,       name:        self.name,       ownerid:    self.ownerid,       owneremail: self.owner.email,     }   end end  This is a link  This is a relative link  Some puppies  [1] I realize that REST is designed to provide much greater     facilities in the form of discovery and content     negotiation, but in practice these just don't see a lot     of use, which is why I normally say that convention is     REST's strongest attribute. Google.com is where I go code it up",
+  "tags": [
+   "Test"
+  ]
  }
 }
