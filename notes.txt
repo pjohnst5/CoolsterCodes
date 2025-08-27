@@ -109,6 +109,7 @@ Add all my articles
     - Check mobile date ✅
     - Get rid of tablet toc ✅
     - Make YT video linked if present ✅
+    - Move rest of articles
 Make it so that on mobile when you click a nav item it changes background color
 Highlight current page in nav
 Remove mtemplate FuncMap such as ImgSrcAndAlt ✅
