@@ -85,11 +85,13 @@ async function copyText(text) {
   // Show tooltip
   const tooltip = document.getElementById('copyalert');
   tooltip.classList.remove('opacity-0');
+  tooltip.classList.remove('hidden');
   tooltip.classList.add('opacity-100');
 
   // Hide after 2 seconds
   setTimeout(() => {
     tooltip.classList.add('opacity-0');
+    tooltip.classList.add('hidden');
     tooltip.classList.remove('opacity-100');
   }, 2000);
 }
