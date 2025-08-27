@@ -85,8 +85,6 @@
             </div>
         </div>
 
-        <div class="font-bold my-1 text-myblue text-sm md:hidden">{{FormatTime .Article.PublishedAt "Jan 2, 2006"}}</div>
-
         <div class="pb-4 md:border-l md:flex-grow md:min-w-0 md:pl-8 xl:pr-8 ">
             
 
@@ -121,6 +119,9 @@
                 </div>
                 {{ end }}
 
+                <div class="font-bold my-1 text-white text-sm md:hidden">Published {{FormatTime .Article.PublishedAt "January 2, 2006"}}
+                </div>
+                
                 {{.Article.Content}}
             </div>
             {{if gt (len .Article.TagCounts) 0}}
