@@ -100,6 +100,8 @@ Analytics ✅
 Do we need tmp? ✅
 Make it mine (title, everything) ✅
 Remove all Articles ✅
+Remove mtemplate FuncMap such as ImgSrcAndAlt ✅
+Embed Youtube and make tutorial link ✅
 Add all my articles
     - Put YouTube link in article and embed ✅
     - Rename to "Home" and "Tags" ✅
@@ -112,8 +114,6 @@ Add all my articles
     - Move rest of articles
 Make it so that on mobile when you click a nav item it changes background color
 Highlight current page in nav
-Remove mtemplate FuncMap such as ImgSrcAndAlt ✅
-Embed Youtube and make tutorial link
 Play with Shiki code
 Explore colors thoroughly (inline and search)
 Play around with published time
