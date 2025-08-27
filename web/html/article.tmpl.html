@@ -41,6 +41,11 @@
                         <a class="hover:border-b-sky-600 hover:text-sky-600 underline" href="javascript:void(0)" onclick="copyText('{{.AbsoluteURL}}/{{.Article.Slug}}')">
                             {{.Article.Title}} <span class="mx-0.5 opacity-60">🔗</span>
                         </a>
+                        <span
+                            id="copyalert"
+                            class="tooltip absolute left-1/2 -translate-x-1/2 +top-16 bg-gray-600 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300">
+                            Copied!
+                        </span>
                     </div>
                 </div>
 

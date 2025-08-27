@@ -82,6 +82,16 @@ async function copyText(text) {
     console.warn('Clipboard API failed, using fallback:', err);
     fallbackCopyText(text);
   }
+  // Show tooltip
+  const tooltip = document.getElementById('copyalert');
+  tooltip.classList.remove('opacity-0');
+  tooltip.classList.add('opacity-100');
+
+  // Hide after 2 seconds
+  setTimeout(() => {
+    tooltip.classList.add('opacity-0');
+    tooltip.classList.remove('opacity-100');
+  }, 2000);
 }
 
 function fallbackCopyText(text) {
