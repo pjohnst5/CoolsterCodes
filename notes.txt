@@ -104,9 +104,11 @@ Add all my articles
     - Put YouTube link in article and embed ✅
     - Rename to "Home" and "Tags" ✅
     - Remove location ✅
-    - Make clicking article link copy it
-    - Find home for Tags in single article view
-    - Check mobile date
+    - Make clicking article link copy it ✅
+    - Find home for Tags in single article view ✅
+    - Check mobile date ✅
+    - Get rid of tablet toc ✅
+    - Make YT video linked if present ✅
 Make it so that on mobile when you click a nav item it changes background color
 Highlight current page in nav
 Remove mtemplate FuncMap such as ImgSrcAndAlt ✅
