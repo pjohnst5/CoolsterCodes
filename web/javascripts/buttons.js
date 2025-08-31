@@ -68,6 +68,10 @@ function toggle(x) {
   dropdown.classList.toggle("hidden");
 }
 
+function animate_blue(x) {
+  x.classList.toggle("bg-myblue");
+}
+
 async function copyText(text) {
   try {
     if (navigator.clipboard && document.hasFocus()) {

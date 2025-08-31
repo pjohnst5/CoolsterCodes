@@ -1949,6 +1949,11 @@ video {
   background-color: transparent;
 }
 
+.bg-myblue {
+  --tw-bg-opacity: 1;
+  background-color: rgb(93 167 216 / var(--tw-bg-opacity, 1));
+}
+
 .bg-gradient-to-br {
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
 }
