@@ -112,7 +112,7 @@ Add all my articles
     - Get rid of tablet toc ✅
     - Make YT video linked if present ✅
     - Move rest of articles
-Make it so that on mobile when you click a nav item it changes background color
+Make it so that on mobile when you click a nav item it changes background color ✅
 Highlight current page in nav
 Play with Shiki code
 Explore colors thoroughly (inline and search)
