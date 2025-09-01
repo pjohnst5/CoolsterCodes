@@ -20,6 +20,12 @@ html .nav_item:hover:after {
     background: #e2e8f0;
 }
 
+.nav_item.active:after {
+    background: #e2e8f0;  /* or #000 */
+    width: 80%;           /* same as hover effect */
+}
+
+
 /* Shiki */
 html .shiki,
 html .shiki span {

@@ -72,6 +72,16 @@ function animate_blue(x) {
   x.classList.toggle("bg-myblue");
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.nav_item').forEach(item => {
+    const href = item.getAttribute('href');
+    if (href === window.location.pathname) {
+      item.classList.add('active');
+    }
+  });
+});
+
+
 async function copyText(text) {
   try {
     if (navigator.clipboard && document.hasFocus()) {
