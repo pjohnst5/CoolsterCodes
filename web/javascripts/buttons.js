@@ -79,6 +79,14 @@ document.addEventListener('DOMContentLoaded', function () {
       item.classList.add('active');
     }
   });
+
+  document.querySelectorAll('.mobile_nav').forEach(item => {
+    const link = item.querySelector('a');
+    const href = link.getAttribute('href');
+    if (href === window.location.pathname) {
+      item.classList.add('bg-myblue');
+    }
+  });
 });
 
 
