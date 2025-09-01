@@ -113,7 +113,7 @@ Add all my articles
     - Make YT video linked if present ✅
     - Move rest of articles
 Make it so that on mobile when you click a nav item it changes background color ✅
-Highlight current page in nav
+Highlight current page in nav ✅
 Play with Shiki code
 Explore colors thoroughly (inline and search)
 Play around with published time
