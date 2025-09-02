@@ -102,7 +102,7 @@ Make it mine (title, everything) ✅
 Remove all Articles ✅
 Remove mtemplate FuncMap such as ImgSrcAndAlt ✅
 Embed Youtube and make tutorial link ✅
-Remove location
+Remove location ✅
 Templatize article creation
 Add all my articles
     - Put YouTube link in article and embed ✅

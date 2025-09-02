@@ -1,6 +1,5 @@
 +++
 hook = "This is my first blog post"
-location = "Utah"
 published_at = 2023-04-01T14:52:52Z
 title = "Reference post"
 tags = ["Test"]
