@@ -2103,6 +2103,10 @@ video {
   line-height: 1;
 }
 
+.text-\[17px\] {
+  font-size: 17px;
+}
+
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -2453,6 +2457,10 @@ video {
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+.prose-figcaption\:m-0 :is(:where(figcaption):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  margin: 0px;
+}
+
 .prose-strong\:font-sans :is(:where(strong):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
@@ -2570,6 +2578,11 @@ video {
 
 .prose-ol\:prose-li\:prose-li\:list-\[lower-roman\] :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(ol):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   list-style-type: lower-roman;
+}
+
+.prose-img\:my-0 :is(:where(img):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .prose-img\:w-full :is(:where(img):not(:where([class~="not-prose"],[class~="not-prose"] *))) {

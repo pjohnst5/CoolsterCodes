@@ -107,7 +107,7 @@ func transformCodeWithLanguagePrefix(source string, _ *RenderOptions) (string, e
 }
 
 const figureHTMLCaption = `
-<figure>
+<figure class="text-center">
   <a data-fancybox="gallery" href="%s" data-caption="%s">
     <img src="%s" />
   </a>
