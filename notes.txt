@@ -119,6 +119,8 @@ Highlight current page in nav ✅
 Play with Shiki code
 Make code copyable
 Make /files url
+Make external links with little arrow?
+Make font smaller in article body ✅
 Explore colors thoroughly (inline and search)
 Play around with published time
 Final cosmetic review
