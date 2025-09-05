@@ -118,6 +118,7 @@ Make it so that on mobile when you click a nav item it changes background color 
 Highlight current page in nav ✅
 Play with Shiki code
 Make code copyable
+Make /files url
 Explore colors thoroughly (inline and search)
 Play around with published time
 Final cosmetic review
