@@ -103,7 +103,7 @@ Remove all Articles ✅
 Remove mtemplate FuncMap such as ImgSrcAndAlt ✅
 Embed Youtube and make tutorial link ✅
 Remove location ✅
-Templatize article creation
+Templatize article creation ✅
 Add all my articles
     - Put YouTube link in article and embed ✅
     - Rename to "Home" and "Tags" ✅
@@ -117,6 +117,7 @@ Add all my articles
 Make it so that on mobile when you click a nav item it changes background color ✅
 Highlight current page in nav ✅
 Play with Shiki code
+Make code copyable
 Explore colors thoroughly (inline and search)
 Play around with published time
 Final cosmetic review
