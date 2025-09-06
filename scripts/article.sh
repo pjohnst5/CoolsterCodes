@@ -31,6 +31,7 @@ slug=$(slugify "$title")
 # echo $published_at
 
 new_article_path=content/articles/$slug.md
+image_dir_path=/content/images/$slug
 mkdir -p content/images/$slug
 
 cp scripts/new_article.md $new_article_path
@@ -39,6 +40,7 @@ cp scripts/new_article.md $new_article_path
 sed -i '' "s/TITLE/$title/" $new_article_path
 sed -i '' "s/HOOK/$hook/" $new_article_path
 sed -i '' "s/PUBLISHED_AT/$published_at/" $new_article_path
+sed -i '' "s|IMAGE|$image_dir_path|" "$new_article_path"
 if [ ${#tags[@]} -eq 0 ]; then
   tags_str="[]"
 else
