@@ -116,6 +116,7 @@ Add all my articles
     - Move rest of articles
 Make it so that on mobile when you click a nav item it changes background color ✅
 Highlight current page in nav ✅
+Upgrade copy button
 Play with Shiki code
 Make code copyable
 Make /files url
