@@ -135,7 +135,7 @@ Finally, execute notepad `hostfile.txt` and type a funny message:
 
 ## Change the text file permissions
 
-> Update 04/10/2022: Check out our post on HostProcess pods where this step is no longer needed
+> Update 04/10/2022: Check out our post on [HostProcess pods](/windows-hostprocess-pod-host-file-access) where this step is no longer needed
 
 Normal Windows pods can’t run as “privileged” pods, so we have to do this manual permissions step. There is a new type of Windows pod called “HostProcess” pods, which can do this by default without the permissions step, a post soon to follow about it.
 
