@@ -47,7 +47,7 @@
                 {{- range .Articles -}}
                 <li class="filterTag {{range .Tags}}{{.}} {{end}} clear-both mb-9 mt-1.5 text-md text-white">
                     <div class="mb-2">
-                        {{if .Image}}
+                        {{if .HasImage}}
                         <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
                             <a href="/{{.Slug}}">
                                 <img src="{{.Image}}" class="w-full h-full object-cover object-center rounded-lg">

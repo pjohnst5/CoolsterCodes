@@ -359,6 +359,8 @@ type Article struct {
 	// Hook is a leading sentence or two to succinctly introduce the article.
 	Hook template.HTML `toml:"hook"`
 
+	HasImage bool `toml:"-"`
+
 	// Image is an optional image that may be included with an article.
 	Image string `toml:"image,omitempty"`
 
@@ -529,6 +531,8 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	if err != nil {
 		return true, xerrors.Errorf("error parsing frontmatter %v", err)
 	}
+	// Basically, only set HasImage if the image actually exists (shortcut to pre-type in image directoy path on `make article`)
+	article.HasImage = fileExists("." + article.Image)
 	if article.YouTube != "" {
 		article.YouTubeEmbed = getYouTubeEmbedLink(article.YouTube)
 	}
@@ -826,6 +830,18 @@ func tagToURL(tag string) string {
 	tag = strings.Trim(tag, "-")
 
 	return tag
+}
+
+func fileExists(path string) bool {
+	info, err := os.Stat(path)
+	if err == nil {
+		// exists, but make sure it's not a directory
+		if info.IsDir() {
+			return false
+		}
+		return true
+	}
+	return false
 }
 
 func getYouTubeEmbedLink(link string) string {
