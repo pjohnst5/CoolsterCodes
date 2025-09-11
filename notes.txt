@@ -115,8 +115,8 @@ Add all my articles
     - Check mobile date ✅
     - Get rid of tablet toc ✅
     - Make YT video linked if present ✅
-    - Make pages like articles
-    - Make image paths relative
+    - Make pages like articles ✅
+    - Make image paths relative ✅
     - Move rest of articles
 Make it so that on mobile when you click a nav item it changes background color ✅
 Highlight current page in nav ✅
