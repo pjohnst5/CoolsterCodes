@@ -6,6 +6,7 @@ package mmarkdownext
 import (
 	"bytes"
 	"fmt"
+	"path/filepath"
 	"regexp"
 	"strings"
 	"text/template"
@@ -32,6 +33,9 @@ var FuncMap = template.FuncMap{}
 type RenderOptions struct {
 	// TemplateData is data injected while rendering Go templates.
 	TemplateData interface{}
+
+	// ImgDir is the path to the images
+	ImgDir string
 }
 
 // Render a Markdown string to HTML while applying all custom project-specific
@@ -140,7 +144,7 @@ const figureHTMLNoCaption = `
 */
 var figureRE = regexp.MustCompile(`(!\[\]\((.*)\))(\n\*(.*)\*)?`)
 
-func transformImages(source string, _ *RenderOptions) (string, error) {
+func transformImages(source string, opts *RenderOptions) (string, error) {
 	return figureRE.ReplaceAllStringFunc(source, func(figure string) string {
 		matches := figureRE.FindStringSubmatch(figure)
 		if len(matches) != 5 {
@@ -148,6 +152,9 @@ func transformImages(source string, _ *RenderOptions) (string, error) {
 		}
 		// Grab the image (it's the same every time)
 		img := matches[2]
+		if opts.ImgDir != "" {
+			img = filepath.Join(opts.ImgDir, img)
+		}
 
 		// No caption option
 		if matches[3] == "" {

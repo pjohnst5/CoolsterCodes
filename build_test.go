@@ -44,14 +44,6 @@ func TestLexicographicBase32(t *testing.T) {
 	}
 }
 
-func TestPagePathKey(t *testing.T) {
-	require.Equal(t, "about", pagePathKey("./web/html/pages/about.ace"))
-
-	require.Equal(t, "deep/about", pagePathKey("./web/html/pages/deep/about.ace"))
-
-	require.Equal(t, "really/deep/about", pagePathKey("./web/html/pages/really/deep/about.ace"))
-}
-
 func TestSimplifyMarkdownForSummary(t *testing.T) {
 	require.Equal(t, "check that links are removed", simplifyMarkdownForSummary("check that [links](/link) are removed"))
 	require.Equal(t, "double new lines are gone", simplifyMarkdownForSummary("double new\n\nlines are gone"))

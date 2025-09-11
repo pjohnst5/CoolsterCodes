@@ -78,3 +78,8 @@ func ExitWithError(err error) {
 func ExtractSlug(source string) string {
 	return strings.TrimSuffix(filepath.Base(source), filepath.Ext(source))
 }
+
+func GetPathToParentDirectory(source string) string {
+	dir := filepath.Dir(source)
+	return dir
+}

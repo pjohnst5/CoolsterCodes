@@ -117,7 +117,7 @@ Start-Sleep -Seconds 180
 
 After you run `make-aks-engine-cluster.ps1` you will hopefully see successful output:
 
-![](/content/images/windows-hostprocess-pod-host-file-access/hostprocesscluster.png)
+![](./hostprocesscluster.png)
 *Creating a Windows HostProcess pod capable Kubernetes cluster using AKS-Engine*
 
 ## Make a HostProcess pod
@@ -190,7 +190,7 @@ docker build -t windowspodfilemount:v1.0.0 -f Dockerfile .
 
 Upon execution of `docker build`, you should see output such as:
 
-![](/content/images/windows-hostprocess-pod-host-file-access/dockerbuild.png)
+![](./dockerbuild.png)
 *Building docker image of an go-lang app which reads and writes to specified file*
 
 ## RDP and create a host file
@@ -199,13 +199,13 @@ We will RDP to the Windows VM and create a file called `hostfile.txt` that simpl
 
 We do this simply to demonstrate how the HostProcess pod will be able to read and write to this file.
 
-![](/content/images/windows-hostprocess-pod-host-file-access/rdp.png)
+![](./rdp.png)
 *Download RDP file to Windows VM*
 
-![](/content/images/windows-hostprocess-pod-host-file-access/password.png)
+![](./password.png)
 *Use credentials from hostprocess-cluster.json to connect*
 
-![](/content/images/windows-hostprocess-pod-host-file-access/hosfile.png)
+![](./hosfile.png)
 *Create a text file*
 
 ## Deploy the HostProcess Pod
@@ -252,14 +252,14 @@ spec:
 
 Upon deployment using the above `kubectl` command, and inspecting the logs we’ll see:
 
-![](/content/images/windows-hostprocess-pod-host-file-access/logs.png)
+![](./logs.png)
 *HostProcess pod logs*
 
 ## Verify
 
 RDP back onto the host VM and see if the file changed:
 
-![](/content/images/windows-hostprocess-pod-host-file-access/hello.png)
+![](./hello.png)
 *The hostfile.txt file changed!*
 
 You did it! You launched a Windows HostProcess pod that lets you access host files without a manual permissions step, congratulations.

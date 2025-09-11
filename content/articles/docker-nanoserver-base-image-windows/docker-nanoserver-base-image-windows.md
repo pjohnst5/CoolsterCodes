@@ -1,7 +1,7 @@
 +++
 title = "Docker Nanoserver base image Windows"
 hook = "Building a docker image using nanoserver base"
-image = "/content/images/docker-nanoserver-base-image-windows/docker.png"
+image = "docker.png"
 published_at = 2022-01-09T05:30:00-07:00
 tags = ["Windows", "Development", "Docker"]
 youtube = "https://youtu.be/1ad5dq0Wi-c"
@@ -118,12 +118,12 @@ Remember: you have to enable the Hyper-v feature for Windows 10 Enterprise, Pro 
 
 You must also ensure that Docker Desktop is using Windows Containers:
 
-![](/content/images/docker-nanoserver-base-image-windows/windows-containers.png)
+![](./windows-containers.png)
 *Ensure Docker Desktop is using Windows Containers*
 
 If you need quick access to a Windows 10 Enterprise machine, you can create one in [Azure Portal](https://azure.microsoft.com/en-us/features/azure-portal/)
 
-![](/content/images/docker-nanoserver-base-image-windows/create-windows-10-VM.jpg)
+![](./create-windows-10-VM.jpg)
 *Creating a Windows Enterprise machine in Azure Portal if need be*
 
 ## Run image
@@ -132,7 +132,7 @@ If you need quick access to a Windows 10 Enterprise machine, you can create one 
 docker run dotnetexample:v1.0.0
 ```
 
-![](/content/images/docker-nanoserver-base-image-windows/docker-run.png)
+![](./docker-run.png)
 *Run the docker image!*
 
 You can also interactively run powershell commands in the container with:
@@ -141,7 +141,7 @@ You can also interactively run powershell commands in the container with:
 docker run -it --entrypoint pwsh dotnetexample:v1.0.0
 ```
 
-![](/content/images/docker-nanoserver-base-image-windows/exec.png)
+![](./exec.png)
 *Interactively run powershell commands in container image*
 
 You've done it!

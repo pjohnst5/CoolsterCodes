@@ -2,21 +2,21 @@
 
 {{- define "og" -}}
 {{- template "web/html/helpers/_og_common.tmpl.html" . -}}
-<meta property="og:title" content="About{{.TitleSuffix}}">
-<meta property="og:description" content="About Coolster Codes">
-<meta name="description" content="About Coolster Codes">
-<meta property="og:url" content="{{.AbsoluteURL}}/about">
-<link rel="canonical" href="{{.AbsoluteURL}}/about">
+<meta property="og:title" content="{{.Page.Title}}">
+<meta property="og:description" content="{{.Page.Description}}">
+<meta name="description" content="{{.Page.Description}}">
+<meta property="og:url" content="{{.AbsoluteURL}}/{{.Page.Slug}}">
+<link rel="canonical" href="{{.AbsoluteURL}}/{{.Page.Slug}}">
 {{- end -}}
 
-{{- define "title" -}}About{{.TitleSuffix}}{{- end -}}
+{{- define "title" -}}{{.Page.Title}}{{.TitleSuffix}}{{- end -}}
 
 {{- define "article_content" -}}
 
 <div class="pt-4 pb-4 px-4">
     <h1 class="prose prose-lg font-normal font-serif text-center text-8xl tracking-tighter
                 prose-a:text-white prose-a:no-underline">
-        About
+        {{.Page.Title}}
     </h1>
 </div>
 
@@ -36,7 +36,7 @@
     prose-ul:font-serif
     px-4
     ">
-    {{IncludeMarkdown .Ctx "content/pages/about.md"}}
+    {{.Page.Content}}
 </div>
 
 {{- end -}}

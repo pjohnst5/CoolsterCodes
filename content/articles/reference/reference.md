@@ -45,7 +45,7 @@ This is a [link](https://google.com)
 
 This is a [relative link](/about)
 
-![](/content/images/reference/pexels-photo-1108099.jpeg)
+![](./pexels-photo-1108099.jpeg)
 *Some puppies*
 
 

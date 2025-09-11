@@ -104,6 +104,8 @@ Remove mtemplate FuncMap such as ImgSrcAndAlt ✅
 Embed Youtube and make tutorial link ✅
 Remove location ✅
 Templatize article creation ✅
+Make font smaller in article body ✅
+Center text under images ✅
 Add all my articles
     - Put YouTube link in article and embed ✅
     - Rename to "Home" and "Tags" ✅
@@ -113,16 +115,20 @@ Add all my articles
     - Check mobile date ✅
     - Get rid of tablet toc ✅
     - Make YT video linked if present ✅
+    - Make pages like articles
+    - Make image paths relative
     - Move rest of articles
 Make it so that on mobile when you click a nav item it changes background color ✅
 Highlight current page in nav ✅
 Upgrade copy button
+Remove IncludeMarkdown func
+Maybe make InsertOrReplaceArticle more generic
 Play with Shiki code
 Make code copyable
 Make /files url
 Make external links with little arrow?
-Make font smaller in article body ✅
-Center text under images ✅
+Make it so when you hover over published time, it shows full timestamp 😎
+Make images show up next to articles in search 😱
 Explore colors thoroughly (inline and search)
 Play around with published time
 Final cosmetic review

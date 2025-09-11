@@ -109,7 +109,7 @@ Start-Sleep -Seconds 180
 
 After execution you will hopefully see:
 
-![](/content/images/windows-pod-host-file-mount-on-kubernetes/winclusterdeploy.png)
+![](./winclusterdeploy.png)
 *Deploying a windows Kubernetes cluster using AKS Engine*
 
 ## RDP and create host text file
@@ -120,17 +120,17 @@ This is just to demonstrate how the pod will be able to read and write files fro
 
 To do this navigate to your Kubernetes agent node in Azure Portal:
 
-![](/content/images/windows-pod-host-file-mount-on-kubernetes/rdp1.png)
+![](./rdp1.png)
 
-![](/content/images/windows-pod-host-file-mount-on-kubernetes/rdp2.png)
+![](./rdp2.png)
 
-![](/content/images/windows-pod-host-file-mount-on-kubernetes/rdp3.png)
+![](./rdp3.png)
 
 And RDP using the credentials found in `win-cluster.json`
 
 Finally, execute notepad `hostfile.txt` and type a funny message:
 
-![](/content/images/windows-pod-host-file-mount-on-kubernetes/hostfilewindpod.png)
+![](./hostfilewindpod.png)
 *Writing a host file which we will read and write to from inside the pod*
 
 ## Change the text file permissions
@@ -149,7 +149,7 @@ This command will give the directory `C:\users\azureuser` and all files/director
 
 `(OI)` and `(CI)` means that all future files in this directory will have these permissions, and `(F)` means full access. `/t` means recursively. The `BUILTIN\Users` is the group the pod will be a part of. Read more [here](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/icacls) if you’re interested.
 
-![](/content/images/windows-pod-host-file-mount-on-kubernetes/perms.png)
+![](./perms.png)
 *Applying proper permissions to directory, so pod can read/write to it*
 
 ## Containerize an app which reads and writes to a file
@@ -220,7 +220,7 @@ func main() {
 }
 ```
 
-![](/content/images/windows-pod-host-file-mount-on-kubernetes/hostfilemount.png)
+![](./hostfilemount.png)
 *Containerizing a simple app which reads and writes to a specified file*
 
 ## Deploy the pod with host file mount
@@ -256,7 +256,7 @@ spec:
 
 After deployment you should see something like:
 
-![](/content/images/windows-pod-host-file-mount-on-kubernetes/podcreated.png)
+![](./podcreated.png)
 *Deploying the windows pod with file mount*
 
 And finally view the logs with:
@@ -265,14 +265,14 @@ And finally view the logs with:
 .\kubectl --kubeconfig .\_output\win-cluster\kubeconfig\kubeconfig.westus2.json logs winpodfilemount
 ```
 
-![](/content/images/windows-pod-host-file-mount-on-kubernetes/logs.png)
+![](./logs.png)
 *View pod logs, you see “Hello from the host” because the pod was able to read the hostfile.txt contents*
 
 ## Verify
 
 Now you can RDP back onto the Windows agent node and see the updated `hostfile.txt`:
 
-![](/content/images/windows-pod-host-file-mount-on-kubernetes/hellofromcontainer.png)
+![](./hellofromcontainer.png)
 *You wrote to a host file from within the pod! Great job*
 
 ## Alternative
@@ -312,10 +312,10 @@ The “read” portion of the code will error out (because there’s nothing in 
 .\kubectl --kubeconfig .\_output\win-cluster\kubeconfig\kubeconfig.westus2.json logs winpodfilemount
 ```
 
-![](/content/images/windows-pod-host-file-mount-on-kubernetes/alternativelogs.png)
+![](./alternativelogs.png)
 *Alternative approach where you just need to write to the host, and it doesn’t need to be an existing directory/file*
 
 And finally you can verify by RDP’ing to the Windows agent node, that there is a new directory created by the pod:
 
-![](/content/images/windows-pod-host-file-mount-on-kubernetes/alternativeend.png)
+![](./alternativeend.png)
 *Writing a new file to the host, in a new directory*
