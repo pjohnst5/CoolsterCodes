@@ -4,7 +4,7 @@ published_at = 2021-04-01T14:52:52Z
 title = "Reference post"
 tags = ["Test"]
 attributions = "Header image by <strong><a href=\"https://www.flickr.com/photos/67499195@N00/717747166\">Andreas Levers</a></strong>. Licensed under Creative Commons BY-NC 2.0."
-image = "/content/images/reference/pexels-photo-1108099.jpeg"
+image = "./pexels-photo-1108099.jpeg"
 +++
 
 *Author's note:* This is just my first blog post, testing out all the features in one post. Jump to [What now?](#what-now)

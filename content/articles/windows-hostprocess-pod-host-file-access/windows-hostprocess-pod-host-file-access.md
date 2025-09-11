@@ -1,7 +1,7 @@
 +++
 title = "Windows HostProcess Pod Host File Access"
 hook = "Mountins a Windows filesystem from within a pod"
-image = "/content/images/windows-hostprocess-pod-host-file-access"
+image = ""
 published_at = 2022-04-11T20:53:30-06:00
 tags = ["Windows", "Kubernetes"]
 youtube = "https://youtu.be/R16AAmyuvOE"

@@ -1,7 +1,7 @@
 +++
 title = "Install Wireshark via Windows Command Line"
 hook = "Install wireshark via cmd"
-image = "Wireshark_icon.svg.png"
+image = "./Wireshark_icon.svg.png"
 published_at = 2022-01-12T05:52:59-06:00
 tags = ["Windows", "Networking"]
 youtube = "https://youtu.be/4JtLr-jGkmk"
