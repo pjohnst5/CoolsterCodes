@@ -18,21 +18,9 @@ slugify() {
 }
 slug=$(slugify "$title")
 
-# title="Hey what's up"
-# slug="hey-whats-up"
-# hook="Writing stuff"
-# tags=("apple" "banana" "cherry")
-# echo $title
-# echo $slug
-# echo $hook
-# echo "${tags[0]}"  # Tag1
-# echo "${tags[1]}"  # Tag2
-# echo "${tags[2]}"  # Tag3
-# echo $published_at
-
-new_article_path=content/articles/$slug.md
-image_dir_path=/content/images/$slug
-mkdir -p content/images/$slug
+new_article_dir=content/articles/$slug
+new_article_path=$new_article_dir/$slug.md
+mkdir -p $new_article_dir
 
 cp scripts/new_article.md $new_article_path
 
@@ -40,7 +28,6 @@ cp scripts/new_article.md $new_article_path
 sed -i '' "s/TITLE/$title/" $new_article_path
 sed -i '' "s/HOOK/$hook/" $new_article_path
 sed -i '' "s/PUBLISHED_AT/$published_at/" $new_article_path
-sed -i '' "s|IMAGE|$image_dir_path|" "$new_article_path"
 if [ ${#tags[@]} -eq 0 ]; then
   tags_str="[]"
 else
