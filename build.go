@@ -563,6 +563,9 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 		return true, xerrors.Errorf("error parsing frontmatter %v", err)
 	}
 
+	// Sort tags really quick
+	sort.Strings(article.Tags)
+
 	article.Slug = scommon.ExtractSlug(source)
 	relative_dir := scommon.GetPathToParentDirectory(source)
 
