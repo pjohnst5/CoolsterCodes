@@ -120,6 +120,8 @@ Add all my articles
     - Move rest of articles
 Make it so that on mobile when you click a nav item it changes background color ✅
 Highlight current page in nav ✅
+Make it so big titles don't overflow on mobile?
+Show tags in tag page list
 Upgrade copy button
 Remove IncludeMarkdown func
 Maybe make InsertOrReplaceArticle more generic
