@@ -106,6 +106,9 @@ Remove location ✅
 Templatize article creation ✅
 Make font smaller in article body ✅
 Center text under images ✅
+Show tags in tag page list ✅
+Highlight current page in nav ✅
+Make it so that on mobile when you click a nav item it changes background color ✅
 Add all my articles
     - Put YouTube link in article and embed ✅
     - Rename to "Home" and "Tags" ✅
@@ -118,10 +121,7 @@ Add all my articles
     - Make pages like articles ✅
     - Make image paths relative ✅
     - Move rest of articles
-Make it so that on mobile when you click a nav item it changes background color ✅
-Highlight current page in nav ✅
 Make it so big titles don't overflow on mobile?
-Show tags in tag page list ✅
 Upgrade copy button
 Remove IncludeMarkdown func
 Maybe make InsertOrReplaceArticle more generic
