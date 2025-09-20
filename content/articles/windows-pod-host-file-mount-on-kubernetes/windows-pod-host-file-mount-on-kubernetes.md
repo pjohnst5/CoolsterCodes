@@ -11,7 +11,7 @@ Here we will mount the host file system into a windows pod on Kubernetes.
 
 Alternatively, if you’re not trying to read/edit an existing host file, you can mount a brand new volume to the pod, which we will also show here.
 
-> [Source code](https://github.com/coolstercodes/Posts/tree/main/posts/windows-pod-file-mount)
+> [Source code](https://github.com/coolstercodes/Tutorials/tree/main/tutorials/windows-pod-file-mount)
 
 ## Create Kubernetes cluster
 

@@ -11,7 +11,7 @@ Here we will make a windows Docker image which uses [Windows Nano Server](https:
 
 This is great for deploying your [.Net](https://dotnet.microsoft.com/en-us/download/dotnet) apps on Docker
 
-> [Source code](https://github.com/coolstercodes/Posts/tree/main/posts/docker-nanoserver-base-image-windows)
+> [Source code](https://github.com/coolstercodes/Tutorials/tree/main/tutorials/docker-nanoserver-base-image-windows)
 
 
 ## Prereqs

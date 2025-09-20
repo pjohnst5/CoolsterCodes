@@ -11,7 +11,7 @@ Here we will mount a file from the underlying host, into a Windows [HostProcess]
 
 HostProcess pods are great for privileged access to host files [without manual permissions changes](https://coolstercodes.com/windows-pod-host-file-mount-on-kubernetes/#change-the-text-file-permissions).
 
-> [Source code](https://github.com/coolstercodes/Posts/tree/main/posts/windows-hostprocess-pod-host-file-access)
+> [Source code](https://github.com/coolstercodes/Tutorials/tree/main/tutorials/windows-hostprocess-pod-host-file-access)
 
 ## Create a HostProcess capable Kubernetes cluster
 
