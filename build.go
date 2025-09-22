@@ -581,6 +581,7 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	stripped := stripmd.Strip(string(data))
 	article.Body = strings.ReplaceAll(stripped, "\n", " ")
 	article.Body = strings.ReplaceAll(article.Body, "’", "'")
+	article.Body = strings.ReplaceAll(article.Body, "–", "-")
 
 	err = article.validate(source)
 	if err != nil {
