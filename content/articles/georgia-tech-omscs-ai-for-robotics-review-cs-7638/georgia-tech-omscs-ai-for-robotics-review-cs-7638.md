@@ -2,7 +2,7 @@
 title = "Georgia Tech OMSCS AI for Robotics Review | CS 7638"
 hook = "Georgia Tech's Robotics class!"
 image = "AIforR2.jpg"
-published_at = 2022-21-22T22:31:41-06:00
+published_at = 2022-12-22T22:31:41-06:00
 tags = ["Robotics", "OMSCS", "Science"]
 youtube = "https://youtu.be/2dzL429aiT0"
 +++
