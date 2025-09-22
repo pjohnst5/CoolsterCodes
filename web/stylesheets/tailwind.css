@@ -2517,6 +2517,11 @@ video {
   font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
+.prose-li\:my-0 :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 .prose-li\:my-2 :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
