@@ -42,7 +42,9 @@ In this course, you’ll learn how basic computer networks, work (ha ha 😅)
     - This class offers a 3% extra-credit project
     - I did not do it, but it’s a lot of extra credit if needed!
 
-## Course Virtual Machine Setup
+## Project overview
+
+### Course Virtual Machine Setup
 
 This was not a graded-project, but was necessary for 2/4 projects.
 
@@ -63,7 +65,7 @@ For non-M1 chips, setup was free and easy through VMWare
 ![](./image-4-2048x1437.png)
 *Parrallels Desktop on Mac with an M1 chip*
 
-## Spanning Tree project
+### Spanning Tree project
 
 The idea behind spanning tree, is to find the minimum spanning tree between a graph of nodes:
 
@@ -80,7 +82,7 @@ Took about 6-7 hours to complete, including lecture reading/video watching.
 
 You get an unlimited amount of submissions through Gradescope.
 
-## Distance Vector Routing project
+### Distance Vector Routing project
 
 Basically the same as Spanning Tree, but now the edges have weights, but now you want to find the least-costly paths between nodes that spans the graph:
 
@@ -93,7 +95,7 @@ Most of the logic is in the videos/reading
 
 Total time spent was probably like 6-7 hours, including reading/video watching.
 
-## SDN Firewall project
+### SDN Firewall project
 
 This was implementing a firewall through code that you write
 
@@ -108,7 +110,7 @@ Total time spent on this one was more like 10 hours including reading and video 
 
 Are only allowed <u>one submission</u> on Canvas, but you can test your code locally through a given code package in the repo.
 
-## BGP Measurements
+### BGP Measurements
 
 This one is filtering out packets of interest from `rib` files that have historical data of BGP records being passed around the internet.
 
