@@ -2,7 +2,7 @@
 read -p "Title? " title
 read -p "Hook? " hook
 read -p "Tags? " -a tags
-published_at=$(date -v+24H +"%Y-%m-%dT%H:%M:%S%z" | sed -E -n 's/([0-9]{2})([0-9]{2})$/\1:\2/p')
+published_at=$(date -v+8H +"%Y-%m-%dT%H:%M:%S%z" | sed -E -n 's/([0-9]{2})([0-9]{2})$/\1:\2/p')
 
 slugify() {
   local input="$1"
