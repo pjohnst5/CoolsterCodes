@@ -33,7 +33,9 @@ Artificial Intelligence (AI) is basically getting computers to do human tasks.
     - Above the class median is an A
     - 1 standard deviation below the median is a B
 
-## Tri-directional search
+## Project overview
+
+### Tri-directional search
 
 In this project, you’re given a map of cities, and start by implementing some search algorithms to get from point A to point B
 
@@ -94,13 +96,13 @@ This one’s a doozey, my advice is to not use a greedy approach
 Use a switch-approach, meaning expand start path, then expand the end path, alternating back and forth until they overlap  
 And “overlapped” means when your “popped” or AKA “explored” maps meet, not simply when your “frontier” maps meet  
 
-## Isolation
+### Isolation
 
 I did not do this project since I was so time-crunched for work 😋
 
 - The github repo for it (public to GT students) is here: [omscs6601/assignment_2](https://github.gatech.edu/omscs6601/assignment_2)
 
-## Bayes Nets
+### Bayes Nets
 
 Probability based, implementing the Baye’s rule
 
@@ -129,14 +131,14 @@ You also do a soccer game matchup problem, which is just bigger tables. Then you
 
 You only get 5 submissions on this project so choose carefully.
 
-## Decision Trees
+### Decision Trees
 
 This is your typical decision tree, basically like this picture:
 
 ![](./DT.png)
 *Super simple decision tree*
 
-## Gaussian Mixture Models
+### Gaussian Mixture Models
 
 Prepare yourself
 
@@ -194,7 +196,7 @@ The last part of this project is just convergence criteria.
 
 Bayes Information Criterion penalizes models that have a lot of parameters, and you implement it in your algoritm: [Bayesian_information_criterion](https://en.wikipedia.org/wiki/Bayesian_information_criterion)
 
-## Hidden Markov Models
+### Hidden Markov Models
 
 In this assignment, you will make state machines (models) that compute the probability of one hand movement type from one stage to the next, to predict a word that someone is signing in sign language.
 
