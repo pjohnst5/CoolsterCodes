@@ -24,6 +24,15 @@
    "Windows"
   ]
  },
+ "install-certs-on-nanoserver": {
+  "href": "install-certs-on-nanoserver",
+  "title": "Install Certs on Nanoserver",
+  "summary": "  Source code  What is Nanoserver?  Nanoserver is a light-weight Windows Docker container, great for containerizing Windows applications.  What is a Certificate?  A certificate is a way for a server to verify that the client making the request is legitimate.  Here we will be using a .pfx certificate generated through Azure Key Vault  The Code  The code for this can be found in the below NanoserverInstallCert.ps1 file and Dockerfile.  NanoserverInstallCert.ps1 param(     [Parameter(Mandatory,Position=0)]     [string]$PfxFile,     [securestring]$PfxPass,     [string]$StoreName = 'LocalMachine',     [string]$StoreLoc = 'My' )  Write-Host (\"Installing cert file {0} to Cert:\\{1}\\{2}\" -f $PfxFile, $StoreName, $StoreLoc) $pfx = New-Object Security.Cryptography.X509Certificates.X509Certificate2($PfxFile, $PfxPass) $store = New-Object Security.Cryptography.X509Certificates.X509Store($StoreLoc,$StoreName) $store.Open(\"MaxAllowed\") $store.Add($pfx) $store.Close()  Dockerfile Use Nanoserver as a base image (with powershell installed) FROM mcr.microsoft.com/powershell:lts-nanoserver-1809  Run as admin USER ContainerAdministrator  Make default shell powershell SHELL [\"pwsh\", \"-command\"]  Make a directory to store copy of cert WORKDIR C:\\\\certs  Copy cert to container COPY certsonnanoserverkv-dummycert-20220730.pfx .  Copy cert installation script to container COPY NanoserverInstallCert.ps1 .  Run cert installation script in container RUN .\\NanoserverInstallCert.ps1 -PfxFile .\\\\certsonnanoserverkv-dummycert-20220730.pfx -StoreName \"\"\"LocalMachine\"\"\" -StoreLoc \"\"\"My\"\"\"  Verify that the cert was installed on the container RUN Get-Childitem Cert:\\LocalMachine\\My  Remove copy of cert from container RUN Remove-Item certsonnanoserverkv-dummycert-20220730.pfx  Running the code  On a Windows machine with Docker installed, run the following to actually do the demo:  docker build -t cert:test -f .\\Dockerfile .  Successful installation of a dummy cert on Nanoserver",
+  "tags": [
+   "Docker",
+   "Windows"
+  ]
+ },
  "install-wireshark-via-windows-command-line": {
   "href": "install-wireshark-via-windows-command-line",
   "title": "Install Wireshark via Windows Command Line",
