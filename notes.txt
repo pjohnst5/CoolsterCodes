@@ -133,6 +133,7 @@ Make it so when you hover over published time, it shows full timestamp 😎
 Make images show up next to articles in search 😱
 Explore colors thoroughly (inline and search)
 Play around with published time
+Search fix? (why doesn't "wife" show up?)
 Final cosmetic review
     - Keep headers not underlined and same size?
     - Make underlines bold? (see CN review)
