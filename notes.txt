@@ -137,6 +137,7 @@ Final cosmetic review
     - Keep headers not underlined and same size?
     - Make underlines bold? (see CN review)
     - Fix sizing of headers? (nested)
+    - Picture size?
 Update readme
 Host it
     - Make sure to make CC_Env=Prod
