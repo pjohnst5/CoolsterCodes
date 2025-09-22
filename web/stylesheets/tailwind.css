@@ -2283,20 +2283,6 @@ video {
   outline-offset: 2px;
 }
 
-.prose-h1\:text-base :is(:where(h1):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  font-size: 1rem;
-  line-height: 1.5rem;
-}
-
-.prose-h1\:font-bold :is(:where(h1):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  font-weight: 700;
-}
-
-.prose-h1\:text-myblue :is(:where(h1):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  --tw-text-opacity: 1;
-  color: rgb(93 167 216 / var(--tw-text-opacity, 1));
-}
-
 .prose-h1\:text-white :is(:where(h1):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
@@ -2408,10 +2394,6 @@ video {
   color: rgb(2 132 199 / var(--tw-text-opacity, 1));
 }
 
-.prose-a\:prose-h1\:underline :is(:where(h1):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  text-decoration-line: underline;
-}
-
 .prose-a\:prose-h2\:border-b-0 :is(:where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   border-bottom-width: 0px;
 }
@@ -2420,8 +2402,8 @@ video {
   font-weight: 700;
 }
 
-.prose-a\:prose-h2\:underline :is(:where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  text-decoration-line: underline;
+.prose-a\:prose-h2\:no-underline :is(:where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  text-decoration-line: none;
 }
 
 .prose-a\:prose-h3\:border-b-0 :is(:where(h3):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
@@ -2432,8 +2414,8 @@ video {
   font-weight: 700;
 }
 
-.prose-a\:prose-h3\:underline :is(:where(h3):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  text-decoration-line: underline;
+.prose-a\:prose-h3\:no-underline :is(:where(h3):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  text-decoration-line: none;
 }
 
 .prose-a\:prose-h4\:border-b-0 :is(:where(h4):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
@@ -2444,8 +2426,8 @@ video {
   font-weight: 700;
 }
 
-.prose-a\:prose-h4\:underline :is(:where(h4):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  text-decoration-line: underline;
+.prose-a\:prose-h4\:no-underline :is(:where(h4):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  text-decoration-line: none;
 }
 
 .prose-blockquote\:text-slate-300 :is(:where(blockquote):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
