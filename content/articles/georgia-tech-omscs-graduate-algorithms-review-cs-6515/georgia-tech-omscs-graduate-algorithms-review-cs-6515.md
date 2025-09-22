@@ -22,7 +22,7 @@ Algorithms is the study of getting computers to do things fast and efficiently ð
 This is a self-assessment in how well you know:
 
 - [Big-O Notation](https://en.wikipedia.org/wiki/Big_O_notation)
-- [Graph theory](https://en.wikipedia.org/wiki/Graph_theory).)
+- [Graph theory](https://en.wikipedia.org/wiki/Graph_theory)
 - [Boolean logic](https://en.wikipedia.org/wiki/Boolean_algebra)
 
 ## Homework 1: Dynamic Programming
