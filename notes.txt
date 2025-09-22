@@ -134,6 +134,7 @@ Make images show up next to articles in search 😱
 Explore colors thoroughly (inline and search)
 Play around with published time
 Final cosmetic review
+    - Keep headers not underlined and same size?
 Update readme
 Host it
     - Make sure to make CC_Env=Prod
