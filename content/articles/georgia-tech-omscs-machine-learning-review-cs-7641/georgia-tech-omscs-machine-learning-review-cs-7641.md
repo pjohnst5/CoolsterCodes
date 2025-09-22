@@ -40,7 +40,9 @@ Machine learning is getting computers to make decisions without being explicitly
         - 45/100 was my average score for writeups
         - <u>Code is not king</u> in this class, writeups are 👑
 
-## Supervised Learning
+## Project overview
+
+### Supervised Learning
 
 This assignment in particular has you **use any code package/library** to “implement” the following:
 
@@ -84,7 +86,7 @@ You do not need to code everything from scratch (it even says so in the project 
 
 *****PRO TIP***** Use a [fancy paper template](https://www.ieee.org/conferences/publishing/templates) to write your paper, it will get you more points
 
-## Randomized Optimization
+### Randomized Optimization
 
 This project is very time consuming, because you run a total of 16 experiments
 
@@ -113,7 +115,7 @@ They are explained very well in the videos, and MIMIC is Dr. Isabell’s graduat
     - Discuss hyper-parameter tuning
     - Discuss gradient descent performance
 
-## Unsupervised Learning 
+### Unsupervised Learning 
 
 Insanely <u>tedious</u>, you do 20 experiments so ❗️start early❗️
 
@@ -141,7 +143,7 @@ I have no advice, other than start early
 
 I got 23/100 so good luck!!
 
-## Markov Decision Processes
+### Markov Decision Processes
 
 This one is the most fun in my opinion
 
