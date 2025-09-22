@@ -136,6 +136,7 @@ Play around with published time
 Final cosmetic review
     - Keep headers not underlined and same size?
     - Make underlines bold? (see CN review)
+    - Fix sizing of headers? (nested)
 Update readme
 Host it
     - Make sure to make CC_Env=Prod
