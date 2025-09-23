@@ -2311,11 +2311,6 @@ video {
   margin-bottom: 0.25rem;
 }
 
-.prose-h3\:text-sm :is(:where(h3):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
 .prose-h3\:text-lg :is(:where(h3):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -2328,11 +2323,6 @@ video {
 
 .prose-h4\:mb-1 :is(:where(h4):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   margin-bottom: 0.25rem;
-}
-
-.prose-h4\:text-sm :is(:where(h4):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
 }
 
 .prose-h4\:text-base :is(:where(h4):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
