@@ -109,6 +109,7 @@ Center text under images ✅
 Show tags in tag page list ✅
 Highlight current page in nav ✅
 Make it so that on mobile when you click a nav item it changes background color ✅
+Keep headers not underlined and bigger ✅
 Add all my articles
     - Put YouTube link in article and embed ✅
     - Rename to "Home" and "Tags" ✅
@@ -135,7 +136,7 @@ Explore colors thoroughly (inline and search)
 Play around with published time
 Search fix? (why doesn't "wife" show up?)
 Final cosmetic review
-    - Keep headers not underlined and same size?
+    - Make links underlined in general? (debate between headers vs links)
     - Make underlines bold? (see CN review)
     - Fix sizing of headers? (nested)
     - Picture size?
