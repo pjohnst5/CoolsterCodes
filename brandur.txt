@@ -7,7 +7,7 @@ Things you'll always need
 
 Optional things
 - image
-    -  put it "/content/..."
+    -  put it "./ImageName.png"
 - YT video
     - https://youtu.be/dC9ICFpRNYs
 - attributions
