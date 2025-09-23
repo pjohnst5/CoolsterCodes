@@ -71,6 +71,7 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 
 	transformGoTemplate,
 	transformHeaders,
+	transformPDFs,
 	transformImages,
 
 	// The actual Blackfriday rendering
@@ -108,6 +109,42 @@ var codeRE = regexp.MustCompile(`<code class="(\w+)">`)
 
 func transformCodeWithLanguagePrefix(source string, _ *RenderOptions) (string, error) {
 	return codeRE.ReplaceAllString(source, `<code class="language-$1">`), nil
+}
+
+const pdfHTMLCaption = `
+<iframe width="100%%" height="800" src="%s">
+</iframe>
+<figcaption class="text-center">%s</figcaption>
+`
+
+const pdfHTMLNoCaption = `
+<iframe width="100%%" height="800" src="%s">
+</iframe>
+`
+
+var pdfRE = regexp.MustCompile(`(!\[\]\((.*).pdf\))(\n\*(.*)\*)?`)
+
+func transformPDFs(source string, opts *RenderOptions) (string, error) {
+	return pdfRE.ReplaceAllStringFunc(source, func(figure string) string {
+		matches := figureRE.FindStringSubmatch(figure)
+		if len(matches) != 5 {
+			return figure
+		}
+		// Grab the pdf (it's the same every time)
+		pdf := matches[2]
+		if opts.ImgDir != "" {
+			pdf = filepath.Join(opts.ImgDir, pdf)
+		}
+
+		// No caption option
+		if matches[3] == "" {
+			return fmt.Sprintf(pdfHTMLNoCaption, pdf)
+		}
+
+		// Grab the caption (only if 3rd arg isn't empty)
+		caption := matches[4]
+		return fmt.Sprintf(pdfHTMLCaption, pdf, caption)
+	}), nil
 }
 
 const figureHTMLCaption = `

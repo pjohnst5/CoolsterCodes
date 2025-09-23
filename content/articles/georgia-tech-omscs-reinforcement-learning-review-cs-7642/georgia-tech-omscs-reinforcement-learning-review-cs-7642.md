@@ -60,8 +60,8 @@ Then you have to write your own paper (use the [IEEE Paper format](https://www.i
 Temporal Difference is basically looking at patterns up until a certain point, and capturing the “roll” of the data.  
 If you were trying to predict the weather, you would take into account, how the weather has changed over many days, instead of just looking at yesterday’s weather.
 
-<iframe width="100%" height="800" src="/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/Sutton-1988.pdf"></iframe>
-<figcaption class="text-center">The paper this project is based on</figcaption>
+![](./Sutton-1988.pdf)
+*The paper this project is based on*
 
 ## Homework 3: SARSA
 
