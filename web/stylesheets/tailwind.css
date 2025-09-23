@@ -2292,9 +2292,9 @@ video {
   margin-bottom: 0.25rem;
 }
 
-.prose-h2\:text-base :is(:where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  font-size: 1rem;
-  line-height: 1.5rem;
+.prose-h2\:text-xl :is(:where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .prose-h2\:text-myblue :is(:where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
@@ -2316,6 +2316,11 @@ video {
   line-height: 1.25rem;
 }
 
+.prose-h3\:text-lg :is(:where(h3):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
 .prose-h3\:text-myblue :is(:where(h3):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   --tw-text-opacity: 1;
   color: rgb(93 167 216 / var(--tw-text-opacity, 1));
@@ -2328,6 +2333,11 @@ video {
 .prose-h4\:text-sm :is(:where(h4):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+
+.prose-h4\:text-base :is(:where(h4):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 
 .prose-h4\:text-myblue :is(:where(h4):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
