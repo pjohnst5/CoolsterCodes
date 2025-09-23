@@ -73,6 +73,7 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	transformHeaders,
 	transformPDFs,
 	transformImages,
+	transformFiles,
 
 	// The actual Blackfriday rendering
 	func(source string, _ *RenderOptions) (string, error) {
@@ -201,6 +202,30 @@ func transformImages(source string, opts *RenderOptions) (string, error) {
 		// Grab the caption (only if 3rd arg isn't empty)
 		caption := matches[4]
 		return fmt.Sprintf(figureHTMLCaption, img, caption, img, caption)
+	}), nil
+}
+
+const fileHTML = `
+<a href="%s" download">%s</a>
+`
+
+var fileRE = regexp.MustCompile(`\[(.*)\]\(\./(.*)\)`)
+
+func transformFiles(source string, opts *RenderOptions) (string, error) {
+	return fileRE.ReplaceAllStringFunc(source, func(figure string) string {
+		matches := fileRE.FindStringSubmatch(figure)
+		if len(matches) != 3 {
+			return figure
+		}
+		// Grab the file (it's the same every time)
+		file := matches[2]
+		if opts.ImgDir != "" {
+			file = filepath.Join(opts.ImgDir, file)
+		}
+		// Grab the display name
+		display := matches[1]
+
+		return fmt.Sprintf(fileHTML, file, display)
 	}), nil
 }
 
