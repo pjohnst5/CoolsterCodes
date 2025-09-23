@@ -1,7 +1,7 @@
 +++
 title = "Windows Pod Host File Mount on Kubernetes"
 hook = "Mounting a Windows filesystem in Kubernetes"
-image = ""
+image = "./Windows.png"
 published_at = 2022-01-23T17:46:17-06:00
 tags = ["Kubernetes", "Windows"]
 youtube = "https://youtu.be/qMh5THrZmaA"
