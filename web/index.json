@@ -3,7 +3,8 @@
   "href": "about",
   "title": "About",
   "summary": "  Hello I'm Paul, a Senior Software Engineer at Microsoft who likes to make YouTube videos by night.",
-  "tags": null
+  "tags": null,
+  "img": ""
  },
  "configmap-file-mount-on-a-windows-kubernetes-pod": {
   "href": "configmap-file-mount-on-a-windows-kubernetes-pod",
@@ -12,7 +13,8 @@
   "tags": [
    "Kubernetes",
    "Windows"
-  ]
+  ],
+  "img": "/content/images/configmap-file-mount-on-a-windows-kubernetes-pod/terminal.jpg"
  },
  "docker-nanoserver-base-image-windows": {
   "href": "docker-nanoserver-base-image-windows",
@@ -22,7 +24,8 @@
    "Development",
    "Docker",
    "Windows"
-  ]
+  ],
+  "img": "/content/images/docker-nanoserver-base-image-windows/docker.png"
  },
  "georgia-tech-omscs-ai-ethics-and-society-review-cs-6603": {
   "href": "georgia-tech-omscs-ai-ethics-and-society-review-cs-6603",
@@ -32,7 +35,8 @@
    "AI",
    "Ethics",
    "OMSCS"
-  ]
+  ],
+  "img": "/content/images/georgia-tech-omscs-ai-ethics-and-society-review-cs-6603/Ethics5.jpg"
  },
  "georgia-tech-omscs-ai-for-robotics-review-cs-7638": {
   "href": "georgia-tech-omscs-ai-for-robotics-review-cs-7638",
@@ -42,7 +46,8 @@
    "OMSCS",
    "Robotics",
    "Science"
-  ]
+  ],
+  "img": "/content/images/georgia-tech-omscs-ai-for-robotics-review-cs-7638/AIforR2.jpg"
  },
  "georgia-tech-omscs-artificial-intelligence-review-cs-6601": {
   "href": "georgia-tech-omscs-artificial-intelligence-review-cs-6601",
@@ -51,7 +56,8 @@
   "tags": [
    "AI",
    "OMSCS"
-  ]
+  ],
+  "img": "/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/AI2.jpg"
  },
  "georgia-tech-omscs-computer-networks-review-cs-6250": {
   "href": "georgia-tech-omscs-computer-networks-review-cs-6250",
@@ -60,7 +66,8 @@
   "tags": [
    "Networking",
    "OMSCS"
-  ]
+  ],
+  "img": "/content/images/georgia-tech-omscs-computer-networks-review-cs-6250/Networks3.jpg"
  },
  "georgia-tech-omscs-graduate-algorithms-review-cs-6515": {
   "href": "georgia-tech-omscs-graduate-algorithms-review-cs-6515",
@@ -69,7 +76,8 @@
   "tags": [
    "Algorithms",
    "OMSCS"
-  ]
+  ],
+  "img": "/content/images/georgia-tech-omscs-graduate-algorithms-review-cs-6515/Thumbnail_Grad_Algos-scaled.jpeg"
  },
  "georgia-tech-omscs-human-computer-interaction-review-cs-6750": {
   "href": "georgia-tech-omscs-human-computer-interaction-review-cs-6750",
@@ -78,7 +86,8 @@
   "tags": [
    "HCI",
    "OMSCS"
-  ]
+  ],
+  "img": "/content/images/georgia-tech-omscs-human-computer-interaction-review-cs-6750/c-me-p0.jpg"
  },
  "georgia-tech-omscs-knowledge-based-ai-cs-7637": {
   "href": "georgia-tech-omscs-knowledge-based-ai-cs-7637",
@@ -87,7 +96,8 @@
   "tags": [
    "AI",
    "OMSCS"
-  ]
+  ],
+  "img": "/content/images/georgia-tech-omscs-knowledge-based-ai-cs-7637/KBAI4.jpg"
  },
  "georgia-tech-omscs-machine-learning-for-trading-review-cs-7646": {
   "href": "georgia-tech-omscs-machine-learning-for-trading-review-cs-7646",
@@ -96,7 +106,8 @@
   "tags": [
    "Machine Learning",
    "OMSCS"
-  ]
+  ],
+  "img": "/content/images/georgia-tech-omscs-machine-learning-for-trading-review-cs-7646/thumbnail.jpeg"
  },
  "georgia-tech-omscs-machine-learning-review-cs-7641": {
   "href": "georgia-tech-omscs-machine-learning-review-cs-7641",
@@ -105,7 +116,8 @@
   "tags": [
    "Machine Learning",
    "OMSCS"
-  ]
+  ],
+  "img": "/content/images/georgia-tech-omscs-machine-learning-review-cs-7641/ML2.jpg"
  },
  "georgia-tech-omscs-reinforcement-learning-review-cs-7642": {
   "href": "georgia-tech-omscs-reinforcement-learning-review-cs-7642",
@@ -114,7 +126,8 @@
   "tags": [
    "Machine Learning",
    "OMSCS"
-  ]
+  ],
+  "img": "/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/Thumby-scaled.jpeg"
  },
  "georgia-tech-omscs-software-development-process-review-cs-6300": {
   "href": "georgia-tech-omscs-software-development-process-review-cs-6300",
@@ -123,7 +136,8 @@
   "tags": [
    "Development",
    "OMSCS"
-  ]
+  ],
+  "img": "/content/images/georgia-tech-omscs-software-development-process-review-cs-6300/Thumby_SDP-scaled.jpeg"
  },
  "install-certs-on-nanoserver": {
   "href": "install-certs-on-nanoserver",
@@ -132,7 +146,8 @@
   "tags": [
    "Docker",
    "Windows"
-  ]
+  ],
+  "img": ""
  },
  "install-wireshark-via-windows-command-line": {
   "href": "install-wireshark-via-windows-command-line",
@@ -141,7 +156,8 @@
   "tags": [
    "Networking",
    "Windows"
-  ]
+  ],
+  "img": "/content/images/install-wireshark-via-windows-command-line/Wireshark_icon.svg.png"
  },
  "installing-modules-for-powershell-core-pwsh": {
   "href": "installing-modules-for-powershell-core-pwsh",
@@ -151,7 +167,8 @@
    "Docker",
    "Powershell",
    "Windows"
-  ]
+  ],
+  "img": ""
  },
  "is-georgia-techs-online-masters-worth-it": {
   "href": "is-georgia-techs-online-masters-worth-it",
@@ -159,7 +176,8 @@
   "summary": "Cost  The whole thing only costs $,8000!   I'm talking books, tuition, fees, everything for the whole program   Compare that to UC Berkeley's Master's in Data Science where 1 semester costs $16,000  Here's a spreadsheet with the details compared  Different master's programs compared  Flexibility  Are allowed to skip 2 semesters sequentially, without re-applying to the program   That being said, you should be careful not to go that point too often   It will just take you longer to finish the program (theoretically, you could take 10 years to finish if you wanted to haha)  The average time it takes students to finish the program is actually about 10 semesters (so a little over 3 years)  Email from Dr. Joyner describing new price points of the OMSCS  Here's a course planner I made about how to schedule my classes while I was in the program  My own course planner  Online  This program is completely online, no need to go in ever to Atlanta, not even for graduation if you don't want to haha   Your degree also will not have \"online\" on it at all  Diploma-in it up  Work-life-school 😋 balance  I did this whole program while working full time   It is definintely hard, but do-able!   Try it out, it is honestly ok if you just want to take 1 class at a time, to just make sure you are keeping up with other areas of your life    Content  Well you're here reading this blog so you must know by now I've made a ton of articles and videos about the OMSCS  I personally thought it was a great program, there was a lot to learn, and really smart people doing it alongside you  I felt like I was able to learn a lot just by being around my classmates (virtually of course), and it honestly felt like just as good as my undergrad, if not better, because I had to learn this all myself (no help from classmates in person etc., though you can always ask questions on EdStem boards and what not, it just forces you to read, reason and think clearly more haha)  Specializations  There are now 6 specializations at the OMSCS:  The 6 specializations for the OMSCS  Thesis?  You actually totally can do a thesis (see my video with Dr. Joyner) in the program   You just need to get started on that right as you start the program, and pair up with a professor who is willing to do it with you  Worth it?  This is such an amazing program!!! And it's so affordable!!! And so flexible!!!   You should definitely consider doing the program.",
   "tags": [
    "OMSCS"
-  ]
+  ],
+  "img": "/content/images/is-georgia-techs-online-masters-worth-it/Presentation1.jpg"
  },
  "omscs-which-specialization-should-you-choose": {
   "href": "omscs-which-specialization-should-you-choose",
@@ -167,7 +185,8 @@
   "summary": "OSMCS: Which Specialization Should You Choose?  There are two schools of thought:  Get a degree as fast as you can (in which case, I suggest Interactive Intelligence) Learn something specialized (ML, Robotics, HCI, etc.)  Either way, there's a general way you'll want to go about this, which is, see which classes fulfill multiple specializations your interested in:  Classes that overlap  One thing you'll want to make sure is, you don't re-do too many class requirements from the specializations list:  The OMSCS specializations  Hey this is a nother title  And then some text, maybe a list  What is in a name Hey",
   "tags": [
    "OMSCS"
-  ]
+  ],
+  "img": "/content/images/omscs-which-specialization-should-you-choose/spec3.jpg"
  },
  "reference": {
   "href": "reference",
@@ -175,7 +194,8 @@
   "summary": "Author's note: This is just my first blog post, testing out all the features in one post. Jump to What now?  ---  This is a header  And code two lines after it ey yo whats up    Sometimes people ask me, why am I so cool?     Then I answer, just cuz  What now?  Let's say we have a model Product that can render [1] a public-facing API resource for itself by implementing #render. I'll be talking about API resources a lot because that's what I'm used, but keep in mind that this could also be an object that's used to render an HTML view and all the same concepts apply. class Product \u003c ApplicationRecord   belongsto :owner # needs to lazy load an owner    def render     {       id:          self.id,       name:        self.name,       ownerid:    self.ownerid,       owneremail: self.owner.email,     }   end end  This is a link  This is a relative link  Some puppies  [1] I realize that REST is designed to provide much greater     facilities in the form of discovery and content     negotiation, but in practice these just don't see a lot     of use, which is why I normally say that convention is     REST's strongest attribute. Google.com is where I go code it up",
   "tags": [
    "Test"
-  ]
+  ],
+  "img": "/content/images/reference/pexels-photo-1108099.jpeg"
  },
  "windows-hostprocess-pod-failed-to-get-application-name": {
   "href": "windows-hostprocess-pod-failed-to-get-application-name",
@@ -184,7 +204,8 @@
   "tags": [
    "Kubernetes",
    "Windows"
-  ]
+  ],
+  "img": ""
  },
  "windows-hostprocess-pod-host-file-access": {
   "href": "windows-hostprocess-pod-host-file-access",
@@ -193,7 +214,8 @@
   "tags": [
    "Kubernetes",
    "Windows"
-  ]
+  ],
+  "img": ""
  },
  "windows-pod-host-file-mount-on-kubernetes": {
   "href": "windows-pod-host-file-mount-on-kubernetes",
@@ -202,6 +224,7 @@
   "tags": [
    "Kubernetes",
    "Windows"
-  ]
+  ],
+  "img": "/content/images/windows-pod-host-file-mount-on-kubernetes/Windows.png"
  }
 }

@@ -385,8 +385,6 @@ type Article struct {
 	// Hook is a leading sentence or two to succinctly introduce the article.
 	Hook template.HTML `toml:"hook"`
 
-	HasImage bool `toml:"-"`
-
 	// Image is an optional image that may be included with an article.
 	Image string `toml:"image,omitempty"`
 
@@ -449,6 +447,7 @@ type IndexEntry struct {
 	Title   string   `json:"title"`
 	Summary string   `json:"summary"`
 	Tags    []string `json:"tags"`
+	Img     string   `json:"img"`
 }
 
 func (a *Article) validate(source string) error {
@@ -569,12 +568,11 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	article.Slug = scommon.ExtractSlug(source)
 	relative_dir := scommon.GetPathToParentDirectory(source)
 
-	// Basically, only set HasImage if the image actually exists (shortcut to pre-type in image directoy path on `make article`)
-	article.HasImage = fileExists(filepath.Join(relative_dir, article.Image))
-
 	// Define an ImgDir (for later processing) and set Image as full path
 	article.ImgDir = "/" + strings.Replace(relative_dir, "articles", "images", 1) + "/"
-	article.Image = filepath.Join(article.ImgDir, article.Image)
+	if article.Image != "" {
+		article.Image = filepath.Join(article.ImgDir, article.Image)
+	}
 	if article.YouTube != "" {
 		article.YouTubeEmbed = getYouTubeEmbedLink(article.YouTube)
 	}
@@ -851,18 +849,6 @@ func tagToURL(tag string) string {
 	return tag
 }
 
-func fileExists(path string) bool {
-	info, err := os.Stat(path)
-	if err == nil {
-		// exists, but make sure it's not a directory
-		if info.IsDir() {
-			return false
-		}
-		return true
-	}
-	return false
-}
-
 func getYouTubeEmbedLink(link string) string {
 	// Get everything after the last "/"
 	id := link[strings.LastIndex(link, "/")+1:]
@@ -877,6 +863,7 @@ func generateIndex(srcPath, dstPath string, articles []*Article, pages []*Page) 
 			Title:   a.Title,
 			Summary: a.Body,
 			Tags:    a.Tags,
+			Img:     a.Image,
 		}
 	}
 
