@@ -133,7 +133,6 @@ Make code copyable
 Make external links with little arrow?
 Make it so when you hover over published time, it shows full timestamp 😎
 Explore colors thoroughly (inline and search)
-Play around with published time
 Search fix? (why doesn't "wife" show up?)
 Final cosmetic review
     - Make links underlined in general? (debate between headers vs links)
