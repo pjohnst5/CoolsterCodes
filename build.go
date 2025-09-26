@@ -98,6 +98,7 @@ func init() {
 //
 //////////////////////////////////////////////////////////////////////////////
 
+//nolint:gocyclo,maintidx // complexity is acceptable for this case
 func build(c *modulir.Context) []error {
 	//
 	// PHASE 0: Setup
