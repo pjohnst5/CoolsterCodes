@@ -224,7 +224,7 @@
    "Kubernetes",
    "Windows"
   ],
-  "img": ""
+  "img": "/content/images/windows-hostprocess-pod-host-file-access/folder.jpg"
  },
  "windows-pod-host-file-mount-on-kubernetes": {
   "href": "windows-pod-host-file-mount-on-kubernetes",
