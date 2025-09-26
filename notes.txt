@@ -139,7 +139,7 @@ Final cosmetic review
     - Make links underlined in general? (debate between headers vs links)
     - Make underlines bold? (see CN review)
     - Fix sizing of headers? (nested)
-    - Picture size?
+    - Picture size? (like smaller picture size for smaller pictures)
 Host it
     - Make sure to make CC_Env=Prod
 Automation:
