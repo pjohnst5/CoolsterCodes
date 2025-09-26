@@ -1,0 +1,30 @@
+https://gist.github.com/oanhnn/80a89405ab9023894df7
+
+ssh-keygen -t ed25519 -C "coolstercodes@gmail.com"
+
+/Users/pauljohnston/.ssh/cc_rsa
+
+~/.ssh/config
+# Default github account: pjohnst5
+Host github.com
+   HostName github.com
+   IdentityFile ~/.ssh/id_rsa
+   IdentitiesOnly yes
+
+# Other github account: coolstercodes
+Host github-cc
+   HostName github.com
+   IdentityFile ~/.ssh/cc_rsa
+   IdentitiesOnly yes
+
+ssh-add ~/.ssh/cc_rsa
+
+<added public key to github account>
+
+ssh-keyscan github.com >> ~/.ssh/known_hosts
+ssh -T git@github.com
+ssh -T git@github-cc
+
+git remote add origin git@github-cc:coolstercodes/MyBlog.git
+git config user.email "coolstercodes@gmail.com"
+git config user.name "Coolster Codes"
