@@ -112,6 +112,7 @@ Make it so that on mobile when you click a nav item it changes background color 
 Keep headers not underlined and bigger ✅
 Make /files url ✅
 Make images show up next to articles in search 😱 ✅
+Upgrade copy button ✅
 Add all my articles
     - Put YouTube link in article and embed ✅
     - Rename to "Home" and "Tags" ✅
@@ -125,7 +126,6 @@ Add all my articles
     - Make image paths relative ✅
     - Move rest of articles
 Make it so big titles don't overflow on mobile?
-Upgrade copy button
 Remove IncludeMarkdown func
 Maybe make InsertOrReplaceArticle more generic
 Play with Shiki code
