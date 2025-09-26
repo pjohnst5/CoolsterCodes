@@ -113,6 +113,7 @@ Keep headers not underlined and bigger ✅
 Make /files url ✅
 Make images show up next to articles in search 😱 ✅
 Upgrade copy button ✅
+Update readme
 Add all my articles
     - Put YouTube link in article and embed ✅
     - Rename to "Home" and "Tags" ✅
@@ -139,7 +140,6 @@ Final cosmetic review
     - Make underlines bold? (see CN review)
     - Fix sizing of headers? (nested)
     - Picture size?
-Update readme
 Host it
     - Make sure to make CC_Env=Prod
 Automation:
