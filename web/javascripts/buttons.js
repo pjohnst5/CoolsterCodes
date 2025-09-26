@@ -67,3 +67,64 @@ function toggle(x) {
   var dropdown = document.getElementById("drop-down");
   dropdown.classList.toggle("hidden");
 }
+
+function animate_blue(x) {
+  x.classList.toggle("bg-myblue");
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.nav_item').forEach(item => {
+    const href = item.getAttribute('href');
+    if (href === window.location.pathname) {
+      item.classList.add('active');
+    }
+  });
+
+  document.querySelectorAll('.mobile_nav').forEach(item => {
+    const link = item.querySelector('a');
+    const href = link.getAttribute('href');
+    if (href === window.location.pathname) {
+      item.classList.add('bg-myblue');
+    }
+  });
+});
+
+
+async function copyText(text) {
+  try {
+    if (navigator.clipboard && document.hasFocus()) {
+      // Modern API
+      await navigator.clipboard.writeText(text);
+    } else {
+      // Fallback for older browsers or unfocused document
+      fallbackCopyText(text);
+    }
+  } catch (err) {
+    console.warn('Clipboard API failed, using fallback:', err);
+    fallbackCopyText(text);
+  }
+  // Show tooltip
+  const tooltip = document.getElementById('copyalert');
+  tooltip.classList.remove('opacity-0');
+  tooltip.classList.remove('hidden');
+  tooltip.classList.add('opacity-100');
+
+  // Hide after 2 seconds
+  setTimeout(() => {
+    tooltip.classList.add('opacity-0');
+    tooltip.classList.add('hidden');
+    tooltip.classList.remove('opacity-100');
+  }, 2000);
+}
+
+function fallbackCopyText(text) {
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.style.position = 'fixed'; // Avoid scrolling
+  textarea.style.opacity = '0';
+  document.body.appendChild(textarea);
+  textarea.focus();
+  textarea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textarea);
+}

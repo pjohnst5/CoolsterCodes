@@ -13,10 +13,10 @@
 
 {{- define "article_content" -}}
 
-<div class="pt-2 pb-4 px-4">
+<div class="pt-4 pb-4 px-4">
     <h1 class="prose prose-lg font-normal font-serif text-center text-8xl tracking-tighter
                 prose-a:text-white prose-a:no-underline">
-        Articles
+        Welcome
     </h1>
 </div>
 <div class="mb-12 px-4">
@@ -42,10 +42,11 @@
 
 <div class="container max-w-[800px] mx-auto mt-8 px-8">
     <div class="md:flex">
-        <div class="pb-8 md:flex-grow md:min-w-0 md:pl-6 md:pr-6">
-            <ul class="clear-both mb-9">
+        <div class="pb-8 md:flex-grow md:min-w-0 md:pl-6 md:pr-6 prose-code:prose-pre:px-0 prose-code:prose-pre:py-0
+                prose-code:bg-[#414242] prose-code:px-1 prose-code:py-0.5 prose-code:rounded">
+            <ul class="clear-both mb-7">
                 {{- range .Articles -}}
-                <li class="filterTag {{range .Tags}}{{.}} {{end}} clear-both mb-9 mt-1.5 text-md text-white">
+                <li class="filterTag {{range .Tags}}{{.}} {{end}} clear-both mb-7 mt-1.5 text-md text-white">
                     <div class="mb-2">
                         {{if .Image}}
                         <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
@@ -58,6 +59,16 @@
                             class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">{{.Title}}</a>
                         <span
                             class="italic ml-0.5 text-gray-300 text-xs">{{FormatTime .PublishedAt "Jan 2, 2006"}}</span>
+                        
+                        {{if gt (len .TagCounts) 0}}
+                        <div class="flex items-center pt-2">
+                            {{range .TagCounts}}
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/{{.URLTag}}">#{{.Tag}}</a>
+                            {{end}}
+                        </div>
+                        {{end}}
+
                     </div>
                     <p class="font-serif leading-7">{{.Hook}}</p>
                 </li>

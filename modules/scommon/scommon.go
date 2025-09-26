@@ -8,7 +8,6 @@ import (
 
 	"coolstercodes/modules/modulir/mtemplate"
 	"coolstercodes/modules/modulir/mtemplatemd"
-	"coolstercodes/modules/stemplate"
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -50,7 +49,6 @@ const (
 // HTMLTemplateFuncMap is a function map of template helpers which is the
 // combined version of the maps from ftemplate, mtemplate, and mtemplatemd.
 var HTMLTemplateFuncMap = mtemplate.CombineFuncMaps(
-	stemplate.FuncMap,
 	mtemplate.FuncMap,
 	mtemplatemd.FuncMap,
 )
@@ -79,4 +77,9 @@ func ExitWithError(err error) {
 // stripped of file extension.
 func ExtractSlug(source string) string {
 	return strings.TrimSuffix(filepath.Base(source), filepath.Ext(source))
+}
+
+func GetPathToParentDirectory(source string) string {
+	dir := filepath.Dir(source)
+	return dir
 }

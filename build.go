@@ -15,7 +15,6 @@ import (
 	"strings"
 	"sync"
 	"time"
-	"unicode"
 
 	"github.com/go-playground/validator/v10"
 	stripmd "github.com/writeas/go-strip-markdown"
@@ -28,7 +27,6 @@ import (
 	"coolstercodes/modules/modulir/mtoc"
 	"coolstercodes/modules/modulir/mtoml"
 	"coolstercodes/modules/scommon"
-	"coolstercodes/modules/stemplate"
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -43,7 +41,7 @@ import (
 
 const (
 	NTags = 10
-	MTags = 10
+	MTags = 2
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -62,12 +60,9 @@ const (
 // sources if those source files actually changed.
 var (
 	articles     []*Article
+	pages        []*Page
 	dependencies = NewDependencyRegistry()
-	pages        = make(map[string]*Page)
 )
-
-// Time zone to show articles publishing times in.
-var localLocation = mustLocation("America/Denver")
 
 // List of common build dependencies, a change in any of which will trigger a
 // rebuild on everything: partial html, JavaScripts, and stylesheets. Even
@@ -91,7 +86,6 @@ var validate = validator.New()
 
 func init() {
 	mmarkdownext.FuncMap = scommon.TextTemplateFuncMap
-	stemplate.LocalLocation = localLocation
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -104,6 +98,7 @@ func init() {
 //
 //////////////////////////////////////////////////////////////////////////////
 
+//nolint:gocyclo,maintidx // complexity is acceptable for this case
 func build(c *modulir.Context) []error {
 	//
 	// PHASE 0: Setup
@@ -205,7 +200,6 @@ func build(c *modulir.Context) []error {
 
 	{
 		commonSymlinks := [][2]string{
-			{c.SourceDir + "/content/images", c.TargetDir + "/content/images"},
 			{c.SourceDir + "/web/javascripts", contentDir + "/javascripts"},
 			{c.SourceDir + "/web/stylesheets", contentDir + "/stylesheets"},
 		}
@@ -218,6 +212,14 @@ func build(c *modulir.Context) []error {
 	}
 
 	//
+	// Recursively copy over article pictures into /content/images
+	//
+
+	if err := mfile.CopyDirectoryImages(c, c.SourceDir+"/content/articles", c.TargetDir+"/content/images"); err != nil {
+		return []error{err}
+	}
+
+	//
 	// Articles
 	//
 
@@ -225,7 +227,11 @@ func build(c *modulir.Context) []error {
 	var articlesMu sync.Mutex
 
 	{
-		sources, err := mfile.ReadDirCached(c, c.SourceDir+"/content/articles", nil)
+		opts := mfile.ReadDirOptions{
+			RecurseDirs: true,
+			OnlyGetMDs:  true,
+		}
+		sources, err := mfile.ReadDirCached(c, c.SourceDir+"/content/articles", &opts)
 		if err != nil {
 			return []error{err}
 		}
@@ -242,13 +248,26 @@ func build(c *modulir.Context) []error {
 	}
 
 	//
+	// Recursively copy over pages pictures into /content/images
+	//
+
+	if err := mfile.CopyDirectoryImages(c, c.SourceDir+"/content/pages", c.TargetDir+"/content/images"); err != nil {
+		return []error{err}
+	}
+
+	//
 	// Pages (render each view)
 	//
 
+	var pagesChanged bool
 	var pagesMu sync.RWMutex
 
 	{
-		sources, err := mfile.ReadDirCached(c, c.SourceDir+"/web/html/pages", &mfile.ReadDirOptions{RecurseDirs: true})
+		opts := mfile.ReadDirOptions{
+			RecurseDirs: true,
+			OnlyGetMDs:  true,
+		}
+		sources, err := mfile.ReadDirCached(c, c.SourceDir+"/content/pages", &opts)
 		if err != nil {
 			return []error{err}
 		}
@@ -258,9 +277,20 @@ func build(c *modulir.Context) []error {
 
 			name := "page: " + filepath.Base(source)
 			c.AddJob(name, func() (bool, error) {
-				return renderPage(ctx, c, source, pages, &pagesMu)
+				return renderPage(ctx, c, source,
+					&pages, &pagesChanged, &pagesMu)
 			})
 		}
+	}
+
+	//
+	// Copy over remaining images to /content/images
+	//
+	if err := mfile.CopyFile(c, c.SourceDir+"/content/images/CoolsterCodes.png", c.TargetDir+"/content/images/CoolsterCodes.png"); err != nil {
+		return []error{err}
+	}
+	if err := mfile.CopyFile(c, c.SourceDir+"/content/images/favicon.png", c.TargetDir+"/content/images/favicon.png"); err != nil {
+		return []error{err}
 	}
 
 	//
@@ -354,6 +384,9 @@ type Article struct {
 	// rendered, and then added separately.
 	Content template.HTML `toml:"-"`
 
+	// This would be '/content/images/<slug>/
+	ImgDir string `toml:"-"`
+
 	// Footnotes are HTML footnotes extracted from content.
 	Footnotes template.HTML `toml:"-"`
 
@@ -363,15 +396,18 @@ type Article struct {
 	// Image is an optional image that may be included with an article.
 	Image string `toml:"image,omitempty"`
 
-	// Location is the geographical location where this article was written.
-	Location string `toml:"location,omitempty" validate:"required"`
-
 	// PublishedAt is when the article was published.
 	PublishedAt time.Time `toml:"published_at" validate:"required"`
 
 	// Slug is a unique identifier for the article that also helps determine
 	// where it's addressable by URL.
 	Slug string `toml:"-"`
+
+	// Youtube video link if applicable
+	YouTube string `toml:"youtube"`
+
+	// YoutubeEmbed link if applicable
+	YouTubeEmbed string `toml:"-"`
 
 	// Tag is used to group articles together :)
 	Tags []string `toml:"tags,omitempty"`
@@ -391,23 +427,35 @@ type Article struct {
 	Body string `toml:"body"`
 }
 
+type Page struct {
+	// Content is the HTML content of the article. It isn't included as TOML
+	// frontmatter, and is rather split out of an article's Markdown file,
+	// rendered, and then added separately.
+	Content template.HTML `toml:"-"`
+
+	// Slug is a unique identifier for the page that also helps determine
+	// where it's addressable by URL.
+	Slug string `toml:"-"`
+
+	// Title is the article's title.
+	Title string `toml:"title" validate:"required"`
+
+	// Description is the metadata description
+	Description string `toml:"description" validate:"required"`
+
+	// The searchable body for index.json
+	Body string `toml:"body"`
+
+	// This would be '/content/images/<slug>/
+	ImgDir string `toml:"-"`
+}
+
 type IndexEntry struct {
 	Href    string   `json:"href"`
 	Title   string   `json:"title"`
 	Summary string   `json:"summary"`
 	Tags    []string `json:"tags"`
-}
-
-// publishingInfo produces a brief spiel about publication which is intended to
-// go into the left sidebar when an article is shown.
-func (a *Article) publishingInfo() map[string]string {
-	info := make(map[string]string)
-
-	info["Article"] = a.Title
-	info["Published"] = a.PublishedAt.In(localLocation).Format("January 2, 2006")
-	info["Location"] = a.Location
-
-	return info
+	Img     string   `json:"img"`
 }
 
 func (a *Article) validate(source string) error {
@@ -417,19 +465,11 @@ func (a *Article) validate(source string) error {
 	return nil
 }
 
-// Page is the metadata for a static HTML page generated from an ACE file.
-type Page struct {
-	// Paths for external dependencies that the page included as it was being
-	// rendered, and which should be watched so that we can re-render it when
-	// one changes.
-	//
-	// Set the first time a page is rendered and updated every subsequent
-	// render.
-	dependencies []string
-
-	body string
-
-	title string
+func (p *Page) validate(source string) error {
+	if err := validate.Struct(p); err != nil {
+		return xerrors.Errorf("error validating page %q: %+v", source, err)
+	}
+	return nil
 }
 
 type TagCount struct {
@@ -480,7 +520,7 @@ func extImageTarget(canonicalExt string) string {
 func getLocals(locals map[string]interface{}) map[string]interface{} {
 	defaults := map[string]interface{}{
 		"AbsoluteURL": conf.AbsoluteURL,
-		"FavIcon":     "/content/images/favicon/favicon.png",
+		"FavIcon":     "/content/images/favicon.png",
 		"CCEnv":       conf.CCEnv,
 		"TitleSuffix": scommon.TitleSuffix,
 	}
@@ -503,24 +543,14 @@ func insertOrReplaceArticle(articles *[]*Article, article *Article) {
 	*articles = append(*articles, article)
 }
 
-func mustLocation(locationName string) *time.Location {
-	location, err := time.LoadLocation(locationName)
-	if err != nil {
-		panic(err)
+func insertOrReplacePage(pages *[]*Page, page *Page) {
+	for i, a := range *pages {
+		if page.Slug == a.Slug {
+			(*pages)[i] = page
+			return
+		}
 	}
-	return location
-}
-
-// Remove the "./pages" directory and extension, but keep the rest of the
-// path.
-//
-// Looks something like "about", or "nested/about".
-func pagePathKey(source string) string {
-	pagePath := mfile.MustAbs(source)
-	pagePath = strings.TrimPrefix(pagePath, mfile.MustAbs("./web/html/pages")+"/")
-	pagePath = strings.TrimSuffix(pagePath, path.Ext(pagePath))
-	pagePath = strings.TrimSuffix(pagePath, path.Ext(pagePath)) // again, for `.tmpl.html`
-	return pagePath
+	*pages = append(*pages, page)
 }
 
 func renderArticle(ctx context.Context, c *modulir.Context, source string,
@@ -539,20 +569,37 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	if err != nil {
 		return true, xerrors.Errorf("error parsing frontmatter %v", err)
 	}
+
+	// Sort tags really quick
+	sort.Strings(article.Tags)
+
+	article.Slug = scommon.ExtractSlug(source)
+	relativeDir := scommon.GetPathToParentDirectory(source)
+
+	// Define an ImgDir (for later processing) and set Image as full path
+	article.ImgDir = "/" + strings.Replace(relativeDir, "articles", "images", 1) + "/"
+	if article.Image != "" {
+		article.Image = filepath.Join(article.ImgDir, article.Image)
+	}
+	if article.YouTube != "" {
+		article.YouTubeEmbed = getYouTubeEmbedLink(article.YouTube)
+	}
 	stripped := stripmd.Strip(string(data))
 	article.Body = strings.ReplaceAll(stripped, "\n", " ")
+	article.Body = strings.ReplaceAll(article.Body, "’", "'")
+	article.Body = strings.ReplaceAll(article.Body, "–", "-")
+	article.Body = string(article.Hook) + " " + article.Body
 
 	err = article.validate(source)
 	if err != nil {
 		return true, err
 	}
 
-	article.Slug = scommon.ExtractSlug(source)
-
 	content, err := mmarkdownext.Render(string(data), &mmarkdownext.RenderOptions{
 		TemplateData: map[string]interface{}{
 			"Ctx": ctx,
 		},
+		ImgDir: article.ImgDir,
 	})
 	if err != nil {
 		return true, xerrors.Errorf("error rendering markdown %v", err)
@@ -590,8 +637,7 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	}
 
 	locals := getLocals(map[string]interface{}{
-		"Article":        article,
-		"PublishingInfo": article.publishingInfo(),
+		"Article": article,
 	})
 
 	err = dependencies.renderGoTemplate(ctx, c, sourceTmpl, path.Join(c.TargetDir, article.Slug), locals)
@@ -688,87 +734,63 @@ func renderAllTags(ctx context.Context, c *modulir.Context,
 		path.Join(c.TargetDir, "tags/index.html"), locals)
 }
 
-func renderPage(ctx context.Context, c *modulir.Context,
-	source string, meta map[string]*Page, mu *sync.RWMutex,
+func renderPage(ctx context.Context, c *modulir.Context, source string,
+	pages *[]*Page, pagesChanged *bool, mu *sync.RWMutex,
 ) (bool, error) {
-	pagePath := pagePathKey(source)
+	sourceChanged := c.Changed(source)
 
-	// Other dependencies a page might have if it say, included an external
-	// Markdown file. These are added the first time a page is rendered (and
-	// watched), and updated on every subsequent run.
-	var pageDependencies []string
-
-	mu.RLock()
-	pageMeta, ok := meta[pagePath]
-	if ok {
-		pageDependencies = pageMeta.dependencies
-	}
-	mu.RUnlock()
-
-	htmlChanged := c.ChangedAny(append(
-		[]string{
-			scommon.MainLayout,
-			source,
-		},
-		append(
-			universalSources,
-			pageDependencies...,
-		)...,
-	)...)
-	if !htmlChanged {
+	sourceTmpl := scommon.HTML + "/page.tmpl.html"
+	htmlChanged := c.ChangedAny(dependencies.getDependencies(sourceTmpl)...)
+	if !sourceChanged && !htmlChanged {
 		return false, nil
 	}
 
-	// Looks something like "./public/about".
-	target := path.Join(c.TargetDir, pagePath)
-
-	// Reuse existing metadata for this page, or create metadata if this is the
-	// first time we're rendering it.
-	if pageMeta == nil {
-		pageMeta = &Page{}
-
-		mu.Lock()
-		meta[pagePath] = pageMeta
-		mu.Unlock()
-	}
-
-	// Pages get their titles by using inner templates. That must be triggered
-	// by sending an empty string as `Title`.
-	err := mfile.EnsureDir(c, path.Dir(target))
+	var page Page
+	data, err := mtoml.ParseFileFrontmatter(c, source, &page)
 	if err != nil {
-		return true, xerrors.Errorf("error ensuring dir %v", err)
+		return true, xerrors.Errorf("error parsing frontmatter %v", err)
 	}
 
-	pageMeta.dependencies = nil
+	page.Slug = scommon.ExtractSlug(source)
+	relativeDir := scommon.GetPathToParentDirectory(source)
 
-	locals := getLocals(nil)
+	// Define an ImgDir (for later processing) and set Image as full path
+	page.ImgDir = "/" + strings.Replace(relativeDir, "pages", "images", 1) + "/"
 
-	err = dependencies.renderGoTemplate(ctx, c, source, target, locals)
+	stripped := stripmd.Strip(string(data))
+	page.Body = strings.ReplaceAll(stripped, "\n", " ")
+
+	err = page.validate(source)
 	if err != nil {
 		return true, err
 	}
 
-	pageMeta.dependencies = dependencies.getDependencies(source)
-
-	// Get the markdown content at least
-	data, err := os.ReadFile("./content/pages/" + pagePath + ".md")
+	content, err := mmarkdownext.Render(string(data), &mmarkdownext.RenderOptions{
+		TemplateData: map[string]interface{}{
+			"Ctx": ctx,
+		},
+		ImgDir: page.ImgDir,
+	})
 	if err != nil {
-		return false, xerrors.Errorf("error reading file %s: %v", pagePath, err)
+		return true, xerrors.Errorf("error rendering markdown %v", err)
+	}
+	page.Content = template.HTML(content)
+
+	locals := getLocals(map[string]interface{}{
+		"Page": page,
+	})
+
+	err = dependencies.renderGoTemplate(ctx, c, sourceTmpl, path.Join(c.TargetDir, page.Slug), locals)
+	if err != nil {
+		return true, err
 	}
 
-	meta[pagePath].title = capitalizeFirst(pagePath)
-	stripped := stripmd.Strip(string(data))
-	meta[pagePath].body = strings.ReplaceAll(stripped, "\n", " ")
+	mu.Lock()
+	insertOrReplacePage(pages, &page)
+	*pagesChanged = true
+	mu.Unlock()
+
 	return true, nil
-}
-
-func capitalizeFirst(s string) string {
-	if s == "" {
-		return s
-	}
-	runes := []rune(s)
-	runes[0] = unicode.ToUpper(runes[0])
-	return string(runes)
 }
 
 func getTagMap(articles []*Article) map[string][]*Article {
@@ -836,7 +858,13 @@ func tagToURL(tag string) string {
 	return tag
 }
 
-func generateIndex(srcPath, dstPath string, articles []*Article, pages map[string]*Page) (bool, error) {
+func getYouTubeEmbedLink(link string) string {
+	// Get everything after the last "/"
+	id := link[strings.LastIndex(link, "/")+1:]
+	return "https://www.youtube.com/embed/" + id
+}
+
+func generateIndex(srcPath, dstPath string, articles []*Article, pages []*Page) (bool, error) {
 	entries := map[string]IndexEntry{}
 	for _, a := range articles {
 		entries[a.Slug] = IndexEntry{
@@ -844,14 +872,15 @@ func generateIndex(srcPath, dstPath string, articles []*Article, pages map[strin
 			Title:   a.Title,
 			Summary: a.Body,
 			Tags:    a.Tags,
+			Img:     a.Image,
 		}
 	}
 
-	for key, p := range pages {
-		entries[key] = IndexEntry{
-			Href:    key,
-			Title:   p.title,
-			Summary: p.body,
+	for _, p := range pages {
+		entries[p.Slug] = IndexEntry{
+			Href:    p.Slug,
+			Title:   p.Title,
+			Summary: p.Body,
 		}
 	}
 

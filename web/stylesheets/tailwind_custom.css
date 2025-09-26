@@ -20,6 +20,12 @@ html .nav_item:hover:after {
     background: #e2e8f0;
 }
 
+.nav_item.active:after {
+    background: #e2e8f0;  /* or #000 */
+    width: 80%;           /* same as hover effect */
+}
+
+
 /* Shiki */
 html .shiki,
 html .shiki span {
@@ -57,4 +63,32 @@ html .shiki span {
 /* Random */
 html img[src$=".svg"], .dark svg {
     filter: invert(80%);
+}
+
+
+/* Copy button */
+.copy {
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+    transform: scale(1);
+    width: 14px;
+    height: 18px;
+    border: 2px solid;
+    border-radius: 2px;
+    border-right: 0;
+    border-bottom: 0;
+}
+
+.copy::after {
+    content: "";
+    display: inline-block;
+    box-sizing: border-box;
+    position: absolute;
+    width: 13px;
+    height: 17px;
+    border: 2px solid;
+    left: 1px;
+    top: 1px;
+    border-radius: 0 0 2px 0;
 }

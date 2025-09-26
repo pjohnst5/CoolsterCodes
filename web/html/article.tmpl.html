@@ -38,9 +38,14 @@
                 <div class="border-b px-4 pb-4 ">
                     <div class="font-bold mb-0.5 text-white">Article</div>
                     <div class="text-myblue">
-                        <a class="hover:border-b-sky-600 hover:text-sky-600 underline" href="/{{.Article.Slug}}">
-                            {{.Article.Title}} <span class="mx-0.5 opacity-60">🔗</span>
+                        <a class="hover:border-b-sky-600 hover:text-sky-600 underline" href="javascript:void(0)" onclick="copyText('{{.AbsoluteURL}}/{{.Article.Slug}}')">
+                            {{.Article.Title}} <span class="mx-0.5"><b class="copy text-myblue hover:border-b-sky-600 hover:text-sky-600 underline"></b></span>
                         </a>
+                        <span
+                            id="copyalert"
+                            class="hidden tooltip absolute left-1/2 -translate-x-1/2 bg-gray-600 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300">
+                            Copied!
+                        </span>
                     </div>
                 </div>
 
@@ -57,75 +62,46 @@
                     <div class="border-r flex-grow ">
                         <div class="flex h-full items-center">
                             <div class="px-4 py-4">
-                                <div class="font-bold mb-0.5 text-white">Published</div>
-                                <div class="leading-tight">{{FormatTime .Article.PublishedAt "Jan 2, 2006"}}</div>
+                                <div class="font-bold mb-0.5 text-white">Author</div>
+                                <div class="leading-tight text-myblue">
+                                    <a class="hover:border-b-sky-600 hover:text-sky-600 underline"
+                                        href="/about">Me</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="flex-grow h-full min-w-0">
                         <div class="flex items-center">
                             <div class="px-4 py-4">
-                                <div class="font-bold mb-0.5 text-white">Location</div>
-                                <div class="leading-tight">{{.Article.Location}}</div>
+                                <div class="font-bold mb-0.5 text-white">Published</div>
+                                <div class="leading-tight">{{FormatTime .Article.PublishedAt "Jan 2, 2006"}}</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="italic px-4 py-4">
-                    <p class="mb-2">YouTube<br> <a class="hover:border-b-sky-600 hover:text-sky-600 font-bold text-myblue underline" href="https://www.youtube.com/@coolstercodes" target="_blank">@coolstercodes</a></p>
+                <div class="font-bold mb-0.5 text-white px-4 py-4">
+                    <p class="mb-2">YouTube<br> <a class="hover:border-b-sky-600 hover:text-sky-600 font-bold text-myblue underline" href="{{ if .Article.YouTube }}{{.Article.YouTube}}{{ else }}https://www.youtube.com/@coolstercodes{{ end }}" target="_blank">@coolstercodes</a></p>
                 </div>
             </div>
         </div>
 
-        <div class="font-bold my-1 text-myblue text-sm md:hidden">{{FormatTime .Article.PublishedAt "Jan 2, 2006"}}</div>
-
         <div class="pb-4 md:border-l md:flex-grow md:min-w-0 md:pl-8 xl:pr-8 ">
-            {{if ne .Article.TOC ""}}
-                <!--
-                    IMPORTANT: The TOC is duplicated below so that it can be part of
-                    the flexbox at large sizes, but inlined at contents at smaller
-                    ones. Make changes in both places.
-                -->
-                <!-- This is the one that shows up halfway -->
-                <div class="
-                    border-l
-                    hidden md:block xl:hidden
-                    float-right
-                    max-w-[190px]
-                    ml-4
-                    mb-3
-                    lg:-mr-[60px]
-                    pl-3
-                    pb-5
-                    pt-3
-
-                    prose prose-sm
-                    prose-li:my-2
-
-                    prose-ol:prose-li:list-[lower-alpha] prose-ol:prose-li:my-2
-                    prose-a:prose-li:prose-li:font-normal prose-li:prose-li:my-1 prose-li:prose-li:text-[0.65rem] hover:prose-a:prose-li:text-sky-600 hover:prose-a:prose-li:border-b-sky-600
-
-                    prose-ol:prose-li:prose-li:list-[lower-roman]
-                    prose-li:prose-li:prose-li:text-[0.6rem]
-
-                    text-xs
-                ">
-                    {{.Article.TOC}}
-                </div>
-            {{end}}
+            
 
             <div class="hyphens-auto
                 max-w-none
                 prose prose-lg
                 prose-a:font-sans
                 prose-blockquote:text-slate-300
-                prose-img:w-full
-                prose-h1:font-bold prose-h1:text-base prose-h1:text-myblue prose-a:prose-h1:underline
-                prose-h2:text-base prose-h2:mb-1 prose-a:prose-h2:border-b-0 prose-a:prose-h2:font-bold prose-h2:text-myblue prose-a:prose-h2:underline
-                prose-h3:text-sm prose-h3:mb-1 prose-a:prose-h3:border-b-0 prose-a:prose-h3:font-bold prose-h3:text-myblue prose-a:prose-h3:underline
-                prose-h4:text-sm prose-h4:mb-1 prose-a:prose-h4:border-b-0 prose-a:prose-h4:font-bold prose-h4:text-myblue prose-a:prose-h4:underline
+                prose-img:w-full prose-img:my-0
+                prose-h2:text-xl prose-h2:mb-1 prose-a:prose-h2:border-b-0 prose-a:prose-h2:font-bold prose-h2:text-myblue prose-a:prose-h2:no-underline
+                prose-h3:text-lg prose-h3:mb-1 prose-a:prose-h3:border-b-0 prose-a:prose-h3:font-bold prose-h3:text-myblue prose-a:prose-h3:no-underline
+                prose-h4:text-base prose-h4:mb-1 prose-a:prose-h4:border-b-0 prose-a:prose-h4:font-bold prose-h4:text-myblue prose-a:prose-h4:no-underline
                 prose-hr:my-10 prose-hr:md:-mx-[2rem] prose-hr:md:w-[calc(100%+4rem)]
                 prose-p:font-serif
+                text-[17px]
+                prose-li:my-0
+                prose-figcaption:mt-3
                 prose-p:prose-blockquote:font-sans
                 prose-pre:leading-[1.15rem] prose-pre:text-[0.9rem]
                 prose-strong:text-slate-100
@@ -138,7 +114,16 @@
                 prose-code:prose-pre:px-0 prose-code:prose-pre:py-0
                 prose-code:bg-[#414242] prose-code:px-1 prose-code:py-0.5 prose-code:rounded
                 ">
+                {{ if .Article.YouTubeEmbed }}
+                <div class="relative pb-[56.25%] h-0 overflow-hidden w-full">
+                    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="{{.Article.YouTubeEmbed}}">
+                    </iframe>
+                </div>
+                {{ end }}
 
+                <div class="font-bold my-1 text-white text-sm md:hidden">Published {{FormatTime .Article.PublishedAt "January 2, 2006"}}
+                </div>
+                
                 {{.Article.Content}}
             </div>
             {{if gt (len .Article.TagCounts) 0}}

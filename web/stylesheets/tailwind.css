@@ -1592,22 +1592,6 @@ video {
           hyphens: auto;
 }
 
-.visible {
-  visibility: visible;
-}
-
-.invisible {
-  visibility: hidden;
-}
-
-.static {
-  position: static;
-}
-
-.fixed {
-  position: fixed;
-}
-
 .absolute {
   position: absolute;
 }
@@ -1620,16 +1604,20 @@ video {
   position: sticky;
 }
 
+.left-0 {
+  left: 0px;
+}
+
+.left-1\/2 {
+  left: 50%;
+}
+
+.top-0 {
+  top: 0px;
+}
+
 .top-5 {
   top: 1.25rem;
-}
-
-.isolate {
-  isolation: isolate;
-}
-
-.float-right {
-  float: right;
 }
 
 .float-left {
@@ -1685,6 +1673,10 @@ video {
   margin-bottom: 0.75rem;
 }
 
+.mb-7 {
+  margin-bottom: 1.75rem;
+}
+
 .mb-8 {
   margin-bottom: 2rem;
 }
@@ -1699,14 +1691,6 @@ video {
 
 .ml-1 {
   margin-left: 0.25rem;
-}
-
-.ml-4 {
-  margin-left: 1rem;
-}
-
-.ml-auto {
-  margin-left: auto;
 }
 
 .mr-0\.5 {
@@ -1737,20 +1721,8 @@ video {
   display: block;
 }
 
-.inline {
-  display: inline;
-}
-
 .flex {
   display: flex;
-}
-
-.table {
-  display: table;
-}
-
-.grid {
-  display: grid;
 }
 
 .contents {
@@ -1763,6 +1735,10 @@ video {
 
 .aspect-square {
   aspect-ratio: 1 / 1;
+}
+
+.h-0 {
+  height: 0px;
 }
 
 .h-14 {
@@ -1793,10 +1769,6 @@ video {
   width: 2.5rem;
 }
 
-.w-10\/12 {
-  width: 83.333333%;
-}
-
 .w-40 {
   width: 10rem;
 }
@@ -1823,10 +1795,6 @@ video {
 
 .min-w-0 {
   min-width: 0px;
-}
-
-.max-w-\[190px\] {
-  max-width: 190px;
 }
 
 .max-w-\[625px\] {
@@ -1869,10 +1837,6 @@ video {
   flex-grow: 0;
 }
 
-.grow {
-  flex-grow: 1;
-}
-
 .basis-\[170px\] {
   flex-basis: 170px;
 }
@@ -1881,7 +1845,8 @@ video {
   flex-basis: 190px;
 }
 
-.transform {
+.-translate-x-1\/2 {
+  --tw-translate-x: -50%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1909,19 +1874,13 @@ video {
   overflow: hidden;
 }
 
-.truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .hyphens-auto {
   -webkit-hyphens: auto;
           hyphens: auto;
 }
 
-.rounded-3xl {
-  border-radius: 1.5rem;
+.rounded {
+  border-radius: 0.25rem;
 }
 
 .rounded-lg {
@@ -1934,6 +1893,10 @@ video {
 
 .border {
   border-width: 1px;
+}
+
+.border-0 {
+  border-width: 0px;
 }
 
 .border-b {
@@ -1986,6 +1949,11 @@ video {
   background-color: rgb(31 41 55 / var(--tw-bg-opacity, 1));
 }
 
+.bg-myblue {
+  --tw-bg-opacity: 1;
+  background-color: rgb(93 167 216 / var(--tw-bg-opacity, 1));
+}
+
 .bg-transparent {
   background-color: transparent;
 }
@@ -2014,6 +1982,11 @@ video {
 
 .p-8 {
   padding: 2rem;
+}
+
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .px-3 {
@@ -2076,6 +2049,10 @@ video {
   padding-bottom: 2rem;
 }
 
+.pb-\[56\.25\%\] {
+  padding-bottom: 56.25%;
+}
+
 .pl-1 {
   padding-left: 0.25rem;
 }
@@ -2104,10 +2081,6 @@ video {
   padding-top: 0.5rem;
 }
 
-.pt-3 {
-  padding-top: 0.75rem;
-}
-
 .pt-4 {
   padding-top: 1rem;
 }
@@ -2132,6 +2105,10 @@ video {
 .text-8xl {
   font-size: 6rem;
   line-height: 1;
+}
+
+.text-\[17px\] {
+  font-size: 17px;
 }
 
 .text-sm {
@@ -2163,10 +2140,6 @@ video {
 
 .font-semibold {
   font-weight: 600;
-}
-
-.lowercase {
-  text-transform: lowercase;
 }
 
 .italic {
@@ -2242,41 +2215,18 @@ video {
   color: rgb(156 163 175 / var(--tw-placeholder-opacity, 1));
 }
 
-.opacity-60 {
-  opacity: 0.6;
+.opacity-0 {
+  opacity: 0;
 }
 
-.shadow {
-  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.outline {
-  outline-style: solid;
-}
-
-.ring {
-  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-}
-
-.invert {
-  --tw-invert: invert(100%);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.filter {
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.transition {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+.transition-opacity {
+  transition-property: opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+.duration-300 {
+  transition-duration: 300ms;
 }
 
 /* Button garbage haha */
@@ -2337,20 +2287,6 @@ video {
   outline-offset: 2px;
 }
 
-.prose-h1\:text-base :is(:where(h1):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  font-size: 1rem;
-  line-height: 1.5rem;
-}
-
-.prose-h1\:font-bold :is(:where(h1):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  font-weight: 700;
-}
-
-.prose-h1\:text-myblue :is(:where(h1):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  --tw-text-opacity: 1;
-  color: rgb(93 167 216 / var(--tw-text-opacity, 1));
-}
-
 .prose-h1\:text-white :is(:where(h1):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
@@ -2360,9 +2296,9 @@ video {
   margin-bottom: 0.25rem;
 }
 
-.prose-h2\:text-base :is(:where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  font-size: 1rem;
-  line-height: 1.5rem;
+.prose-h2\:text-xl :is(:where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .prose-h2\:text-myblue :is(:where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
@@ -2379,9 +2315,9 @@ video {
   margin-bottom: 0.25rem;
 }
 
-.prose-h3\:text-sm :is(:where(h3):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+.prose-h3\:text-lg :is(:where(h3):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
 }
 
 .prose-h3\:text-myblue :is(:where(h3):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
@@ -2393,9 +2329,9 @@ video {
   margin-bottom: 0.25rem;
 }
 
-.prose-h4\:text-sm :is(:where(h4):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+.prose-h4\:text-base :is(:where(h4):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 
 .prose-h4\:text-myblue :is(:where(h4):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
@@ -2462,10 +2398,6 @@ video {
   color: rgb(2 132 199 / var(--tw-text-opacity, 1));
 }
 
-.prose-a\:prose-h1\:underline :is(:where(h1):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  text-decoration-line: underline;
-}
-
 .prose-a\:prose-h2\:border-b-0 :is(:where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   border-bottom-width: 0px;
 }
@@ -2474,8 +2406,8 @@ video {
   font-weight: 700;
 }
 
-.prose-a\:prose-h2\:underline :is(:where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  text-decoration-line: underline;
+.prose-a\:prose-h2\:no-underline :is(:where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  text-decoration-line: none;
 }
 
 .prose-a\:prose-h3\:border-b-0 :is(:where(h3):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
@@ -2486,8 +2418,8 @@ video {
   font-weight: 700;
 }
 
-.prose-a\:prose-h3\:underline :is(:where(h3):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  text-decoration-line: underline;
+.prose-a\:prose-h3\:no-underline :is(:where(h3):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  text-decoration-line: none;
 }
 
 .prose-a\:prose-h4\:border-b-0 :is(:where(h4):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
@@ -2498,8 +2430,8 @@ video {
   font-weight: 700;
 }
 
-.prose-a\:prose-h4\:underline :is(:where(h4):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  text-decoration-line: underline;
+.prose-a\:prose-h4\:no-underline :is(:where(h4):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  text-decoration-line: none;
 }
 
 .prose-blockquote\:text-slate-300 :is(:where(blockquote):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
@@ -2509,6 +2441,10 @@ video {
 
 .prose-p\:prose-blockquote\:font-sans :is(:where(blockquote):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(p):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.prose-figcaption\:mt-3 :is(:where(figcaption):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  margin-top: 0.75rem;
 }
 
 .prose-strong\:font-sans :is(:where(strong):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
@@ -2585,6 +2521,11 @@ video {
   font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
+.prose-li\:my-0 :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 .prose-li\:my-2 :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -2628,6 +2569,11 @@ video {
 
 .prose-ol\:prose-li\:prose-li\:list-\[lower-roman\] :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(ol):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   list-style-type: lower-roman;
+}
+
+.prose-img\:my-0 :is(:where(img):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .prose-img\:w-full :is(:where(img):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
@@ -2699,19 +2645,9 @@ video {
   }
 }
 
-@media (min-width: 1024px) {
-  .lg\:-mr-\[60px\] {
-    margin-right: -60px;
-  }
-}
-
 @media (min-width: 1280px) {
   .xl\:block {
     display: block;
-  }
-
-  .xl\:hidden {
-    display: none;
   }
 
   .xl\:max-w-\[1125px\] {
