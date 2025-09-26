@@ -24,6 +24,39 @@ import (
 //
 //////////////////////////////////////////////////////////////////////////////
 
+// CopyDirectoryImages is a shortcut for copying over all non-md files into the /public/images/<identifier>/.
+func CopyDirectoryImages(c *modulir.Context, source, target string) error {
+	dirs, err := ReadDirWithOptions(c, source, &ReadDirOptions{ShowDirs: true})
+	if err != nil {
+		return err
+	}
+
+	for _, dir := range dirs {
+		// Read the files from that dir ignoring *.md
+		files, err := ReadDirWithOptions(c, dir, &ReadDirOptions{IgnoreMDs: true})
+		if err != nil {
+			return err
+		}
+
+		// Make new target directory path
+		justNameOfDir := filepath.Base(dir)
+		targetDir := filepath.Join(target, justNameOfDir)
+
+		// Ensure target directory exists
+		if err = EnsureDir(c, targetDir); err != nil {
+			return err
+		}
+
+		// Copy all files into there
+		for _, file := range files {
+			if err = CopyFileToDir(c, file, targetDir); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
+}
+
 // CopyFile is a shortcut for copy a file from a source path to a target path.
 func CopyFile(c *modulir.Context, source, target string) error {
 	in, err := os.Open(source)
@@ -125,6 +158,11 @@ create:
 	return nil
 }
 
+// IsMD indicates if the file is markdown.
+func IsMD(base string) bool {
+	return strings.HasSuffix(base, ".md")
+}
+
 // IsBackup indicates whether a given filename is a backup file (i.e. prefixed
 // by `~`).
 func IsBackup(base string) bool {
@@ -199,6 +237,12 @@ type ReadDirOptions struct {
 	// ShowMeta tells the function to not skip so-called "meta" files
 	// (prefixed with an underscore '_').
 	ShowMeta bool
+
+	// Will only get the .md files
+	OnlyGetMDs bool
+
+	// Ignore MD files
+	IgnoreMDs bool
 }
 
 // ReadDirCached is the same as ReadDirWithOptions, but it caches results for
@@ -247,6 +291,14 @@ func ReadDirWithOptions(c *modulir.Context, source string,
 
 	for _, info := range infos {
 		base := filepath.Base(info.Name())
+
+		if opts != nil && opts.IgnoreMDs && IsMD(base) {
+			continue
+		}
+
+		if opts != nil && opts.OnlyGetMDs && !IsMD(base) {
+			continue
+		}
 
 		if (opts == nil || !opts.ShowBackup) && IsBackup(base) {
 			continue

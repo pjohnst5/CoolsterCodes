@@ -1,0 +1,42 @@
+{{- template "web/html/layouts/root.tmpl.html" . -}}
+
+{{- define "og" -}}
+{{- template "web/html/helpers/_og_common.tmpl.html" . -}}
+<meta property="og:title" content="{{.Page.Title}}">
+<meta property="og:description" content="{{.Page.Description}}">
+<meta name="description" content="{{.Page.Description}}">
+<meta property="og:url" content="{{.AbsoluteURL}}/{{.Page.Slug}}">
+<link rel="canonical" href="{{.AbsoluteURL}}/{{.Page.Slug}}">
+{{- end -}}
+
+{{- define "title" -}}{{.Page.Title}}{{.TitleSuffix}}{{- end -}}
+
+{{- define "article_content" -}}
+
+<div class="pt-4 pb-4 px-4">
+    <h1 class="prose prose-lg font-normal font-serif text-center text-8xl tracking-tighter
+                prose-a:text-white prose-a:no-underline">
+        {{.Page.Title}}
+    </h1>
+</div>
+
+<div class="container hyphens-auto max-w-[800px] mx-auto mt-0 mb-8
+    prose prose-lg
+    prose-a:border-b-[1px] prose-a:border-b-myblue prose-a:font-sans prose-a:no-underline
+    hover:prose-a:border-b-sky-600
+    hover:prose-a:text-sky-600
+    prose-code:prose-a:text-xs prose-code:prose-p:text-sm
+    prose-h1:text-white
+    prose-h2:text-white
+    prose-a:prose-h2:font-bold
+    prose-p:font-serif
+    prose-p:prose-blockquote:font-sans
+    prose-strong:font-sans
+    prose-ol:font-serif
+    prose-ul:font-serif
+    px-4
+    ">
+    {{.Page.Content}}
+</div>
+
+{{- end -}}

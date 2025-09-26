@@ -1,0 +1,19 @@
+![](./picture.png)
+
+Will make a picture with fancybox
+
+![](./picture.png)
+*With caption*
+
+Will make a picture with caption (fancybox too)
+
+![](./hey.pdf)
+*caption*
+
+- "*.pdf" is the logic
+
+Will make a pdf preview with caption (can also omit caption)
+
+[file reference](./myfile.txt)
+    - Key is "./" before file, that's what triggers it
+Will make a downloadable link to the file you specify

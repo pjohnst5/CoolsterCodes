@@ -4,11 +4,12 @@ Things you'll always need
 - title
 - hook (description)
 - published_at = 2024-05-28T20:50:47+02:00 (how to get this time stamp? Can it be auto?)
-- location (as of now)
 
 Optional things
 - image
-    -  put it "/content/..."
+    -  put it "./ImageName.png"
+- YT video
+    - https://youtu.be/dC9ICFpRNYs
 - attributions
     - attributions = "Header image by <strong><a href=\"https://www.flickr.com/photos/67499195@N00/717747166\">Andreas Levers</a></strong>. Licensed under Creative Commons BY-NC 2.0."
 - Author's note

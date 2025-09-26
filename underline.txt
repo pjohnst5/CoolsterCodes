@@ -1,0 +1,26 @@
+{{if ne .Article.TOC ""}}
+            <div class="basis-[190px] border-l flex-grow-0 flex-shrink-0 hidden xl:block ">
+                <div class="
+                    mb-3
+                    pl-3
+                    pb-5
+
+                    prose prose-sm
+                    prose-li:my-2
+
+                    prose-ol:prose-li:list-[lower-alpha] prose-ol:prose-li:my-2
+                    prose-a:prose-li:prose-li:font-normal prose-li:prose-li:my-1 prose-li:prose-li:text-[0.65rem] hover:prose-a:prose-li:text-sky-600
+                    prose-a:no-underline
+
+                    prose-ol:prose-li:prose-li:list-[lower-roman]
+                    prose-li:prose-li:prose-li:text-[0.6rem]
+
+                    sticky top-5
+                    text-xs
+                ">
+                    {{.Article.TOC}}
+                </div>
+            </div>
+        {{end}}
+
+Pretty much remove any prose-a:border stuff, and just say prose-a:no-underline

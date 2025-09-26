@@ -98,22 +98,53 @@ Explore removing "Articles" title ✅
 Does linking titles of pages break design? Probably does ✅
 Analytics ✅
 Do we need tmp? ✅
-Make it mine (title, everything)
-Remove all Articles
-Remove mtemplate FuncMap such as ImgSrcAndAlt
-Add back in all my articles
-Embed Youtube and make tutorial link
-Refine articles
+Make it mine (title, everything) ✅
+Remove all Articles ✅
+Remove mtemplate FuncMap such as ImgSrcAndAlt ✅
+Embed Youtube and make tutorial link ✅
+Remove location ✅
+Templatize article creation ✅
+Make font smaller in article body ✅
+Center text under images ✅
+Show tags in tag page list ✅
+Highlight current page in nav ✅
+Make it so that on mobile when you click a nav item it changes background color ✅
+Keep headers not underlined and bigger ✅
+Make /files url ✅
+Make images show up next to articles in search 😱 ✅
+Upgrade copy button ✅
+Add all my articles
+    - Put YouTube link in article and embed ✅
+    - Rename to "Home" and "Tags" ✅
+    - Remove location ✅
+    - Make clicking article link copy it ✅
+    - Find home for Tags in single article view ✅
+    - Check mobile date ✅
+    - Get rid of tablet toc ✅
+    - Make YT video linked if present ✅
+    - Make pages like articles ✅
+    - Make image paths relative ✅
+    - Move rest of articles
+Make it so big titles don't overflow on mobile?
+Remove IncludeMarkdown func
+Maybe make InsertOrReplaceArticle more generic
 Play with Shiki code
+Make code copyable
+Make external links with little arrow?
+Make it so when you hover over published time, it shows full timestamp 😎
 Explore colors thoroughly (inline and search)
-Play around with published time
+Search fix? (why doesn't "wife" show up?)
 Final cosmetic review
+    - Make links underlined in general? (debate between headers vs links)
+    - Make underlines bold? (see CN review)
+    - Fix sizing of headers? (nested)
+    - Picture size? (like smaller picture size for smaller pictures)
 Update readme
 Host it
     - Make sure to make CC_Env=Prod
 Automation:
-    - Target for creating new article
-        - "make article article_title"
+    - Target for creating new article ✅
+        - "make article" ✅
     - Pre-PR check (like gofmt, and tailwind) ✅
         - "make check" ✅
     - Posting new content (uploading new stuff and resetting it)
@@ -126,16 +157,16 @@ chmod +x tailwindcss
 ./tailwindcss -i ./web/stylesheets/tailwind_base.css -o ./web/stylesheets/tailwind.css
 ./tailwindcss -i ./web/stylesheets/tailwind_base.css -o ./web/stylesheets/tailwind.min.css --minify
 rm tailwindcss
+./tailwindcss -i ./web/stylesheets/tailwind_base.css -o ./web/stylesheets/tailwind.css --watch
 
---- Misc ---
+-- Misc --
 When removing atoms, in build.go there was a video thingy
 With Fragments, there was a "content/fragments-drafts" and "content/fragments-defunct"
 
 -- Maybe maybe haha --
 Eventually make it so year bar shows even when clicking button (and filtering them out/back in)
-Make code blocks copy-able
 
-Could never do:
+-- Could never do: --
 Link in figure captions ❌
     - It gets super-imposed by fancy box, would need to change fancybox
 Make it so single # is header ❌
@@ -146,6 +177,8 @@ Remove weird newline constraint on headers ❌
 Figure out linting once and for all ❌
     - IDK if it happens again we'll deal with it lols
 
-Random notes:
-I won't be linking the image in the article
-    If I have an image for the article, it is most likely a YT video
+-- Dev notes: --
+We have slugification in 3 places:
+    - mmarkdownnext.go to slugify "##" headers
+    - search.ts - tagToURL to link tags in search results
+    - article.sh - slugify new article idea

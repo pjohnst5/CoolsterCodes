@@ -49,8 +49,8 @@ await Promise.all(Array.from(document.querySelectorAll('pre code')).map((codeBlo
             await codeToHtml(code, {
                 lang: language,
                 themes: {
-                    dark: 'nord',
-                    light: 'rose-pine'
+                    dark: 'github-dark',
+                    light: 'github-dark'
                 }
             })
     })()

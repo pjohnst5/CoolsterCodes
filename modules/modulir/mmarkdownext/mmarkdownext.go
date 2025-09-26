@@ -6,6 +6,7 @@ package mmarkdownext
 import (
 	"bytes"
 	"fmt"
+	"path/filepath"
 	"regexp"
 	"strings"
 	"text/template"
@@ -32,6 +33,9 @@ var FuncMap = template.FuncMap{}
 type RenderOptions struct {
 	// TemplateData is data injected while rendering Go templates.
 	TemplateData interface{}
+
+	// ImgDir is the path to the images
+	ImgDir string
 }
 
 // Render a Markdown string to HTML while applying all custom project-specific
@@ -67,8 +71,9 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 
 	transformGoTemplate,
 	transformHeaders,
-	transformLinkedImages,
+	transformPDFs,
 	transformImages,
+	transformFiles,
 
 	// The actual Blackfriday rendering
 	func(source string, _ *RenderOptions) (string, error) {
@@ -107,8 +112,44 @@ func transformCodeWithLanguagePrefix(source string, _ *RenderOptions) (string, e
 	return codeRE.ReplaceAllString(source, `<code class="language-$1">`), nil
 }
 
+const pdfHTMLCaption = `
+<iframe width="100%%" height="800" src="%s">
+</iframe>
+<figcaption class="text-center">%s</figcaption>
+`
+
+const pdfHTMLNoCaption = `
+<iframe width="100%%" height="800" src="%s">
+</iframe>
+`
+
+var pdfRE = regexp.MustCompile(`(!\[\]\((.*).pdf\))(\n\*(.*)\*)?`)
+
+func transformPDFs(source string, opts *RenderOptions) (string, error) {
+	return pdfRE.ReplaceAllStringFunc(source, func(figure string) string {
+		matches := figureRE.FindStringSubmatch(figure)
+		if len(matches) != 5 {
+			return figure
+		}
+		// Grab the pdf (it's the same every time)
+		pdf := matches[2]
+		if opts.ImgDir != "" {
+			pdf = filepath.Join(opts.ImgDir, pdf)
+		}
+
+		// No caption option
+		if matches[3] == "" {
+			return fmt.Sprintf(pdfHTMLNoCaption, pdf)
+		}
+
+		// Grab the caption (only if 3rd arg isn't empty)
+		caption := matches[4]
+		return fmt.Sprintf(pdfHTMLCaption, pdf, caption)
+	}), nil
+}
+
 const figureHTMLCaption = `
-<figure>
+<figure class="text-center">
   <a data-fancybox="gallery" href="%s" data-caption="%s">
     <img src="%s" />
   </a>
@@ -141,7 +182,7 @@ const figureHTMLNoCaption = `
 */
 var figureRE = regexp.MustCompile(`(!\[\]\((.*)\))(\n\*(.*)\*)?`)
 
-func transformImages(source string, _ *RenderOptions) (string, error) {
+func transformImages(source string, opts *RenderOptions) (string, error) {
 	return figureRE.ReplaceAllStringFunc(source, func(figure string) string {
 		matches := figureRE.FindStringSubmatch(figure)
 		if len(matches) != 5 {
@@ -149,6 +190,9 @@ func transformImages(source string, _ *RenderOptions) (string, error) {
 		}
 		// Grab the image (it's the same every time)
 		img := matches[2]
+		if opts.ImgDir != "" {
+			img = filepath.Join(opts.ImgDir, img)
+		}
 
 		// No caption option
 		if matches[3] == "" {
@@ -161,44 +205,27 @@ func transformImages(source string, _ *RenderOptions) (string, error) {
 	}), nil
 }
 
-const imgWithLinkNoCap = `
-<a href="%s">
-  <img src="%s" />
-</a>
+const fileHTML = `
+<a href="%s" download">%s</a>
 `
 
-const imgWithLinkCap = `
-<figure>
-  <a href="%s">
-    <img src="%s" />
-  </a>
-  <figcaption>%s</figcaption>
-</figure>
-`
+var fileRE = regexp.MustCompile(`\[(.*)\]\(\./(.*)\)`)
 
-// This is basically the same as above but matches the extra "[" in front, "]" to close, then "()" for the link.
-var linkedPictureRE = regexp.MustCompile(`(\[!\[\]\((.*)\)\]\((.*)\))(\n\*(.*)\*)?`)
-
-func transformLinkedImages(source string, _ *RenderOptions) (string, error) {
-	return linkedPictureRE.ReplaceAllStringFunc(source, func(figure string) string {
-		matches := linkedPictureRE.FindStringSubmatch(figure)
-		if len(matches) != 6 {
+func transformFiles(source string, opts *RenderOptions) (string, error) {
+	return fileRE.ReplaceAllStringFunc(source, func(figure string) string {
+		matches := fileRE.FindStringSubmatch(figure)
+		if len(matches) != 3 {
 			return figure
 		}
-		// Grab the image (it's the same every time)
-		img := matches[2]
-
-		// href
-		href := matches[3]
-
-		// No caption option
-		if matches[4] == "" {
-			return fmt.Sprintf(imgWithLinkNoCap, href, img)
+		// Grab the file (it's the same every time)
+		file := matches[2]
+		if opts.ImgDir != "" {
+			file = filepath.Join(opts.ImgDir, file)
 		}
+		// Grab the display name
+		display := matches[1]
 
-		// Grab the caption (only if 4th arg isn't empty)
-		caption := matches[5]
-		return fmt.Sprintf(imgWithLinkCap, href, img, caption)
+		return fmt.Sprintf(fileHTML, file, display)
 	}), nil
 }
 

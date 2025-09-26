@@ -2,8 +2,6 @@ package mtemplate
 
 import (
 	"html/template"
-	"net/url"
-	"strings"
 	"testing"
 	"time"
 
@@ -42,10 +40,10 @@ func TestCombineFuncMaps(t *testing.T) {
 		"CollapseParagraphs": CollapseParagraphs,
 	}
 	fm2 := template.FuncMap{
-		"QueryEscape": QueryEscape,
+		"FormatTime": FormatTime,
 	}
 	fm3 := template.FuncMap{
-		"To2X": To2X,
+		"FormatTimeRFC3339UTC": FormatTimeRFC3339UTC,
 	}
 
 	combined := CombineFuncMaps(fm1, fm2, fm3)
@@ -55,11 +53,11 @@ func TestCombineFuncMaps(t *testing.T) {
 		assert.True(t, ok)
 	}
 	{
-		_, ok := combined["QueryEscape"]
+		_, ok := combined["FormatTime"]
 		assert.True(t, ok)
 	}
 	{
-		_, ok := combined["To2X"]
+		_, ok := combined["FormatTimeRFC3339UTC"]
 		assert.True(t, ok)
 	}
 }
@@ -80,13 +78,13 @@ func TestCombineFuncMaps_Duplicate(t *testing.T) {
 
 func TestHTMLFuncMapToText(t *testing.T) {
 	fm := template.FuncMap{
-		"To2X": To2X,
+		"FormatTimeRFC3339UTC": FormatTimeRFC3339UTC,
 	}
 
 	textFM := HTMLFuncMapToText(fm)
 
 	{
-		_, ok := textFM["To2X"]
+		_, ok := textFM["FormatTimeRFC3339UTC"]
 		assert.True(t, ok)
 	}
 }
@@ -130,103 +128,6 @@ func TestDistanceOfTimeInWords(t *testing.T) {
 		DistanceOfTimeInWords(to.Add(mustParseDuration("-24h")*(365*10)), to))
 }
 
-func TestDownloadedImage(t *testing.T) {
-	ctx := t.Context()
-
-	t.Run("SetsContextAndEmitsPath", func(t *testing.T) {
-		ctx, downloadedImageContainer := DownloadedImageContext(ctx)
-
-		assert.Equal(t,
-			"/photographs/belize/01/kukumba-beach-1.jpg",
-			DownloadedImage(
-				ctx,
-				"/photographs/belize/01/kukumba-beach-1",
-				"https://www.dropbox.com/s/6fmtgs00c5xtevg/2W4A1500.JPG?dl=1",
-				1200,
-			),
-		)
-
-		assert.Equal(t,
-			[]*DownloadedImageInfo{
-				{
-					"/photographs/belize/01/kukumba-beach-1",
-					mustURL(t, "https://www.dropbox.com/s/6fmtgs00c5xtevg/2W4A1500.JPG?dl=1"),
-					1200,
-					"",
-				},
-			},
-			downloadedImageContainer.Images,
-		)
-	})
-
-	t.Run("AlternateExtension", func(t *testing.T) {
-		ctx, _ := DownloadedImageContext(ctx)
-
-		assert.Equal(t,
-			"/photographs/diagram.png",
-			DownloadedImage(
-				ctx,
-				"/photographs/diagram",
-				"https://www.dropbox.com/s/6fmtgs00c5xtevg/2W4A1500.png?dl=1",
-				1200,
-			),
-		)
-	})
-}
-
-func mustURL(t *testing.T, s string) *url.URL {
-	t.Helper()
-	u, err := url.Parse(s)
-	assert.NoError(t, err)
-	return u
-}
-
-func TestFigure(t *testing.T) {
-	t.Run("SingleImage", func(t *testing.T) {
-		assert.Equal(
-			t,
-			strings.TrimSpace(`
-<figure>
-    <img alt="alt" loading="lazy" src="src">
-    <figcaption>caption</figcaption>
-</figure>
-			`),
-			string(Figure("caption", &HTMLImage{Src: "src", Alt: "alt"})),
-		)
-	})
-
-	t.Run("MultipleImages", func(t *testing.T) {
-		assert.Equal(
-			t,
-			strings.TrimSpace(`
-<figure>
-    <img alt="alt0" loading="lazy" src="src0">
-    <img alt="alt1" loading="lazy" src="src1">
-    <img alt="alt2" loading="lazy" src="src2">
-    <figcaption>caption</figcaption>
-</figure>
-			`),
-			string(Figure(
-				"caption",
-				&HTMLImage{Src: "src0", Alt: "alt0"},
-				&HTMLImage{Src: "src1", Alt: "alt1"},
-				&HTMLImage{Src: "src2", Alt: "alt2"},
-			)),
-		)
-	})
-	t.Run("NoCaption", func(t *testing.T) {
-		assert.Equal(
-			t,
-			strings.TrimSpace(`
-<figure>
-    <img loading="lazy" src="src">
-</figure>
-			`),
-			string(Figure("", &HTMLImage{Src: "src"})),
-		)
-	})
-}
-
 func TestFormatTime(t *testing.T) {
 	assert.Equal(t, "July 3, 2016 12:34", FormatTime(testTime, "January 2, 2006 15:04"))
 }
@@ -268,132 +169,8 @@ func TestHTMLImageRender(t *testing.T) {
 	})
 }
 
-func TestHTMLRender(t *testing.T) {
-	t.Run("SingleElement", func(t *testing.T) {
-		assert.Equal(
-			t,
-			strings.TrimSpace(`
-<img alt="alt" loading="lazy" src="src">
-			`),
-			string(HTMLRender(
-				&HTMLImage{Src: "src", Alt: "alt"},
-			)),
-		)
-	})
-
-	t.Run("MultipleElements", func(t *testing.T) {
-		assert.Equal(
-			t,
-			strings.TrimSpace(`
-<img alt="alt0" loading="lazy" src="src0">
-<img alt="alt1" loading="lazy" src="src1">
-<img alt="alt2" loading="lazy" src="src2">
-			`),
-			string(HTMLRender(
-				&HTMLImage{Src: "src0", Alt: "alt0"},
-				&HTMLImage{Src: "src1", Alt: "alt1"},
-				&HTMLImage{Src: "src2", Alt: "alt2"},
-			)),
-		)
-	})
-}
-
 func TestHTMLSafePassThrough(t *testing.T) {
 	assert.Equal(t, `{{print "x"}}`, string(HTMLSafePassThrough(`{{print "x"}}`)))
-}
-
-func TestImgSrcAndAlt(t *testing.T) {
-	assert.Equal(t, HTMLImage{Src: "src", Alt: "alt"}, *ImgSrcAndAlt("src", "alt"))
-}
-
-func TestImgSrcAndAltAndClass(t *testing.T) {
-	assert.Equal(
-		t,
-		HTMLImage{Src: "src", Alt: "alt", Class: "class"},
-		*ImgSrcAndAltAndClass("src", "alt", "class"),
-	)
-}
-
-func TestMap(t *testing.T) {
-	m := Map(MapVal("New", 456))
-	assert.Contains(t, m, "New")
-}
-
-func TestMapValAdd(t *testing.T) {
-	m := map[string]interface{}{
-		"Preexisting": 123,
-	}
-
-	newM := MapValAdd(m, MapVal("New", 456))
-
-	assert.Contains(t, newM, "Preexisting")
-	assert.Contains(t, newM, "New")
-
-	assert.Contains(t, m, "Preexisting")
-	assert.NotContains(t, m, "New")
-}
-
-func TestQueryEscape(t *testing.T) {
-	assert.Equal(t, "a%2Bb", QueryEscape("a+b"))
-}
-
-func TestRomanNumeral(t *testing.T) {
-	assert.Equal(t, "I", RomanNumeral(1))
-	assert.Equal(t, "II", RomanNumeral(2))
-	assert.Equal(t, "III", RomanNumeral(3))
-	assert.Equal(t, "IV", RomanNumeral(4))
-	assert.Equal(t, "V", RomanNumeral(5))
-	assert.Equal(t, "VI", RomanNumeral(6))
-	assert.Equal(t, "VII", RomanNumeral(7))
-	assert.Equal(t, "VIII", RomanNumeral(8))
-	assert.Equal(t, "IX", RomanNumeral(9))
-	assert.Equal(t, "X", RomanNumeral(10))
-	assert.Equal(t, "XI", RomanNumeral(11))
-	assert.Equal(t, "XII", RomanNumeral(12))
-	assert.Equal(t, "XIII", RomanNumeral(13))
-	assert.Equal(t, "XIV", RomanNumeral(14))
-	assert.Equal(t, "XV", RomanNumeral(15))
-	assert.Equal(t, "XVI", RomanNumeral(16))
-	assert.Equal(t, "XVII", RomanNumeral(17))
-	assert.Equal(t, "XVIII", RomanNumeral(18))
-	assert.Equal(t, "XIX", RomanNumeral(19))
-	assert.Equal(t, "XX", RomanNumeral(20))
-	assert.Equal(t, "XXI", RomanNumeral(21))
-	assert.Equal(t, "XL", RomanNumeral(40))
-	assert.Equal(t, "L", RomanNumeral(50))
-	assert.Equal(t, "LX", RomanNumeral(60))
-	assert.Equal(t, "LXI", RomanNumeral(61))
-	assert.Equal(t, "XC", RomanNumeral(90))
-	assert.Equal(t, "C", RomanNumeral(100))
-	assert.Equal(t, "CD", RomanNumeral(400))
-	assert.Equal(t, "D", RomanNumeral(500))
-	assert.Equal(t, "CM", RomanNumeral(900))
-	assert.Equal(t, "M", RomanNumeral(1000))
-	assert.Equal(t, "MCMXCIX", RomanNumeral(1999))
-	assert.Equal(t, "MMMCMXCIX", RomanNumeral(3999))
-
-	// Out of range
-	assert.Equal(t, "0", RomanNumeral(0))
-	assert.Equal(t, "4000", RomanNumeral(4000))
-}
-
-func TestRoundToString(t *testing.T) {
-	assert.Equal(t, "1.2", RoundToString(1.234))
-	assert.Equal(t, "1.0", RoundToString(1))
-}
-
-func TestTimeIn(t *testing.T) {
-	tIn := TimeIn(testTime, "America/Los_Angeles")
-	assert.Equal(t, "America/Los_Angeles", tIn.Location().String())
-}
-
-func TestTo2X(t *testing.T) {
-	assert.Equal(t, template.HTML("/path/image@2x.jpg"), To2X("/path/image.jpg"))
-	assert.Equal(t, template.HTML("/path/image@2x.png"), To2X("/path/image.png"))
-	assert.Equal(t, template.HTML("image@2x.jpg"), To2X("image.jpg"))
-	assert.Equal(t, template.HTML("image"), To2X("image"))
-	assert.Equal(t, template.HTML("photos/reddit/rd_xxx_01/11%20-%20t9kxD78@2x.jpg"),
-		To2X("photos/reddit/rd_xxx_01/11%20-%20t9kxD78.jpg"))
 }
 
 //////////////////////////////////////////////////////////////////////////////

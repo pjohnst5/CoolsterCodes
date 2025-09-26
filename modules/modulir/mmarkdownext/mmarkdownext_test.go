@@ -26,15 +26,15 @@ func TestTransformCodeWithLanguagePrefix(t *testing.T) {
 
 func TestTransformImages(t *testing.T) {
 	assert.Equal(t, `
-<figure>
+<figure class="text-center">
   <a data-fancybox="gallery" href="/content/images/hey/img.png" data-caption="some puppies">
     <img src="/content/images/hey/img.png" />
   </a>
   <figcaption>some puppies</figcaption>
 </figure>
 `,
-		must(transformImages(`![](/content/images/hey/img.png)
-*some puppies*`, nil)),
+		must(transformImages(`![](./img.png)
+*some puppies*`, &RenderOptions{ImgDir: "/content/images/hey"})),
 	)
 
 	assert.Equal(t, `
@@ -42,7 +42,7 @@ func TestTransformImages(t *testing.T) {
   <img src="/content/images/hey/img.png" />
 </a>
 `,
-		must(transformImages(`![](/content/images/hey/img.png)`, nil)),
+		must(transformImages(`![](./img.png)`, &RenderOptions{ImgDir: "/content/images/hey"})),
 	)
 }
 
