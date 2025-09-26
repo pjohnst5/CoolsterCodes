@@ -205,7 +205,7 @@
    "Kubernetes",
    "Windows"
   ],
-  "img": ""
+  "img": "/content/images/windows-hostprocess-pod-failed-to-get-application-name/error.jpg"
  },
  "windows-hostprocess-pod-host-file-access": {
   "href": "windows-hostprocess-pod-host-file-access",

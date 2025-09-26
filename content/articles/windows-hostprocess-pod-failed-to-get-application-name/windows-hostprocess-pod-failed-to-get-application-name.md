@@ -1,7 +1,7 @@
 +++
 title = "Windows HostProcess Pod: “failed to get application name from commandline: failed to find executable”"
 hook = "The elusive `failed to get application name from commandline` error"
-image = ""
+image = "./error.jpg"
 published_at = 2022-02-19T22:03:09-06:00
 tags = ["Kubernetes", "Windows"]
 youtube = "https://youtu.be/x0k4M0jY6YY"
