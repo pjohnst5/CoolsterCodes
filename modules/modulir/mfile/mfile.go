@@ -24,7 +24,7 @@ import (
 //
 //////////////////////////////////////////////////////////////////////////////
 
-// CopyDirectoryImages is a shortcut for copying over all non-md files into the /public/images/<identifier>/
+// CopyDirectoryImages is a shortcut for copying over all non-md files into the /public/images/<identifier>/.
 func CopyDirectoryImages(c *modulir.Context, source, target string) error {
 	dirs, err := ReadDirWithOptions(c, source, &ReadDirOptions{ShowDirs: true})
 	if err != nil {
@@ -39,17 +39,17 @@ func CopyDirectoryImages(c *modulir.Context, source, target string) error {
 		}
 
 		// Make new target directory path
-		just_name_of_dir := filepath.Base(dir)
-		target_dir := filepath.Join(target, just_name_of_dir)
+		justNameOfDir := filepath.Base(dir)
+		targetDir := filepath.Join(target, justNameOfDir)
 
 		// Ensure target directory exists
-		if err = EnsureDir(c, target_dir); err != nil {
+		if err = EnsureDir(c, targetDir); err != nil {
 			return err
 		}
 
 		// Copy all files into there
 		for _, file := range files {
-			if err = CopyFileToDir(c, file, target_dir); err != nil {
+			if err = CopyFileToDir(c, file, targetDir); err != nil {
 				return err
 			}
 		}
@@ -158,7 +158,7 @@ create:
 	return nil
 }
 
-// IsMD indicates if the file is markdown
+// IsMD indicates if the file is markdown.
 func IsMD(base string) bool {
 	return strings.HasSuffix(base, ".md")
 }

@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"html/template"
 	"io"
 	"net/url"
@@ -215,7 +214,9 @@ func build(c *modulir.Context) []error {
 	// Recursively copy over article pictures into /content/images
 	//
 
-	mfile.CopyDirectoryImages(c, c.SourceDir+"/content/articles", c.TargetDir+"/content/images")
+	if err := mfile.CopyDirectoryImages(c, c.SourceDir+"/content/articles", c.TargetDir+"/content/images"); err != nil {
+		return []error{err}
+	}
 
 	//
 	// Articles
@@ -249,7 +250,9 @@ func build(c *modulir.Context) []error {
 	// Recursively copy over pages pictures into /content/images
 	//
 
-	mfile.CopyDirectoryImages(c, c.SourceDir+"/content/pages", c.TargetDir+"/content/images")
+	if err := mfile.CopyDirectoryImages(c, c.SourceDir+"/content/pages", c.TargetDir+"/content/images"); err != nil {
+		return []error{err}
+	}
 
 	//
 	// Pages (render each view)
@@ -282,8 +285,12 @@ func build(c *modulir.Context) []error {
 	//
 	// Copy over remaining images to /content/images
 	//
-	mfile.CopyFile(c, c.SourceDir+"/content/images/CoolsterCodes.png", c.TargetDir+"/content/images/CoolsterCodes.png")
-	mfile.CopyFile(c, c.SourceDir+"/content/images/favicon.png", c.TargetDir+"/content/images/favicon.png")
+	if err := mfile.CopyFile(c, c.SourceDir+"/content/images/CoolsterCodes.png", c.TargetDir+"/content/images/CoolsterCodes.png"); err != nil {
+		return []error{err}
+	}
+	if err := mfile.CopyFile(c, c.SourceDir+"/content/images/favicon.png", c.TargetDir+"/content/images/favicon.png"); err != nil {
+		return []error{err}
+	}
 
 	//
 	//
@@ -566,10 +573,10 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	sort.Strings(article.Tags)
 
 	article.Slug = scommon.ExtractSlug(source)
-	relative_dir := scommon.GetPathToParentDirectory(source)
+	relativeDir := scommon.GetPathToParentDirectory(source)
 
 	// Define an ImgDir (for later processing) and set Image as full path
-	article.ImgDir = "/" + strings.Replace(relative_dir, "articles", "images", 1) + "/"
+	article.ImgDir = "/" + strings.Replace(relativeDir, "articles", "images", 1) + "/"
 	if article.Image != "" {
 		article.Image = filepath.Join(article.ImgDir, article.Image)
 	}
@@ -744,10 +751,10 @@ func renderPage(ctx context.Context, c *modulir.Context, source string,
 	}
 
 	page.Slug = scommon.ExtractSlug(source)
-	relative_dir := scommon.GetPathToParentDirectory(source)
+	relativeDir := scommon.GetPathToParentDirectory(source)
 
 	// Define an ImgDir (for later processing) and set Image as full path
-	page.ImgDir = "/" + strings.Replace(relative_dir, "pages", "images", 1) + "/"
+	page.ImgDir = "/" + strings.Replace(relativeDir, "pages", "images", 1) + "/"
 
 	stripped := stripmd.Strip(string(data))
 	page.Body = strings.ReplaceAll(stripped, "\n", " ")
@@ -853,7 +860,7 @@ func tagToURL(tag string) string {
 func getYouTubeEmbedLink(link string) string {
 	// Get everything after the last "/"
 	id := link[strings.LastIndex(link, "/")+1:]
-	return fmt.Sprintf("https://www.youtube.com/embed/%s", id)
+	return "https://www.youtube.com/embed/" + id
 }
 
 func generateIndex(srcPath, dstPath string, articles []*Article, pages []*Page) (bool, error) {
