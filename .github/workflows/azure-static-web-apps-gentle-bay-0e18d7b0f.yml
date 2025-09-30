@@ -53,7 +53,6 @@ jobs:
           api_location: ""
           github_id_token: ${{ steps.idtoken.outputs.result }}
           output_location: "/public"
-          skip_app_build: true
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
