@@ -53,7 +53,7 @@ jobs:
           ls
           cd public
           pwd
-          ls public
+          ls
 
       - name: Build And Deploy
         id: builddeploy
