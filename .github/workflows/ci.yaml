@@ -87,4 +87,34 @@ jobs:
         with:
           version: v2.0.0
 
-  ## TODO: Make a deploy
+  deploy_prod:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    if: github.ref == 'refs/heads/master'
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWSAccessKeyID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWSSecretAccessKey }}
+
+    needs:
+      - check_and_test
+      - check_tailwind
+      - golangci-lint
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Go
+        uses: actions/setup-go@v5
+        with:
+          check-latest: true
+          go-version-file: "go.mod"
+
+      - name: "Go: Install"
+        run: make install
+
+      - name: "Build: Production"
+        run: make build
+        env:
+          TARGET_DIR: ./public
