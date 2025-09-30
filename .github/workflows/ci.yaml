@@ -1,4 +1,4 @@
-name: sorg CI
+name: CoolsterCodes CI
 
 env:
   # Saw build failures, apparently because awscli is trying to determine

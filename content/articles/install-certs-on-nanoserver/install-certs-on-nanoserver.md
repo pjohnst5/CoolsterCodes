@@ -1,7 +1,7 @@
 +++
 title = "Install Certs on Nanoserver"
 hook = "Installing certificates on a nanoserver docker image"
-image = ""
+image = "./shield.jpg"
 published_at = 2022-07-30T22:34:01-06:00
 tags = ["Docker", "Windows"]
 youtube = "https://youtu.be/bw0NKTt1dw4"

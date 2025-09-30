@@ -1,4 +1,13 @@
 {
+ "10-tips-and-tricks-to-survive-the-omscs-program": {
+  "href": "10-tips-and-tricks-to-survive-the-omscs-program",
+  "title": "10 Tips and Tricks OMSCS to Survive the OMSCS",
+  "summary": "10 tricks and tips to help you surive the OMSCS ## Tip # 1 - Slack!  Sign up here: https://omscs-study.github.io/  A place for somewhat friendly student interaction 😅 Can be a bit noisy/weird sometimes  The unofficial, student-run, OMSCS slack channel  ## Tip #2 - OMS Hub  Access here https://www.omshub.org  Student-run class reviews for the OMSCS Great source to gauge how hard/easy certain classes are  OMSHub is a great class rating website  ## Tip #3 - OMS Central  Link: https://www.omscentral.com  Another student-run site to rate classes Not sure why there are two haha check both (they honestly align pretty well in terms of score/ratings)  OMSCentral is another class review site, not sure why there are two haha  ## Tip #4 - Reddit Reviews ?  Link: https://www.reddit.com/r/OMSCS/  I have never used these personally but I bet you could find some good info there  Reddit reviews of classes and such  ## Tip #5 - CoolsterCodes!  Shamless plug 😏  Just a guy trying to help you succeed in the OMSCS Really liked the journey  My Awesome blog 😏  ## Tip #6 - LucidChart  Example : https://lucid.app/documents  Super useful for diagraming Easy to create project reports with it Also nice to explain concepts to classmates or ask questions with your design in mind  Lucidchart free for GT students!  ## Tip #7 - Georgia Tech Library on Libby!  Link: https://libbyapp.com/  Whole library available to you! Tons of books academic or otherwise Free / comes with student status  Libby! Georgia Tech's library has a lot of great reads  ## Tip #8 - Private Github!  FAQ - https://support.cc.gatech.edu/support-tools/faq/what-gt-github-enterprise  Unlimited private repositories!! Super useful to store assignments Free  ## Tip #9 - Waitlist history!  Link: https://docs.google.com/spreadsheets/d/1rqv6N1lxC9xR9RGPXhEoqnZIdaHMdixrqu5g7qSL4/edit#gid=1237086826  Not sure you're going to get in a class? See the historical data!  This is super helpful, especially when trying to plan classes!  You can see historical data on waitlists for classes in the OMSCS!  ## Tip #10 - Family  Tell your friends, help you succeed  Get support! Don't feel alone  Teamwork makes the dream work! Tell you family and friends you are in the program to get support",
+  "tags": [
+   "OMSCS"
+  ],
+  "img": "/content/images/10-tips-and-tricks-to-survive-the-omscs-program/tips.jpg"
+ },
  "about": {
   "href": "about",
   "title": "About",
@@ -26,6 +35,16 @@
    "Windows"
   ],
   "img": "/content/images/docker-nanoserver-base-image-windows/docker.png"
+ },
+ "euclid": {
+  "href": "euclid",
+  "title": "How Euclid Solved Programming 3,000 Years Ago",
+  "summary": "Quite the baller if you ask me Greatest Common Divisor  Euclid in about 300 B.C. devised an algorithm for finding the greatest common divisor of two whole numbers  8 is the Greatest Common Divisor of 16 and 24  The slow way  One way to find the GCD of two numbers is to list out all the factors of each number, and iterate through each list to find the highest common number  The slow way of finding the GCD of two numbers  The fast way  Let's break this down:  gcd() symbolizes a \"function call\" The \"function\" is itself This is call Recursion  The fast way to compute the GCD of two numbers  GCD broken down  This is where Modular Arithmetic is useful  Euclid's algorithm calls for swapping a for b in the function call (i.e. the \"recursive\" call), and having the second argument be:  a mod b  This means, that if a were 16 and b were 24, then 16 mod 24 is just 16, because 24 is bigger than 16, so 24 can't divide 16 at all, so the remainder is just 16  On the next call however, 24 is modularly divisible by 16 (it leaves us with 8 left over)  So the next function call paramters are 16 and 8  GCD internally working  Hitting the \"b==0\" base case  The crazy thing about this algorithm  This still remains one of the FASTEST ways to get the GCD of two numbers  Even with all our fancy computing power, Euclid had this solved roughly 2-3,000 years ago 😂  What a baller 😎",
+  "tags": [
+   "Programming",
+   "Science"
+  ],
+  "img": "/content/images/euclid/Euclid.png"
  },
  "georgia-tech-omscs-ai-ethics-and-society-review-cs-6603": {
   "href": "georgia-tech-omscs-ai-ethics-and-society-review-cs-6603",
@@ -147,7 +166,7 @@
    "Docker",
    "Windows"
   ],
-  "img": ""
+  "img": "/content/images/install-certs-on-nanoserver/shield.jpg"
  },
  "install-wireshark-via-windows-command-line": {
   "href": "install-wireshark-via-windows-command-line",
@@ -168,7 +187,7 @@
    "Powershell",
    "Windows"
   ],
-  "img": ""
+  "img": "/content/images/installing-modules-for-powershell-core-pwsh/pwsh.png"
  },
  "is-georgia-techs-online-masters-worth-it": {
   "href": "is-georgia-techs-online-masters-worth-it",
@@ -179,14 +198,14 @@
   ],
   "img": "/content/images/is-georgia-techs-online-masters-worth-it/Presentation1.jpg"
  },
- "omscs-which-specialization-should-you-choose": {
-  "href": "omscs-which-specialization-should-you-choose",
-  "title": "OMSCS: Which Specialization Should You Choose?",
-  "summary": "Helping you choose the right OMSCS specialization OSMCS: Which Specialization Should You Choose?  There are two schools of thought:  Get a degree as fast as you can (in which case, I suggest Interactive Intelligence) Learn something specialized (ML, Robotics, HCI, etc.)  Either way, there's a general way you'll want to go about this, which is, see which classes fulfill multiple specializations your interested in:  Classes that overlap  One thing you'll want to make sure is, you don't re-do too many class requirements from the specializations list:  The OMSCS specializations  Hey this is a nother title  And then some text, maybe a list  What is in a name Hey",
+ "omscs-tier-list": {
+  "href": "omscs-tier-list",
+  "title": "Georgia Tech OMSCS Tier List Class Review",
+  "summary": "Ranking my OMSCS classes in tier-list fashion 😎 Criteria    The critera are:  How well-presented is the class? How hands-on is the class? What are the class mechanics like?  The classes I took  Knowledge-based AI Reinforcement Learning Robotics Machine Learning for Trading Machine Learning AI Computer Networks Human-Computer Interaction AI, Ethics and Society 10. Grad Algos 11. Software Development Process  Knowledge-based AI  Well-presented?     Yes, of course, it's a Joyner class! Hands-on?     Yes, it's actually quite a lot coding, and has some really cool projects Class mechanics     Yes, very well organized Tier? A  Reinforcement Learning  Well-presented?     Yes, it is well presented (although very tough stuff!) Hands-on?     Sort-of hands on. Alot more reading than coding/building in this class Class mechanics     Yes, great interaction with the TAs on EdStem, however, grading was very subjective and slow to get back to the students Tier? B  Robotics  Well-presented?     Yes!! This class rocks!!     It was very cool videos and stuff, really neat stuff. Hands-on?     Yes, you do a bunch of cool projects in this class Class mechanics     Nothing to write home about, but still pretty good Tier? S  Machine learning for trading  Well-presented?     Yes, it is a bit slow in the content (it's tough but also, I think simplified for our beginning status as students in stock trading haha) Hands-on?     Yes, you actually do a lot of coding and building in this class Class mechanics     Good Tier? B  Machine learning  Well-presented?     Very well presented content Hands-on?     Tedium honestly, not super hands-on it felt.     Felt like a lot of busy work Class mechanics     Pretty ambiguous and mysterious grading! Good luck! Tier? C  AI  Well-presented?     Yes! It was super cool Hands-on?     Yes!! Super intense programming here! Seriously, tough programming. Class mechanics     Yes there was actually the most feedback and participation from any of the other clases. (Maybe beacause it's so hard, students just had to come together to get through it 😭😂) Tier? A  Computer networks  Well-presented?     Yes, it was a bit dry sometimes (I mean the topic itself can be dry haha) Hands-on?     Yes, there was actually 1 really good lab (the first), that was relevant to networking (I use it in my job as a networking engineer) Class mechanics     Yeah Tier? B  Human-computer interaction  Well-presented?     Yeah, it's interesting, but pretty simplistic/obvious Hands-on?     You do a lot of writing in this class, but it is pretty busy work-y. Mostly writing papers. Class mechanics     Yeah there's a lot of support for students in this class (it's a Joyner class) Tier? C  AI, Ethics and Society  Well-presented?     Yeah I think so Hands-on?     A bit fluffy Class mechanics     Yeah pretty chill Tier? C  Graduate Algorithms  Well-presented?     Well I didn't finish it so 😂 but the lecture videos were actually really cool Hands-on?     It used to not be, but I have heard it is getting better.      Class mechanics     Not great at all 😂 (well sort of, like a \"C\" level) Tier? D  Software Development Process  Well-presented?     Yeah, it actually was Hands-on?     Yes, the way you do the group project is very similar to how you do real software-engineering Class mechanics     Yeah it did feel like TAs/professors did get back Tier? A  The final Tier-List made by yours truly  ",
   "tags": [
    "OMSCS"
   ],
-  "img": "/content/images/omscs-which-specialization-should-you-choose/spec3.jpg"
+  "img": "/content/images/omscs-tier-list/tier-thumbnail5.jpg"
  },
  "reference": {
   "href": "reference",
@@ -215,7 +234,7 @@
    "Kubernetes",
    "Windows"
   ],
-  "img": ""
+  "img": "/content/images/windows-hostprocess-pod-host-file-access/folder.jpg"
  },
  "windows-pod-host-file-mount-on-kubernetes": {
   "href": "windows-pod-host-file-mount-on-kubernetes",
