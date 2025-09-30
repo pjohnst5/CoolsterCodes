@@ -1,0 +1,583 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NX7VL0ZZMV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-NX7VL0ZZMV');
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+    <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+
+    <meta property="og:title" content="Georgia Tech OMSCS AI for Robotics Review | CS 7638">
+<meta property="og:description" content="Georgia Tech&rsquo;s Robotics class!">
+<meta name="description" content="Georgia Tech&rsquo;s Robotics class!">
+
+<meta property="og:image" content="https://coolstercodes.com/content/images/georgia-tech-omscs-ai-for-robotics-review-cs-7638/AIforR2.jpg">
+
+<meta property="og:url" content="https://coolstercodes.com/georgia-tech-omscs-ai-for-robotics-review-cs-7638">
+<link rel="canonical" href="https://coolstercodes.com/georgia-tech-omscs-ai-for-robotics-review-cs-7638">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2022-12-23T04:31:41Z">
+<meta property="article:author" content="https://coolstercodes.com">
+
+<meta property="article:tag" content="OMSCS">
+
+<meta property="article:tag" content="Robotics">
+
+<meta property="article:tag" content="Science">
+
+
+    <title>Georgia Tech OMSCS AI for Robotics Review | CS 7638 - Coolster Codes</title>
+
+    <link rel="shortcut icon" type="image/png" href="/content/images/favicon.png">
+
+    <link href="/content/stylesheets/tailwind.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/content/stylesheets/tailwind_custom.css" media="screen" rel="stylesheet" type="text/css">
+
+<link href="/content/stylesheets/fancybox.css" media="screen" rel="stylesheet" type="text/css">
+
+
+    
+
+    <script src="/websocket.js" type="text/javascript"></script>
+    
+</head>
+
+<body class="antialiased bg-[#222222] bg-no-repeat bg-gradient-to-br
+min-h-screen">
+    <div class="hidden h-16 md:flex">
+        <div class="w-60">
+            <a href="/">
+                <img class="pl-2 pt-1 max-h-full max-w-full" src="/content/images/CoolsterCodes.png">
+            </a>
+        </div>
+        <div class="w-10 flex flex-grow justify-evenly items-center">
+            <ul class="flex">
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/">Home</a>
+                </li>
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/about">About</a>
+                </li>
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/tags/">Tags</a>
+                </li>
+            </ul>
+        </div>
+        <div class="w-60 flex">
+            <form role="search" id="search"
+                class="flex items-center bg-gray-800 text-gray-400 border border-gray-600 rounded-lg px-3 py-2 w-80 m-3">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+                </svg>
+                <input id="search-query" type="search" placeholder="Search" autocomplete="off" aria-label="Search"
+                    class="bg-transparent focus:outline-none w-full text-gray-200 placeholder-gray-400" />
+            </form>
+        </div>
+</div>
+
+
+<div class="flex h-16 md:hidden">
+    <div class="w-40">
+        <a href="/">
+            <img class="pl-1 pt-1 max-h-full max-w-full" src="/content/images/CoolsterCodes.png">
+        </a>
+    </div>
+    <div class="w-5 flex-grow"></div>
+    <div class="w-40 flex justify-end items-center pr-3">
+        <div class="hamburger" onclick="toggle(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+    </div>
+</div>
+<div class="hidden md:hidden" id="drop-down">
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 pt-2 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/">Home</a>
+    </div>
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/about">About</a>
+    </div>
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/tags/">Tags</a>
+    </div>
+    <div class="h-14 w-full">
+        <form role="search" id="search"
+            class="flex items-center bg-gray-800 text-gray-400 border border-gray-600 rounded-lg px-3 py-2 m-3">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+            </svg>
+            <input id="search-query-mobile" type="search" placeholder="Search" autocomplete="off" aria-label="Search"
+                class="bg-transparent focus:outline-none w-full text-gray-200 placeholder-gray-400" />
+        </form>
+    </div>
+</div>
+<div id="main-div">
+    <div class="mb-12 mt-0 px-4">
+    <div class="container max-w-[950px] mx-auto">
+        <h1 class="font-semibold font-sans leading-none my-8 text-center text-6xl text-white tracking-tighter md:font-normal md:text-8xl">
+            Georgia Tech OMSCS AI for Robotics Review | CS 7638
+        </h1>
+    </div>
+</div>
+
+<div class="container max-w-[900px] mx-auto mt-8 px-4 xl:max-w-[1125px]">
+    <div class="md:flex">
+        <div class="basis-[170px] flex-grow-0 flex-shrink-0 hidden md:block"> 
+            <div class="leading-normal text-xs tracking-tighter sticky text-center text-white top-5">
+                <div class="border-b px-4 pb-4 ">
+                    <div class="font-bold mb-0.5 text-white">Article</div>
+                    <div class="text-myblue">
+                        <a class="hover:border-b-sky-600 hover:text-sky-600 underline" href="javascript:void(0)" onclick="copyText('https:\/\/coolstercodes.com/georgia-tech-omscs-ai-for-robotics-review-cs-7638')">
+                            Georgia Tech OMSCS AI for Robotics Review | CS 7638 <span class="mx-0.5"><b class="copy text-myblue hover:border-b-sky-600 hover:text-sky-600 underline"></b></span>
+                        </a>
+                        <span
+                            id="copyalert"
+                            class="hidden tooltip absolute left-1/2 -translate-x-1/2 bg-gray-600 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300">
+                            Copied!
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="border-b flex items-stretch text-center ">
+                    <div class="border-r flex-grow ">
+                        <div class="flex h-full items-center">
+                            <div class="px-4 py-4">
+                                <div class="font-bold mb-0.5 text-white">Author</div>
+                                <div class="leading-tight text-myblue">
+                                    <a class="hover:border-b-sky-600 hover:text-sky-600 underline"
+                                        href="/about">Me</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow h-full min-w-0">
+                        <div class="flex items-center">
+                            <div class="px-4 py-4">
+                                <div class="font-bold mb-0.5 text-white">Published</div>
+                                <div class="leading-tight">Dec 22, 2022</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="font-bold mb-0.5 text-white px-4 py-4">
+                    <p class="mb-2">YouTube<br> <a class="hover:border-b-sky-600 hover:text-sky-600 font-bold text-myblue underline" href="https://youtu.be/2dzL429aiT0" target="_blank">@coolstercodes</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="pb-4 md:border-l md:flex-grow md:min-w-0 md:pl-8 xl:pr-8 ">
+            
+
+            <div class="hyphens-auto
+                max-w-none
+                prose prose-lg
+                prose-a:font-sans
+                prose-blockquote:text-slate-300
+                prose-img:w-full prose-img:my-0
+                prose-h2:text-xl prose-h2:mb-1 prose-a:prose-h2:border-b-0 prose-a:prose-h2:font-bold prose-h2:text-myblue prose-a:prose-h2:no-underline
+                prose-h3:text-lg prose-h3:mb-1 prose-a:prose-h3:border-b-0 prose-a:prose-h3:font-bold prose-h3:text-myblue prose-a:prose-h3:no-underline
+                prose-h4:text-base prose-h4:mb-1 prose-a:prose-h4:border-b-0 prose-a:prose-h4:font-bold prose-h4:text-myblue prose-a:prose-h4:no-underline
+                prose-hr:my-10 prose-hr:md:-mx-[2rem] prose-hr:md:w-[calc(100%+4rem)]
+                prose-p:font-serif
+                text-[17px]
+                prose-li:my-0
+                prose-figcaption:mt-3
+                prose-p:prose-blockquote:font-sans
+                prose-pre:leading-[1.15rem] prose-pre:text-[0.9rem]
+                prose-strong:text-slate-100
+                prose-ol:font-serif
+                prose-ul:font-serif
+                prose-a:text-myblue
+                prose-a:border-b-myblue
+                hover:prose-a:border-b-sky-600
+                hover:prose-a:text-sky-600
+                prose-code:prose-pre:px-0 prose-code:prose-pre:py-0
+                prose-code:bg-[#414242] prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+                ">
+                
+                <div class="relative pb-[56.25%] h-0 overflow-hidden w-full">
+                    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/2dzL429aiT0">
+                    </iframe>
+                </div>
+                
+
+                <div class="font-bold my-1 text-white text-sm md:hidden">Published December 22, 2022
+                </div>
+                
+                <h2 id="tldr" class="link"><a href="#tldr">TL;DR</a></h2>
+
+<ul>
+<li>Medium</li>
+<li>Avg 12 hours a week</li>
+<li>Cool projects!</li>
+</ul>
+
+<h2 id="what-is-ai-for-robotics" class="link"><a href="#what-is-ai-for-robotics">What is AI for Robotics?</a></h2>
+
+<p>AI for Robotics specializes in localization (where are you?), mapping (what is around you?) search (where is the thing you’re looking for?) and control (what do you do to get to your goal?)</p>
+
+<h2 id="graded-course-material" class="link"><a href="#graded-course-material">Graded course material</a></h2>
+
+<ul>
+<li>4 projects
+
+<ul>
+<li>13% each</li>
+</ul></li>
+<li>1 “mini-project”
+
+<ul>
+<li>10% each</li>
+</ul></li>
+<li>6 “problem sets”
+
+<ul>
+<li>Short coding assignments</li>
+<li>3% each</li>
+</ul></li>
+<li>2 Exams</li>
+<li>Extra-credit!</li>
+</ul>
+
+<h2 id="projects" class="link"><a href="#projects">Projects</a></h2>
+
+<h3 id="kalman-filter-meteorites" class="link"><a href="#kalman-filter-meteorites">Kalman Filter : Meteorites</a></h3>
+
+<p>Kalman Filtering is a way to predict the future locations of objects, given their past locations</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-ai-for-robotics-review-cs-7638/kalman.gif" data-caption="Kalman Filtering at work!">
+    <img src="/content/images/georgia-tech-omscs-ai-for-robotics-review-cs-7638/kalman.gif" />
+  </a>
+  <figcaption>Kalman Filtering at work!</figcaption>
+</figure>
+
+<p>You will use:</p>
+
+<ul>
+<li>Linear algebra</li>
+<li>Numpy</li>
+<li>Trigonometry</li>
+</ul>
+
+<p>The <a href="https://omscs.gatech.edu/cs-7638-artificial-intelligence-robotics-course-videos" target="_blank">Kalman Filters lecture videos</a> are incredibly helpful here, make sure to watch them all<br />
+If you want to get started early I believe <a href="https://www.udacity.com/course/artificial-intelligence-for-robotics--cs373" target="_blank">this free Udacity course</a> has most of the same material</p>
+
+<h3 id="particle-filter-mars-glider" class="link"><a href="#particle-filter-mars-glider">Particle Filter : Mars Glider</a></h3>
+
+<p>You will guide a glider around a map using particle filters</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-ai-for-robotics-review-cs-7638/pf.gif" data-caption="Particle filters locating a glider">
+    <img src="/content/images/georgia-tech-omscs-ai-for-robotics-review-cs-7638/pf.gif" />
+  </a>
+  <figcaption>Particle filters locating a glider</figcaption>
+</figure>
+
+<p>Particle filters is equivalent to “crowd sourcing” a location of an object (lecture videos)<br />
+You generate a bunch of points and slowly begin to choose the most likely points<br />
+You will use:</p>
+
+<ul>
+<li>Linear algebra</li>
+<li>Statistics</li>
+<li>Trigonometry</li>
+<li>Creativity</li>
+</ul>
+
+<p>I say you’ll use “creativity” because you have to come up with a lot of the specifics yourself, i.e. how many points? What noise level of measurements will you allow? How will you determine an appropriate error? etc. etc.<br />
+My advice is to watch the lecture videos once through before you even start coding or reading the spec, to get a high-level understanding first</p>
+
+<p>I only got <sup>63</sup>&frasl;<sub>100</sub> on this project but still managed to get a B in the course (start early!)</p>
+
+<h3 id="search-warehouse" class="link"><a href="#search-warehouse">Search: Warehouse</a></h3>
+
+<p>Here you will program a robot to search the room optimally for boxes</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-ai-for-robotics-review-cs-7638/search-3.gif" data-caption="Search in action">
+    <img src="/content/images/georgia-tech-omscs-ai-for-robotics-review-cs-7638/search-3.gif" />
+  </a>
+  <figcaption>Search in action</figcaption>
+</figure>
+
+<p>You will use:</p>
+
+<ul>
+<li>Cartesian plane</li>
+<li>Planning</li>
+<li>For-loops</li>
+</ul>
+
+<p>This project isn’t too bad, but it takes time<br />
+Make sure to understand what your robot should do on paper, before programming<br />
+The lecture videos are almost verbatim what you need (<a href="https://omscs.gatech.edu/cs-7638-artificial-intelligence-robotics-course-videos" target="_blank">lecture videos</a>)</p>
+
+<h3 id="slam-indiana-drones" class="link"><a href="#slam-indiana-drones">SLAM : Indiana Drones</a></h3>
+
+<p>SLAM stands for “Simultaneous Location and Mapping”, meaning you find out where you are in the world, while you map out what’s in the world</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-ai-for-robotics-review-cs-7638/slam.gif" data-caption="SLAM at work!">
+    <img src="/content/images/georgia-tech-omscs-ai-for-robotics-review-cs-7638/slam.gif" />
+  </a>
+  <figcaption>SLAM at work!</figcaption>
+</figure>
+
+<p>There are a few things you should know going into this (from the <a href="https://omscs.gatech.edu/cs-7638-artificial-intelligence-robotics-course-videos" target="_blank">lecture videos</a>):</p>
+
+<ul>
+<li>Linear algebra</li>
+<li>Numpy</li>
+<li>Trigonometry</li>
+</ul>
+
+<p>It’s a bit difficult to understand the linear algebra needed for this project, so I would definitely suggest taking some extra time before you start coding, to do an example out by hand like Prof. Thrun does in the videos.<br />
+That being said, it is by far the coolest project, because this actually has applications in the <strong>real world</strong>.</p>
+
+<h2 id="mini-project" class="link"><a href="#mini-project">Mini-project</a></h2>
+
+<h3 id="drone-pid-controller" class="link"><a href="#drone-pid-controller">Drone PID Controller</a></h3>
+
+<p>Here you will be controlling a drone’s tilt (i.e. roll angle) and thrust to get it to the goal<br />
+PID is a fancy term which stands for “Proportional-Integral-Derivative”<br />
+Essentially what it means that when you add a little bit of thrust or tilt, that little bit will affect the next amount of thrust or tilt you give</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-ai-for-robotics-review-cs-7638/PID.png" data-caption="Roll angle and thrust">
+    <img src="/content/images/georgia-tech-omscs-ai-for-robotics-review-cs-7638/PID.png" />
+  </a>
+  <figcaption>Roll angle and thrust</figcaption>
+</figure>
+
+<p>This project follows the lecture videos very closely, which is nice<br />
+You just have to fill out a couple of formulas in code, but they give you the formulas in the videos<br />
+You can also earn extra credit on this project! Which I did by getting an extra 0.22 percent on it 😎</p>
+
+<h2 id="problem-sets" class="link"><a href="#problem-sets">Problem sets</a></h2>
+
+<p>Problem sets are short coding assignments you do while following along in a lecture video<br />
+They are quite literally “copying” (i.e. transcribing) code from the lecture videos into your python file and submitting it<br />
+So very easy and informative at the same time</p>
+
+<h2 id="exams" class="link"><a href="#exams">Exams</a></h2>
+
+<p>The exams are great:</p>
+
+<ul>
+<li>5% of final grade (midterm) or 10% of final grade(final)</li>
+<li>15 questions (midterm) or 30 questions (final)</li>
+<li>You get <strong>two tries</strong> for each exam!
+
+<ul>
+<li>Best score is kept</li>
+</ul></li>
+</ul>
+
+<p>The exams together are worth roughly 1 project<br />
+It’s <u>easy points</u>, so study up and get that good grade!</p>
+
+<h2 id="extra-credit" class="link"><a href="#extra-credit">Extra credit!</a></h2>
+
+<p>Yeah this class is great, here are all the ways you can get extra credit:</p>
+
+<ul>
+<li>Participate in bi-weekly “Hardware or research challenges”</li>
+<li>Excel in Piazza posts and helpfulness</li>
+<li>Get extra points on projects</li>
+</ul>
+
+<p>I personally did not get extra credit (except for that one project where I got 0.22 points of extra credit 😎)<br />
+But it is great that they offer the option</p>
+
+<h2 id="grade-breakdown" class="link"><a href="#grade-breakdown">Grade breakdown</a></h2>
+
+<ul>
+<li>Projects:
+
+<ul>
+<li>Kalman Filters: Meteorites – 95%</li>
+<li>Particle Filter: Mars Glider – 63%</li>
+<li>Search: Warehouse – 82%</li>
+<li>SLAM: Indiana drones – 88%</li>
+</ul></li>
+<li>Mini project:
+
+<ul>
+<li>Drone PID controller – 100.<strong>22</strong>% 😎</li>
+</ul></li>
+<li>Problem sets – 100%</li>
+<li>Exams:
+
+<ul>
+<li>Midterm – 80%</li>
+<li>Final – 64%</li>
+</ul></li>
+</ul>
+
+<p>Final score: 85.56% or a <strong>B</strong> 😎</p>
+
+            </div>
+            
+            <div class="pt-4">
+                <div class="flex items-center py-1">
+                    <div class="font-bold mb-0.5 text-white mr-0.5">Tags: </div>
+                    
+                    <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                        href="/tags/omscs">#OMSCS</a>
+                    
+                    <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                        href="/tags/robotics">#Robotics</a>
+                    
+                    <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                        href="/tags/science">#Science</a>
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+            <div class="basis-[190px] border-l flex-grow-0 flex-shrink-0 hidden xl:block ">
+                
+                
+                <div class="
+                    mb-3
+                    pl-3
+                    pb-5
+
+                    prose prose-sm
+                    prose-li:my-2
+
+                    prose-ol:prose-li:list-[lower-alpha] prose-ol:prose-li:my-2
+                    prose-a:prose-li:prose-li:font-normal prose-li:prose-li:my-1 prose-li:prose-li:text-[0.65rem] hover:prose-a:prose-li:text-sky-600 hover:prose-a:prose-li:border-b-sky-600
+
+                    prose-ol:prose-li:prose-li:list-[lower-roman]
+                    prose-li:prose-li:prose-li:text-[0.6rem]
+
+                    sticky top-5
+                    text-xs
+                ">
+                    <ol><li><a href="#tldr">TL;DR</a></li><li><a href="#what-is-ai-for-robotics">What is AI for Robotics?</a></li><li><a href="#graded-course-material">Graded course material</a></li><li><a href="#projects">Projects</a><ol><li><a href="#kalman-filter-meteorites">Kalman Filter : Meteorites</a></li><li><a href="#particle-filter-mars-glider">Particle Filter : Mars Glider</a></li><li><a href="#search-warehouse">Search: Warehouse</a></li><li><a href="#slam-indiana-drones">SLAM : Indiana Drones</a></li></ol></li><li><a href="#mini-project">Mini-project</a><ol><li><a href="#drone-pid-controller">Drone PID Controller</a></li></ol></li><li><a href="#problem-sets">Problem sets</a></li><li><a href="#exams">Exams</a></li><li><a href="#extra-credit">Extra credit!</a></li><li><a href="#grade-breakdown">Grade breakdown</a></li></ol>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="border-t pb-8 p-8 w-vp ">
+    <div class="container max-w-[650px] mx-auto">
+        <div class="hyphens-auto
+            italic
+            max-w-none
+            prose prose-sm
+            prose-a:border-b-myblue prose-a:font-sans
+            hover:prose-a:text-sky-600
+            prose-p:font-serif
+            ">
+            <p>
+                Thanks for reading! :)
+            </p>
+        </div>
+    </div>
+</div>
+</div>
+<div id="search-results" class="hidden text-white p-4"></div>
+<div id="dummy" class="hidden text-gray-400 pb-2 pt-2 pb-1 text-myblue text-xl border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600 text-green-500 text-sm pb-1 text-gray-200 text-sm text-center bg-gray-600 rounded-md px-[5px] py-[2px] ml-1 font-extrabold pb-1 py-1 relative absolute w-full h-full pb-[56.25%] h-0 overflow-hidden top-0 left-0 border-0 bg-myblue mb-3 mr-4"></div>
+
+    <script type="module">
+
+
+import { codeToHtml } from 'https://esm.sh/shiki@1.0.0'
+
+
+
+const htmlEscapes = new Map([
+    ['&amp;', '&'],
+    ['&lt;', '<'],
+    ['&gt;', '>'],
+]);
+
+function unescapeHTMLEntities(str) {
+    for (const [escaped, unescaped] of htmlEscapes) {
+        str = str.replaceAll(escaped, unescaped)
+    }
+    return str
+}
+
+await Promise.all(Array.from(document.querySelectorAll('pre code')).map((codeBlock) => {
+    const classNames = codeBlock.getAttribute("class");
+    if (classNames == null) {
+        return
+    }
+
+    let language = null;
+    for (const className of classNames.split(" ")) {
+        const [languageToken, ...rest] = className.split("-")
+        if (languageToken == "language") {
+            
+            
+            
+            language = rest.join("-")
+            break
+        }
+    }
+
+    if (language == null) {
+        return
+    }
+
+    return (async () => {
+        const code = unescapeHTMLEntities(codeBlock.innerHTML)
+
+        
+        
+        codeBlock.parentElement.outerHTML = 
+            await codeToHtml(code, {
+                lang: language,
+                themes: {
+                    dark: 'github-dark',
+                    light: 'github-dark'
+                }
+            })
+    })()
+}))
+
+</script>
+
+    <script src="/content/javascripts/fancybox.umd.js"></script>
+<script>
+    Fancybox.bind('[data-fancybox]', {
+        
+    });
+</script>
+
+    <script src="/content/javascripts/buttons.js"></script>
+
+    <script type="module" src="/content/javascripts/docfx.min.js"></script>
+<script type="module" src="/content/javascripts/search-worker.min.js"></script>
+
+
+</body>
+
+</html>

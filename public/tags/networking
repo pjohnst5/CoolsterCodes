@@ -1,0 +1,280 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NX7VL0ZZMV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-NX7VL0ZZMV');
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+    <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+
+    <meta property="og:site_name" content="CoolsterCodes.com">
+<meta property="og:image" content="https://coolstercodes.com/content/images/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Networking - Coolster Codes">
+<meta property="og:description" content="My articles about Networking">
+<meta name="description" content="My articles about Networking">
+<meta property="og:url" content="https://coolstercodes.com/tags/networking">
+<link rel="canonical" href="https://coolstercodes.com/tags/networking">
+
+    <title>Networking - Coolster Codes</title>
+
+    <link rel="shortcut icon" type="image/png" href="/content/images/favicon.png">
+
+    <link href="/content/stylesheets/tailwind.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/content/stylesheets/tailwind_custom.css" media="screen" rel="stylesheet" type="text/css">
+
+<link href="/content/stylesheets/fancybox.css" media="screen" rel="stylesheet" type="text/css">
+
+
+    
+
+    <script src="/websocket.js" type="text/javascript"></script>
+    
+</head>
+
+<body class="antialiased bg-[#222222] bg-no-repeat bg-gradient-to-br
+min-h-screen">
+    <div class="hidden h-16 md:flex">
+        <div class="w-60">
+            <a href="/">
+                <img class="pl-2 pt-1 max-h-full max-w-full" src="/content/images/CoolsterCodes.png">
+            </a>
+        </div>
+        <div class="w-10 flex flex-grow justify-evenly items-center">
+            <ul class="flex">
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/">Home</a>
+                </li>
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/about">About</a>
+                </li>
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/tags/">Tags</a>
+                </li>
+            </ul>
+        </div>
+        <div class="w-60 flex">
+            <form role="search" id="search"
+                class="flex items-center bg-gray-800 text-gray-400 border border-gray-600 rounded-lg px-3 py-2 w-80 m-3">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+                </svg>
+                <input id="search-query" type="search" placeholder="Search" autocomplete="off" aria-label="Search"
+                    class="bg-transparent focus:outline-none w-full text-gray-200 placeholder-gray-400" />
+            </form>
+        </div>
+</div>
+
+
+<div class="flex h-16 md:hidden">
+    <div class="w-40">
+        <a href="/">
+            <img class="pl-1 pt-1 max-h-full max-w-full" src="/content/images/CoolsterCodes.png">
+        </a>
+    </div>
+    <div class="w-5 flex-grow"></div>
+    <div class="w-40 flex justify-end items-center pr-3">
+        <div class="hamburger" onclick="toggle(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+    </div>
+</div>
+<div class="hidden md:hidden" id="drop-down">
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 pt-2 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/">Home</a>
+    </div>
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/about">About</a>
+    </div>
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/tags/">Tags</a>
+    </div>
+    <div class="h-14 w-full">
+        <form role="search" id="search"
+            class="flex items-center bg-gray-800 text-gray-400 border border-gray-600 rounded-lg px-3 py-2 m-3">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+            </svg>
+            <input id="search-query-mobile" type="search" placeholder="Search" autocomplete="off" aria-label="Search"
+                class="bg-transparent focus:outline-none w-full text-gray-200 placeholder-gray-400" />
+        </form>
+    </div>
+</div>
+<div id="main-div">
+    <meta name="docfx:rel" content="../">
+<div class="pt-4 pb-4 px-4">
+    <h1 class="prose prose-lg font-normal font-serif text-center text-8xl tracking-tighter
+                prose-a:text-white prose-a:no-underline">
+        Networking
+    </h1>
+</div>
+<div class="mb-12 px-4">
+    <div class="container max-w-[625px] mx-auto
+            prose prose-lg
+            prose-p:text-center prose-p:italic
+            prose-strong:text-white
+            ">
+        <p>
+            My articles about <strong>Networking</strong>.
+        </p>
+    </div>
+</div>
+
+<div class="container max-w-[800px] mx-auto mt-8 px-8">
+    <div class="md:flex">
+        <div class="pb-8 md:flex-grow md:min-w-0 md:pl-6 md:pr-6">
+            <ul class="clear-both mb-9"><li class="clear-both mb-9 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/georgia-tech-omscs-computer-networks-review-cs-6250">
+                                <img src="/content/images/georgia-tech-omscs-computer-networks-review-cs-6250/Networks3.jpg" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/georgia-tech-omscs-computer-networks-review-cs-6250"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Georgia Tech OMSCS Computer Networks Review | CS 6250</a>
+                        <span class="italic ml-0.5 text-gray-300 text-xs">Aug 7, 2022</span>
+
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/networking">#Networking</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/omscs">#OMSCS</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">Georgia Tech&rsquo;s Computer Networks class</p>
+                </li><li class="clear-both mb-9 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/install-wireshark-via-windows-command-line">
+                                <img src="/content/images/install-wireshark-via-windows-command-line/Wireshark_icon.svg.png" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/install-wireshark-via-windows-command-line"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Install Wireshark via Windows Command Line</a>
+                        <span class="italic ml-0.5 text-gray-300 text-xs">Jan 12, 2022</span>
+
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/networking">#Networking</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/windows">#Windows</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">Install wireshark via cmd</p>
+                </li></ul>
+        </div>
+    </div>
+</div>
+</div>
+<div id="search-results" class="hidden text-white p-4"></div>
+<div id="dummy" class="hidden text-gray-400 pb-2 pt-2 pb-1 text-myblue text-xl border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600 text-green-500 text-sm pb-1 text-gray-200 text-sm text-center bg-gray-600 rounded-md px-[5px] py-[2px] ml-1 font-extrabold pb-1 py-1 relative absolute w-full h-full pb-[56.25%] h-0 overflow-hidden top-0 left-0 border-0 bg-myblue mb-3 mr-4"></div>
+
+    <script type="module">
+
+
+import { codeToHtml } from 'https://esm.sh/shiki@1.0.0'
+
+
+
+const htmlEscapes = new Map([
+    ['&amp;', '&'],
+    ['&lt;', '<'],
+    ['&gt;', '>'],
+]);
+
+function unescapeHTMLEntities(str) {
+    for (const [escaped, unescaped] of htmlEscapes) {
+        str = str.replaceAll(escaped, unescaped)
+    }
+    return str
+}
+
+await Promise.all(Array.from(document.querySelectorAll('pre code')).map((codeBlock) => {
+    const classNames = codeBlock.getAttribute("class");
+    if (classNames == null) {
+        return
+    }
+
+    let language = null;
+    for (const className of classNames.split(" ")) {
+        const [languageToken, ...rest] = className.split("-")
+        if (languageToken == "language") {
+            
+            
+            
+            language = rest.join("-")
+            break
+        }
+    }
+
+    if (language == null) {
+        return
+    }
+
+    return (async () => {
+        const code = unescapeHTMLEntities(codeBlock.innerHTML)
+
+        
+        
+        codeBlock.parentElement.outerHTML = 
+            await codeToHtml(code, {
+                lang: language,
+                themes: {
+                    dark: 'github-dark',
+                    light: 'github-dark'
+                }
+            })
+    })()
+}))
+
+</script>
+
+    <script src="/content/javascripts/fancybox.umd.js"></script>
+<script>
+    Fancybox.bind('[data-fancybox]', {
+        
+    });
+</script>
+
+    <script src="/content/javascripts/buttons.js"></script>
+
+    <script type="module" src="/content/javascripts/docfx.min.js"></script>
+<script type="module" src="/content/javascripts/search-worker.min.js"></script>
+
+
+</body>
+
+</html>

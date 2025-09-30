@@ -1,0 +1,564 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NX7VL0ZZMV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-NX7VL0ZZMV');
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+    <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+
+    <meta property="og:title" content="Georgia Tech OMSCS Reinforcement Learning Review | CS 7642">
+<meta property="og:description" content="Georgia Tech&rsquo;s Reinforcement Learning class!">
+<meta name="description" content="Georgia Tech&rsquo;s Reinforcement Learning class!">
+
+<meta property="og:image" content="https://coolstercodes.com/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/Thumby-scaled.jpeg">
+
+<meta property="og:url" content="https://coolstercodes.com/georgia-tech-omscs-reinforcement-learning-review-cs-7642">
+<link rel="canonical" href="https://coolstercodes.com/georgia-tech-omscs-reinforcement-learning-review-cs-7642">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-10-24T06:29:19Z">
+<meta property="article:author" content="https://coolstercodes.com">
+
+<meta property="article:tag" content="Machine Learning">
+
+<meta property="article:tag" content="OMSCS">
+
+
+    <title>Georgia Tech OMSCS Reinforcement Learning Review | CS 7642 - Coolster Codes</title>
+
+    <link rel="shortcut icon" type="image/png" href="/content/images/favicon.png">
+
+    <link href="/content/stylesheets/tailwind.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/content/stylesheets/tailwind_custom.css" media="screen" rel="stylesheet" type="text/css">
+
+<link href="/content/stylesheets/fancybox.css" media="screen" rel="stylesheet" type="text/css">
+
+
+    
+
+    <script src="/websocket.js" type="text/javascript"></script>
+    
+</head>
+
+<body class="antialiased bg-[#222222] bg-no-repeat bg-gradient-to-br
+min-h-screen">
+    <div class="hidden h-16 md:flex">
+        <div class="w-60">
+            <a href="/">
+                <img class="pl-2 pt-1 max-h-full max-w-full" src="/content/images/CoolsterCodes.png">
+            </a>
+        </div>
+        <div class="w-10 flex flex-grow justify-evenly items-center">
+            <ul class="flex">
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/">Home</a>
+                </li>
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/about">About</a>
+                </li>
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/tags/">Tags</a>
+                </li>
+            </ul>
+        </div>
+        <div class="w-60 flex">
+            <form role="search" id="search"
+                class="flex items-center bg-gray-800 text-gray-400 border border-gray-600 rounded-lg px-3 py-2 w-80 m-3">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+                </svg>
+                <input id="search-query" type="search" placeholder="Search" autocomplete="off" aria-label="Search"
+                    class="bg-transparent focus:outline-none w-full text-gray-200 placeholder-gray-400" />
+            </form>
+        </div>
+</div>
+
+
+<div class="flex h-16 md:hidden">
+    <div class="w-40">
+        <a href="/">
+            <img class="pl-1 pt-1 max-h-full max-w-full" src="/content/images/CoolsterCodes.png">
+        </a>
+    </div>
+    <div class="w-5 flex-grow"></div>
+    <div class="w-40 flex justify-end items-center pr-3">
+        <div class="hamburger" onclick="toggle(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+    </div>
+</div>
+<div class="hidden md:hidden" id="drop-down">
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 pt-2 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/">Home</a>
+    </div>
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/about">About</a>
+    </div>
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/tags/">Tags</a>
+    </div>
+    <div class="h-14 w-full">
+        <form role="search" id="search"
+            class="flex items-center bg-gray-800 text-gray-400 border border-gray-600 rounded-lg px-3 py-2 m-3">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+            </svg>
+            <input id="search-query-mobile" type="search" placeholder="Search" autocomplete="off" aria-label="Search"
+                class="bg-transparent focus:outline-none w-full text-gray-200 placeholder-gray-400" />
+        </form>
+    </div>
+</div>
+<div id="main-div">
+    <div class="mb-12 mt-0 px-4">
+    <div class="container max-w-[950px] mx-auto">
+        <h1 class="font-semibold font-sans leading-none my-8 text-center text-6xl text-white tracking-tighter md:font-normal md:text-8xl">
+            Georgia Tech OMSCS Reinforcement Learning Review | CS 7642
+        </h1>
+    </div>
+</div>
+
+<div class="container max-w-[900px] mx-auto mt-8 px-4 xl:max-w-[1125px]">
+    <div class="md:flex">
+        <div class="basis-[170px] flex-grow-0 flex-shrink-0 hidden md:block"> 
+            <div class="leading-normal text-xs tracking-tighter sticky text-center text-white top-5">
+                <div class="border-b px-4 pb-4 ">
+                    <div class="font-bold mb-0.5 text-white">Article</div>
+                    <div class="text-myblue">
+                        <a class="hover:border-b-sky-600 hover:text-sky-600 underline" href="javascript:void(0)" onclick="copyText('https:\/\/coolstercodes.com/georgia-tech-omscs-reinforcement-learning-review-cs-7642')">
+                            Georgia Tech OMSCS Reinforcement Learning Review | CS 7642 <span class="mx-0.5"><b class="copy text-myblue hover:border-b-sky-600 hover:text-sky-600 underline"></b></span>
+                        </a>
+                        <span
+                            id="copyalert"
+                            class="hidden tooltip absolute left-1/2 -translate-x-1/2 bg-gray-600 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300">
+                            Copied!
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="border-b flex items-stretch text-center ">
+                    <div class="border-r flex-grow ">
+                        <div class="flex h-full items-center">
+                            <div class="px-4 py-4">
+                                <div class="font-bold mb-0.5 text-white">Author</div>
+                                <div class="leading-tight text-myblue">
+                                    <a class="hover:border-b-sky-600 hover:text-sky-600 underline"
+                                        href="/about">Me</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow h-full min-w-0">
+                        <div class="flex items-center">
+                            <div class="px-4 py-4">
+                                <div class="font-bold mb-0.5 text-white">Published</div>
+                                <div class="leading-tight">Oct 24, 2023</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="font-bold mb-0.5 text-white px-4 py-4">
+                    <p class="mb-2">YouTube<br> <a class="hover:border-b-sky-600 hover:text-sky-600 font-bold text-myblue underline" href="https://youtu.be/LEwjFYt4XIQ" target="_blank">@coolstercodes</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="pb-4 md:border-l md:flex-grow md:min-w-0 md:pl-8 xl:pr-8 ">
+            
+
+            <div class="hyphens-auto
+                max-w-none
+                prose prose-lg
+                prose-a:font-sans
+                prose-blockquote:text-slate-300
+                prose-img:w-full prose-img:my-0
+                prose-h2:text-xl prose-h2:mb-1 prose-a:prose-h2:border-b-0 prose-a:prose-h2:font-bold prose-h2:text-myblue prose-a:prose-h2:no-underline
+                prose-h3:text-lg prose-h3:mb-1 prose-a:prose-h3:border-b-0 prose-a:prose-h3:font-bold prose-h3:text-myblue prose-a:prose-h3:no-underline
+                prose-h4:text-base prose-h4:mb-1 prose-a:prose-h4:border-b-0 prose-a:prose-h4:font-bold prose-h4:text-myblue prose-a:prose-h4:no-underline
+                prose-hr:my-10 prose-hr:md:-mx-[2rem] prose-hr:md:w-[calc(100%+4rem)]
+                prose-p:font-serif
+                text-[17px]
+                prose-li:my-0
+                prose-figcaption:mt-3
+                prose-p:prose-blockquote:font-sans
+                prose-pre:leading-[1.15rem] prose-pre:text-[0.9rem]
+                prose-strong:text-slate-100
+                prose-ol:font-serif
+                prose-ul:font-serif
+                prose-a:text-myblue
+                prose-a:border-b-myblue
+                hover:prose-a:border-b-sky-600
+                hover:prose-a:text-sky-600
+                prose-code:prose-pre:px-0 prose-code:prose-pre:py-0
+                prose-code:bg-[#414242] prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+                ">
+                
+                <div class="relative pb-[56.25%] h-0 overflow-hidden w-full">
+                    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/LEwjFYt4XIQ">
+                    </iframe>
+                </div>
+                
+
+                <div class="font-bold my-1 text-white text-sm md:hidden">Published October 24, 2023
+                </div>
+                
+                <h2 id="tldr" class="link"><a href="#tldr">TL;DR</a></h2>
+
+<ul>
+<li>Hard</li>
+<li>20 hours per week</li>
+<li>Big Curve 📉 (68% == B for me)</li>
+</ul>
+
+<h2 id="what-is-reinforcement-learning" class="link"><a href="#what-is-reinforcement-learning">What is Reinforcement Learning?</a></h2>
+
+<p>Reinforcement Learning is getting your program to make tiny “updates”, based on rewards it gets in a “world’</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/lunarlander.gif" data-caption="My Lunar Lander Lols">
+    <img src="/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/lunarlander.gif" />
+  </a>
+  <figcaption>My Lunar Lander Lols</figcaption>
+</figure>
+
+<h2 id="graded-course-material" class="link"><a href="#graded-course-material">Graded Course Material</a></h2>
+
+<ul>
+<li>6 Homeworks (5% each)</li>
+<li>3 Projects (15% each)</li>
+<li>1 Exam (25%!)</li>
+</ul>
+
+<h2 id="homework-1-planning-in-markov-decision-processes" class="link"><a href="#homework-1-planning-in-markov-decision-processes">Homework 1: Planning in Markov Decision Processes</a></h2>
+
+<p>The goal is to find the <a href="https://en.wikipedia.org/wiki/Expected_value" target="_blank">Expected Value</a> of “points”, you would earn, given an N-sided dice, where some of the sides give you points, and some end the game</p>
+
+<p>You are given some of the context in these lecture videos, but I think the most helpful place is <a href="http://incompleteideas.net/book/the-book-2nd.html" target="_blank">Chapter 3</a> of the book.</p>
+
+<p>It’s basically just a python script, where you fill in 1 function that does something, and uses Policy-Iteration in Reinforcement Learning.</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/PolicyIteration.png" data-caption="Policy Iteration, from the book">
+    <img src="/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/PolicyIteration.png" />
+  </a>
+  <figcaption>Policy Iteration, from the book</figcaption>
+</figure>
+
+<h2 id="homework-2-the-return" class="link"><a href="#homework-2-the-return">Homework 2: The ƛ Return</a></h2>
+
+<p>You’re implementing an “update” step for “<a href="https://en.wikipedia.org/wiki/Temporal_difference_learning" target="_blank">Temporal Difference Learning</a>“</p>
+
+<p>It’s basically just a function that you implement in Python, that follows the Temporal Difference algorithm in the book:</p>
+
+<p>In this equation, you’re basically going to solve for ƛ (lambda)</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/TD_algorithm-1.png" data-caption="The Temporal Difference algorithm in the book">
+    <img src="/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/TD_algorithm-1.png" />
+  </a>
+  <figcaption>The Temporal Difference algorithm in the book</figcaption>
+</figure>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/Algo.png" data-caption="I was struggling to get it until I figured this out">
+    <img src="/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/Algo.png" />
+  </a>
+  <figcaption>I was struggling to get it until I figured this out</figcaption>
+</figure>
+
+<h2 id="project-1-temporal-difference" class="link"><a href="#project-1-temporal-difference">Project 1: Temporal-Difference ƛ</a></h2>
+
+<p>This one is a lot of reading. You have to read the “<a href="https://link.springer.com/article/10.1007/BF00115009" target="_blank">Sutton Paper</a>” from 1988 (it’s the original Reinforcement Learning paper basically) and replicate the experiments and results as closely as possible</p>
+
+<p>Then you have to write your own paper (use the <a href="https://www.ieee.org/conferences/publishing/templates.html" target="_blank">IEEE Paper format</a>)</p>
+
+<p>Temporal Difference is basically looking at patterns up until a certain point, and capturing the “roll” of the data.<br />
+If you were trying to predict the weather, you would take into account, how the weather has changed over many days, instead of just looking at yesterday’s weather.</p>
+
+<p><iframe width="100%" height="800" src="/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/Sutton-1988.pdf">
+</iframe>
+<figcaption class="text-center">The paper this project is based on</figcaption></p>
+
+<h2 id="homework-3-sarsa" class="link"><a href="#homework-3-sarsa">Homework 3: SARSA</a></h2>
+
+<p><a href="https://en.wikipedia.org/wiki/State%E2%80%93action%E2%80%93reward%E2%80%93state%E2%80%93action" target="_blank">SARSA</a> is another “update” model for Reinforcement Learning<br />
+It stands for:</p>
+
+<ul>
+<li>State</li>
+<li>Action</li>
+<li>Reward</li>
+<li>State</li>
+<li>Action</li>
+</ul>
+
+<p>In this homework, you’re an agent, trying to traverse <a href="https://gymnasium.farama.org/environments/toy_text/frozen_lake/" target="_blank">OpenAI’s Frozen Lake</a> problem, using SARSA</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/frozen_lake.gif" data-caption="OpenAI’s Frozen Lake problem on meth">
+    <img src="/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/frozen_lake.gif" />
+  </a>
+  <figcaption>OpenAI’s Frozen Lake problem on meth</figcaption>
+</figure>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/SARSA.png" data-caption="SARSA algorithm">
+    <img src="/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/SARSA.png" />
+  </a>
+  <figcaption>SARSA algorithm</figcaption>
+</figure>
+
+<h2 id="homework-4-taxi-q-learning" class="link"><a href="#homework-4-taxi-q-learning">Homework 4: Taxi (Q-Learning)</a></h2>
+
+<p><a href="https://en.wikipedia.org/wiki/Q-learning" target="_blank">Q-Learning</a> is just another “update” algorithm for Reinforcement Learning</p>
+
+<p>In this homework, you’ll be implementing a <a href="https://gymnasium.farama.org/environments/toy_text/taxi/#taxi" target="_blank">Taxi problem</a> that OpenAI implements for Reinforcement Research</p>
+
+<ul>
+<li>The goal is to pick up the person and drop him/her off at the desired location, with the minimal steps possible</li>
+<li>It’s pretty amazing! The Q-Learning algorithm just learns which action is best to take in each given scenario</li>
+</ul>
+
+<p>In this homework, you’ll be dealing with a finite-space Q-Learning environment, where the Q-table is a 2-dimensional matrix, of (state x action)</p>
+
+<p>This gets harder in the next lab which is an infinite state space! 😱</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/taxi.gif" data-caption="Open AI’s Taxi problem">
+    <img src="/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/taxi.gif" />
+  </a>
+  <figcaption>Open AI’s Taxi problem</figcaption>
+</figure>
+
+<h2 id="project-2-lunar-lander" class="link"><a href="#project-2-lunar-lander">Project 2: Lunar Lander 😱</a></h2>
+
+<p>This one’s pretty cool though, because you’ll get to make a little “robot” that will fly around and try to land in a goal via <a href="https://www.gymlibrary.dev/environments/box2d/lunar_lander/" target="_blank">OpenAI’s LunarLander</a> in Project</p>
+
+<p>It’s a toughie no doubt, but is super cool once you get it working.<br />
+My suggestion would be:</p>
+
+<ul>
+<li>Start as simple as possible (keep parameters constant and training short, and watch your lander)</li>
+<li>Keep first training episodes low, so you can watch the learning happen faster</li>
+<li>Tune parameters last, after getting a solid base</li>
+</ul>
+
+<p>I used a <a href="https://www.nature.com/articles/nature14236" target="_blank">Deep-Q Network</a> because it was used to solve Atari games using an infinite state space, which mapped nicely to this project</p>
+
+<p>I also used the <a href="https://www.ieee.org/conferences/publishing/templates.html" target="_blank">IEEE Paper format</a> for this project, which got me more points for a more professional look, and will likely get you one too.</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/LunarLanderWIters.gif" data-caption="My Lunar Lander">
+    <img src="/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/LunarLanderWIters.gif" />
+  </a>
+  <figcaption>My Lunar Lander</figcaption>
+</figure>
+
+<h2 id="homework-5-bar-brawl" class="link"><a href="#homework-5-bar-brawl">Homework 5: Bar Brawl 👊🏼</a></h2>
+
+<p>Given a 2-dimensional array which represents townspeople’s attendance to a bar each evening, you are to find out how likely it is that a fight broke out that evening.</p>
+
+<p>This closely follows a paper called “<a href="https://link.springer.com/article/10.1007/s10994-010-5225-4" target="_blank">Know what it knows: A framework for self-aware learning</a>“</p>
+
+<p>It’s kind of just math and a few for-loops</p>
+
+<h2 id="homework-6-rock-paper-scissors" class="link"><a href="#homework-6-rock-paper-scissors">Homework 6: Rock, Paper, Scissors 🪨 📄✂️</a></h2>
+
+<p>This one explores <a href="https://www.cs.upc.edu/~ia/nash51.pdf" target="_blank">Game Theory</a> using Rock, Paper, Scissors</p>
+
+<p>I remember it was very small coding-wise, but also kind of tricky to get just right</p>
+
+<p>They provide you with some papers to look at and compare with</p>
+
+<h2 id="project-3-correlated-q" class="link"><a href="#project-3-correlated-q">Project 3: Correlated-Q ⚽️</a></h2>
+
+<p>In this project you’ll implement a soccer game (yay) and write a paper about it</p>
+
+<p>You just kind of switch out the algorithms used to play the game, and compare the results</p>
+
+<p>It’s pretty interesting but a little time consuming</p>
+
+<h2 id="final-exam" class="link"><a href="#final-exam">Final Exam</a></h2>
+
+<p>The final exam was really hard</p>
+
+<p>I got <strong><sup>31</sup>&frasl;<sub>100</sub></strong> on it, and still managed to get a B in the class</p>
+
+<p>It is free-response</p>
+
+<h2 id="grade-breakdown" class="link"><a href="#grade-breakdown">Grade breakdown</a></h2>
+
+<ul>
+<li>Homework 1: 100%</li>
+<li>Homework 2: 100%</li>
+<li>Project 1: 63%</li>
+<li>Homework 3: 100%</li>
+<li>Homework 4: 100%</li>
+<li>Project 2: 76%</li>
+<li>Homework 5: 100%</li>
+<li>Homework 6: 100%</li>
+<li>Project 3: 65%</li>
+<li>Final Exam: 31%</li>
+</ul>
+
+            </div>
+            
+            <div class="pt-4">
+                <div class="flex items-center py-1">
+                    <div class="font-bold mb-0.5 text-white mr-0.5">Tags: </div>
+                    
+                    <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                        href="/tags/machine-learning">#Machine Learning</a>
+                    
+                    <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                        href="/tags/omscs">#OMSCS</a>
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+            <div class="basis-[190px] border-l flex-grow-0 flex-shrink-0 hidden xl:block ">
+                
+                
+                <div class="
+                    mb-3
+                    pl-3
+                    pb-5
+
+                    prose prose-sm
+                    prose-li:my-2
+
+                    prose-ol:prose-li:list-[lower-alpha] prose-ol:prose-li:my-2
+                    prose-a:prose-li:prose-li:font-normal prose-li:prose-li:my-1 prose-li:prose-li:text-[0.65rem] hover:prose-a:prose-li:text-sky-600 hover:prose-a:prose-li:border-b-sky-600
+
+                    prose-ol:prose-li:prose-li:list-[lower-roman]
+                    prose-li:prose-li:prose-li:text-[0.6rem]
+
+                    sticky top-5
+                    text-xs
+                ">
+                    <ol><li><a href="#tldr">TL;DR</a></li><li><a href="#what-is-reinforcement-learning">What is Reinforcement Learning?</a></li><li><a href="#graded-course-material">Graded Course Material</a></li><li><a href="#homework-1-planning-in-markov-decision-processes">Homework 1: Planning in Markov Decision Processes</a></li><li><a href="#homework-2-the-return">Homework 2: The ƛ Return</a></li><li><a href="#project-1-temporal-difference">Project 1: Temporal-Difference ƛ</a></li><li><a href="#homework-3-sarsa">Homework 3: SARSA</a></li><li><a href="#homework-4-taxi-q-learning">Homework 4: Taxi (Q-Learning)</a></li><li><a href="#project-2-lunar-lander">Project 2: Lunar Lander 😱</a></li><li><a href="#homework-5-bar-brawl">Homework 5: Bar Brawl 👊🏼</a></li><li><a href="#homework-6-rock-paper-scissors">Homework 6: Rock, Paper, Scissors 🪨 📄✂️</a></li><li><a href="#project-3-correlated-q">Project 3: Correlated-Q ⚽️</a></li><li><a href="#final-exam">Final Exam</a></li><li><a href="#grade-breakdown">Grade breakdown</a></li></ol>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="border-t pb-8 p-8 w-vp ">
+    <div class="container max-w-[650px] mx-auto">
+        <div class="hyphens-auto
+            italic
+            max-w-none
+            prose prose-sm
+            prose-a:border-b-myblue prose-a:font-sans
+            hover:prose-a:text-sky-600
+            prose-p:font-serif
+            ">
+            <p>
+                Thanks for reading! :)
+            </p>
+        </div>
+    </div>
+</div>
+</div>
+<div id="search-results" class="hidden text-white p-4"></div>
+<div id="dummy" class="hidden text-gray-400 pb-2 pt-2 pb-1 text-myblue text-xl border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600 text-green-500 text-sm pb-1 text-gray-200 text-sm text-center bg-gray-600 rounded-md px-[5px] py-[2px] ml-1 font-extrabold pb-1 py-1 relative absolute w-full h-full pb-[56.25%] h-0 overflow-hidden top-0 left-0 border-0 bg-myblue mb-3 mr-4"></div>
+
+    <script type="module">
+
+
+import { codeToHtml } from 'https://esm.sh/shiki@1.0.0'
+
+
+
+const htmlEscapes = new Map([
+    ['&amp;', '&'],
+    ['&lt;', '<'],
+    ['&gt;', '>'],
+]);
+
+function unescapeHTMLEntities(str) {
+    for (const [escaped, unescaped] of htmlEscapes) {
+        str = str.replaceAll(escaped, unescaped)
+    }
+    return str
+}
+
+await Promise.all(Array.from(document.querySelectorAll('pre code')).map((codeBlock) => {
+    const classNames = codeBlock.getAttribute("class");
+    if (classNames == null) {
+        return
+    }
+
+    let language = null;
+    for (const className of classNames.split(" ")) {
+        const [languageToken, ...rest] = className.split("-")
+        if (languageToken == "language") {
+            
+            
+            
+            language = rest.join("-")
+            break
+        }
+    }
+
+    if (language == null) {
+        return
+    }
+
+    return (async () => {
+        const code = unescapeHTMLEntities(codeBlock.innerHTML)
+
+        
+        
+        codeBlock.parentElement.outerHTML = 
+            await codeToHtml(code, {
+                lang: language,
+                themes: {
+                    dark: 'github-dark',
+                    light: 'github-dark'
+                }
+            })
+    })()
+}))
+
+</script>
+
+    <script src="/content/javascripts/fancybox.umd.js"></script>
+<script>
+    Fancybox.bind('[data-fancybox]', {
+        
+    });
+</script>
+
+    <script src="/content/javascripts/buttons.js"></script>
+
+    <script type="module" src="/content/javascripts/docfx.min.js"></script>
+<script type="module" src="/content/javascripts/search-worker.min.js"></script>
+
+
+</body>
+
+</html>

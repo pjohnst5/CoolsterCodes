@@ -1,0 +1,442 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NX7VL0ZZMV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-NX7VL0ZZMV');
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+    <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+
+    <meta property="og:title" content="How Euclid Solved Programming 3,000 Years Ago">
+<meta property="og:description" content="Quite the baller if you ask me">
+<meta name="description" content="Quite the baller if you ask me">
+
+<meta property="og:image" content="https://coolstercodes.com/content/images/euclid/Euclid.png">
+
+<meta property="og:url" content="https://coolstercodes.com/euclid">
+<link rel="canonical" href="https://coolstercodes.com/euclid">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2024-05-03T00:33:36Z">
+<meta property="article:author" content="https://coolstercodes.com">
+
+<meta property="article:tag" content="Programming">
+
+<meta property="article:tag" content="Science">
+
+
+    <title>How Euclid Solved Programming 3,000 Years Ago - Coolster Codes</title>
+
+    <link rel="shortcut icon" type="image/png" href="/content/images/favicon.png">
+
+    <link href="/content/stylesheets/tailwind.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/content/stylesheets/tailwind_custom.css" media="screen" rel="stylesheet" type="text/css">
+
+<link href="/content/stylesheets/fancybox.css" media="screen" rel="stylesheet" type="text/css">
+
+
+    
+
+    <script src="/websocket.js" type="text/javascript"></script>
+    
+</head>
+
+<body class="antialiased bg-[#222222] bg-no-repeat bg-gradient-to-br
+min-h-screen">
+    <div class="hidden h-16 md:flex">
+        <div class="w-60">
+            <a href="/">
+                <img class="pl-2 pt-1 max-h-full max-w-full" src="/content/images/CoolsterCodes.png">
+            </a>
+        </div>
+        <div class="w-10 flex flex-grow justify-evenly items-center">
+            <ul class="flex">
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/">Home</a>
+                </li>
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/about">About</a>
+                </li>
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/tags/">Tags</a>
+                </li>
+            </ul>
+        </div>
+        <div class="w-60 flex">
+            <form role="search" id="search"
+                class="flex items-center bg-gray-800 text-gray-400 border border-gray-600 rounded-lg px-3 py-2 w-80 m-3">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+                </svg>
+                <input id="search-query" type="search" placeholder="Search" autocomplete="off" aria-label="Search"
+                    class="bg-transparent focus:outline-none w-full text-gray-200 placeholder-gray-400" />
+            </form>
+        </div>
+</div>
+
+
+<div class="flex h-16 md:hidden">
+    <div class="w-40">
+        <a href="/">
+            <img class="pl-1 pt-1 max-h-full max-w-full" src="/content/images/CoolsterCodes.png">
+        </a>
+    </div>
+    <div class="w-5 flex-grow"></div>
+    <div class="w-40 flex justify-end items-center pr-3">
+        <div class="hamburger" onclick="toggle(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+    </div>
+</div>
+<div class="hidden md:hidden" id="drop-down">
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 pt-2 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/">Home</a>
+    </div>
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/about">About</a>
+    </div>
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/tags/">Tags</a>
+    </div>
+    <div class="h-14 w-full">
+        <form role="search" id="search"
+            class="flex items-center bg-gray-800 text-gray-400 border border-gray-600 rounded-lg px-3 py-2 m-3">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+            </svg>
+            <input id="search-query-mobile" type="search" placeholder="Search" autocomplete="off" aria-label="Search"
+                class="bg-transparent focus:outline-none w-full text-gray-200 placeholder-gray-400" />
+        </form>
+    </div>
+</div>
+<div id="main-div">
+    <div class="mb-12 mt-0 px-4">
+    <div class="container max-w-[950px] mx-auto">
+        <h1 class="font-semibold font-sans leading-none my-8 text-center text-6xl text-white tracking-tighter md:font-normal md:text-8xl">
+            How Euclid Solved Programming 3,000 Years Ago
+        </h1>
+    </div>
+</div>
+
+<div class="container max-w-[900px] mx-auto mt-8 px-4 xl:max-w-[1125px]">
+    <div class="md:flex">
+        <div class="basis-[170px] flex-grow-0 flex-shrink-0 hidden md:block"> 
+            <div class="leading-normal text-xs tracking-tighter sticky text-center text-white top-5">
+                <div class="border-b px-4 pb-4 ">
+                    <div class="font-bold mb-0.5 text-white">Article</div>
+                    <div class="text-myblue">
+                        <a class="hover:border-b-sky-600 hover:text-sky-600 underline" href="javascript:void(0)" onclick="copyText('https:\/\/coolstercodes.com/euclid')">
+                            How Euclid Solved Programming 3,000 Years Ago <span class="mx-0.5"><b class="copy text-myblue hover:border-b-sky-600 hover:text-sky-600 underline"></b></span>
+                        </a>
+                        <span
+                            id="copyalert"
+                            class="hidden tooltip absolute left-1/2 -translate-x-1/2 bg-gray-600 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300">
+                            Copied!
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="border-b flex items-stretch text-center ">
+                    <div class="border-r flex-grow ">
+                        <div class="flex h-full items-center">
+                            <div class="px-4 py-4">
+                                <div class="font-bold mb-0.5 text-white">Author</div>
+                                <div class="leading-tight text-myblue">
+                                    <a class="hover:border-b-sky-600 hover:text-sky-600 underline"
+                                        href="/about">Me</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow h-full min-w-0">
+                        <div class="flex items-center">
+                            <div class="px-4 py-4">
+                                <div class="font-bold mb-0.5 text-white">Published</div>
+                                <div class="leading-tight">May 2, 2024</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="font-bold mb-0.5 text-white px-4 py-4">
+                    <p class="mb-2">YouTube<br> <a class="hover:border-b-sky-600 hover:text-sky-600 font-bold text-myblue underline" href="https://youtu.be/fbfHSW_qy_Y" target="_blank">@coolstercodes</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="pb-4 md:border-l md:flex-grow md:min-w-0 md:pl-8 xl:pr-8 ">
+            
+
+            <div class="hyphens-auto
+                max-w-none
+                prose prose-lg
+                prose-a:font-sans
+                prose-blockquote:text-slate-300
+                prose-img:w-full prose-img:my-0
+                prose-h2:text-xl prose-h2:mb-1 prose-a:prose-h2:border-b-0 prose-a:prose-h2:font-bold prose-h2:text-myblue prose-a:prose-h2:no-underline
+                prose-h3:text-lg prose-h3:mb-1 prose-a:prose-h3:border-b-0 prose-a:prose-h3:font-bold prose-h3:text-myblue prose-a:prose-h3:no-underline
+                prose-h4:text-base prose-h4:mb-1 prose-a:prose-h4:border-b-0 prose-a:prose-h4:font-bold prose-h4:text-myblue prose-a:prose-h4:no-underline
+                prose-hr:my-10 prose-hr:md:-mx-[2rem] prose-hr:md:w-[calc(100%+4rem)]
+                prose-p:font-serif
+                text-[17px]
+                prose-li:my-0
+                prose-figcaption:mt-3
+                prose-p:prose-blockquote:font-sans
+                prose-pre:leading-[1.15rem] prose-pre:text-[0.9rem]
+                prose-strong:text-slate-100
+                prose-ol:font-serif
+                prose-ul:font-serif
+                prose-a:text-myblue
+                prose-a:border-b-myblue
+                hover:prose-a:border-b-sky-600
+                hover:prose-a:text-sky-600
+                prose-code:prose-pre:px-0 prose-code:prose-pre:py-0
+                prose-code:bg-[#414242] prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+                ">
+                
+                <div class="relative pb-[56.25%] h-0 overflow-hidden w-full">
+                    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/fbfHSW_qy_Y">
+                    </iframe>
+                </div>
+                
+
+                <div class="font-bold my-1 text-white text-sm md:hidden">Published May 2, 2024
+                </div>
+                
+                <h2 id="greatest-common-divisor" class="link"><a href="#greatest-common-divisor">Greatest Common Divisor</a></h2>
+
+<p>Euclid in about 300 B.C. devised an algorithm for finding the greatest common divisor of two whole numbers</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/euclid/Slide4.jpeg" data-caption="8 is the Greatest Common Divisor of 16 and 24">
+    <img src="/content/images/euclid/Slide4.jpeg" />
+  </a>
+  <figcaption>8 is the Greatest Common Divisor of 16 and 24</figcaption>
+</figure>
+
+<h2 id="the-slow-way" class="link"><a href="#the-slow-way">The slow way</a></h2>
+
+<p>One way to find the GCD of two numbers is to list out all the factors of each number, and iterate through each list to find the highest common number</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/euclid/gcd_slow.jpg" data-caption="The slow way of finding the GCD of two numbers">
+    <img src="/content/images/euclid/gcd_slow.jpg" />
+  </a>
+  <figcaption>The slow way of finding the GCD of two numbers</figcaption>
+</figure>
+
+<h2 id="the-fast-way" class="link"><a href="#the-fast-way">The fast way</a></h2>
+
+<p>Let&rsquo;s break this down:</p>
+
+<ul>
+<li><code>gcd()</code> symbolizes a &ldquo;function call&rdquo;</li>
+<li>The &ldquo;function&rdquo; is <em>itself</em></li>
+<li>This is call <strong>Recursion</strong></li>
+</ul>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/euclid/gcd_fast.jpg" data-caption="The fast way to compute the GCD of two numbers">
+    <img src="/content/images/euclid/gcd_fast.jpg" />
+  </a>
+  <figcaption>The fast way to compute the GCD of two numbers</figcaption>
+</figure>
+
+<h2 id="gcd-broken-down" class="link"><a href="#gcd-broken-down">GCD broken down</a></h2>
+
+<p>This is where Modular Arithmetic is useful</p>
+
+<p>Euclid&rsquo;s algorithm calls for swapping <code>a</code> for <code>b</code> in the function call (i.e. the &ldquo;recursive&rdquo; call), and having the second argument be:</p>
+
+<ul>
+<li><code>a mod b</code></li>
+</ul>
+
+<p>This means, that if <code>a</code> were <code>16</code> and <code>b</code> were <code>24</code>, then <code>16 mod 24</code> is just <code>16</code>, because <code>24</code> is bigger than <code>16</code>, so <code>24</code> can&rsquo;t divide <code>16</code> at all, so the remainder is just <code>16</code></p>
+
+<p>On the <strong>next</strong> call however, <code>24</code> is modularly divisible by <code>16</code> (it leaves us with <code>8</code> left over)</p>
+
+<p>So the next function call paramters are <code>16</code> and <code>8</code></p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/euclid/Slide25.jpeg" data-caption="GCD internally working">
+    <img src="/content/images/euclid/Slide25.jpeg" />
+  </a>
+  <figcaption>GCD internally working</figcaption>
+</figure>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/euclid/Final.png" data-caption="Hitting the "b==0" base case">
+    <img src="/content/images/euclid/Final.png" />
+  </a>
+  <figcaption>Hitting the "b==0" base case</figcaption>
+</figure>
+
+<h2 id="the-crazy-thing-about-this-algorithm" class="link"><a href="#the-crazy-thing-about-this-algorithm">The crazy thing about this algorithm</a></h2>
+
+<p>This <strong>still</strong> remains one of the <strong>FASTEST</strong> ways to get the GCD of two numbers</p>
+
+<p>Even with all our fancy computing power, Euclid had this solved roughly 2-3,000 years ago 😂</p>
+
+<p>What a baller 😎</p>
+
+            </div>
+            
+            <div class="pt-4">
+                <div class="flex items-center py-1">
+                    <div class="font-bold mb-0.5 text-white mr-0.5">Tags: </div>
+                    
+                    <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                        href="/tags/programming">#Programming</a>
+                    
+                    <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                        href="/tags/science">#Science</a>
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+            <div class="basis-[190px] border-l flex-grow-0 flex-shrink-0 hidden xl:block ">
+                
+                
+                <div class="
+                    mb-3
+                    pl-3
+                    pb-5
+
+                    prose prose-sm
+                    prose-li:my-2
+
+                    prose-ol:prose-li:list-[lower-alpha] prose-ol:prose-li:my-2
+                    prose-a:prose-li:prose-li:font-normal prose-li:prose-li:my-1 prose-li:prose-li:text-[0.65rem] hover:prose-a:prose-li:text-sky-600 hover:prose-a:prose-li:border-b-sky-600
+
+                    prose-ol:prose-li:prose-li:list-[lower-roman]
+                    prose-li:prose-li:prose-li:text-[0.6rem]
+
+                    sticky top-5
+                    text-xs
+                ">
+                    <ol><li><a href="#greatest-common-divisor">Greatest Common Divisor</a></li><li><a href="#the-slow-way">The slow way</a></li><li><a href="#the-fast-way">The fast way</a></li><li><a href="#gcd-broken-down">GCD broken down</a></li><li><a href="#the-crazy-thing-about-this-algorithm">The crazy thing about this algorithm</a></li></ol>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="border-t pb-8 p-8 w-vp ">
+    <div class="container max-w-[650px] mx-auto">
+        <div class="hyphens-auto
+            italic
+            max-w-none
+            prose prose-sm
+            prose-a:border-b-myblue prose-a:font-sans
+            hover:prose-a:text-sky-600
+            prose-p:font-serif
+            ">
+            <p>
+                Thanks for reading! :)
+            </p>
+        </div>
+    </div>
+</div>
+</div>
+<div id="search-results" class="hidden text-white p-4"></div>
+<div id="dummy" class="hidden text-gray-400 pb-2 pt-2 pb-1 text-myblue text-xl border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600 text-green-500 text-sm pb-1 text-gray-200 text-sm text-center bg-gray-600 rounded-md px-[5px] py-[2px] ml-1 font-extrabold pb-1 py-1 relative absolute w-full h-full pb-[56.25%] h-0 overflow-hidden top-0 left-0 border-0 bg-myblue mb-3 mr-4"></div>
+
+    <script type="module">
+
+
+import { codeToHtml } from 'https://esm.sh/shiki@1.0.0'
+
+
+
+const htmlEscapes = new Map([
+    ['&amp;', '&'],
+    ['&lt;', '<'],
+    ['&gt;', '>'],
+]);
+
+function unescapeHTMLEntities(str) {
+    for (const [escaped, unescaped] of htmlEscapes) {
+        str = str.replaceAll(escaped, unescaped)
+    }
+    return str
+}
+
+await Promise.all(Array.from(document.querySelectorAll('pre code')).map((codeBlock) => {
+    const classNames = codeBlock.getAttribute("class");
+    if (classNames == null) {
+        return
+    }
+
+    let language = null;
+    for (const className of classNames.split(" ")) {
+        const [languageToken, ...rest] = className.split("-")
+        if (languageToken == "language") {
+            
+            
+            
+            language = rest.join("-")
+            break
+        }
+    }
+
+    if (language == null) {
+        return
+    }
+
+    return (async () => {
+        const code = unescapeHTMLEntities(codeBlock.innerHTML)
+
+        
+        
+        codeBlock.parentElement.outerHTML = 
+            await codeToHtml(code, {
+                lang: language,
+                themes: {
+                    dark: 'github-dark',
+                    light: 'github-dark'
+                }
+            })
+    })()
+}))
+
+</script>
+
+    <script src="/content/javascripts/fancybox.umd.js"></script>
+<script>
+    Fancybox.bind('[data-fancybox]', {
+        
+    });
+</script>
+
+    <script src="/content/javascripts/buttons.js"></script>
+
+    <script type="module" src="/content/javascripts/docfx.min.js"></script>
+<script type="module" src="/content/javascripts/search-worker.min.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,604 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NX7VL0ZZMV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-NX7VL0ZZMV');
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+    <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+
+    <meta property="og:title" content="ConfigMap File Mount on a Windows Kubernetes Pod">
+<meta property="og:description" content="Mounting a ConfigMap as a file in Windows Kubernetes">
+<meta name="description" content="Mounting a ConfigMap as a file in Windows Kubernetes">
+
+<meta property="og:image" content="https://coolstercodes.com/content/images/configmap-file-mount-on-a-windows-kubernetes-pod/terminal.jpg">
+
+<meta property="og:url" content="https://coolstercodes.com/configmap-file-mount-on-a-windows-kubernetes-pod">
+<link rel="canonical" href="https://coolstercodes.com/configmap-file-mount-on-a-windows-kubernetes-pod">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2022-01-30T07:01:00Z">
+<meta property="article:author" content="https://coolstercodes.com">
+
+<meta property="article:tag" content="Kubernetes">
+
+<meta property="article:tag" content="Windows">
+
+
+    <title>ConfigMap File Mount on a Windows Kubernetes Pod - Coolster Codes</title>
+
+    <link rel="shortcut icon" type="image/png" href="/content/images/favicon.png">
+
+    <link href="/content/stylesheets/tailwind.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/content/stylesheets/tailwind_custom.css" media="screen" rel="stylesheet" type="text/css">
+
+<link href="/content/stylesheets/fancybox.css" media="screen" rel="stylesheet" type="text/css">
+
+
+    
+
+    <script src="/websocket.js" type="text/javascript"></script>
+    
+</head>
+
+<body class="antialiased bg-[#222222] bg-no-repeat bg-gradient-to-br
+min-h-screen">
+    <div class="hidden h-16 md:flex">
+        <div class="w-60">
+            <a href="/">
+                <img class="pl-2 pt-1 max-h-full max-w-full" src="/content/images/CoolsterCodes.png">
+            </a>
+        </div>
+        <div class="w-10 flex flex-grow justify-evenly items-center">
+            <ul class="flex">
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/">Home</a>
+                </li>
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/about">About</a>
+                </li>
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/tags/">Tags</a>
+                </li>
+            </ul>
+        </div>
+        <div class="w-60 flex">
+            <form role="search" id="search"
+                class="flex items-center bg-gray-800 text-gray-400 border border-gray-600 rounded-lg px-3 py-2 w-80 m-3">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+                </svg>
+                <input id="search-query" type="search" placeholder="Search" autocomplete="off" aria-label="Search"
+                    class="bg-transparent focus:outline-none w-full text-gray-200 placeholder-gray-400" />
+            </form>
+        </div>
+</div>
+
+
+<div class="flex h-16 md:hidden">
+    <div class="w-40">
+        <a href="/">
+            <img class="pl-1 pt-1 max-h-full max-w-full" src="/content/images/CoolsterCodes.png">
+        </a>
+    </div>
+    <div class="w-5 flex-grow"></div>
+    <div class="w-40 flex justify-end items-center pr-3">
+        <div class="hamburger" onclick="toggle(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+    </div>
+</div>
+<div class="hidden md:hidden" id="drop-down">
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 pt-2 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/">Home</a>
+    </div>
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/about">About</a>
+    </div>
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/tags/">Tags</a>
+    </div>
+    <div class="h-14 w-full">
+        <form role="search" id="search"
+            class="flex items-center bg-gray-800 text-gray-400 border border-gray-600 rounded-lg px-3 py-2 m-3">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+            </svg>
+            <input id="search-query-mobile" type="search" placeholder="Search" autocomplete="off" aria-label="Search"
+                class="bg-transparent focus:outline-none w-full text-gray-200 placeholder-gray-400" />
+        </form>
+    </div>
+</div>
+<div id="main-div">
+    <div class="mb-12 mt-0 px-4">
+    <div class="container max-w-[950px] mx-auto">
+        <h1 class="font-semibold font-sans leading-none my-8 text-center text-6xl text-white tracking-tighter md:font-normal md:text-8xl">
+            ConfigMap File Mount on a Windows Kubernetes Pod
+        </h1>
+    </div>
+</div>
+
+<div class="container max-w-[900px] mx-auto mt-8 px-4 xl:max-w-[1125px]">
+    <div class="md:flex">
+        <div class="basis-[170px] flex-grow-0 flex-shrink-0 hidden md:block"> 
+            <div class="leading-normal text-xs tracking-tighter sticky text-center text-white top-5">
+                <div class="border-b px-4 pb-4 ">
+                    <div class="font-bold mb-0.5 text-white">Article</div>
+                    <div class="text-myblue">
+                        <a class="hover:border-b-sky-600 hover:text-sky-600 underline" href="javascript:void(0)" onclick="copyText('https:\/\/coolstercodes.com/configmap-file-mount-on-a-windows-kubernetes-pod')">
+                            ConfigMap File Mount on a Windows Kubernetes Pod <span class="mx-0.5"><b class="copy text-myblue hover:border-b-sky-600 hover:text-sky-600 underline"></b></span>
+                        </a>
+                        <span
+                            id="copyalert"
+                            class="hidden tooltip absolute left-1/2 -translate-x-1/2 bg-gray-600 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300">
+                            Copied!
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="border-b flex items-stretch text-center ">
+                    <div class="border-r flex-grow ">
+                        <div class="flex h-full items-center">
+                            <div class="px-4 py-4">
+                                <div class="font-bold mb-0.5 text-white">Author</div>
+                                <div class="leading-tight text-myblue">
+                                    <a class="hover:border-b-sky-600 hover:text-sky-600 underline"
+                                        href="/about">Me</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow h-full min-w-0">
+                        <div class="flex items-center">
+                            <div class="px-4 py-4">
+                                <div class="font-bold mb-0.5 text-white">Published</div>
+                                <div class="leading-tight">Jan 30, 2022</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="font-bold mb-0.5 text-white px-4 py-4">
+                    <p class="mb-2">YouTube<br> <a class="hover:border-b-sky-600 hover:text-sky-600 font-bold text-myblue underline" href="https://youtu.be/8Sab4zv0GXg" target="_blank">@coolstercodes</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="pb-4 md:border-l md:flex-grow md:min-w-0 md:pl-8 xl:pr-8 ">
+            
+
+            <div class="hyphens-auto
+                max-w-none
+                prose prose-lg
+                prose-a:font-sans
+                prose-blockquote:text-slate-300
+                prose-img:w-full prose-img:my-0
+                prose-h2:text-xl prose-h2:mb-1 prose-a:prose-h2:border-b-0 prose-a:prose-h2:font-bold prose-h2:text-myblue prose-a:prose-h2:no-underline
+                prose-h3:text-lg prose-h3:mb-1 prose-a:prose-h3:border-b-0 prose-a:prose-h3:font-bold prose-h3:text-myblue prose-a:prose-h3:no-underline
+                prose-h4:text-base prose-h4:mb-1 prose-a:prose-h4:border-b-0 prose-a:prose-h4:font-bold prose-h4:text-myblue prose-a:prose-h4:no-underline
+                prose-hr:my-10 prose-hr:md:-mx-[2rem] prose-hr:md:w-[calc(100%+4rem)]
+                prose-p:font-serif
+                text-[17px]
+                prose-li:my-0
+                prose-figcaption:mt-3
+                prose-p:prose-blockquote:font-sans
+                prose-pre:leading-[1.15rem] prose-pre:text-[0.9rem]
+                prose-strong:text-slate-100
+                prose-ol:font-serif
+                prose-ul:font-serif
+                prose-a:text-myblue
+                prose-a:border-b-myblue
+                hover:prose-a:border-b-sky-600
+                hover:prose-a:text-sky-600
+                prose-code:prose-pre:px-0 prose-code:prose-pre:py-0
+                prose-code:bg-[#414242] prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+                ">
+                
+                <div class="relative pb-[56.25%] h-0 overflow-hidden w-full">
+                    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/8Sab4zv0GXg">
+                    </iframe>
+                </div>
+                
+
+                <div class="font-bold my-1 text-white text-sm md:hidden">Published January 30, 2022
+                </div>
+                
+                <p>In this article we will mount a <a href="https://kubernetes.io/docs/concepts/configuration/configmap/" target="_blank">configMap</a> as a file into a Windows Kubernetes pod.</p>
+
+<p>ConfigMaps let you specify configuration values of an application as part of the deployment yaml. This decouples your application deployment from the config values, which is best practice.</p>
+
+<blockquote>
+<p><a href="https://github.com/coolstercodes/Tutorials/tree/main/tutorials/configmap-file-mount-windows-kubernetes" target="_blank">Source code</a></p>
+</blockquote>
+
+<h2 id="create-a-windows-kubernetes-cluster" class="link"><a href="#create-a-windows-kubernetes-cluster">Create a Windows Kubernetes cluster</a></h2>
+
+<p>We will use <a href="https://github.com/Azure/aks-engine#readme" target="_blank">AKS Engine</a> to create a Windows Kubernetes cluster.</p>
+
+<p><code>make-aks-engine-cluster.ps1</code> along with win-cluster.json will create a Windows Kubernetes cluster for you in Azure. All you need to provide is a <code>$SUBSCRIPTION_ID</code>.</p>
+
+<pre><code class="language-ps1">$SUBSCRIPTION_ID=''
+$CLUSTER_NAME='win-cluster'
+$LOCATION='westus2'
+$API_MODEL='win-cluster.json'
+
+# Creates the resource group which will house your cluster
+az group create --subscription $SUBSCRIPTION_ID --location $LOCATION --name $CLUSTER_NAME
+
+# Creates an Azure Service Principal to let AKS-Engine deploy resources (your cluster) to your resource group
+$AZSP=az ad sp create-for-rbac --name win-cluster-service-principal --role=&quot;Owner&quot; --scopes=&quot;/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$CLUSTER_NAME&quot; -o json | ConvertFrom-Json
+$CLIENT_ID=$AZSP.appId
+$CLIENT_SECRET=$AZSP.password
+
+# Let azure permissions propogate before creating cluster
+Start-Sleep -Seconds 180
+
+# Create a hostprocess capable kubernetes cluster using AKS-Engine
+.\aks-engine deploy `
+    --subscription-id $SUBSCRIPTION_ID  `
+    --client-id $CLIENT_ID `
+    --client-secret $CLIENT_SECRET `
+    --resource-group $CLUSTER_NAME `
+    --dns-prefix $CLUSTER_NAME `
+    --location $LOCATION `
+    --api-model $API_MODEL `
+    --force-overwrite
+
+</code></pre>
+
+<pre><code class="language-json">{
+   &quot;apiVersion&quot;: &quot;vlabs&quot;,
+   &quot;properties&quot;: {
+      &quot;orchestratorProfile&quot;: {
+         &quot;orchestratorType&quot;: &quot;Kubernetes&quot;,
+         &quot;orchestratorRelease&quot;: &quot;1.23&quot;,
+         &quot;kubernetesConfig&quot;: {
+            &quot;networkPlugin&quot;: &quot;azure&quot;,
+            &quot;containerRuntime&quot;: &quot;containerd&quot;,
+            &quot;windowsContainerdURL&quot;: &quot;https://github.com/kubernetes-sigs/sig-windows-tools/releases/download/windows-containerd-nightly/windows-containerd.tar.gz&quot;,
+            &quot;loadBalancerSku&quot;: &quot;basic&quot;
+         }
+      },
+      &quot;masterProfile&quot;: {
+         &quot;count&quot;: 1,
+         &quot;vmSize&quot;: &quot;Standard_D2_v2&quot;,
+         &quot;availabilityProfile&quot;: &quot;AvailabilitySet&quot;,
+         &quot;platformUpdateDomainCount&quot;: 1
+      },
+      &quot;agentPoolProfiles&quot;: [
+         {
+            &quot;name&quot;: &quot;windowspool&quot;,
+            &quot;count&quot;: 1,
+            &quot;vmSize&quot;: &quot;Standard_D8s_v3&quot;,
+            &quot;availabilityProfile&quot;: &quot;VirtualMachineScaleSets&quot;,
+            &quot;osType&quot;: &quot;Windows&quot;,
+            &quot;enableVMSSNodePublicIP&quot;: true
+         }
+      ],
+      &quot;windowsProfile&quot;: {
+         &quot;adminUsername&quot;: &quot;azureuser&quot;,
+         &quot;adminPassword&quot;: &quot;password1234$&quot;,
+         &quot;sshEnabled&quot;: true,
+         &quot;enableAutomaticUpdates&quot;: true,
+         &quot;WindowsPublisher&quot;: &quot;microsoft-aks&quot;,
+         &quot;WindowsOffer&quot;: &quot;aks-windows&quot;,
+         &quot;WindowsSku&quot;: &quot;2019-datacenter-core-ctrd-2108&quot;,
+         &quot;imageVersion&quot;: &quot;17763.2061.210830&quot;
+      },
+      &quot;linuxProfile&quot;: {
+         &quot;adminUsername&quot;: &quot;azureuser&quot;,
+         &quot;ssh&quot;: {
+            &quot;publicKeys&quot;: [
+               {
+                  &quot;keyData&quot;: &quot;&quot;
+               }
+            ]
+         }
+      }
+   }
+}
+</code></pre>
+
+<p>Upon execution of the script, you should hopefully see:</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/configmap-file-mount-on-a-windows-kubernetes-pod/successfuldeployment.png" data-caption="Deploying a Windows Kubernetes using AKS Engine">
+    <img src="/content/images/configmap-file-mount-on-a-windows-kubernetes-pod/successfuldeployment.png" />
+  </a>
+  <figcaption>Deploying a Windows Kubernetes using AKS Engine</figcaption>
+</figure>
+
+<h2 id="build-a-containerized-app" class="link"><a href="#build-a-containerized-app">Build a containerized app</a></h2>
+
+<p>The app we create will simply print the contents of a given file.</p>
+
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;io/ioutil&quot;
+	&quot;os&quot;
+	&quot;time&quot;
+)
+
+func main() {
+	configMapFilePath := os.Args[1]
+
+	fmt.Printf(&quot;configMap file path: %s\n&quot;, configMapFilePath)
+
+	// Read the configMap as a file from inside the container!
+	content, err := ioutil.ReadFile(configMapFilePath)
+	if err != nil {
+		fmt.Printf(&quot;Error from reading: %v\n&quot;, err)
+	}
+	text := string(content)
+	fmt.Println(text)
+
+	// Sleep
+	time.Sleep(1 * time.Hour)
+}
+</code></pre>
+
+<p>We containerize it with a <code>Dockerfile</code>, which packages the executable into container format:</p>
+
+<pre><code class="language-docker"># Use golang image to build binary
+FROM golang:1.17 AS builder
+
+# Make a working directory
+WORKDIR /usr/local/app
+
+# Copy the source code into the container
+COPY src/ .
+
+# Build the app
+RUN go build app.go
+
+# Copy the app binary into the final container image
+FROM mcr.microsoft.com/windows/nanoserver:1809
+COPY --from=builder /usr/local/app/app.exe \
+    /usr/local/bin/app.exe
+
+ENTRYPOINT [&quot;/usr/local/bin/app.exe&quot;]
+</code></pre>
+
+<p>And bulid it using the <code>docker</code> command like program like so:</p>
+
+<pre><code class="language-shell">docker build -t configmapfilemount:v1.0.0 -f Dockerfile .
+</code></pre>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/configmap-file-mount-on-a-windows-kubernetes-pod/docker-build.png" data-caption="Building the containerized app">
+    <img src="/content/images/configmap-file-mount-on-a-windows-kubernetes-pod/docker-build.png" />
+  </a>
+  <figcaption>Building the containerized app</figcaption>
+</figure>
+
+<h2 id="launching-a-pod-which-reads-the-configmap-as-a-file" class="link"><a href="#launching-a-pod-which-reads-the-configmap-as-a-file">Launching a Pod which reads the configMap as a file</a></h2>
+
+<p>Next we define a pod and configMap in <code>yaml</code> format,</p>
+
+<pre><code class="language-yaml">apiVersion: v1
+kind: Pod
+metadata:
+  name: configmapfilemount
+spec:
+  nodeSelector:
+    kubernetes.io/os: windows
+  containers:
+  - name: configmapfilemount
+    image: coolstercodes.azurecr.io/configmapfilemount:v1.0.0
+    imagePullPolicy: Always
+    args: [&quot;C:\\configmapdirectory\\configfile.json&quot;]
+    volumeMounts:
+      - name: configmapmount
+        mountPath: /configmapdirectory
+  volumes:
+    - name: configmapmount
+      configMap:
+        name: myconfigmap
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myconfigmap
+data:
+  configfile.json: |
+    {
+      &quot;ConfigKey&quot;: &quot;Value&quot;
+    }
+</code></pre>
+
+<p>You’ll see above that we specify a <code>volume</code> at the pod layer, and give it the name of our configMap.</p>
+
+<p>Next in the container layer, we specify a <code>volumeMount</code>, which mounts the <code>volume</code> previously specified.</p>
+
+<p>As part of the <code>volumeMount</code> we give a new file path where this configMap will live, according to the container.</p>
+
+<p>And finally, we pass <code>C:\\configmapdirectory\\configfile.json</code> to the container as the file we wish to print the contents of.</p>
+
+<p>To deploy this pod, we use <code>kubectl</code> like so:</p>
+
+<pre><code class="language-shell">.\kubectl --kubeconfig .\_output\win-cluster\kubeconfig\kubeconfig.westus2.json apply -f configmapfilemount.yaml
+</code></pre>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/configmap-file-mount-on-a-windows-kubernetes-pod/configmapcreation.png" data-caption="Deploying the pod and configMap">
+    <img src="/content/images/configmap-file-mount-on-a-windows-kubernetes-pod/configmapcreation.png" />
+  </a>
+  <figcaption>Deploying the pod and configMap</figcaption>
+</figure>
+
+<p>Then we can check on the container logs with <code>kubectl</code> like so:</p>
+
+<pre><code class="language-shell">.\kubectl --kubeconfig .\_output\win-cluster\kubeconfig\kubeconfig.westus2.json logs configmapfilemount
+</code></pre>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/configmap-file-mount-on-a-windows-kubernetes-pod/configmapfileprint.png" data-caption="App logs which print the contents of the “file”, aka the configMap!">
+    <img src="/content/images/configmap-file-mount-on-a-windows-kubernetes-pod/configmapfileprint.png" />
+  </a>
+  <figcaption>App logs which print the contents of the “file”, aka the configMap!</figcaption>
+</figure>
+
+<p>You’re done! Now you’ve deployed a Windows Kubernetes pod which reads a configMap as a file.</p>
+
+            </div>
+            
+            <div class="pt-4">
+                <div class="flex items-center py-1">
+                    <div class="font-bold mb-0.5 text-white mr-0.5">Tags: </div>
+                    
+                    <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                        href="/tags/kubernetes">#Kubernetes</a>
+                    
+                    <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                        href="/tags/windows">#Windows</a>
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+            <div class="basis-[190px] border-l flex-grow-0 flex-shrink-0 hidden xl:block ">
+                
+                
+                <div class="
+                    mb-3
+                    pl-3
+                    pb-5
+
+                    prose prose-sm
+                    prose-li:my-2
+
+                    prose-ol:prose-li:list-[lower-alpha] prose-ol:prose-li:my-2
+                    prose-a:prose-li:prose-li:font-normal prose-li:prose-li:my-1 prose-li:prose-li:text-[0.65rem] hover:prose-a:prose-li:text-sky-600 hover:prose-a:prose-li:border-b-sky-600
+
+                    prose-ol:prose-li:prose-li:list-[lower-roman]
+                    prose-li:prose-li:prose-li:text-[0.6rem]
+
+                    sticky top-5
+                    text-xs
+                ">
+                    <ol><li><a href="#create-a-windows-kubernetes-cluster">Create a Windows Kubernetes cluster</a></li><li><a href="#build-a-containerized-app">Build a containerized app</a></li><li><a href="#launching-a-pod-which-reads-the-configmap-as-a-file">Launching a Pod which reads the configMap as a file</a></li></ol>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="border-t pb-8 p-8 w-vp ">
+    <div class="container max-w-[650px] mx-auto">
+        <div class="hyphens-auto
+            italic
+            max-w-none
+            prose prose-sm
+            prose-a:border-b-myblue prose-a:font-sans
+            hover:prose-a:text-sky-600
+            prose-p:font-serif
+            ">
+            <p>
+                Thanks for reading! :)
+            </p>
+        </div>
+    </div>
+</div>
+</div>
+<div id="search-results" class="hidden text-white p-4"></div>
+<div id="dummy" class="hidden text-gray-400 pb-2 pt-2 pb-1 text-myblue text-xl border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600 text-green-500 text-sm pb-1 text-gray-200 text-sm text-center bg-gray-600 rounded-md px-[5px] py-[2px] ml-1 font-extrabold pb-1 py-1 relative absolute w-full h-full pb-[56.25%] h-0 overflow-hidden top-0 left-0 border-0 bg-myblue mb-3 mr-4"></div>
+
+    <script type="module">
+
+
+import { codeToHtml } from 'https://esm.sh/shiki@1.0.0'
+
+
+
+const htmlEscapes = new Map([
+    ['&amp;', '&'],
+    ['&lt;', '<'],
+    ['&gt;', '>'],
+]);
+
+function unescapeHTMLEntities(str) {
+    for (const [escaped, unescaped] of htmlEscapes) {
+        str = str.replaceAll(escaped, unescaped)
+    }
+    return str
+}
+
+await Promise.all(Array.from(document.querySelectorAll('pre code')).map((codeBlock) => {
+    const classNames = codeBlock.getAttribute("class");
+    if (classNames == null) {
+        return
+    }
+
+    let language = null;
+    for (const className of classNames.split(" ")) {
+        const [languageToken, ...rest] = className.split("-")
+        if (languageToken == "language") {
+            
+            
+            
+            language = rest.join("-")
+            break
+        }
+    }
+
+    if (language == null) {
+        return
+    }
+
+    return (async () => {
+        const code = unescapeHTMLEntities(codeBlock.innerHTML)
+
+        
+        
+        codeBlock.parentElement.outerHTML = 
+            await codeToHtml(code, {
+                lang: language,
+                themes: {
+                    dark: 'github-dark',
+                    light: 'github-dark'
+                }
+            })
+    })()
+}))
+
+</script>
+
+    <script src="/content/javascripts/fancybox.umd.js"></script>
+<script>
+    Fancybox.bind('[data-fancybox]', {
+        
+    });
+</script>
+
+    <script src="/content/javascripts/buttons.js"></script>
+
+    <script type="module" src="/content/javascripts/docfx.min.js"></script>
+<script type="module" src="/content/javascripts/search-worker.min.js"></script>
+
+
+</body>
+
+</html>

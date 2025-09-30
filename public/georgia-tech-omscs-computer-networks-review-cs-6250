@@ -1,0 +1,541 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NX7VL0ZZMV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-NX7VL0ZZMV');
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+    <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+
+    <meta property="og:title" content="Georgia Tech OMSCS Computer Networks Review | CS 6250">
+<meta property="og:description" content="Georgia Tech&rsquo;s Computer Networks class">
+<meta name="description" content="Georgia Tech&rsquo;s Computer Networks class">
+
+<meta property="og:image" content="https://coolstercodes.com/content/images/georgia-tech-omscs-computer-networks-review-cs-6250/Networks3.jpg">
+
+<meta property="og:url" content="https://coolstercodes.com/georgia-tech-omscs-computer-networks-review-cs-6250">
+<link rel="canonical" href="https://coolstercodes.com/georgia-tech-omscs-computer-networks-review-cs-6250">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2022-08-08T04:42:50Z">
+<meta property="article:author" content="https://coolstercodes.com">
+
+<meta property="article:tag" content="Networking">
+
+<meta property="article:tag" content="OMSCS">
+
+
+    <title>Georgia Tech OMSCS Computer Networks Review | CS 6250 - Coolster Codes</title>
+
+    <link rel="shortcut icon" type="image/png" href="/content/images/favicon.png">
+
+    <link href="/content/stylesheets/tailwind.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/content/stylesheets/tailwind_custom.css" media="screen" rel="stylesheet" type="text/css">
+
+<link href="/content/stylesheets/fancybox.css" media="screen" rel="stylesheet" type="text/css">
+
+
+    
+
+    <script src="/websocket.js" type="text/javascript"></script>
+    
+</head>
+
+<body class="antialiased bg-[#222222] bg-no-repeat bg-gradient-to-br
+min-h-screen">
+    <div class="hidden h-16 md:flex">
+        <div class="w-60">
+            <a href="/">
+                <img class="pl-2 pt-1 max-h-full max-w-full" src="/content/images/CoolsterCodes.png">
+            </a>
+        </div>
+        <div class="w-10 flex flex-grow justify-evenly items-center">
+            <ul class="flex">
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/">Home</a>
+                </li>
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/about">About</a>
+                </li>
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/tags/">Tags</a>
+                </li>
+            </ul>
+        </div>
+        <div class="w-60 flex">
+            <form role="search" id="search"
+                class="flex items-center bg-gray-800 text-gray-400 border border-gray-600 rounded-lg px-3 py-2 w-80 m-3">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+                </svg>
+                <input id="search-query" type="search" placeholder="Search" autocomplete="off" aria-label="Search"
+                    class="bg-transparent focus:outline-none w-full text-gray-200 placeholder-gray-400" />
+            </form>
+        </div>
+</div>
+
+
+<div class="flex h-16 md:hidden">
+    <div class="w-40">
+        <a href="/">
+            <img class="pl-1 pt-1 max-h-full max-w-full" src="/content/images/CoolsterCodes.png">
+        </a>
+    </div>
+    <div class="w-5 flex-grow"></div>
+    <div class="w-40 flex justify-end items-center pr-3">
+        <div class="hamburger" onclick="toggle(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+    </div>
+</div>
+<div class="hidden md:hidden" id="drop-down">
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 pt-2 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/">Home</a>
+    </div>
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/about">About</a>
+    </div>
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/tags/">Tags</a>
+    </div>
+    <div class="h-14 w-full">
+        <form role="search" id="search"
+            class="flex items-center bg-gray-800 text-gray-400 border border-gray-600 rounded-lg px-3 py-2 m-3">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+            </svg>
+            <input id="search-query-mobile" type="search" placeholder="Search" autocomplete="off" aria-label="Search"
+                class="bg-transparent focus:outline-none w-full text-gray-200 placeholder-gray-400" />
+        </form>
+    </div>
+</div>
+<div id="main-div">
+    <div class="mb-12 mt-0 px-4">
+    <div class="container max-w-[950px] mx-auto">
+        <h1 class="font-semibold font-sans leading-none my-8 text-center text-6xl text-white tracking-tighter md:font-normal md:text-8xl">
+            Georgia Tech OMSCS Computer Networks Review | CS 6250
+        </h1>
+    </div>
+</div>
+
+<div class="container max-w-[900px] mx-auto mt-8 px-4 xl:max-w-[1125px]">
+    <div class="md:flex">
+        <div class="basis-[170px] flex-grow-0 flex-shrink-0 hidden md:block"> 
+            <div class="leading-normal text-xs tracking-tighter sticky text-center text-white top-5">
+                <div class="border-b px-4 pb-4 ">
+                    <div class="font-bold mb-0.5 text-white">Article</div>
+                    <div class="text-myblue">
+                        <a class="hover:border-b-sky-600 hover:text-sky-600 underline" href="javascript:void(0)" onclick="copyText('https:\/\/coolstercodes.com/georgia-tech-omscs-computer-networks-review-cs-6250')">
+                            Georgia Tech OMSCS Computer Networks Review | CS 6250 <span class="mx-0.5"><b class="copy text-myblue hover:border-b-sky-600 hover:text-sky-600 underline"></b></span>
+                        </a>
+                        <span
+                            id="copyalert"
+                            class="hidden tooltip absolute left-1/2 -translate-x-1/2 bg-gray-600 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300">
+                            Copied!
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="border-b flex items-stretch text-center ">
+                    <div class="border-r flex-grow ">
+                        <div class="flex h-full items-center">
+                            <div class="px-4 py-4">
+                                <div class="font-bold mb-0.5 text-white">Author</div>
+                                <div class="leading-tight text-myblue">
+                                    <a class="hover:border-b-sky-600 hover:text-sky-600 underline"
+                                        href="/about">Me</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow h-full min-w-0">
+                        <div class="flex items-center">
+                            <div class="px-4 py-4">
+                                <div class="font-bold mb-0.5 text-white">Published</div>
+                                <div class="leading-tight">Aug 7, 2022</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="font-bold mb-0.5 text-white px-4 py-4">
+                    <p class="mb-2">YouTube<br> <a class="hover:border-b-sky-600 hover:text-sky-600 font-bold text-myblue underline" href="https://youtu.be/hAv4qNdmNmg" target="_blank">@coolstercodes</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="pb-4 md:border-l md:flex-grow md:min-w-0 md:pl-8 xl:pr-8 ">
+            
+
+            <div class="hyphens-auto
+                max-w-none
+                prose prose-lg
+                prose-a:font-sans
+                prose-blockquote:text-slate-300
+                prose-img:w-full prose-img:my-0
+                prose-h2:text-xl prose-h2:mb-1 prose-a:prose-h2:border-b-0 prose-a:prose-h2:font-bold prose-h2:text-myblue prose-a:prose-h2:no-underline
+                prose-h3:text-lg prose-h3:mb-1 prose-a:prose-h3:border-b-0 prose-a:prose-h3:font-bold prose-h3:text-myblue prose-a:prose-h3:no-underline
+                prose-h4:text-base prose-h4:mb-1 prose-a:prose-h4:border-b-0 prose-a:prose-h4:font-bold prose-h4:text-myblue prose-a:prose-h4:no-underline
+                prose-hr:my-10 prose-hr:md:-mx-[2rem] prose-hr:md:w-[calc(100%+4rem)]
+                prose-p:font-serif
+                text-[17px]
+                prose-li:my-0
+                prose-figcaption:mt-3
+                prose-p:prose-blockquote:font-sans
+                prose-pre:leading-[1.15rem] prose-pre:text-[0.9rem]
+                prose-strong:text-slate-100
+                prose-ol:font-serif
+                prose-ul:font-serif
+                prose-a:text-myblue
+                prose-a:border-b-myblue
+                hover:prose-a:border-b-sky-600
+                hover:prose-a:text-sky-600
+                prose-code:prose-pre:px-0 prose-code:prose-pre:py-0
+                prose-code:bg-[#414242] prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+                ">
+                
+                <div class="relative pb-[56.25%] h-0 overflow-hidden w-full">
+                    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/hAv4qNdmNmg">
+                    </iframe>
+                </div>
+                
+
+                <div class="font-bold my-1 text-white text-sm md:hidden">Published August 7, 2022
+                </div>
+                
+                <h2 id="tldr" class="link"><a href="#tldr">TL;DR</a></h2>
+
+<ul>
+<li>Easy</li>
+<li>Avg 5-7 hrs per week (if that)</li>
+<li>Cannot work on assignment ahead of time
+
+<ul>
+<li>Assignments are locked until week of due date</li>
+</ul></li>
+<li>Took it during Summer 2022, easily manageable during shorter term
+
+<ul>
+<li>Would be a good 2nd class candidate during Fall/Spring</li>
+</ul></li>
+</ul>
+
+<h2 id="what-is-computer-networks" class="link"><a href="#what-is-computer-networks">What is Computer Networks?</a></h2>
+
+<p>In this course, you’ll learn how basic computer networks, work (ha ha 😅)</p>
+
+<h2 id="graded-course-material" class="link"><a href="#graded-course-material">Graded course material</a></h2>
+
+<ul>
+<li>2 Exams
+
+<ul>
+<li>Closed-notes</li>
+<li>Each exam is 15% of final grade</li>
+<li>Difficutly level: Easy, they mirror the quizzes (which are open-note) closely</li>
+</ul></li>
+<li>12 Quizzes
+
+<ul>
+<li><u>Open</u> notes</li>
+<li>See correct answers after taking them</li>
+<li>Very similar to the exams</li>
+<li>Each quiz is 0.83% of final grade</li>
+<li>Difficutly level: <u>Extremely easy</u>, can just ctrl+f in each Canvas module for the answers</li>
+</ul></li>
+<li>4 Projects
+
+<ul>
+<li>Difficulty level: Easy, each lab comes with very detailed instructions</li>
+<li>Time spent on avg per project: 5 hrs</li>
+<li>Each project is weighted ~15% of final grade</li>
+<li>Unlimited number of submissions on Gradescope
+
+<ul>
+<li><strong>Except</strong> SDNFirewall, you get 1 submission for that through Canvas, but can test it locally first</li>
+</ul></li>
+</ul></li>
+<li>Extra-credit
+
+<ul>
+<li>This class offers a 3% extra-credit project</li>
+<li>I did not do it, but it’s a lot of extra credit if needed!</li>
+</ul></li>
+</ul>
+
+<h2 id="project-overview" class="link"><a href="#project-overview">Project overview</a></h2>
+
+<h3 id="course-virtual-machine-setup" class="link"><a href="#course-virtual-machine-setup">Course Virtual Machine Setup</a></h3>
+
+<p>This was not a graded-project, but was necessary for <sup>2</sup>&frasl;<sub>4</sub> projects.</p>
+
+<p>Basically, you just need to follow some instructions to download a Virtual Machine image that the TA’s made for the class</p>
+
+<p>I used a <u>Macbook Pro with an M1 chip using Parrallels Desktop</u>, and found no issues</p>
+
+<p>Parrallels Desktop student edition set me back $40.</p>
+
+<p>For non-M1 chips, setup was free and easy through VMWare</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-computer-networks-review-cs-6250/image-2.png" data-caption="Parrallels Desktop invoice">
+    <img src="/content/images/georgia-tech-omscs-computer-networks-review-cs-6250/image-2.png" />
+  </a>
+  <figcaption>Parrallels Desktop invoice</figcaption>
+</figure>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-computer-networks-review-cs-6250/image-3.png" data-caption="Non-M1 chip options">
+    <img src="/content/images/georgia-tech-omscs-computer-networks-review-cs-6250/image-3.png" />
+  </a>
+  <figcaption>Non-M1 chip options</figcaption>
+</figure>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-computer-networks-review-cs-6250/image-4-2048x1437.png" data-caption="Parrallels Desktop on Mac with an M1 chip">
+    <img src="/content/images/georgia-tech-omscs-computer-networks-review-cs-6250/image-4-2048x1437.png" />
+  </a>
+  <figcaption>Parrallels Desktop on Mac with an M1 chip</figcaption>
+</figure>
+
+<h3 id="spanning-tree-project" class="link"><a href="#spanning-tree-project">Spanning Tree project</a></h3>
+
+<p>The idea behind spanning tree, is to find the minimum spanning tree between a graph of nodes:</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-computer-networks-review-cs-6250/SpanningTree.png" data-caption="Spanning Tree example">
+    <img src="/content/images/georgia-tech-omscs-computer-networks-review-cs-6250/SpanningTree.png" />
+  </a>
+  <figcaption>Spanning Tree example</figcaption>
+</figure>
+
+<p>You are given each node’s:
+-  ID
+- Neighbors</p>
+
+<p>The algorithm is given to you in the lectures, and covers the logic completely.</p>
+
+<p>Took about 6-7 hours to complete, including lecture reading/video watching.</p>
+
+<p>You get an unlimited amount of submissions through Gradescope.</p>
+
+<h3 id="distance-vector-routing-project" class="link"><a href="#distance-vector-routing-project">Distance Vector Routing project</a></h3>
+
+<p>Basically the same as Spanning Tree, but now the edges have weights, but now you want to find the least-costly paths between nodes that spans the graph:</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-computer-networks-review-cs-6250/DistanceVector.png" data-caption="Distance Vector">
+    <img src="/content/images/georgia-tech-omscs-computer-networks-review-cs-6250/DistanceVector.png" />
+  </a>
+  <figcaption>Distance Vector</figcaption>
+</figure>
+
+<p>Unlimited submissions allowed on Gradescope</p>
+
+<p>Most of the logic is in the videos/reading</p>
+
+<p>Total time spent was probably like 6-7 hours, including reading/video watching.</p>
+
+<h3 id="sdn-firewall-project" class="link"><a href="#sdn-firewall-project">SDN Firewall project</a></h3>
+
+<p>This was implementing a firewall through code that you write</p>
+
+<p>The nice thing is, that you just give some settings to a code package called <a href="https://noxrepo.github.io/pox-doc/html/" target="_blank"><code>pox</code></a>, and pox handles the actual filtering/selection of packets for you.</p>
+
+<p><strong>PRO TIP</strong> ONLY read the appendix A for <code>pox</code> guidelines, it has everything you need to know to complete the project:</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-computer-networks-review-cs-6250/image-7.png" data-caption="Only read this appendix (in project description) for pox related questions, it is all you need">
+    <img src="/content/images/georgia-tech-omscs-computer-networks-review-cs-6250/image-7.png" />
+  </a>
+  <figcaption>Only read this appendix (in project description) for pox related questions, it is all you need</figcaption>
+</figure>
+
+<p>Total time spent on this one was more like 10 hours including reading and video watching.</p>
+
+<p>Are only allowed <u>one submission</u> on Canvas, but you can test your code locally through a given code package in the repo.</p>
+
+<h3 id="bgp-measurements" class="link"><a href="#bgp-measurements">BGP Measurements</a></h3>
+
+<p>This one is filtering out packets of interest from <code>rib</code> files that have historical data of BGP records being passed around the internet.</p>
+
+<p>It’s really just a leetcode-type problem of using sets, hashmaps, for-loops etc.</p>
+
+<p>Total time was about 4 hours, including reading.</p>
+
+<p>Unlimited amount of submissions on Gradescope</p>
+
+<h2 id="exams-and-quizzes" class="link"><a href="#exams-and-quizzes">Exams and Quizzes</a></h2>
+
+<p>Exams are fairly straight forward, and you can easily get an A in the class by getting 100% or close to it through Projects, then not really needing a good score on exams.</p>
+
+<p>My case was:</p>
+
+<ul>
+<li>Projects: <sup>60</sup>&frasl;<sub>60</sub>%</li>
+<li>Exams: 24.<sup>71</sup>&frasl;<sub>30</sub>%</li>
+<li>Quizzes: 6.<sup>27</sup>&frasl;<sub>10</sub>%</li>
+</ul>
+
+<p>Total grade: 90.98% or an <strong>A</strong></p>
+
+            </div>
+            
+            <div class="pt-4">
+                <div class="flex items-center py-1">
+                    <div class="font-bold mb-0.5 text-white mr-0.5">Tags: </div>
+                    
+                    <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                        href="/tags/networking">#Networking</a>
+                    
+                    <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                        href="/tags/omscs">#OMSCS</a>
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+            <div class="basis-[190px] border-l flex-grow-0 flex-shrink-0 hidden xl:block ">
+                
+                
+                <div class="
+                    mb-3
+                    pl-3
+                    pb-5
+
+                    prose prose-sm
+                    prose-li:my-2
+
+                    prose-ol:prose-li:list-[lower-alpha] prose-ol:prose-li:my-2
+                    prose-a:prose-li:prose-li:font-normal prose-li:prose-li:my-1 prose-li:prose-li:text-[0.65rem] hover:prose-a:prose-li:text-sky-600 hover:prose-a:prose-li:border-b-sky-600
+
+                    prose-ol:prose-li:prose-li:list-[lower-roman]
+                    prose-li:prose-li:prose-li:text-[0.6rem]
+
+                    sticky top-5
+                    text-xs
+                ">
+                    <ol><li><a href="#tldr">TL;DR</a></li><li><a href="#what-is-computer-networks">What is Computer Networks?</a></li><li><a href="#graded-course-material">Graded course material</a></li><li><a href="#project-overview">Project overview</a><ol><li><a href="#course-virtual-machine-setup">Course Virtual Machine Setup</a></li><li><a href="#spanning-tree-project">Spanning Tree project</a></li><li><a href="#distance-vector-routing-project">Distance Vector Routing project</a></li><li><a href="#sdn-firewall-project">SDN Firewall project</a></li><li><a href="#bgp-measurements">BGP Measurements</a></li></ol></li><li><a href="#exams-and-quizzes">Exams and Quizzes</a></li></ol>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="border-t pb-8 p-8 w-vp ">
+    <div class="container max-w-[650px] mx-auto">
+        <div class="hyphens-auto
+            italic
+            max-w-none
+            prose prose-sm
+            prose-a:border-b-myblue prose-a:font-sans
+            hover:prose-a:text-sky-600
+            prose-p:font-serif
+            ">
+            <p>
+                Thanks for reading! :)
+            </p>
+        </div>
+    </div>
+</div>
+</div>
+<div id="search-results" class="hidden text-white p-4"></div>
+<div id="dummy" class="hidden text-gray-400 pb-2 pt-2 pb-1 text-myblue text-xl border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600 text-green-500 text-sm pb-1 text-gray-200 text-sm text-center bg-gray-600 rounded-md px-[5px] py-[2px] ml-1 font-extrabold pb-1 py-1 relative absolute w-full h-full pb-[56.25%] h-0 overflow-hidden top-0 left-0 border-0 bg-myblue mb-3 mr-4"></div>
+
+    <script type="module">
+
+
+import { codeToHtml } from 'https://esm.sh/shiki@1.0.0'
+
+
+
+const htmlEscapes = new Map([
+    ['&amp;', '&'],
+    ['&lt;', '<'],
+    ['&gt;', '>'],
+]);
+
+function unescapeHTMLEntities(str) {
+    for (const [escaped, unescaped] of htmlEscapes) {
+        str = str.replaceAll(escaped, unescaped)
+    }
+    return str
+}
+
+await Promise.all(Array.from(document.querySelectorAll('pre code')).map((codeBlock) => {
+    const classNames = codeBlock.getAttribute("class");
+    if (classNames == null) {
+        return
+    }
+
+    let language = null;
+    for (const className of classNames.split(" ")) {
+        const [languageToken, ...rest] = className.split("-")
+        if (languageToken == "language") {
+            
+            
+            
+            language = rest.join("-")
+            break
+        }
+    }
+
+    if (language == null) {
+        return
+    }
+
+    return (async () => {
+        const code = unescapeHTMLEntities(codeBlock.innerHTML)
+
+        
+        
+        codeBlock.parentElement.outerHTML = 
+            await codeToHtml(code, {
+                lang: language,
+                themes: {
+                    dark: 'github-dark',
+                    light: 'github-dark'
+                }
+            })
+    })()
+}))
+
+</script>
+
+    <script src="/content/javascripts/fancybox.umd.js"></script>
+<script>
+    Fancybox.bind('[data-fancybox]', {
+        
+    });
+</script>
+
+    <script src="/content/javascripts/buttons.js"></script>
+
+    <script type="module" src="/content/javascripts/docfx.min.js"></script>
+<script type="module" src="/content/javascripts/search-worker.min.js"></script>
+
+
+</body>
+
+</html>

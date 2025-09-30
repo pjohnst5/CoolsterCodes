@@ -1,0 +1,684 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NX7VL0ZZMV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-NX7VL0ZZMV');
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+    <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+
+    <meta property="og:title" content="Georgia Tech OMSCS Artificial Intelligence Review | CS 6601">
+<meta property="og:description" content="Georgia Tech&rsquo;s AI class!">
+<meta name="description" content="Georgia Tech&rsquo;s AI class!">
+
+<meta property="og:image" content="https://coolstercodes.com/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/AI2.jpg">
+
+<meta property="og:url" content="https://coolstercodes.com/georgia-tech-omscs-artificial-intelligence-review-cs-6601">
+<link rel="canonical" href="https://coolstercodes.com/georgia-tech-omscs-artificial-intelligence-review-cs-6601">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2022-10-02T04:33:33Z">
+<meta property="article:author" content="https://coolstercodes.com">
+
+<meta property="article:tag" content="AI">
+
+<meta property="article:tag" content="OMSCS">
+
+
+    <title>Georgia Tech OMSCS Artificial Intelligence Review | CS 6601 - Coolster Codes</title>
+
+    <link rel="shortcut icon" type="image/png" href="/content/images/favicon.png">
+
+    <link href="/content/stylesheets/tailwind.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/content/stylesheets/tailwind_custom.css" media="screen" rel="stylesheet" type="text/css">
+
+<link href="/content/stylesheets/fancybox.css" media="screen" rel="stylesheet" type="text/css">
+
+
+    
+
+    <script src="/websocket.js" type="text/javascript"></script>
+    
+</head>
+
+<body class="antialiased bg-[#222222] bg-no-repeat bg-gradient-to-br
+min-h-screen">
+    <div class="hidden h-16 md:flex">
+        <div class="w-60">
+            <a href="/">
+                <img class="pl-2 pt-1 max-h-full max-w-full" src="/content/images/CoolsterCodes.png">
+            </a>
+        </div>
+        <div class="w-10 flex flex-grow justify-evenly items-center">
+            <ul class="flex">
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/">Home</a>
+                </li>
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/about">About</a>
+                </li>
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/tags/">Tags</a>
+                </li>
+            </ul>
+        </div>
+        <div class="w-60 flex">
+            <form role="search" id="search"
+                class="flex items-center bg-gray-800 text-gray-400 border border-gray-600 rounded-lg px-3 py-2 w-80 m-3">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+                </svg>
+                <input id="search-query" type="search" placeholder="Search" autocomplete="off" aria-label="Search"
+                    class="bg-transparent focus:outline-none w-full text-gray-200 placeholder-gray-400" />
+            </form>
+        </div>
+</div>
+
+
+<div class="flex h-16 md:hidden">
+    <div class="w-40">
+        <a href="/">
+            <img class="pl-1 pt-1 max-h-full max-w-full" src="/content/images/CoolsterCodes.png">
+        </a>
+    </div>
+    <div class="w-5 flex-grow"></div>
+    <div class="w-40 flex justify-end items-center pr-3">
+        <div class="hamburger" onclick="toggle(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+    </div>
+</div>
+<div class="hidden md:hidden" id="drop-down">
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 pt-2 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/">Home</a>
+    </div>
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/about">About</a>
+    </div>
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/tags/">Tags</a>
+    </div>
+    <div class="h-14 w-full">
+        <form role="search" id="search"
+            class="flex items-center bg-gray-800 text-gray-400 border border-gray-600 rounded-lg px-3 py-2 m-3">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+            </svg>
+            <input id="search-query-mobile" type="search" placeholder="Search" autocomplete="off" aria-label="Search"
+                class="bg-transparent focus:outline-none w-full text-gray-200 placeholder-gray-400" />
+        </form>
+    </div>
+</div>
+<div id="main-div">
+    <div class="mb-12 mt-0 px-4">
+    <div class="container max-w-[950px] mx-auto">
+        <h1 class="font-semibold font-sans leading-none my-8 text-center text-6xl text-white tracking-tighter md:font-normal md:text-8xl">
+            Georgia Tech OMSCS Artificial Intelligence Review | CS 6601
+        </h1>
+    </div>
+</div>
+
+<div class="container max-w-[900px] mx-auto mt-8 px-4 xl:max-w-[1125px]">
+    <div class="md:flex">
+        <div class="basis-[170px] flex-grow-0 flex-shrink-0 hidden md:block"> 
+            <div class="leading-normal text-xs tracking-tighter sticky text-center text-white top-5">
+                <div class="border-b px-4 pb-4 ">
+                    <div class="font-bold mb-0.5 text-white">Article</div>
+                    <div class="text-myblue">
+                        <a class="hover:border-b-sky-600 hover:text-sky-600 underline" href="javascript:void(0)" onclick="copyText('https:\/\/coolstercodes.com/georgia-tech-omscs-artificial-intelligence-review-cs-6601')">
+                            Georgia Tech OMSCS Artificial Intelligence Review | CS 6601 <span class="mx-0.5"><b class="copy text-myblue hover:border-b-sky-600 hover:text-sky-600 underline"></b></span>
+                        </a>
+                        <span
+                            id="copyalert"
+                            class="hidden tooltip absolute left-1/2 -translate-x-1/2 bg-gray-600 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300">
+                            Copied!
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="border-b flex items-stretch text-center ">
+                    <div class="border-r flex-grow ">
+                        <div class="flex h-full items-center">
+                            <div class="px-4 py-4">
+                                <div class="font-bold mb-0.5 text-white">Author</div>
+                                <div class="leading-tight text-myblue">
+                                    <a class="hover:border-b-sky-600 hover:text-sky-600 underline"
+                                        href="/about">Me</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow h-full min-w-0">
+                        <div class="flex items-center">
+                            <div class="px-4 py-4">
+                                <div class="font-bold mb-0.5 text-white">Published</div>
+                                <div class="leading-tight">Oct 1, 2022</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="font-bold mb-0.5 text-white px-4 py-4">
+                    <p class="mb-2">YouTube<br> <a class="hover:border-b-sky-600 hover:text-sky-600 font-bold text-myblue underline" href="https://youtu.be/OQ74VZHpAUU" target="_blank">@coolstercodes</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="pb-4 md:border-l md:flex-grow md:min-w-0 md:pl-8 xl:pr-8 ">
+            
+
+            <div class="hyphens-auto
+                max-w-none
+                prose prose-lg
+                prose-a:font-sans
+                prose-blockquote:text-slate-300
+                prose-img:w-full prose-img:my-0
+                prose-h2:text-xl prose-h2:mb-1 prose-a:prose-h2:border-b-0 prose-a:prose-h2:font-bold prose-h2:text-myblue prose-a:prose-h2:no-underline
+                prose-h3:text-lg prose-h3:mb-1 prose-a:prose-h3:border-b-0 prose-a:prose-h3:font-bold prose-h3:text-myblue prose-a:prose-h3:no-underline
+                prose-h4:text-base prose-h4:mb-1 prose-a:prose-h4:border-b-0 prose-a:prose-h4:font-bold prose-h4:text-myblue prose-a:prose-h4:no-underline
+                prose-hr:my-10 prose-hr:md:-mx-[2rem] prose-hr:md:w-[calc(100%+4rem)]
+                prose-p:font-serif
+                text-[17px]
+                prose-li:my-0
+                prose-figcaption:mt-3
+                prose-p:prose-blockquote:font-sans
+                prose-pre:leading-[1.15rem] prose-pre:text-[0.9rem]
+                prose-strong:text-slate-100
+                prose-ol:font-serif
+                prose-ul:font-serif
+                prose-a:text-myblue
+                prose-a:border-b-myblue
+                hover:prose-a:border-b-sky-600
+                hover:prose-a:text-sky-600
+                prose-code:prose-pre:px-0 prose-code:prose-pre:py-0
+                prose-code:bg-[#414242] prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+                ">
+                
+                <div class="relative pb-[56.25%] h-0 overflow-hidden w-full">
+                    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/OQ74VZHpAUU">
+                    </iframe>
+                </div>
+                
+
+                <div class="font-bold my-1 text-white text-sm md:hidden">Published October 1, 2022
+                </div>
+                
+                <h2 id="tldr" class="link"><a href="#tldr">TL;DR</a></h2>
+
+<ul>
+<li>Medium-Hard</li>
+<li>Avg 20 hrs per week</li>
+<li>Get a free pass on 1 of 6 projects</li>
+</ul>
+
+<h2 id="what-is-artificial-intelligence" class="link"><a href="#what-is-artificial-intelligence">What is Artificial Intelligence?</a></h2>
+
+<p>Artificial Intelligence (AI) is basically getting computers to do human tasks.</p>
+
+<h2 id="graded-course-material" class="link"><a href="#graded-course-material">Graded course material</a></h2>
+
+<ul>
+<li>6 projects
+
+<ul>
+<li>12% each</li>
+<li>1 of them is dropped from your grade</li>
+<li>Very programming heavy</li>
+</ul></li>
+<li>2 exams
+
+<ul>
+<li>Midterm is 15%</li>
+<li>Final is 20%</li>
+</ul></li>
+<li>Extra credit
+
+<ul>
+<li>2 of the projects offer extra credit</li>
+<li>My semester there was an additional extra credit opportunity for watching Meta lectures</li>
+</ul></li>
+<li>Curved grading
+
+<ul>
+<li>Above the class median is an A</li>
+<li>1 standard deviation below the median is a B</li>
+</ul></li>
+</ul>
+
+<h2 id="project-overview" class="link"><a href="#project-overview">Project overview</a></h2>
+
+<h3 id="tri-directional-search" class="link"><a href="#tri-directional-search">Tri-directional search</a></h3>
+
+<p>In this project, you’re given a map of cities, and start by implementing some search algorithms to get from point A to point B</p>
+
+<p>Algorithms used are:</p>
+
+<ul>
+<li>Breadth-first search</li>
+<li>Uniform cost search</li>
+<li>A* search</li>
+<li>Bidirectional uniform cost search</li>
+<li>Bidirectional A*</li>
+<li>Tridirectional search</li>
+</ul>
+
+<p>Breadth-first search<br />
+Let’s say the graph of cities is like in the picture below, the paths explored would be:</p>
+
+<ul>
+<li>A-&gt;B</li>
+<li>A-&gt;D</li>
+</ul>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/BreadthFirstSearch.png" data-caption="Breadth first search example">
+    <img src="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/BreadthFirstSearch.png" />
+  </a>
+  <figcaption>Breadth first search example</figcaption>
+</figure>
+
+<p>Uniform cost search<br />
+If given the blow graph for uniform cost search, the paths explored would be:</p>
+
+<ul>
+<li>A-&gt;B (5)</li>
+<li>A-&gt;B-&gt;C (6)</li>
+<li>A-&gt;D (6)</li>
+</ul>
+
+<p>With uniform cost search, you just take the cheapest path every time.<br />
+It is guaranteed to find the shortest path from point A to point B, but is very costly with big graphs</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/UniformCost.png" data-caption="Uniform cost search example">
+    <img src="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/UniformCost.png" />
+  </a>
+  <figcaption>Uniform cost search example</figcaption>
+</figure>
+
+<p>A* search
+With A* search, you have some kind of estimate as to how far away a point is from it’s destination (h).<br />
+You then combine how far it took you to get to your current point (g), plus the estimate to your destination, to choose the next point to explore.</p>
+
+<p>In the below example, the paths explored would be:</p>
+
+<ul>
+<li>A-&gt;B (g=5, h=7, total cost of 12); A-&gt;D (g=6, h=3, total cost of 9)</li>
+<li>A-&gt;D-&gt;E (g=13, h=0, total cost of 13) but we’re not done yet, the algo ends when goal is popped off, not put on</li>
+<li>A-&gt;B-&gt;C (g=6, h=3, total cost of 9)</li>
+<li>A-&gt;B-&gt;C-&gt;D (g=9, h=3, total cost of 9); A-&gt;B-&gt;C-&gt;E (g=9, h=0, total cost of 9, and update to use this path, rather than A-&gt;D-&gt;E)</li>
+<li>A-&gt;B-&gt;C-&gt;E</li>
+</ul>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/AStar.png" data-caption="A* graph example">
+    <img src="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/AStar.png" />
+  </a>
+  <figcaption>A* graph example</figcaption>
+</figure>
+
+<p>Bidirectional uniform cost search<br />
+Basically, you do uniform cost search, but from the start point AND from the end point, and see where the two paths meet in the middle</p>
+
+<p>Bidirectional A*<br />
+Same thing, you do A* from start and end and merge paths where they meet in the middle</p>
+
+<p>Tridirectional search<br />
+This one’s a doozey, my advice is to not use a greedy approach<br />
+Use a switch-approach, meaning expand start path, then expand the end path, alternating back and forth until they overlap<br />
+And “overlapped” means when your “popped” or AKA “explored” maps meet, not simply when your “frontier” maps meet</p>
+
+<h3 id="isolation" class="link"><a href="#isolation">Isolation</a></h3>
+
+<p>I did not do this project since I was so time-crunched for work 😋</p>
+
+<ul>
+<li>The github repo for it (public to GT students) is here: <a href="https://github.gatech.edu/omscs6601/assignment_2" target="_blank">omscs6601/assignment_2</a></li>
+</ul>
+
+<h3 id="bayes-nets" class="link"><a href="#bayes-nets">Bayes Nets</a></h3>
+
+<p>Probability based, implementing the Baye’s rule</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/image.png" data-caption="Baye’s rule">
+    <img src="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/image.png" />
+  </a>
+  <figcaption>Baye’s rule</figcaption>
+</figure>
+
+<p>You’re given a set of “alarms”, that only sound on certain conditions; i.e. “The alarm has a 15% chance of sounding when the temperature drops below freezing”</p>
+
+<p>I would read very carefully the documentation here: <a href="https://pgmpy.org/models/bayesiannetwork.html" target="_blank">https://pgmpy.org/models/bayesiannetwork.html</a> as it explains one example using grades very well</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/image-1.png" data-caption="Documentation from https://pgmpy.org/models/bayesiannetwork.html">
+    <img src="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/image-1.png" />
+  </a>
+  <figcaption>Documentation from https://pgmpy.org/models/bayesiannetwork.html</figcaption>
+</figure>
+
+<p>Noice how all the columns add up to 1<br />
+So this is saying “Given that the class is easy, the student is smart, the chance the student gets a grade C is 80%”<br />
+You just have to make similar tables for the problem they give you<br />
+For example, if the information given to you were “It is rainy, 90% of the time”, you might make a table like:</p>
+
+<pre><code class="language-python">rain_distribution = TabularCPD('rain', 2, values=[[0.10, 0.90]])
+</code></pre>
+
+<p>So <code>False</code> value comes first (10%), <code>True</code> value comes second (90%)</p>
+
+<p>You also do a soccer game matchup problem, which is just bigger tables. Then you sample from those using a couple algorithms.</p>
+
+<p>You only get 5 submissions on this project so choose carefully.</p>
+
+<h3 id="decision-trees" class="link"><a href="#decision-trees">Decision Trees</a></h3>
+
+<p>This is your typical decision tree, basically like this picture:</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/DT.png" data-caption="Super simple decision tree">
+    <img src="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/DT.png" />
+  </a>
+  <figcaption>Super simple decision tree</figcaption>
+</figure>
+
+<h3 id="gaussian-mixture-models" class="link"><a href="#gaussian-mixture-models">Gaussian Mixture Models</a></h3>
+
+<p>Prepare yourself</p>
+
+<p>In this project, you are clustering pixels in an image, and are given a few algorithms to implement via a research paper:</p>
+
+<ul>
+<li>k-means clustering</li>
+<li>Gaussian mixture models</li>
+<li>Bayesian information criterion</li>
+</ul>
+
+<p>K-means clustering<br />
+For K-means clustering, you are going to use <a href="https://numpy.org/" target="_blank">numpy</a> to sample random points from a given array (pixels)<br />
+You then take those points, and use them as cluster centers<br />
+Gradually moving those cluster centers around, until they stop changing</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/Clustrers.png" data-caption="Clustering results example from what you’ll implement">
+    <img src="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/Clustrers.png" />
+  </a>
+  <figcaption>Clustering results example from what you’ll implement</figcaption>
+</figure>
+
+<p>K-means clustering : continued<br />
+Next you’ll cluster a picture, then segment the image, by making all the pixels that belong to a cluster, that mean cluster value</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/segment.jpeg" data-caption="Segmentation with k=2 and k=4">
+    <img src="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/segment.jpeg" />
+  </a>
+  <figcaption>Segmentation with k=2 and k=4</figcaption>
+</figure>
+
+<p>Multivariate Gaussian Mixture Model<br />
+Instead of a traditional 2D gaussian curves, here you’ll be finding the probability that a pixel belongs to a certain <strong>Multivariate</strong> Gaussian distribution. Then adjusting the distributions in an iterative step, kind of like in k-means clustering</p>
+
+<p>You can start going through the documents in the assignment (public repo for GT students: <a href="https://github.gatech.edu/omscs6601/assignment_5" target="_blank">omscs6601/assignment_5</a>)</p>
+
+<p>I would start by reading:</p>
+
+<ul>
+<li><code>read/gaussian.pdf</code> to understand how multivariate Gaussians work</li>
+<li>Watching <a href="https://youtu.be/qMTuMa86NzU" target="_blank">Clustering (4): Gaussian Mixture Models and EMs</a> on YouTube</li>
+</ul>
+
+<p>First thing you’ll need to implement is finding the covariance matrix of a multivariate gaussian distribution<br />
+Basically implementing the following equation found in <code>read/em.pdf</code> of the ^ github repo</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/covariance.png" data-caption="read/em.pdf covariance equation">
+    <img src="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/covariance.png" />
+  </a>
+  <figcaption>read/em.pdf covariance equation</figcaption>
+</figure>
+
+<p>Next you will choose random points from your picture, and make the covariance matrix for each point, as well as component mixing coefficients.</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/mixing_coefficient.png" data-caption="Component mixing coefficient from read/em.pdf">
+    <img src="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/mixing_coefficient.png" />
+  </a>
+  <figcaption>Component mixing coefficient from read/em.pdf</figcaption>
+</figure>
+
+<p>You have to implement a lot more functions, while following the papers and reading a bunch of numpy documentation.<br />
+I myself took a lot of help from two posts in my semester’s Ed stem forum, which really explained well what you want to be doing.<br />
+You’ll probably just have to ask your teammates and fellow students for help on this one, the <code>prob</code> and <code>Estep</code> functions are gnarly.</p>
+
+<p>In the end, you end up with this though 🙂</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/gaussian2.png" data-caption="Multivariate Gaussians, yaaaay..">
+    <img src="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/gaussian2.png" />
+  </a>
+  <figcaption>Multivariate Gaussians, yaaaay..</figcaption>
+</figure>
+
+<p>The last part of this project is just convergence criteria.</p>
+
+<p>Bayes Information Criterion penalizes models that have a lot of parameters, and you implement it in your algoritm: <a href="https://en.wikipedia.org/wiki/Bayesian_information_criterion" target="_blank">Bayesian_information_criterion</a></p>
+
+<h3 id="hidden-markov-models" class="link"><a href="#hidden-markov-models">Hidden Markov Models</a></h3>
+
+<p>In this assignment, you will make state machines (models) that compute the probability of one hand movement type from one stage to the next, to predict a word that someone is signing in sign language.</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/giphy.gif" data-caption="A video representation of HMMs">
+    <img src="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/giphy.gif" />
+  </a>
+  <figcaption>A video representation of HMMs</figcaption>
+</figure>
+
+<p>You track the y coordinates of the hands of someone signing, and those coordinates are the input to your model.</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/hmm-1-2048x377.png" data-caption="An HMM diagram">
+    <img src="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/hmm-1-2048x377.png" />
+  </a>
+  <figcaption>An HMM diagram</figcaption>
+</figure>
+
+<p>You can also start reading through this repository (through GT credentials) at <a href="https://github.gatech.edu/omscs6601/assignment_6" target="_blank">omscs6601/assignment_6</a></p>
+
+<p>It’s not that much code, just filling in probability tables according the the sheet you are given.</p>
+
+<p>You only get <strong>10 submissions</strong> on gradescope so choose wisely. I think it took me 4-5 tries.</p>
+
+<h2 id="exams" class="link"><a href="#exams">Exams</a></h2>
+
+<p>The Midterm is worth 15% of your final grade</p>
+
+<ul>
+<li>I got 65% on it</li>
+</ul>
+
+<p>The Final is worth 20% of your final grade</p>
+
+<ul>
+<li>I got 62%</li>
+</ul>
+
+<h2 id="grade-breakdown" class="link"><a href="#grade-breakdown">Grade breakdown</a></h2>
+
+<p>Here’s what I got in the class Spring 2022</p>
+
+<ul>
+<li>Assignment 1 – 92%</li>
+<li>Assignment 2 – 0%</li>
+<li>Assignment 3 – 81%</li>
+<li>Assignment 4 – 100%</li>
+<li>Assignment 5 – 92%</li>
+<li>Assignment 6 – 100%</li>
+<li>Midterm – 65%</li>
+<li>Final – 62%</li>
+</ul>
+
+<p>Final grade: <strong>83.07%</strong> of a <strong>B</strong> grade</p>
+
+            </div>
+            
+            <div class="pt-4">
+                <div class="flex items-center py-1">
+                    <div class="font-bold mb-0.5 text-white mr-0.5">Tags: </div>
+                    
+                    <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                        href="/tags/ai">#AI</a>
+                    
+                    <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                        href="/tags/omscs">#OMSCS</a>
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+            <div class="basis-[190px] border-l flex-grow-0 flex-shrink-0 hidden xl:block ">
+                
+                
+                <div class="
+                    mb-3
+                    pl-3
+                    pb-5
+
+                    prose prose-sm
+                    prose-li:my-2
+
+                    prose-ol:prose-li:list-[lower-alpha] prose-ol:prose-li:my-2
+                    prose-a:prose-li:prose-li:font-normal prose-li:prose-li:my-1 prose-li:prose-li:text-[0.65rem] hover:prose-a:prose-li:text-sky-600 hover:prose-a:prose-li:border-b-sky-600
+
+                    prose-ol:prose-li:prose-li:list-[lower-roman]
+                    prose-li:prose-li:prose-li:text-[0.6rem]
+
+                    sticky top-5
+                    text-xs
+                ">
+                    <ol><li><a href="#tldr">TL;DR</a></li><li><a href="#what-is-artificial-intelligence">What is Artificial Intelligence?</a></li><li><a href="#graded-course-material">Graded course material</a></li><li><a href="#project-overview">Project overview</a><ol><li><a href="#tri-directional-search">Tri-directional search</a></li><li><a href="#isolation">Isolation</a></li><li><a href="#bayes-nets">Bayes Nets</a></li><li><a href="#decision-trees">Decision Trees</a></li><li><a href="#gaussian-mixture-models">Gaussian Mixture Models</a></li><li><a href="#hidden-markov-models">Hidden Markov Models</a></li></ol></li><li><a href="#exams">Exams</a></li><li><a href="#grade-breakdown">Grade breakdown</a></li></ol>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="border-t pb-8 p-8 w-vp ">
+    <div class="container max-w-[650px] mx-auto">
+        <div class="hyphens-auto
+            italic
+            max-w-none
+            prose prose-sm
+            prose-a:border-b-myblue prose-a:font-sans
+            hover:prose-a:text-sky-600
+            prose-p:font-serif
+            ">
+            <p>
+                Thanks for reading! :)
+            </p>
+        </div>
+    </div>
+</div>
+</div>
+<div id="search-results" class="hidden text-white p-4"></div>
+<div id="dummy" class="hidden text-gray-400 pb-2 pt-2 pb-1 text-myblue text-xl border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600 text-green-500 text-sm pb-1 text-gray-200 text-sm text-center bg-gray-600 rounded-md px-[5px] py-[2px] ml-1 font-extrabold pb-1 py-1 relative absolute w-full h-full pb-[56.25%] h-0 overflow-hidden top-0 left-0 border-0 bg-myblue mb-3 mr-4"></div>
+
+    <script type="module">
+
+
+import { codeToHtml } from 'https://esm.sh/shiki@1.0.0'
+
+
+
+const htmlEscapes = new Map([
+    ['&amp;', '&'],
+    ['&lt;', '<'],
+    ['&gt;', '>'],
+]);
+
+function unescapeHTMLEntities(str) {
+    for (const [escaped, unescaped] of htmlEscapes) {
+        str = str.replaceAll(escaped, unescaped)
+    }
+    return str
+}
+
+await Promise.all(Array.from(document.querySelectorAll('pre code')).map((codeBlock) => {
+    const classNames = codeBlock.getAttribute("class");
+    if (classNames == null) {
+        return
+    }
+
+    let language = null;
+    for (const className of classNames.split(" ")) {
+        const [languageToken, ...rest] = className.split("-")
+        if (languageToken == "language") {
+            
+            
+            
+            language = rest.join("-")
+            break
+        }
+    }
+
+    if (language == null) {
+        return
+    }
+
+    return (async () => {
+        const code = unescapeHTMLEntities(codeBlock.innerHTML)
+
+        
+        
+        codeBlock.parentElement.outerHTML = 
+            await codeToHtml(code, {
+                lang: language,
+                themes: {
+                    dark: 'github-dark',
+                    light: 'github-dark'
+                }
+            })
+    })()
+}))
+
+</script>
+
+    <script src="/content/javascripts/fancybox.umd.js"></script>
+<script>
+    Fancybox.bind('[data-fancybox]', {
+        
+    });
+</script>
+
+    <script src="/content/javascripts/buttons.js"></script>
+
+    <script type="module" src="/content/javascripts/docfx.min.js"></script>
+<script type="module" src="/content/javascripts/search-worker.min.js"></script>
+
+
+</body>
+
+</html>

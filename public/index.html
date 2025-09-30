@@ -1,0 +1,927 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NX7VL0ZZMV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-NX7VL0ZZMV');
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+    <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+
+    <meta property="og:site_name" content="CoolsterCodes.com">
+<meta property="og:image" content="https://coolstercodes.com/content/images/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Coolster Codes">
+<meta property="og:description" content="It's easy as 001 010 011!">
+<meta name="description" content="It's easy as 001 010 011!">
+<meta property="og:url" content="https://coolstercodes.com">
+<link rel="canonical" href="https://coolstercodes.com">
+
+    <title>Coolster Codes</title>
+
+    <link rel="shortcut icon" type="image/png" href="/content/images/favicon.png">
+
+    <link href="/content/stylesheets/tailwind.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/content/stylesheets/tailwind_custom.css" media="screen" rel="stylesheet" type="text/css">
+
+<link href="/content/stylesheets/fancybox.css" media="screen" rel="stylesheet" type="text/css">
+
+
+    
+
+    <script src="/websocket.js" type="text/javascript"></script>
+    
+</head>
+
+<body class="antialiased bg-[#222222] bg-no-repeat bg-gradient-to-br
+min-h-screen">
+    <div class="hidden h-16 md:flex">
+        <div class="w-60">
+            <a href="/">
+                <img class="pl-2 pt-1 max-h-full max-w-full" src="/content/images/CoolsterCodes.png">
+            </a>
+        </div>
+        <div class="w-10 flex flex-grow justify-evenly items-center">
+            <ul class="flex">
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/">Home</a>
+                </li>
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/about">About</a>
+                </li>
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/tags/">Tags</a>
+                </li>
+            </ul>
+        </div>
+        <div class="w-60 flex">
+            <form role="search" id="search"
+                class="flex items-center bg-gray-800 text-gray-400 border border-gray-600 rounded-lg px-3 py-2 w-80 m-3">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+                </svg>
+                <input id="search-query" type="search" placeholder="Search" autocomplete="off" aria-label="Search"
+                    class="bg-transparent focus:outline-none w-full text-gray-200 placeholder-gray-400" />
+            </form>
+        </div>
+</div>
+
+
+<div class="flex h-16 md:hidden">
+    <div class="w-40">
+        <a href="/">
+            <img class="pl-1 pt-1 max-h-full max-w-full" src="/content/images/CoolsterCodes.png">
+        </a>
+    </div>
+    <div class="w-5 flex-grow"></div>
+    <div class="w-40 flex justify-end items-center pr-3">
+        <div class="hamburger" onclick="toggle(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+    </div>
+</div>
+<div class="hidden md:hidden" id="drop-down">
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 pt-2 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/">Home</a>
+    </div>
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/about">About</a>
+    </div>
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/tags/">Tags</a>
+    </div>
+    <div class="h-14 w-full">
+        <form role="search" id="search"
+            class="flex items-center bg-gray-800 text-gray-400 border border-gray-600 rounded-lg px-3 py-2 m-3">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+            </svg>
+            <input id="search-query-mobile" type="search" placeholder="Search" autocomplete="off" aria-label="Search"
+                class="bg-transparent focus:outline-none w-full text-gray-200 placeholder-gray-400" />
+        </form>
+    </div>
+</div>
+<div id="main-div">
+    <div class="pt-4 pb-4 px-4">
+    <h1 class="prose prose-lg font-normal font-serif text-center text-8xl tracking-tighter
+                prose-a:text-white prose-a:no-underline">
+        Welcome
+    </h1>
+</div>
+<div class="mb-12 px-4">
+    <div class="container max-w-[625px] mx-auto
+            prose prose-lg
+            prose-a:border-b-[1px] prose-a:border-slate-500 prose-a:font-sans prose-a:no-underline
+            hover:prose-a:border-slate-200
+            prose-p:text-center prose-p:italic
+            ">
+        <p>
+            Pick a tag, any tag.
+        </p>
+    </div>
+    <div class="container max-w-[800px] mx-auto mt-8 px-8 text-center" id="buttons">
+        
+        <button id="OMSCS" class="btn btn-blue" onclick="filterByTag('OMSCS')">OMSCS</button>
+        
+        <button id="Windows" class="btn btn-blue" onclick="filterByTag('Windows')">Windows</button>
+        
+        <button id="Kubernetes" class="btn btn-blue" onclick="filterByTag('Kubernetes')">Kubernetes</button>
+        
+        <button id="AI" class="btn btn-blue" onclick="filterByTag('AI')">AI</button>
+        
+        <button id="Docker" class="btn btn-blue" onclick="filterByTag('Docker')">Docker</button>
+        
+        <button id="Machine Learning" class="btn btn-blue" onclick="filterByTag('Machine Learning')">Machine Learning</button>
+        
+        <button id="Development" class="btn btn-blue" onclick="filterByTag('Development')">Development</button>
+        
+        <button id="Networking" class="btn btn-blue" onclick="filterByTag('Networking')">Networking</button>
+        
+        <button id="Science" class="btn btn-blue" onclick="filterByTag('Science')">Science</button>
+        
+        <button id="Algorithms" class="btn btn-blue" onclick="filterByTag('Algorithms')">Algorithms</button>
+        
+        
+        <button id="Ethics" class="hidden md:inline-block btn btn-blue" onclick="filterByTag('Ethics')">Ethics</button>
+        
+        <button id="HCI" class="hidden md:inline-block btn btn-blue" onclick="filterByTag('HCI')">HCI</button>
+        
+    </div>
+</div>
+
+<div class="container max-w-[800px] mx-auto mt-8 px-8">
+    <div class="md:flex">
+        <div class="pb-8 md:flex-grow md:min-w-0 md:pl-6 md:pr-6 prose-code:prose-pre:px-0 prose-code:prose-pre:py-0
+                prose-code:bg-[#414242] prose-code:px-1 prose-code:py-0.5 prose-code:rounded">
+            <ul class="clear-both mb-7"><li class="filterTag Programming Science  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/euclid">
+                                <img src="/content/images/euclid/Euclid.png" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/euclid"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">How Euclid Solved Programming 3,000 Years Ago</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">May 2, 2024</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/programming">#Programming</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/science">#Science</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">Quite the baller if you ask me</p>
+                </li><li class="filterTag OMSCS  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/10-tips-and-tricks-to-survive-the-omscs-program">
+                                <img src="/content/images/10-tips-and-tricks-to-survive-the-omscs-program/tips.jpg" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/10-tips-and-tricks-to-survive-the-omscs-program"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">10 Tips and Tricks OMSCS to Survive the OMSCS</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Apr 27, 2024</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/omscs">#OMSCS</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">10 tricks and tips to help you surive the OMSCS</p>
+                </li><li class="filterTag OMSCS  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/omscs-tier-list">
+                                <img src="/content/images/omscs-tier-list/tier-thumbnail5.jpg" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/omscs-tier-list"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Georgia Tech OMSCS Tier List Class Review</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Apr 21, 2024</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/omscs">#OMSCS</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">Ranking my OMSCS classes in tier-list fashion 😎</p>
+                </li><li class="filterTag OMSCS  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/is-georgia-techs-online-masters-worth-it">
+                                <img src="/content/images/is-georgia-techs-online-masters-worth-it/Presentation1.jpg" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/is-georgia-techs-online-masters-worth-it"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Is Georgia Tech’s Online Master’s Worth It? #OMSCS</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Feb 27, 2024</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/omscs">#OMSCS</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">Is the OMSCS actually worth it?</p>
+                </li><li class="filterTag Development OMSCS  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/georgia-tech-omscs-software-development-process-review-cs-6300">
+                                <img src="/content/images/georgia-tech-omscs-software-development-process-review-cs-6300/Thumby_SDP-scaled.jpeg" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/georgia-tech-omscs-software-development-process-review-cs-6300"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Georgia Tech OMSCS Software Development Process Review | CS 6300</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Dec 9, 2023</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/development">#Development</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/omscs">#OMSCS</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">Software development class at Georgia Tech</p>
+                </li><li class="filterTag Algorithms OMSCS  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/georgia-tech-omscs-graduate-algorithms-review-cs-6515">
+                                <img src="/content/images/georgia-tech-omscs-graduate-algorithms-review-cs-6515/Thumbnail_Grad_Algos-scaled.jpeg" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/georgia-tech-omscs-graduate-algorithms-review-cs-6515"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Georgia Tech OMSCS Graduate Algorithms Review | CS 6515</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Nov 10, 2023</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/algorithms">#Algorithms</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/omscs">#OMSCS</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">Georgia Tech&rsquo;s dreaded Grad Algos class 😱</p>
+                </li><li class="filterTag Machine Learning OMSCS  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/georgia-tech-omscs-reinforcement-learning-review-cs-7642">
+                                <img src="/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/Thumby-scaled.jpeg" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/georgia-tech-omscs-reinforcement-learning-review-cs-7642"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Georgia Tech OMSCS Reinforcement Learning Review | CS 7642</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Oct 24, 2023</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/machine-learning">#Machine Learning</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/omscs">#OMSCS</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">Georgia Tech&rsquo;s Reinforcement Learning class!</p>
+                </li><li class="filterTag Machine Learning OMSCS  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/georgia-tech-omscs-machine-learning-for-trading-review-cs-7646">
+                                <img src="/content/images/georgia-tech-omscs-machine-learning-for-trading-review-cs-7646/thumbnail.jpeg" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/georgia-tech-omscs-machine-learning-for-trading-review-cs-7646"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Georgia Tech OMSCS Machine Learning for Trading Review | CS 7646</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Aug 17, 2023</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/machine-learning">#Machine Learning</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/omscs">#OMSCS</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7"></p>
+                </li><li class="filterTag HCI OMSCS  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/georgia-tech-omscs-human-computer-interaction-review-cs-6750">
+                                <img src="/content/images/georgia-tech-omscs-human-computer-interaction-review-cs-6750/c-me-p0.jpg" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/georgia-tech-omscs-human-computer-interaction-review-cs-6750"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Georgia Tech OMSCS Human-Computer Interaction Review | CS 6750</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Jan 7, 2023</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/hci">#HCI</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/omscs">#OMSCS</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">Georgia Tech&rsquo;s HCI class!</p>
+                </li><li class="filterTag AI Ethics OMSCS  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/georgia-tech-omscs-ai-ethics-and-society-review-cs-6603">
+                                <img src="/content/images/georgia-tech-omscs-ai-ethics-and-society-review-cs-6603/Ethics5.jpg" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/georgia-tech-omscs-ai-ethics-and-society-review-cs-6603"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Georgia Tech OMSCS AI, Ethics and Society Review | CS 6603</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Dec 28, 2022</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/ai">#AI</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/ethics">#Ethics</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/omscs">#OMSCS</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">AI on steroids</p>
+                </li><li class="filterTag OMSCS Robotics Science  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/georgia-tech-omscs-ai-for-robotics-review-cs-7638">
+                                <img src="/content/images/georgia-tech-omscs-ai-for-robotics-review-cs-7638/AIforR2.jpg" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/georgia-tech-omscs-ai-for-robotics-review-cs-7638"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Georgia Tech OMSCS AI for Robotics Review | CS 7638</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Dec 22, 2022</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/omscs">#OMSCS</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/robotics">#Robotics</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/science">#Science</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">Georgia Tech&rsquo;s Robotics class!</p>
+                </li><li class="filterTag AI OMSCS  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/georgia-tech-omscs-knowledge-based-ai-cs-7637">
+                                <img src="/content/images/georgia-tech-omscs-knowledge-based-ai-cs-7637/KBAI4.jpg" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/georgia-tech-omscs-knowledge-based-ai-cs-7637"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Georgia Tech OMSCS Knowledge-Based AI | CS 7637</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Dec 12, 2022</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/ai">#AI</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/omscs">#OMSCS</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">OMSCS Knowledge-based AI review😎</p>
+                </li><li class="filterTag AI OMSCS  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/georgia-tech-omscs-artificial-intelligence-review-cs-6601">
+                                <img src="/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/AI2.jpg" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/georgia-tech-omscs-artificial-intelligence-review-cs-6601"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Georgia Tech OMSCS Artificial Intelligence Review | CS 6601</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Oct 1, 2022</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/ai">#AI</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/omscs">#OMSCS</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">Georgia Tech&rsquo;s AI class!</p>
+                </li><li class="filterTag Machine Learning OMSCS  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/georgia-tech-omscs-machine-learning-review-cs-7641">
+                                <img src="/content/images/georgia-tech-omscs-machine-learning-review-cs-7641/ML2.jpg" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/georgia-tech-omscs-machine-learning-review-cs-7641"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Georgia Tech OMSCS Machine Learning Review | CS 7641</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Aug 11, 2022</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/machine-learning">#Machine Learning</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/omscs">#OMSCS</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">Georgia Tech&rsquo;s ML class</p>
+                </li><li class="filterTag Networking OMSCS  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/georgia-tech-omscs-computer-networks-review-cs-6250">
+                                <img src="/content/images/georgia-tech-omscs-computer-networks-review-cs-6250/Networks3.jpg" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/georgia-tech-omscs-computer-networks-review-cs-6250"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Georgia Tech OMSCS Computer Networks Review | CS 6250</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Aug 7, 2022</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/networking">#Networking</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/omscs">#OMSCS</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">Georgia Tech&rsquo;s Computer Networks class</p>
+                </li><li class="filterTag Docker Windows  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/install-certs-on-nanoserver">
+                                <img src="/content/images/install-certs-on-nanoserver/shield.jpg" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/install-certs-on-nanoserver"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Install Certs on Nanoserver</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Jul 30, 2022</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/docker">#Docker</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/windows">#Windows</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">Installing certificates on a nanoserver docker image</p>
+                </li><li class="filterTag Docker Powershell Windows  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/installing-modules-for-powershell-core-pwsh">
+                                <img src="/content/images/installing-modules-for-powershell-core-pwsh/pwsh.png" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/installing-modules-for-powershell-core-pwsh"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Installing Modules for Powershell Core (pwsh)</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Jul 9, 2022</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/docker">#Docker</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/powershell">#Powershell</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/windows">#Windows</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">Installing powershell modules with <code>pwsh</code></p>
+                </li><li class="filterTag Kubernetes Windows  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/windows-hostprocess-pod-host-file-access">
+                                <img src="/content/images/windows-hostprocess-pod-host-file-access/folder.jpg" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/windows-hostprocess-pod-host-file-access"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Windows HostProcess Pod Host File Access</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Apr 11, 2022</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/kubernetes">#Kubernetes</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/windows">#Windows</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">Mountins a Windows filesystem from within a pod</p>
+                </li><li class="filterTag Kubernetes Windows  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/windows-hostprocess-pod-failed-to-get-application-name">
+                                <img src="/content/images/windows-hostprocess-pod-failed-to-get-application-name/error.jpg" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/windows-hostprocess-pod-failed-to-get-application-name"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Windows HostProcess Pod: “failed to get application name from commandline: failed to find executable”</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Feb 19, 2022</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/kubernetes">#Kubernetes</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/windows">#Windows</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">The elusive <code>failed to get application name from commandline</code> error</p>
+                </li><li class="filterTag Kubernetes Windows  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/configmap-file-mount-on-a-windows-kubernetes-pod">
+                                <img src="/content/images/configmap-file-mount-on-a-windows-kubernetes-pod/terminal.jpg" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/configmap-file-mount-on-a-windows-kubernetes-pod"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">ConfigMap File Mount on a Windows Kubernetes Pod</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Jan 30, 2022</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/kubernetes">#Kubernetes</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/windows">#Windows</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">Mounting a ConfigMap as a file in Windows Kubernetes</p>
+                </li><li class="filterTag Kubernetes Windows  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/windows-pod-host-file-mount-on-kubernetes">
+                                <img src="/content/images/windows-pod-host-file-mount-on-kubernetes/Windows.png" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/windows-pod-host-file-mount-on-kubernetes"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Windows Pod Host File Mount on Kubernetes</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Jan 23, 2022</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/kubernetes">#Kubernetes</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/windows">#Windows</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">Mounting a Windows filesystem in Kubernetes</p>
+                </li><li class="filterTag Networking Windows  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/install-wireshark-via-windows-command-line">
+                                <img src="/content/images/install-wireshark-via-windows-command-line/Wireshark_icon.svg.png" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/install-wireshark-via-windows-command-line"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Install Wireshark via Windows Command Line</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Jan 12, 2022</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/networking">#Networking</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/windows">#Windows</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">Install wireshark via cmd</p>
+                </li><li class="filterTag Development Docker Windows  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/docker-nanoserver-base-image-windows">
+                                <img src="/content/images/docker-nanoserver-base-image-windows/docker.png" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/docker-nanoserver-base-image-windows"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Docker Nanoserver base image Windows</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Jan 9, 2022</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/development">#Development</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/docker">#Docker</a>
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/windows">#Windows</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">Building a docker image using nanoserver base</p>
+                </li><li class="filterTag Test  clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-2">
+                        
+                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
+                            <a href="/reference">
+                                <img src="/content/images/reference/pexels-photo-1108099.jpeg" class="w-full h-full object-cover object-center rounded-lg">
+                            </a>
+                        </div>
+                        
+                        <a href="/reference"
+                            class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">Reference post</a>
+                        <span
+                            class="italic ml-0.5 text-gray-300 text-xs">Apr 1, 2021</span>
+                        
+                        
+                        <div class="flex items-center pt-2">
+                            
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                                href="/tags/test">#Test</a>
+                            
+                        </div>
+                        
+
+                    </div>
+                    <p class="font-serif leading-7">This is my first blog post</p>
+                </li></ul>
+        </div>
+    </div>
+</div>
+</div>
+<div id="search-results" class="hidden text-white p-4"></div>
+<div id="dummy" class="hidden text-gray-400 pb-2 pt-2 pb-1 text-myblue text-xl border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600 text-green-500 text-sm pb-1 text-gray-200 text-sm text-center bg-gray-600 rounded-md px-[5px] py-[2px] ml-1 font-extrabold pb-1 py-1 relative absolute w-full h-full pb-[56.25%] h-0 overflow-hidden top-0 left-0 border-0 bg-myblue mb-3 mr-4"></div>
+
+    <script type="module">
+
+
+import { codeToHtml } from 'https://esm.sh/shiki@1.0.0'
+
+
+
+const htmlEscapes = new Map([
+    ['&amp;', '&'],
+    ['&lt;', '<'],
+    ['&gt;', '>'],
+]);
+
+function unescapeHTMLEntities(str) {
+    for (const [escaped, unescaped] of htmlEscapes) {
+        str = str.replaceAll(escaped, unescaped)
+    }
+    return str
+}
+
+await Promise.all(Array.from(document.querySelectorAll('pre code')).map((codeBlock) => {
+    const classNames = codeBlock.getAttribute("class");
+    if (classNames == null) {
+        return
+    }
+
+    let language = null;
+    for (const className of classNames.split(" ")) {
+        const [languageToken, ...rest] = className.split("-")
+        if (languageToken == "language") {
+            
+            
+            
+            language = rest.join("-")
+            break
+        }
+    }
+
+    if (language == null) {
+        return
+    }
+
+    return (async () => {
+        const code = unescapeHTMLEntities(codeBlock.innerHTML)
+
+        
+        
+        codeBlock.parentElement.outerHTML = 
+            await codeToHtml(code, {
+                lang: language,
+                themes: {
+                    dark: 'github-dark',
+                    light: 'github-dark'
+                }
+            })
+    })()
+}))
+
+</script>
+
+    <script src="/content/javascripts/fancybox.umd.js"></script>
+<script>
+    Fancybox.bind('[data-fancybox]', {
+        
+    });
+</script>
+
+    <script src="/content/javascripts/buttons.js"></script>
+
+    <script type="module" src="/content/javascripts/docfx.min.js"></script>
+<script type="module" src="/content/javascripts/search-worker.min.js"></script>
+
+
+</body>
+
+</html>

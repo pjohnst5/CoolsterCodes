@@ -1,0 +1,539 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NX7VL0ZZMV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-NX7VL0ZZMV');
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+    <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+
+    <meta property="og:title" content="Georgia Tech OMSCS Software Development Process Review | CS 6300">
+<meta property="og:description" content="Software development class at Georgia Tech">
+<meta name="description" content="Software development class at Georgia Tech">
+
+<meta property="og:image" content="https://coolstercodes.com/content/images/georgia-tech-omscs-software-development-process-review-cs-6300/Thumby_SDP-scaled.jpeg">
+
+<meta property="og:url" content="https://coolstercodes.com/georgia-tech-omscs-software-development-process-review-cs-6300">
+<link rel="canonical" href="https://coolstercodes.com/georgia-tech-omscs-software-development-process-review-cs-6300">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-12-10T04:13:41Z">
+<meta property="article:author" content="https://coolstercodes.com">
+
+<meta property="article:tag" content="Development">
+
+<meta property="article:tag" content="OMSCS">
+
+
+    <title>Georgia Tech OMSCS Software Development Process Review | CS 6300 - Coolster Codes</title>
+
+    <link rel="shortcut icon" type="image/png" href="/content/images/favicon.png">
+
+    <link href="/content/stylesheets/tailwind.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/content/stylesheets/tailwind_custom.css" media="screen" rel="stylesheet" type="text/css">
+
+<link href="/content/stylesheets/fancybox.css" media="screen" rel="stylesheet" type="text/css">
+
+
+    
+
+    <script src="/websocket.js" type="text/javascript"></script>
+    
+</head>
+
+<body class="antialiased bg-[#222222] bg-no-repeat bg-gradient-to-br
+min-h-screen">
+    <div class="hidden h-16 md:flex">
+        <div class="w-60">
+            <a href="/">
+                <img class="pl-2 pt-1 max-h-full max-w-full" src="/content/images/CoolsterCodes.png">
+            </a>
+        </div>
+        <div class="w-10 flex flex-grow justify-evenly items-center">
+            <ul class="flex">
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/">Home</a>
+                </li>
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/about">About</a>
+                </li>
+                <li>
+                    <a class="nav_item block mx-2 text-white"
+                        href="/tags/">Tags</a>
+                </li>
+            </ul>
+        </div>
+        <div class="w-60 flex">
+            <form role="search" id="search"
+                class="flex items-center bg-gray-800 text-gray-400 border border-gray-600 rounded-lg px-3 py-2 w-80 m-3">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+                </svg>
+                <input id="search-query" type="search" placeholder="Search" autocomplete="off" aria-label="Search"
+                    class="bg-transparent focus:outline-none w-full text-gray-200 placeholder-gray-400" />
+            </form>
+        </div>
+</div>
+
+
+<div class="flex h-16 md:hidden">
+    <div class="w-40">
+        <a href="/">
+            <img class="pl-1 pt-1 max-h-full max-w-full" src="/content/images/CoolsterCodes.png">
+        </a>
+    </div>
+    <div class="w-5 flex-grow"></div>
+    <div class="w-40 flex justify-end items-center pr-3">
+        <div class="hamburger" onclick="toggle(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+    </div>
+</div>
+<div class="hidden md:hidden" id="drop-down">
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 pt-2 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/">Home</a>
+    </div>
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/about">About</a>
+    </div>
+    <div class="h-14 w-full flex flex-col justify-evenly pl-5 text-xl text-white mobile_nav" onclick="animate_blue(this)">
+        <a href="/tags/">Tags</a>
+    </div>
+    <div class="h-14 w-full">
+        <form role="search" id="search"
+            class="flex items-center bg-gray-800 text-gray-400 border border-gray-600 rounded-lg px-3 py-2 m-3">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+            </svg>
+            <input id="search-query-mobile" type="search" placeholder="Search" autocomplete="off" aria-label="Search"
+                class="bg-transparent focus:outline-none w-full text-gray-200 placeholder-gray-400" />
+        </form>
+    </div>
+</div>
+<div id="main-div">
+    <div class="mb-12 mt-0 px-4">
+    <div class="container max-w-[950px] mx-auto">
+        <h1 class="font-semibold font-sans leading-none my-8 text-center text-6xl text-white tracking-tighter md:font-normal md:text-8xl">
+            Georgia Tech OMSCS Software Development Process Review | CS 6300
+        </h1>
+    </div>
+</div>
+
+<div class="container max-w-[900px] mx-auto mt-8 px-4 xl:max-w-[1125px]">
+    <div class="md:flex">
+        <div class="basis-[170px] flex-grow-0 flex-shrink-0 hidden md:block"> 
+            <div class="leading-normal text-xs tracking-tighter sticky text-center text-white top-5">
+                <div class="border-b px-4 pb-4 ">
+                    <div class="font-bold mb-0.5 text-white">Article</div>
+                    <div class="text-myblue">
+                        <a class="hover:border-b-sky-600 hover:text-sky-600 underline" href="javascript:void(0)" onclick="copyText('https:\/\/coolstercodes.com/georgia-tech-omscs-software-development-process-review-cs-6300')">
+                            Georgia Tech OMSCS Software Development Process Review | CS 6300 <span class="mx-0.5"><b class="copy text-myblue hover:border-b-sky-600 hover:text-sky-600 underline"></b></span>
+                        </a>
+                        <span
+                            id="copyalert"
+                            class="hidden tooltip absolute left-1/2 -translate-x-1/2 bg-gray-600 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300">
+                            Copied!
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="border-b flex items-stretch text-center ">
+                    <div class="border-r flex-grow ">
+                        <div class="flex h-full items-center">
+                            <div class="px-4 py-4">
+                                <div class="font-bold mb-0.5 text-white">Author</div>
+                                <div class="leading-tight text-myblue">
+                                    <a class="hover:border-b-sky-600 hover:text-sky-600 underline"
+                                        href="/about">Me</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow h-full min-w-0">
+                        <div class="flex items-center">
+                            <div class="px-4 py-4">
+                                <div class="font-bold mb-0.5 text-white">Published</div>
+                                <div class="leading-tight">Dec 9, 2023</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="font-bold mb-0.5 text-white px-4 py-4">
+                    <p class="mb-2">YouTube<br> <a class="hover:border-b-sky-600 hover:text-sky-600 font-bold text-myblue underline" href="https://youtu.be/kFn-D2X-1TE" target="_blank">@coolstercodes</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="pb-4 md:border-l md:flex-grow md:min-w-0 md:pl-8 xl:pr-8 ">
+            
+
+            <div class="hyphens-auto
+                max-w-none
+                prose prose-lg
+                prose-a:font-sans
+                prose-blockquote:text-slate-300
+                prose-img:w-full prose-img:my-0
+                prose-h2:text-xl prose-h2:mb-1 prose-a:prose-h2:border-b-0 prose-a:prose-h2:font-bold prose-h2:text-myblue prose-a:prose-h2:no-underline
+                prose-h3:text-lg prose-h3:mb-1 prose-a:prose-h3:border-b-0 prose-a:prose-h3:font-bold prose-h3:text-myblue prose-a:prose-h3:no-underline
+                prose-h4:text-base prose-h4:mb-1 prose-a:prose-h4:border-b-0 prose-a:prose-h4:font-bold prose-h4:text-myblue prose-a:prose-h4:no-underline
+                prose-hr:my-10 prose-hr:md:-mx-[2rem] prose-hr:md:w-[calc(100%+4rem)]
+                prose-p:font-serif
+                text-[17px]
+                prose-li:my-0
+                prose-figcaption:mt-3
+                prose-p:prose-blockquote:font-sans
+                prose-pre:leading-[1.15rem] prose-pre:text-[0.9rem]
+                prose-strong:text-slate-100
+                prose-ol:font-serif
+                prose-ul:font-serif
+                prose-a:text-myblue
+                prose-a:border-b-myblue
+                hover:prose-a:border-b-sky-600
+                hover:prose-a:text-sky-600
+                prose-code:prose-pre:px-0 prose-code:prose-pre:py-0
+                prose-code:bg-[#414242] prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+                ">
+                
+                <div class="relative pb-[56.25%] h-0 overflow-hidden w-full">
+                    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/kFn-D2X-1TE">
+                    </iframe>
+                </div>
+                
+
+                <div class="font-bold my-1 text-white text-sm md:hidden">Published December 9, 2023
+                </div>
+                
+                <h2 id="tldr" class="link"><a href="#tldr">TL;DR</a></h2>
+
+<ul>
+<li>Very nice! 👍🏼 Very relevant material</li>
+<li>7 hours per week</li>
+<li>Only 1 group project (which isn’t too bad)</li>
+</ul>
+
+<h2 id="what-is-software-development" class="link"><a href="#what-is-software-development">What is Software Development?</a></h2>
+
+<p>Software development is basically just the process in which you build applications/websites/tools using code</p>
+
+<h2 id="graded-course-material" class="link"><a href="#graded-course-material">Graded Course Material</a></h2>
+
+<ul>
+<li>6 Assignments (Individual)</li>
+<li>1 Group Project</li>
+<li>1 Individual project</li>
+</ul>
+
+<h2 id="assignment-1-team-matching-survey" class="link"><a href="#assignment-1-team-matching-survey">Assignment 1: Team Matching Survey</a></h2>
+
+<p>This is just a quick survey about what times of the week you like to work on school projects, what experience you have developing, and any other information you would like the TAs to know about yourself before they match you up with 3 other classmates</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-software-development-process-review-cs-6300/krakenimages-Y5bvRlcCx8k-unsplash-1.jpg" data-caption="Teamwork!!">
+    <img src="/content/images/georgia-tech-omscs-software-development-process-review-cs-6300/krakenimages-Y5bvRlcCx8k-unsplash-1.jpg" />
+  </a>
+  <figcaption>Teamwork!!</figcaption>
+</figure>
+
+<h2 id="assignment-2-git-usage" class="link"><a href="#assignment-2-git-usage">Assignment 2: Git usage!</a></h2>
+
+<p>This one rocks:</p>
+
+<ul>
+<li>You actually clone a repository, and begin making changes to it as if you were working with others on a project</li>
+<li>This is SUPER relevant to today’s software engineering, as Git is basically the heart of all software engineering.</li>
+<li>You explore merging, committing and tagging</li>
+</ul>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-software-development-process-review-cs-6300/markus-winkler-ZDwh_sxsX2g-unsplash.jpg" data-caption="Gihtub sneak peek">
+    <img src="/content/images/georgia-tech-omscs-software-development-process-review-cs-6300/markus-winkler-ZDwh_sxsX2g-unsplash.jpg" />
+  </a>
+  <figcaption>Gihtub sneak peek</figcaption>
+</figure>
+
+<h2 id="assignment-3-basic-java" class="link"><a href="#assignment-3-basic-java">Assignment 3: Basic Java</a></h2>
+
+<ul>
+<li>You make a simple Java application that “encrypts” messages</li>
+<li>You’ll also end-up <strong>re-using</strong> this code on later so take some time to do it well</li>
+<li>You also make some unit tests</li>
+</ul>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-software-development-process-review-cs-6300/roonz-nl-2xEQDxB0ss4-unsplash.jpg" data-caption="Not Java, but pretty fancy looking">
+    <img src="/content/images/georgia-tech-omscs-software-development-process-review-cs-6300/roonz-nl-2xEQDxB0ss4-unsplash.jpg" />
+  </a>
+  <figcaption>Not Java, but pretty fancy looking</figcaption>
+</figure>
+
+<h2 id="assignment-4-android-app" class="link"><a href="#assignment-4-android-app">Assignment 4: Android app</a></h2>
+
+<ul>
+<li>Here you make an Android app, that is the frontend of what you coded in Assignment 3</li>
+<li>It does not need to be fancy</li>
+</ul>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-software-development-process-review-cs-6300/denny-muller-HfWA-Axq6Ek-unsplash.jpg" data-caption="Android">
+    <img src="/content/images/georgia-tech-omscs-software-development-process-review-cs-6300/denny-muller-HfWA-Axq6Ek-unsplash.jpg" />
+  </a>
+  <figcaption>Android</figcaption>
+</figure>
+
+<h2 id="assignment-5-software-design" class="link"><a href="#assignment-5-software-design">Assignment 5: Software Design</a></h2>
+
+<ul>
+<li>Here you use UML to design a “Job search” application</li>
+<li>You’ll end up <strong>re-using</strong> this in the Group Project so actually think about it</li>
+</ul>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-software-development-process-review-cs-6300/kaleidico-3V8xo5Gbusk-unsplash.jpg" data-caption="Planning">
+    <img src="/content/images/georgia-tech-omscs-software-development-process-review-cs-6300/kaleidico-3V8xo5Gbusk-unsplash.jpg" />
+  </a>
+  <figcaption>Planning</figcaption>
+</figure>
+
+<h2 id="assignment-6-white-box-testing" class="link"><a href="#assignment-6-white-box-testing">Assignment 6: White-box testing</a></h2>
+
+<ul>
+<li>You’ll solve these unit test “puzzles” related to:
+
+<ul>
+<li>Statement coverage</li>
+<li>Branch coverage</li>
+<li>Modified Condition/ Decision Coverage</li>
+</ul></li>
+<li>It’s kind of tricky!</li>
+</ul>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-software-development-process-review-cs-6300/david-travis-WC6MJ0kRzGw-unsplash-2048x1366.jpg" data-caption="Testing">
+    <img src="/content/images/georgia-tech-omscs-software-development-process-review-cs-6300/david-travis-WC6MJ0kRzGw-unsplash-2048x1366.jpg" />
+  </a>
+  <figcaption>Testing</figcaption>
+</figure>
+
+<h2 id="group-project" class="link"><a href="#group-project">Group Project 😱</a></h2>
+
+<p>In this project, you are random paired with 3 other classmates to create a <strong>Job Comparison App</strong>:</p>
+
+<ul>
+<li>A user should be able to enter a job offer</li>
+<li>A user should be able to compar job offers</li>
+<li>A user should be able to change the job comparison algorithm weights</li>
+</ul>
+
+<p>You do it over 5 weeks so it’s not too bad</p>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-software-development-process-review-cs-6300/annie-spratt-QckxruozjRg-unsplash.jpg" data-caption="Group project time!!">
+    <img src="/content/images/georgia-tech-omscs-software-development-process-review-cs-6300/annie-spratt-QckxruozjRg-unsplash.jpg" />
+  </a>
+  <figcaption>Group project time!!</figcaption>
+</figure>
+
+<h2 id="individual-project-cli-tool" class="link"><a href="#individual-project-cli-tool">Individual Project 🥷🏻 CLI tool</a></h2>
+
+<p>Here you’ll develop a command-line tool that alters text in a file:</p>
+
+<ul>
+<li>There are flags you can pass into the tool like <code>-d</code> (duplicate) or <code>-k</code> (keep lines that match) as an example</li>
+<li>You’re supposed to program the tool to actually do what the specs say, and test it well enough</li>
+<li>This is actually <strong>super</strong> relevant to what you do in industry</li>
+</ul>
+
+<pre><code class="language-txt">Hello, world!
+</code></pre>
+
+<pre><code class="language-shell">txter -d 1 hello_world.txt
+</code></pre>
+
+<pre><code class="language-txt">Hello, world!
+Hello, world!
+</code></pre>
+
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/georgia-tech-omscs-software-development-process-review-cs-6300/gabriel-heinzer-4Mw7nkQDByk-unsplash.jpg" data-caption="Command line">
+    <img src="/content/images/georgia-tech-omscs-software-development-process-review-cs-6300/gabriel-heinzer-4Mw7nkQDByk-unsplash.jpg" />
+  </a>
+  <figcaption>Command line</figcaption>
+</figure>
+
+<h2 id="grade-breakdown" class="link"><a href="#grade-breakdown">Grade breakdown</a></h2>
+
+<ul>
+<li>Assignment 1: 100% 😎</li>
+<li>Assignment 2: 100% 💯</li>
+<li>Assignment 3: 100% 🔥</li>
+<li>Assignment 4: 100% 🙌🏼</li>
+<li>Assignment 5: 100% ❗️</li>
+<li>Assignment 6: 80% 🤷🏻‍♂️</li>
+<li>Group project collab grade: 99.5% 😎</li>
+<li>Group project overall: 92.6% 🤷🏻‍♂️</li>
+<li>Individual project overall: 94.4 🔥</li>
+<li>Participation: 100%</li>
+</ul>
+
+<p>Overall grade: <strong>A</strong> 😎</p>
+
+            </div>
+            
+            <div class="pt-4">
+                <div class="flex items-center py-1">
+                    <div class="font-bold mb-0.5 text-white mr-0.5">Tags: </div>
+                    
+                    <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                        href="/tags/development">#Development</a>
+                    
+                    <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                        href="/tags/omscs">#OMSCS</a>
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+            <div class="basis-[190px] border-l flex-grow-0 flex-shrink-0 hidden xl:block ">
+                
+                
+                <div class="
+                    mb-3
+                    pl-3
+                    pb-5
+
+                    prose prose-sm
+                    prose-li:my-2
+
+                    prose-ol:prose-li:list-[lower-alpha] prose-ol:prose-li:my-2
+                    prose-a:prose-li:prose-li:font-normal prose-li:prose-li:my-1 prose-li:prose-li:text-[0.65rem] hover:prose-a:prose-li:text-sky-600 hover:prose-a:prose-li:border-b-sky-600
+
+                    prose-ol:prose-li:prose-li:list-[lower-roman]
+                    prose-li:prose-li:prose-li:text-[0.6rem]
+
+                    sticky top-5
+                    text-xs
+                ">
+                    <ol><li><a href="#tldr">TL;DR</a></li><li><a href="#what-is-software-development">What is Software Development?</a></li><li><a href="#graded-course-material">Graded Course Material</a></li><li><a href="#assignment-1-team-matching-survey">Assignment 1: Team Matching Survey</a></li><li><a href="#assignment-2-git-usage">Assignment 2: Git usage!</a></li><li><a href="#assignment-3-basic-java">Assignment 3: Basic Java</a></li><li><a href="#assignment-4-android-app">Assignment 4: Android app</a></li><li><a href="#assignment-5-software-design">Assignment 5: Software Design</a></li><li><a href="#assignment-6-white-box-testing">Assignment 6: White-box testing</a></li><li><a href="#group-project">Group Project 😱</a></li><li><a href="#individual-project-cli-tool">Individual Project 🥷🏻 CLI tool</a></li><li><a href="#grade-breakdown">Grade breakdown</a></li></ol>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="border-t pb-8 p-8 w-vp ">
+    <div class="container max-w-[650px] mx-auto">
+        <div class="hyphens-auto
+            italic
+            max-w-none
+            prose prose-sm
+            prose-a:border-b-myblue prose-a:font-sans
+            hover:prose-a:text-sky-600
+            prose-p:font-serif
+            ">
+            <p>
+                Thanks for reading! :)
+            </p>
+        </div>
+    </div>
+</div>
+</div>
+<div id="search-results" class="hidden text-white p-4"></div>
+<div id="dummy" class="hidden text-gray-400 pb-2 pt-2 pb-1 text-myblue text-xl border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600 text-green-500 text-sm pb-1 text-gray-200 text-sm text-center bg-gray-600 rounded-md px-[5px] py-[2px] ml-1 font-extrabold pb-1 py-1 relative absolute w-full h-full pb-[56.25%] h-0 overflow-hidden top-0 left-0 border-0 bg-myblue mb-3 mr-4"></div>
+
+    <script type="module">
+
+
+import { codeToHtml } from 'https://esm.sh/shiki@1.0.0'
+
+
+
+const htmlEscapes = new Map([
+    ['&amp;', '&'],
+    ['&lt;', '<'],
+    ['&gt;', '>'],
+]);
+
+function unescapeHTMLEntities(str) {
+    for (const [escaped, unescaped] of htmlEscapes) {
+        str = str.replaceAll(escaped, unescaped)
+    }
+    return str
+}
+
+await Promise.all(Array.from(document.querySelectorAll('pre code')).map((codeBlock) => {
+    const classNames = codeBlock.getAttribute("class");
+    if (classNames == null) {
+        return
+    }
+
+    let language = null;
+    for (const className of classNames.split(" ")) {
+        const [languageToken, ...rest] = className.split("-")
+        if (languageToken == "language") {
+            
+            
+            
+            language = rest.join("-")
+            break
+        }
+    }
+
+    if (language == null) {
+        return
+    }
+
+    return (async () => {
+        const code = unescapeHTMLEntities(codeBlock.innerHTML)
+
+        
+        
+        codeBlock.parentElement.outerHTML = 
+            await codeToHtml(code, {
+                lang: language,
+                themes: {
+                    dark: 'github-dark',
+                    light: 'github-dark'
+                }
+            })
+    })()
+}))
+
+</script>
+
+    <script src="/content/javascripts/fancybox.umd.js"></script>
+<script>
+    Fancybox.bind('[data-fancybox]', {
+        
+    });
+</script>
+
+    <script src="/content/javascripts/buttons.js"></script>
+
+    <script type="module" src="/content/javascripts/docfx.min.js"></script>
+<script type="module" src="/content/javascripts/search-worker.min.js"></script>
+
+
+</body>
+
+</html>
