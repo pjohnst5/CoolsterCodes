@@ -1,28 +1,14 @@
-name: CoolsterCodes CI
-
-env:
-  # Saw build failures, apparently because awscli is trying to determine
-  # region. This is an undocumented env var that disables that check.
-  #
-  # Discovered from: https://github.com/aws/aws-cli/issues/5262#issuecomment-705832151
-  AWS_EC2_METADATA_DISABLED: true
-
-  CONCURRENCY: 10 # reduced because I think I'm running into Dropbox rate problems
+name: CoolsterCodes CI/CD
 
 on:
   pull_request:
   push:
     branches:
-      - master
-  schedule:
-    # Once a week on Tuesday.
-    - cron: "0 0 * * TUE"
+      - main
 
 jobs:
-  check_and_test:
+  unit_tests:
     runs-on: ubuntu-latest
-    timeout-minutes: 3
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -50,10 +36,8 @@ jobs:
       - name: "Go: Test"
         run: make test
 
-  check_tailwind:
+  css:
     runs-on: macos-latest
-    timeout-minutes: 3
-
     env:
       TAILWIND_VERSION: v3.4.15
 
@@ -77,10 +61,8 @@ jobs:
           echo "Please make sure that all Tailwind changes are checked in!"
           git diff --exit-code .
 
-  golangci-lint:
+  lint:
     runs-on: ubuntu-latest
-    timeout-minutes: 3
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -96,4 +78,33 @@ jobs:
         with:
           version: v2.0.0
 
-  ## TODO: Make a deploy
+  deploy_prod:
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: github-pages
+      url: ${{steps.deployment.outputs.page_url}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Install Go
+        uses: actions/setup-go@v5
+        with:
+          check-latest: true
+          go-version-file: "go.mod"
+      - name: "Go: Install"
+        run: make install
+      - name: "Build: Production"
+        run: make build
+        env:
+          TARGET_DIR: ./public
+          CC_ENV: prod
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: './public'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
