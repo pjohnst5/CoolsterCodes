@@ -128,6 +128,7 @@ Add all my articles
     - Move equivalent of articles
 Host it
     - Make sure to make CC_Env=Prod
+Fix slashes
 Make it so big titles don't overflow on mobile?
 Remove IncludeMarkdown func
 Make same page header links no underline
