@@ -78,33 +78,33 @@ jobs:
         with:
           version: v2.0.0
 
-  deploy_prod:
-    if: github.ref == 'refs/heads/main'
-    environment:
-      name: github-pages
-      url: ${{steps.deployment.outputs.page_url}}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-      - name: Install Go
-        uses: actions/setup-go@v5
-        with:
-          check-latest: true
-          go-version-file: "go.mod"
-      - name: "Go: Install"
-        run: make install
-      - name: "Build: Production"
-        run: make build
-        env:
-          TARGET_DIR: ./public
-          CC_ENV: prod
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: './public'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+  # deploy_prod:
+  #   if: github.ref == 'refs/heads/main'
+  #   environment:
+  #     name: github-pages
+  #     url: ${{steps.deployment.outputs.page_url}}
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v5
+  #     - name: Install Go
+  #       uses: actions/setup-go@v5
+  #       with:
+  #         check-latest: true
+  #         go-version-file: "go.mod"
+  #     - name: "Go: Install"
+  #       run: make install
+  #     - name: "Build: Production"
+  #       run: make build
+  #       env:
+  #         TARGET_DIR: ./public
+  #         CC_ENV: prod
+  #     - name: Setup Pages
+  #       uses: actions/configure-pages@v5
+  #     - name: Upload Artifact
+  #       uses: actions/upload-pages-artifact@v4
+  #       with:
+  #         path: './public'
+  #     - name: Deploy to GitHub Pages
+  #       id: deployment
+  #       uses: actions/deploy-pages@v4
