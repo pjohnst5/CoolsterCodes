@@ -72,6 +72,7 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	transformGoTemplate,
 	transformHeaders,
 	transformPDFs,
+	transformVideos,
 	transformImages,
 	transformFiles,
 
@@ -145,6 +146,48 @@ func transformPDFs(source string, opts *RenderOptions) (string, error) {
 		// Grab the caption (only if 3rd arg isn't empty)
 		caption := matches[4]
 		return fmt.Sprintf(pdfHTMLCaption, pdf, caption)
+	}), nil
+}
+
+const videoHTMLCaption = `
+<figure class="text-center">
+  <video controls>
+    <source src="%s" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <figcaption class="text-center">%s</figcaption>
+</figure>
+`
+
+const videoHTMLNoCaption = `
+<video controls>
+  <source src="%s" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+`
+
+var videoRE = regexp.MustCompile(`(!\[\]\((.*).mp4\))(\n\*(.*)\*)?`)
+
+func transformVideos(source string, opts *RenderOptions) (string, error) {
+	return videoRE.ReplaceAllStringFunc(source, func(figure string) string {
+		matches := figureRE.FindStringSubmatch(figure)
+		if len(matches) != 5 {
+			return figure
+		}
+		// Grab the video (it's the same every time)
+		video := matches[2]
+		if opts.ImgDir != "" {
+			video = filepath.Join(opts.ImgDir, video)
+		}
+
+		// No caption option
+		if matches[3] == "" {
+			return fmt.Sprintf(videoHTMLNoCaption, video)
+		}
+
+		// Grab the caption (only if 3rd arg isn't empty)
+		caption := matches[4]
+		return fmt.Sprintf(videoHTMLCaption, video, caption)
 	}), nil
 }
 
