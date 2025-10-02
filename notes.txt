@@ -129,6 +129,10 @@ Add all my articles
     - Move equivalent of articles
 Host it
     - Make sure to make CC_Env=Prod
+Links
+    - Same page links (Tier video) not underlined
+    - Link in header underlined? (Ryan video)
+    - Links in image description (that would be epic)
 Make it so big titles don't overflow on mobile?
 Remove IncludeMarkdown func
 Make same page header links no underline
