@@ -51,16 +51,6 @@ func Render(s string, options *RenderOptions) (string, error) {
 	return s, nil
 }
 
-//////////////////////////////////////////////////////////////////////////////
-//
-//
-//
-// Private
-//
-//
-//
-//////////////////////////////////////////////////////////////////////////////
-
 // renderStack is the full set of functions that we'll run on an input string
 // to get our fully rendered Markdown. This includes the rendering itself, but
 // also a number of custom transformation options.
@@ -70,11 +60,11 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	//
 
 	transformGoTemplate,
-	transformHeaders,
 	transformPDFs,
 	transformVideos,
 	transformImages,
 	transformFiles,
+	transformHeaders,
 
 	// The actual Blackfriday rendering
 	func(source string, _ *RenderOptions) (string, error) {
@@ -93,24 +83,34 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	transformLinksToTargetBlank,
 }
 
-// Look for any whitespace between HTML tags.
-var whitespaceRE = regexp.MustCompile(`>\s+<`)
+// Note that this should come early as we currently rely on a later step to
+// give images a retina srcset.
+func transformGoTemplate(source string, options *RenderOptions) (string, error) {
+	// Skip this step if it doesn't look like there's any Go template code
+	// contained in the source. (This may be a premature optimization.)
+	if !strings.Contains(source, "{{") {
+		return source, nil
+	}
 
-// Simply collapses certain HTML snippets by removing newlines and whitespace
-// between tags. This is mainline used to make HTML snippets readable as
-// constants, but then to make them fit a little more nicely into the rendered
-// markup.
-func collapseHTML(html string) string {
-	html = strings.ReplaceAll(html, "\n", "")
-	html = whitespaceRE.ReplaceAllString(html, "><")
-	html = strings.TrimSpace(html)
-	return html
-}
+	tmpl, err := template.New("fmarkdownTemp").Funcs(FuncMap).Parse(source)
+	if err != nil {
+		return "", xerrors.Errorf("error parsing template: %w", err)
+	}
 
-var codeRE = regexp.MustCompile(`<code class="(\w+)">`)
+	var templateData interface{}
+	if options != nil {
+		templateData = options.TemplateData
+	}
 
-func transformCodeWithLanguagePrefix(source string, _ *RenderOptions) (string, error) {
-	return codeRE.ReplaceAllString(source, `<code class="language-$1">`), nil
+	// Run the template to verify the output.
+	var b bytes.Buffer
+	err = tmpl.Execute(&b, templateData)
+	if err != nil {
+		return "", xerrors.Errorf("error executing template: %w", err)
+	}
+
+	// fmt.Printf("output in = %v ...\n", b.String())
+	return b.String(), nil
 }
 
 const pdfHTMLCaption = `
@@ -272,49 +272,25 @@ func transformFiles(source string, opts *RenderOptions) (string, error) {
 	}), nil
 }
 
-// Note that this should come early as we currently rely on a later step to
-// give images a retina srcset.
-func transformGoTemplate(source string, options *RenderOptions) (string, error) {
-	// Skip this step if it doesn't look like there's any Go template code
-	// contained in the source. (This may be a premature optimization.)
-	if !strings.Contains(source, "{{") {
-		return source, nil
-	}
-
-	tmpl, err := template.New("fmarkdownTemp").Funcs(FuncMap).Parse(source)
-	if err != nil {
-		return "", xerrors.Errorf("error parsing template: %w", err)
-	}
-
-	var templateData interface{}
-	if options != nil {
-		templateData = options.TemplateData
-	}
-
-	// Run the template to verify the output.
-	var b bytes.Buffer
-	err = tmpl.Execute(&b, templateData)
-	if err != nil {
-		return "", xerrors.Errorf("error executing template: %w", err)
-	}
-
-	// fmt.Printf("output in = %v ...\n", b.String())
-	return b.String(), nil
-}
-
 const headerHTML = `
 <h%v id="%s" class="link">
 	<a href="#%s">%s</a>
 </h%v>
 `
 
-// Matches the following:
-//
-//	# header
-//
-// For now, only match ## or more so as to remove code comments from
-// matches. We need a better way of doing that though.
-var headerRE = regexp.MustCompile(`(?m:^(#{2,})\s+(.*?)?$)`)
+// Look for any whitespace between HTML tags.
+var whitespaceRE = regexp.MustCompile(`>\s+<`)
+
+// Simply collapses certain HTML snippets by removing newlines and whitespace
+// between tags. This is mainline used to make HTML snippets readable as
+// constants, but then to make them fit a little more nicely into the rendered
+// markup.
+func collapseHTML(html string) string {
+	html = strings.ReplaceAll(html, "\n", "")
+	html = whitespaceRE.ReplaceAllString(html, "><")
+	html = strings.TrimSpace(html)
+	return html
+}
 
 var slugRegexp = regexp.MustCompile(`[^\w\s-]`) // allows word chars, space, and hyphen
 
@@ -326,6 +302,14 @@ func slugify(s string) string {
 	s = strings.ReplaceAll(s, "--", "-") // collapse double hyphens (optional)
 	return s
 }
+
+// Matches the following:
+//
+//	# header
+//
+// For now, only match ## or more so as to remove code comments from
+// matches. We need a better way of doing that though.
+var headerRE = regexp.MustCompile(`(?m:^(#{2,})\s+(.*?)?$)`)
 
 func transformHeaders(source string, _ *RenderOptions) (string, error) {
 	source = headerRE.ReplaceAllStringFunc(source, func(header string) string {
@@ -339,6 +323,12 @@ func transformHeaders(source string, _ *RenderOptions) (string, error) {
 	})
 
 	return source, nil
+}
+
+var codeRE = regexp.MustCompile(`<code class="(\w+)">`)
+
+func transformCodeWithLanguagePrefix(source string, _ *RenderOptions) (string, error) {
+	return codeRE.ReplaceAllString(source, `<code class="language-$1">`), nil
 }
 
 // A layer that we wrap the entire footer section in for styling purposes.
