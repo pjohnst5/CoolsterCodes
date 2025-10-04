@@ -6,7 +6,9 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"os"
 	"path"
+	"path/filepath"
 	"sync"
 	"text/template"
 	"time"
@@ -31,7 +33,22 @@ func startServingTargetDirHTTP(c *Context, buildComplete *sync.Cond) *http.Serve
 	c.Log.Infof("Serving '%s' to: http://localhost:%v/", path.Clean(c.TargetDir), c.Port)
 
 	mux := http.NewServeMux()
-	mux.Handle("/", http.FileServer(http.Dir(c.TargetDir)))
+
+	// Wrap the file server to handle "pretty URLs"
+	fileServer := http.FileServer(http.Dir(c.TargetDir))
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		requestPath := r.URL.Path
+		fullPath := filepath.Join(c.TargetDir, requestPath)
+
+		// If file does not exist, try appending .html
+		if _, err := os.Stat(fullPath); os.IsNotExist(err) {
+			if _, err := os.Stat(fullPath + ".html"); err == nil {
+				r.URL.Path = requestPath + ".html"
+			}
+		}
+
+		fileServer.ServeHTTP(w, r)
+	})
 
 	if c.Websocket {
 		mux.HandleFunc("/websocket.js", getWebsocketJSHandler(c))

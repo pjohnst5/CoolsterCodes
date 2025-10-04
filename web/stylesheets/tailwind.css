@@ -1725,10 +1725,6 @@ video {
   display: flex;
 }
 
-.contents {
-  display: contents;
-}
-
 .hidden {
   display: none;
 }
@@ -2200,6 +2196,10 @@ video {
   text-decoration-line: underline;
 }
 
+.no-underline {
+  text-decoration-line: none;
+}
+
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -2406,10 +2406,6 @@ video {
   font-weight: 700;
 }
 
-.prose-a\:prose-h2\:no-underline :is(:where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  text-decoration-line: none;
-}
-
 .prose-a\:prose-h3\:border-b-0 :is(:where(h3):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   border-bottom-width: 0px;
 }
@@ -2418,20 +2414,12 @@ video {
   font-weight: 700;
 }
 
-.prose-a\:prose-h3\:no-underline :is(:where(h3):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  text-decoration-line: none;
-}
-
 .prose-a\:prose-h4\:border-b-0 :is(:where(h4):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   border-bottom-width: 0px;
 }
 
 .prose-a\:prose-h4\:font-bold :is(:where(h4):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   font-weight: 700;
-}
-
-.prose-a\:prose-h4\:no-underline :is(:where(h4):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  text-decoration-line: none;
 }
 
 .prose-blockquote\:text-slate-300 :is(:where(blockquote):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
@@ -2546,11 +2534,6 @@ video {
 
 .prose-a\:prose-li\:prose-li\:font-normal :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   font-weight: 400;
-}
-
-.hover\:prose-a\:prose-li\:border-b-sky-600 :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))):hover {
-  --tw-border-opacity: 1;
-  border-bottom-color: rgb(2 132 199 / var(--tw-border-opacity, 1));
 }
 
 .hover\:prose-a\:prose-li\:text-sky-600 :is(:where(li):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))):hover {

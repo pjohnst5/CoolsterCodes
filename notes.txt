@@ -114,6 +114,7 @@ Make /files url ✅
 Make images show up next to articles in search 😱 ✅
 Upgrade copy button ✅
 Update readme ✅
+Fix slashes ✅
 Add all my articles
     - Put YouTube link in article and embed ✅
     - Rename to "Home" and "Tags" ✅
@@ -125,30 +126,31 @@ Add all my articles
     - Make YT video linked if present ✅
     - Make pages like articles ✅
     - Make image paths relative ✅
-    - Move rest of articles
+    - Move equivalent of articles
+Host it
+    - Make sure to make CC_Env=Prod
+Links
+    - Same page links (Tier video) not underlined
+    - Link in header underlined? (Ryan video)
+    - Links in image description (that would be epic)
 Make it so big titles don't overflow on mobile?
 Remove IncludeMarkdown func
+Make same page header links no underline
 Maybe make InsertOrReplaceArticle more generic
 Play with Shiki code
 Make code copyable
-Make external links with little arrow?
 Make it so when you hover over published time, it shows full timestamp 😎
 Explore colors thoroughly (inline and search)
 Search fix? (why doesn't "wife" show up?)
 Final cosmetic review
-    - Make links underlined in general? (debate between headers vs links)
     - Make underlines bold? (see CN review)
     - Fix sizing of headers? (nested)
     - Picture size? (like smaller picture size for smaller pictures)
-Host it
-    - Make sure to make CC_Env=Prod
 Automation:
     - Target for creating new article ✅
         - "make article" ✅
     - Pre-PR check (like gofmt, and tailwind) ✅
         - "make check" ✅
-    - Posting new content (uploading new stuff and resetting it)
-        - "make deploy" in ci action
 
 -- Commands --
 curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.15/tailwindcss-macos-arm64

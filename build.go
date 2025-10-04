@@ -640,7 +640,7 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 		"Article": article,
 	})
 
-	err = dependencies.renderGoTemplate(ctx, c, sourceTmpl, path.Join(c.TargetDir, article.Slug), locals)
+	err = dependencies.renderGoTemplate(ctx, c, sourceTmpl, path.Join(c.TargetDir, article.Slug+".html"), locals)
 	if err != nil {
 		return true, err
 	}
@@ -713,7 +713,7 @@ func renderTag(ctx context.Context, c *modulir.Context,
 	targetDir := path.Join(c.TargetDir, "tags")
 
 	return true, dependencies.renderGoTemplate(ctx, c, sourceTmpl,
-		path.Join(targetDir, tagToURL(tag)), locals)
+		path.Join(targetDir, tagToURL(tag)+".html"), locals)
 }
 
 func renderAllTags(ctx context.Context, c *modulir.Context,
@@ -780,7 +780,7 @@ func renderPage(ctx context.Context, c *modulir.Context, source string,
 		"Page": page,
 	})
 
-	err = dependencies.renderGoTemplate(ctx, c, sourceTmpl, path.Join(c.TargetDir, page.Slug), locals)
+	err = dependencies.renderGoTemplate(ctx, c, sourceTmpl, path.Join(c.TargetDir, page.Slug+".html"), locals)
 	if err != nil {
 		return true, err
 	}
