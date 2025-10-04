@@ -99,7 +99,7 @@ type Conf struct {
 
 	// Concurrency is the number of build Goroutines that will be used to
 	// perform build work items.
-	Concurrency int `env:"CONCURRENCY,default=30"`
+	Concurrency int `env:"CONCURRENCY,default=10"`
 
 	// Port is the port on which to serve HTTP when looping in development.
 	Port int `env:"PORT,default=5002"`

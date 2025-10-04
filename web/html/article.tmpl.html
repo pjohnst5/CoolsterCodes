@@ -33,13 +33,13 @@
 
 <div class="container max-w-[900px] mx-auto mt-8 px-4 xl:max-w-[1125px]">
     <div class="md:flex">
-        <div class="basis-[170px] flex-grow-0 flex-shrink-0 hidden md:block"> <!-- needed for sticky -->
+        <div class="basis-[170px] flex-grow-0 flex-shrink-0 hidden md:block">
             <div class="leading-normal text-xs tracking-tighter sticky text-center text-white top-5">
                 <div class="border-b px-4 pb-4 ">
                     <div class="font-bold mb-0.5 text-white">Article</div>
                     <div class="text-myblue">
-                        <a class="hover:border-b-sky-600 hover:text-sky-600 underline" href="javascript:void(0)" onclick="copyText('{{.AbsoluteURL}}/{{.Article.Slug}}')">
-                            {{.Article.Title}} <span class="mx-0.5"><b class="copy text-myblue hover:border-b-sky-600 hover:text-sky-600 underline"></b></span>
+                        <a class="no-underline" href="javascript:void(0)" onclick="copyText('{{.AbsoluteURL}}/{{.Article.Slug}}')">
+                            {{.Article.Title}} <span class="mx-0.5"><b class="copy text-myblue no-underline"></b></span>
                         </a>
                         <span
                             id="copyalert"
@@ -48,23 +48,13 @@
                         </span>
                     </div>
                 </div>
-
-                <!--
-                    It sucks having to nest two flexboxes like this, but it was
-                    the only easy way I could find to make sure the right border
-                    is at 100% height while also making content in each pane
-                    vertically aligned. You can `items-center` instead of
-                    `items-stretch`, but then if the left pane is shorter than
-                    the right, it centers itself, and its border is only partial
-                    height.
-                -->
                 <div class="border-b flex items-stretch text-center ">
                     <div class="border-r flex-grow ">
                         <div class="flex h-full items-center">
                             <div class="px-4 py-4">
                                 <div class="font-bold mb-0.5 text-white">Author</div>
                                 <div class="leading-tight text-myblue">
-                                    <a class="hover:border-b-sky-600 hover:text-sky-600 underline"
+                                    <a class="hover:border-b-sky-600 hover:text-sky-600 font-bold text-myblue underline"
                                         href="/about">Me</a>
                                 </div>
                             </div>
@@ -94,9 +84,9 @@
                 prose-a:font-sans
                 prose-blockquote:text-slate-300
                 prose-img:w-full prose-img:my-0
-                prose-h2:text-xl prose-h2:mb-1 prose-a:prose-h2:border-b-0 prose-a:prose-h2:font-bold prose-h2:text-myblue prose-a:prose-h2:no-underline
-                prose-h3:text-lg prose-h3:mb-1 prose-a:prose-h3:border-b-0 prose-a:prose-h3:font-bold prose-h3:text-myblue prose-a:prose-h3:no-underline
-                prose-h4:text-base prose-h4:mb-1 prose-a:prose-h4:border-b-0 prose-a:prose-h4:font-bold prose-h4:text-myblue prose-a:prose-h4:no-underline
+                prose-h2:text-xl prose-h2:mb-1 prose-a:prose-h2:border-b-0 prose-a:prose-h2:font-bold prose-h2:text-myblue 
+                prose-h3:text-lg prose-h3:mb-1 prose-a:prose-h3:border-b-0 prose-a:prose-h3:font-bold prose-h3:text-myblue 
+                prose-h4:text-base prose-h4:mb-1 prose-a:prose-h4:border-b-0 prose-a:prose-h4:font-bold prose-h4:text-myblue 
                 prose-hr:my-10 prose-hr:md:-mx-[2rem] prose-hr:md:w-[calc(100%+4rem)]
                 prose-p:font-serif
                 text-[17px]
@@ -140,12 +130,6 @@
         </div>
         {{if ne .Article.TOC ""}}
             <div class="basis-[190px] border-l flex-grow-0 flex-shrink-0 hidden xl:block ">
-                <!--
-                    IMPORTANT: The TOC is duplicated above so that it can be part of
-                    the flexbox at large sizes, but inlined at contents at smaller
-                    ones. Make changes in both places.
-                -->
-                <!-- This is just the normal one on a big screen -->
                 <div class="
                     mb-3
                     pl-3
@@ -155,7 +139,8 @@
                     prose-li:my-2
 
                     prose-ol:prose-li:list-[lower-alpha] prose-ol:prose-li:my-2
-                    prose-a:prose-li:prose-li:font-normal prose-li:prose-li:my-1 prose-li:prose-li:text-[0.65rem] hover:prose-a:prose-li:text-sky-600 hover:prose-a:prose-li:border-b-sky-600
+                    prose-a:prose-li:prose-li:font-normal prose-li:prose-li:my-1 prose-li:prose-li:text-[0.65rem] hover:prose-a:prose-li:text-sky-600
+                    prose-a:no-underline
 
                     prose-ol:prose-li:prose-li:list-[lower-roman]
                     prose-li:prose-li:prose-li:text-[0.6rem]
