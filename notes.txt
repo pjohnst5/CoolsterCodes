@@ -135,6 +135,7 @@ Host it
     - Make sure to make CC_Env=Prod
 Make it so big titles don't overflow on mobile?
 Remove IncludeMarkdown func
+May not need transformGoTemplate
 Make same page header links no underline
 Maybe make InsertOrReplaceArticle more generic
 Play with Shiki code
