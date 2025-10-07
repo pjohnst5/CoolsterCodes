@@ -15,16 +15,6 @@ import (
 	"gopkg.in/russross/blackfriday.v2"
 )
 
-//////////////////////////////////////////////////////////////////////////////
-//
-//
-//
-// Public
-//
-//
-//
-//////////////////////////////////////////////////////////////////////////////
-
 // FuncMap is the map of helper functions that will be used when passing the
 // Markdown through a Go template step.
 var FuncMap = template.FuncMap{}
@@ -70,10 +60,6 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	func(source string, _ *RenderOptions) (string, error) {
 		return string(blackfriday.Run([]byte(source))), nil
 	},
-
-	//
-	// Post-transformation functions
-	//
 
 	// DEPRECATED: Find a different way to do this.
 	transformCodeWithLanguagePrefix,
