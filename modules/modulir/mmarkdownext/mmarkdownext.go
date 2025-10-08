@@ -280,7 +280,7 @@ func collapseHTML(html string) string {
 
 var slugRegexp = regexp.MustCompile(`[^\w\s-]`) // allows word chars, space, and hyphen
 
-func slugify(s string) string {
+func Slugify(s string) string {
 	s = strings.ToLower(s)
 	s = slugRegexp.ReplaceAllString(s, "") // remove punctuation/symbols
 	s = strings.TrimSpace(s)
@@ -303,7 +303,7 @@ func transformHeaders(source string, _ *RenderOptions) (string, error) {
 
 		level := len(matches[1])
 		title := matches[2]
-		newID := slugify(title)
+		newID := Slugify(title)
 
 		return collapseHTML(fmt.Sprintf(headerHTML, level, newID, newID, title, level))
 	})

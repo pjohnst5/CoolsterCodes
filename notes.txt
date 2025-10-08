@@ -115,6 +115,7 @@ Make images show up next to articles in search 😱 ✅
 Upgrade copy button ✅
 Update readme ✅
 Fix slashes ✅
+Move sluggification to one place ✅
 Links
     - Same page links (Tier video) not underlined
     - Link in header underlined? (Ryan video)
@@ -179,9 +180,3 @@ Remove weird newline constraint on headers ❌
     - Would need to change blackfriday
 Figure out linting once and for all ❌
     - IDK if it happens again we'll deal with it lols
-
--- Dev notes: --
-We have slugification in 3 places:
-    - mmarkdownnext.go to slugify "##" headers
-    - search.ts - tagToURL to link tags in search results
-    - article.sh - slugify new article idea

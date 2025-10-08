@@ -74,16 +74,6 @@ var universalSources []string
 
 var validate = validator.New()
 
-//////////////////////////////////////////////////////////////////////////////
-//
-//
-//
-// Init
-//
-//
-//
-//////////////////////////////////////////////////////////////////////////////
-
 func init() {
 	mmarkdownext.FuncMap = scommon.TextTemplateFuncMap
 }
@@ -412,6 +402,9 @@ type Article struct {
 	// Tag is used to group articles together :)
 	Tags []string `toml:"tags,omitempty"`
 
+	// TagsSlugged is the sluggified representation of each tag
+	TagSlugged []string `toml:"tagslugged,omitempty"`
+
 	// Both tags as string and url (not really using count)
 	TagCounts []TagCount `toml:"tagcounts,omitempty"`
 
@@ -451,11 +444,12 @@ type Page struct {
 }
 
 type IndexEntry struct {
-	Href    string   `json:"href"`
-	Title   string   `json:"title"`
-	Summary string   `json:"summary"`
-	Tags    []string `json:"tags"`
-	Img     string   `json:"img"`
+	Href       string   `json:"href"`
+	Title      string   `json:"title"`
+	Summary    string   `json:"summary"`
+	Tags       []string `json:"tags"`
+	TagSlugged []string `json:"tagslugged"`
+	Img        string   `json:"img"`
 }
 
 func (a *Article) validate(source string) error {
@@ -633,7 +627,9 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	}
 
 	for _, tag := range article.Tags {
-		article.TagCounts = append(article.TagCounts, TagCount{Tag: tag, URLTag: tagToURL(tag)})
+		sluggedTag := mmarkdownext.Slugify(tag)
+		article.TagCounts = append(article.TagCounts, TagCount{Tag: tag, URLTag: sluggedTag})
+		article.TagSlugged = append(article.TagSlugged, sluggedTag)
 	}
 
 	locals := getLocals(map[string]interface{}{
@@ -702,7 +698,7 @@ func renderTag(ctx context.Context, c *modulir.Context,
 		return false, nil
 	}
 
-	urlTag := tagToURL(tag)
+	urlTag := mmarkdownext.Slugify(tag)
 
 	locals := getLocals(map[string]interface{}{
 		"Tag":      tag,
@@ -713,7 +709,7 @@ func renderTag(ctx context.Context, c *modulir.Context,
 	targetDir := path.Join(c.TargetDir, "tags")
 
 	return true, dependencies.renderGoTemplate(ctx, c, sourceTmpl,
-		path.Join(targetDir, tagToURL(tag)+".html"), locals)
+		path.Join(targetDir, mmarkdownext.Slugify(tag)+".html"), locals)
 }
 
 func renderAllTags(ctx context.Context, c *modulir.Context,
@@ -832,7 +828,7 @@ func getAllTagCounts(tagMap map[string][]*Article) []TagCount {
 		tagCounts = append(tagCounts, TagCount{
 			Tag:    tag,
 			Count:  len(articles),
-			URLTag: tagToURL(tag),
+			URLTag: mmarkdownext.Slugify(tag),
 		})
 	}
 
@@ -842,20 +838,6 @@ func getAllTagCounts(tagMap map[string][]*Article) []TagCount {
 	})
 
 	return tagCounts
-}
-
-func tagToURL(tag string) string {
-	// Convert to lowercase
-	tag = strings.ToLower(tag)
-
-	// Remove all non-word characters and replace with a dash
-	re := regexp.MustCompile(`[\s\W-]+`)
-	tag = re.ReplaceAllString(tag, "-")
-
-	// Trim leading and trailing dashes
-	tag = strings.Trim(tag, "-")
-
-	return tag
 }
 
 func getYouTubeEmbedLink(link string) string {
@@ -868,11 +850,12 @@ func generateIndex(srcPath, dstPath string, articles []*Article, pages []*Page) 
 	entries := map[string]IndexEntry{}
 	for _, a := range articles {
 		entries[a.Slug] = IndexEntry{
-			Href:    a.Slug,
-			Title:   a.Title,
-			Summary: a.Body,
-			Tags:    a.Tags,
-			Img:     a.Image,
+			Href:       a.Slug,
+			Title:      a.Title,
+			Summary:    a.Body,
+			Tags:       a.Tags,
+			TagSlugged: a.TagSlugged,
+			Img:        a.Image,
 		}
 	}
 

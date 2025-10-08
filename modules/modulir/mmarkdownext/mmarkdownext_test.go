@@ -119,3 +119,10 @@ func must(v interface{}, err error) interface{} {
 	}
 	return v
 }
+
+func TestSluggify(t *testing.T) {
+	assert.Equal(t, "georgia-tech", Slugify("Georgia Tech"))
+	assert.Equal(t, "ai", Slugify("AI"))
+	assert.Equal(t, "ballin-it-up", Slugify("Ballin' it up"))
+	assert.Equal(t, "hey", Slugify("Hey!"))
+}
