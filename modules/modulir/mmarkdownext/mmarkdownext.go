@@ -309,6 +309,12 @@ func transformHeaders(source string, _ *RenderOptions) (string, error) {
 		slug := Slugify(headerText)
 		setAttr(parsedHeader, "id", slug)
 
+		// Add inner <a> tag with link to self!
+		wrapHeadingWithSelfLink(parsedHeader)
+
+		// Make that inner <a> tag have class="no-underline" so it is not underlined (but links within it are)
+		setAttr(parsedHeader.FirstChild, "class", "no-underline")
+
 		// Parse it back into HTML text
 		htmlText, err := renderBackToHTML(parsedHeader)
 		if err != nil {
@@ -375,6 +381,44 @@ func renderBackToHTML(n *html.Node) (string, error) {
 
 	renderedHTML := b.String()
 	return renderedHTML, nil
+}
+
+func wrapHeadingWithSelfLink(h *html.Node) {
+	if h.Type != html.ElementNode {
+		return
+	}
+
+	// 1️⃣ Get the id attribute of the <h2>
+	var id string
+	for _, attr := range h.Attr {
+		if attr.Key == "id" {
+			id = attr.Val
+			break
+		}
+	}
+	if id == "" {
+		return // nothing to link to
+	}
+
+	// 2️⃣ Create a new <a> node
+	a := &html.Node{
+		Type: html.ElementNode,
+		Data: "a",
+		Attr: []html.Attribute{
+			{Key: "href", Val: "#" + id},
+		},
+	}
+
+	// 3️⃣ Move all existing children of <h2> into the new <a>
+	for c := h.FirstChild; c != nil; {
+		next := c.NextSibling
+		h.RemoveChild(c)
+		a.AppendChild(c)
+		c = next
+	}
+
+	// 4️⃣ Append the new <a> as the only child of <h2>
+	h.AppendChild(a)
 }
 
 var codeRE = regexp.MustCompile(`<code class="(\w+)">`)
