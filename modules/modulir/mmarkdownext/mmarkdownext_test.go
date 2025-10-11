@@ -126,3 +126,17 @@ func TestSluggify(t *testing.T) {
 	assert.Equal(t, "ballin-it-up", Slugify("Ballin' it up"))
 	assert.Equal(t, "hey", Slugify("Hey!"))
 }
+
+func TestHeaders(t *testing.T) {
+	assert.Equal(t, `<h2 id="introducing-ryan-denney-ladies-and-gentlemen-test"><a href="#introducing-ryan-denney-ladies-and-gentlemen-test" class="no-underline">Introducing </a><a href="https://www.linkedin.com/in/ryan-denney-1418001b9/"><code>Ryan Denney</code> ladies and <code>gentlemen</code></a><a href="#introducing-ryan-denney-ladies-and-gentlemen-test" class="no-underline"> Test</a></h2>`,
+		must(transformHeaders(`<h2>Introducing <a href="https://www.linkedin.com/in/ryan-denney-1418001b9/"><code>Ryan Denney</code> ladies and <code>gentlemen</code></a> Test</h2>`,
+			nil,
+		)),
+	)
+
+	assert.Equal(t, `<h2 id="and-another-test-hey"><a href="#and-another-test-hey" class="no-underline">And another </a><a href="https://google.com"><strong>test</strong></a><a href="#and-another-test-hey" class="no-underline"> hey</a></h2>`,
+		must(transformHeaders(`<h2>And another <a href="https://google.com"><strong>test</strong></a> hey</h2>`,
+			nil,
+		)),
+	)
+}
