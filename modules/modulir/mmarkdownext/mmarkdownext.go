@@ -11,6 +11,7 @@ import (
 	"strings"
 	"text/template"
 
+	"golang.org/x/net/html"
 	"golang.org/x/xerrors"
 	"gopkg.in/russross/blackfriday.v2"
 )
@@ -54,12 +55,13 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	transformVideos,
 	transformImages,
 	transformFiles,
-	transformHeaders,
 
 	// The actual Blackfriday rendering
 	func(source string, _ *RenderOptions) (string, error) {
 		return string(blackfriday.Run([]byte(source))), nil
 	},
+
+	transformHeaders,
 
 	// DEPRECATED: Find a different way to do this.
 	transformCodeWithLanguagePrefix,
@@ -258,12 +260,6 @@ func transformFiles(source string, opts *RenderOptions) (string, error) {
 	}), nil
 }
 
-const headerHTML = `
-<h%v id="%s" class="link">
-	<a href="#%s">%s</a>
-</h%v>
-`
-
 // Look for any whitespace between HTML tags.
 var whitespaceRE = regexp.MustCompile(`>\s+<`)
 
@@ -289,26 +285,96 @@ func Slugify(s string) string {
 	return s
 }
 
-// Matches the following:
-//
-//	# header
-//
-// For now, only match ## or more so as to remove code comments from
-// matches. We need a better way of doing that though.
-var headerRE = regexp.MustCompile(`(?m:^(#{2,})\s+(.*?)?$)`)
+// The whole point of this function is to change something like this:
+// "<h2>Introducing – <a href=\"https://www.linkedin.com/in/ryan-denney-1418001b9/\"><code>Ryan Denney</code> ladies and <code>gentlemen</code></a> Test</h2>"
+// to this
+// "<h2 id="introducing-ryan-denney-ladies-and-gentlemen-test"><a href="#introducing-ryan-denney-ladies-and-gentlemen-test">Introducing – <a href=\"https://www.linkedin.com/in/ryan-denney-1418001b9/\"><code>Ryan Denney</code> ladies and <code>gentlemen</code></a> Test</a></h2>"
+// So basically, with the 'id' in it so people can click on it and it links to that exact header
+
+var headerRE = regexp.MustCompile(`(?s)<h2>(.*?)</h2>|<h3>(.*?)</h3>|<h4>(.*?)</h4>|<h5>(.*?)</h5>|<h6>(.*?)</h6>`)
 
 func transformHeaders(source string, _ *RenderOptions) (string, error) {
 	source = headerRE.ReplaceAllStringFunc(source, func(header string) string {
-		matches := headerRE.FindStringSubmatch(header)
+		// Parse the header into an HTML doc
+		doc, err := html.Parse(strings.NewReader(header))
+		if err != nil {
+			return source
+		}
 
-		level := len(matches[1])
-		title := matches[2]
-		newID := Slugify(title)
+		// Extract the h* element
+		parsedHeader := findH(doc)
 
-		return collapseHTML(fmt.Sprintf(headerHTML, level, newID, newID, title, level))
+		// Do DFS to calculate the slug
+		headerText := strings.TrimSpace(dfs(parsedHeader))
+		slug := Slugify(headerText)
+		setAttr(parsedHeader, "id", slug)
+
+		// Parse it back into HTML text
+		htmlText, err := renderBackToHTML(parsedHeader)
+		if err != nil {
+			return source
+		}
+
+		return htmlText
 	})
 
 	return source, nil
+}
+
+// Find the first <h*> node
+func findH(n *html.Node) *html.Node {
+	if n.Type == html.ElementNode && strings.HasPrefix(n.Data, "h") {
+		if len(n.Data) == 2 && n.Data[1] >= '1' && n.Data[1] <= '6' {
+			return n
+		}
+	}
+	for c := n.FirstChild; c != nil; c = c.NextSibling {
+		if found := findH(c); found != nil {
+			return found
+		}
+	}
+	return nil
+}
+
+func dfs(n *html.Node) string {
+	if n == nil {
+		return ""
+	}
+	if n.Type == html.TextNode {
+		return n.Data
+	}
+	var sb strings.Builder
+	for c := n.FirstChild; c != nil; c = c.NextSibling {
+		sb.WriteString(dfs(c))
+	}
+	return sb.String()
+}
+
+func setAttr(n *html.Node, key, val string) {
+	if n.Type != html.ElementNode {
+		return
+	}
+
+	for i, a := range n.Attr {
+		if a.Key == key {
+			n.Attr[i].Val = val
+			return
+		}
+	}
+
+	// Not found → append
+	n.Attr = append(n.Attr, html.Attribute{Key: key, Val: val})
+}
+
+func renderBackToHTML(n *html.Node) (string, error) {
+	var b bytes.Buffer
+	err := html.Render(&b, n)
+	if err != nil {
+		return "", err
+	}
+
+	renderedHTML := b.String()
+	return renderedHTML, nil
 }
 
 var codeRE = regexp.MustCompile(`<code class="(\w+)">`)
