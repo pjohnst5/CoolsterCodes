@@ -7,7 +7,7 @@ tags = ["OMSCS"]
 youtube = "https://youtu.be/be3ZSuj_zqM"
 +++
 
-## Introducing – [`Ryan Denney`](https://www.linkedin.com/in/ryan-denney-1418001b9/)
+## Introducing – [Ryan Denney](https://www.linkedin.com/in/ryan-denney-1418001b9/)
 
 - Software Engineer @ Oracle
 - OMSCS specialization in Computing Systems
