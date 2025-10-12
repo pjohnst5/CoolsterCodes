@@ -125,6 +125,7 @@ func TestSluggify(t *testing.T) {
 	assert.Equal(t, "ai", Slugify("AI"))
 	assert.Equal(t, "ballin-it-up", Slugify("Ballin' it up"))
 	assert.Equal(t, "hey", Slugify("Hey!"))
+	assert.Equal(t, "introducing---ryan-denney", Slugify("Introducing - Ryan Denney"))
 }
 
 func TestHeaders(t *testing.T) {

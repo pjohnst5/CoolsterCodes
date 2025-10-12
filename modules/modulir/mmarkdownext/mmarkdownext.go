@@ -280,8 +280,7 @@ func Slugify(s string) string {
 	s = strings.ToLower(s)
 	s = slugRegexp.ReplaceAllString(s, "") // remove punctuation/symbols
 	s = strings.TrimSpace(s)
-	s = strings.ReplaceAll(s, " ", "-")  // replace spaces with hyphens
-	s = strings.ReplaceAll(s, "--", "-") // collapse double hyphens (optional)
+	s = strings.ReplaceAll(s, " ", "-") // replace spaces with hyphens
 	return s
 }
 
