@@ -951,7 +951,7 @@ video {
   --tw-prose-headings: #111827;
   --tw-prose-lead: #4b5563;
   --tw-prose-links: #5da7d8;
-  --tw-prose-bold: #111827;
+  --tw-prose-bold: #fff;
   --tw-prose-counters: #fff;
   --tw-prose-bullets: #d1d5db;
   --tw-prose-hr: #e5e7eb;
@@ -2446,21 +2446,6 @@ video {
 .prose-strong\:text-white :is(:where(strong):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
-}
-
-.prose-strong\:text-pink-50 :is(:where(strong):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  --tw-text-opacity: 1;
-  color: rgb(253 242 248 / var(--tw-text-opacity, 1));
-}
-
-.prose-strong\:text-pink-500 :is(:where(strong):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  --tw-text-opacity: 1;
-  color: rgb(236 72 153 / var(--tw-text-opacity, 1));
-}
-
-.prose-strong\:text-myblue :is(:where(strong):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  --tw-text-opacity: 1;
-  color: rgb(93 167 216 / var(--tw-text-opacity, 1));
 }
 
 .prose-code\:rounded :is(:where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
