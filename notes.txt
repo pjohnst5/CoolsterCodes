@@ -113,6 +113,11 @@ Keep headers not underlined and bigger ✅
 Make /files url ✅
 Make images show up next to articles in search 😱 ✅
 Upgrade copy button ✅
+Automation: ✅
+    - Target for creating new article ✅
+        - "make article" ✅
+    - Pre-PR check (like gofmt, and tailwind) ✅
+        - "make check" ✅
 Update readme ✅
 Fix slashes ✅
 Move sluggification to one place ✅
@@ -138,7 +143,6 @@ Host it
 Make it so big titles don't overflow on mobile?
 Remove IncludeMarkdown func
 May not need transformGoTemplate
-Make same page header links no underline
 Maybe make InsertOrReplaceArticle more generic
 Play with Shiki code
 Make code copyable
@@ -149,11 +153,6 @@ Final cosmetic review
     - Make underlines bold? (see CN review)
     - Fix sizing of headers? (nested)
     - Picture size? (like smaller picture size for smaller pictures)
-Automation:
-    - Target for creating new article ✅
-        - "make article" ✅
-    - Pre-PR check (like gofmt, and tailwind) ✅
-        - "make check" ✅
 
 -- Commands --
 curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.15/tailwindcss-macos-arm64
