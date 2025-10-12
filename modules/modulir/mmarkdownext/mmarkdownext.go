@@ -61,6 +61,8 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 		return string(blackfriday.Run([]byte(source))), nil
 	},
 
+	replaceAll,
+
 	transformHeaders,
 
 	// DEPRECATED: Find a different way to do this.
@@ -282,6 +284,12 @@ func Slugify(s string) string {
 	s = strings.TrimSpace(s)
 	s = strings.ReplaceAll(s, " ", "-") // replace spaces with hyphens
 	return s
+}
+
+func replaceAll(source string, _ *RenderOptions) (string, error) {
+	source = strings.ReplaceAll(source, "’", "'")
+	source = strings.ReplaceAll(source, "–", "-")
+	return source, nil
 }
 
 // The whole point of this function is to change something like this:
