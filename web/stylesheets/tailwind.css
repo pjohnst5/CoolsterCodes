@@ -955,7 +955,7 @@ video {
   --tw-prose-counters: #fff;
   --tw-prose-bullets: #d1d5db;
   --tw-prose-hr: #e5e7eb;
-  --tw-prose-quotes: #111827;
+  --tw-prose-quotes: #CBD5E1;
   --tw-prose-quote-borders: #e5e7eb;
   --tw-prose-captions: #adb1ba;
   --tw-prose-kbd: #111827;
@@ -2422,11 +2422,6 @@ video {
   font-weight: 700;
 }
 
-.prose-blockquote\:text-slate-300 :is(:where(blockquote):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  --tw-text-opacity: 1;
-  color: rgb(203 213 225 / var(--tw-text-opacity, 1));
-}
-
 .prose-p\:prose-blockquote\:font-sans :is(:where(blockquote):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(p):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
@@ -2437,10 +2432,6 @@ video {
 
 .prose-strong\:font-sans :is(:where(strong):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
-
-.prose-strong\:font-extrabold :is(:where(strong):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  font-weight: 800;
 }
 
 .prose-strong\:text-white :is(:where(strong):not(:where([class~="not-prose"],[class~="not-prose"] *))) {

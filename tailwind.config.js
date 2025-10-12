@@ -41,7 +41,9 @@ module.exports = {
                         '--tw-prose-code': '#c8d1d9',    // inline code
                         '--tw-prose-links': '#5da7d8',   // This was so annoying to figure out
                         '--tw-prose-counters': '#fff',   // Make numbers next to TOC white
-                        '--tw-prose-captions': '#adb1ba' // Figure captions
+                        '--tw-prose-captions': '#adb1ba', // Figure captions
+                        '--tw-prose-bold': '#fff', // White bold
+                        '--tw-prose-quotes': '#CBD5E1' //Block quotes
                     },
                 },
             },
