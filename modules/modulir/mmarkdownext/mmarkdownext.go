@@ -391,37 +391,115 @@ func walk(n *html.Node) {
 	}
 }
 
-func wrapWithID(n *html.Node, h2id string, inLink bool) {
-	if n.Type == html.ElementNode && n.Data == "a" {
-		inLink = true
+func wrapWithID(h *html.Node, h2id string, inLink bool) {
+	if h == nil || h.Type != html.ElementNode {
+		return
 	}
 
-	for c := n.FirstChild; c != nil; {
-		next := c.NextSibling
-
-		if c.Type == html.TextNode && strings.TrimSpace(c.Data) != "" && !inLink {
-			// Wrap text node in <a href="#id">
-			a := &html.Node{
-				Type: html.ElementNode,
-				Data: "a",
-				Attr: []html.Attribute{
-					{Key: "href", Val: "#" + h2id},
-					{Key: "class", Val: "no-underline"},
-				},
-			}
-			a.AppendChild(&html.Node{
-				Type: html.TextNode,
-				Data: c.Data,
-			})
-
-			n.InsertBefore(a, c)
-			n.RemoveChild(c)
-		} else {
-			wrapWithID(c, h2id, inLink)
+	// find id
+	var id string
+	for _, attr := range h.Attr {
+		if attr.Key == "id" {
+			id = attr.Val
+			break
 		}
-
-		c = next
 	}
+	if id == "" {
+		return
+	}
+
+	// If no anchors anywhere, do single-wrap and return.
+	if !containsLink(h) {
+		one := &html.Node{
+			Type: html.ElementNode,
+			Data: "a",
+			Attr: []html.Attribute{
+				{Key: "href", Val: "#" + id},
+				{Key: "class", Val: "no-underline"},
+			},
+		}
+		// move all children into the single anchor
+		var children []*html.Node
+		for c := h.FirstChild; c != nil; c = c.NextSibling {
+			children = append(children, c)
+		}
+		for _, c := range children {
+			h.RemoveChild(c)
+			one.AppendChild(c)
+		}
+		h.AppendChild(one)
+		return
+	}
+
+	// Otherwise: there are links somewhere in this heading.
+	// We'll iterate *direct children* in order, grouping consecutive children that
+	// do NOT contain anchors into runs, and wrap each run into its own self-link.
+	// Any direct child that *is* an <a> OR contains descendant <a> will be preserved as-is
+	// (after flushing the run before it).
+	var children []*html.Node
+	for c := h.FirstChild; c != nil; c = c.NextSibling {
+		children = append(children, c)
+	}
+
+	flushRun := func(run []*html.Node) {
+		if len(run) == 0 {
+			return
+		}
+		self := &html.Node{
+			Type: html.ElementNode,
+			Data: "a",
+			Attr: []html.Attribute{
+				{Key: "href", Val: "#" + id},
+				{Key: "class", Val: "no-underline"},
+			},
+		}
+		for _, r := range run {
+			// remove from h and append to self in same order
+			h.RemoveChild(r)
+			self.AppendChild(r)
+		}
+		h.AppendChild(self)
+	}
+
+	var run []*html.Node
+	for _, c := range children {
+		// Treat a child as a separator if:
+		//  - it is an <a> element itself (direct anchor child), OR
+		//  - it contains any descendant <a> (so we avoid creating nested anchors inside it)
+		if c.Type == html.ElementNode && strings.EqualFold(c.Data, "a") {
+			// flush accumulated run, then append this anchor child unchanged
+			flushRun(run)
+			run = nil
+			// reattach anchor child (remove then append to preserve order)
+			h.RemoveChild(c)
+			h.AppendChild(c)
+		} else if containsLink(c) {
+			// This child contains an <a> somewhere inside (example: <strong><a>..</a></strong>)
+			// flush run first, then append this whole child unchanged.
+			flushRun(run)
+			run = nil
+			h.RemoveChild(c)
+			h.AppendChild(c)
+		} else {
+			// accumulate into a run to be wrapped
+			run = append(run, c)
+		}
+	}
+	// flush remaining run (trailing text etc)
+	flushRun(run)
+}
+
+// recursively check if there is any <a> descendant
+func containsLink(n *html.Node) bool {
+	for c := n.FirstChild; c != nil; c = c.NextSibling {
+		if c.Type == html.ElementNode && strings.EqualFold(c.Data, "a") {
+			return true
+		}
+		if containsLink(c) {
+			return true
+		}
+	}
+	return false
 }
 
 func renderBackToHTML(n *html.Node) (string, error) {
