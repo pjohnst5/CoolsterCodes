@@ -117,8 +117,9 @@ Update readme ✅
 Fix slashes ✅
 Move sluggification to one place ✅
 Links
+    - Headers with links underlined ✅
+        - Fix TOC though
     - Same page links (Tier video) not underlined
-    - Link in header underlined? (Ryan video)
     - Links in image description (that would be epic)
 Add all my articles
     - Put YouTube link in article and embed ✅
