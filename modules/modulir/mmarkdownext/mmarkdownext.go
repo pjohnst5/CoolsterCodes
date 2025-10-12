@@ -310,19 +310,10 @@ func transformHeaders(source string, _ *RenderOptions) (string, error) {
 		setAttr(parsedHeader, "id", slug)
 
 		// Add inner <a> tag with link to self!
-		// var process func(*html.Node, string, bool)
-		// process =
-
-		// Find <h2> node
-		// var findAndProcess func(*html.Node)
-		// findAndProcess = func(n *html.Node) {
-
-		// }
 		walk(parsedHeader)
 
 		// Parse it back into HTML text
 		htmlText, err := renderBackToHTML(parsedHeader)
-		// fmt.Println(htmlText)
 		if err != nil {
 			return source
 		}
