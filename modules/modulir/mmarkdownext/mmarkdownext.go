@@ -310,55 +310,15 @@ func transformHeaders(source string, _ *RenderOptions) (string, error) {
 		setAttr(parsedHeader, "id", slug)
 
 		// Add inner <a> tag with link to self!
-		var process func(*html.Node, string, bool)
-		process = func(n *html.Node, h2id string, inLink bool) {
-			if n.Type == html.ElementNode && n.Data == "a" {
-				inLink = true
-			}
-
-			for c := n.FirstChild; c != nil; {
-				next := c.NextSibling
-
-				if c.Type == html.TextNode && strings.TrimSpace(c.Data) != "" && !inLink {
-					// Wrap text node in <a href="#id">
-					a := &html.Node{
-						Type: html.ElementNode,
-						Data: "a",
-						Attr: []html.Attribute{
-							{Key: "href", Val: "#" + h2id},
-							{Key: "class", Val: "no-underline"},
-						},
-					}
-					a.AppendChild(&html.Node{
-						Type: html.TextNode,
-						Data: c.Data,
-					})
-
-					n.InsertBefore(a, c)
-					n.RemoveChild(c)
-				} else {
-					process(c, h2id, inLink)
-				}
-
-				c = next
-			}
-		}
+		// var process func(*html.Node, string, bool)
+		// process =
 
 		// Find <h2> node
-		var findAndProcess func(*html.Node)
-		findAndProcess = func(n *html.Node) {
-			if n.Type == html.ElementNode && len(n.Data) == 2 && n.Data[0] == 'h' && n.Data[1] >= '1' && n.Data[1] <= '6' {
-				for _, a := range n.Attr {
-					if a.Key == "id" {
-						process(n, a.Val, false)
-					}
-				}
-			}
-			for c := n.FirstChild; c != nil; c = c.NextSibling {
-				findAndProcess(c)
-			}
-		}
-		findAndProcess(parsedHeader)
+		// var findAndProcess func(*html.Node)
+		// findAndProcess = func(n *html.Node) {
+
+		// }
+		walk(parsedHeader)
 
 		// Parse it back into HTML text
 		htmlText, err := renderBackToHTML(parsedHeader)
@@ -416,6 +376,52 @@ func setAttr(n *html.Node, key, val string) {
 
 	// Not found → append
 	n.Attr = append(n.Attr, html.Attribute{Key: key, Val: val})
+}
+
+func walk(n *html.Node) {
+	if n.Type == html.ElementNode && len(n.Data) == 2 && n.Data[0] == 'h' && n.Data[1] >= '1' && n.Data[1] <= '6' {
+		for _, a := range n.Attr {
+			if a.Key == "id" {
+				wrapWithID(n, a.Val, false)
+			}
+		}
+	}
+	for c := n.FirstChild; c != nil; c = c.NextSibling {
+		walk(c)
+	}
+}
+
+func wrapWithID(n *html.Node, h2id string, inLink bool) {
+	if n.Type == html.ElementNode && n.Data == "a" {
+		inLink = true
+	}
+
+	for c := n.FirstChild; c != nil; {
+		next := c.NextSibling
+
+		if c.Type == html.TextNode && strings.TrimSpace(c.Data) != "" && !inLink {
+			// Wrap text node in <a href="#id">
+			a := &html.Node{
+				Type: html.ElementNode,
+				Data: "a",
+				Attr: []html.Attribute{
+					{Key: "href", Val: "#" + h2id},
+					{Key: "class", Val: "no-underline"},
+				},
+			}
+			a.AppendChild(&html.Node{
+				Type: html.TextNode,
+				Data: c.Data,
+			})
+
+			n.InsertBefore(a, c)
+			n.RemoveChild(c)
+		} else {
+			wrapWithID(c, h2id, inLink)
+		}
+
+		c = next
+	}
 }
 
 func renderBackToHTML(n *html.Node) (string, error) {

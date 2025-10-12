@@ -139,4 +139,10 @@ func TestHeaders(t *testing.T) {
 			nil,
 		)),
 	)
+
+	assert.Equal(t, `<h2 id="baller-extraordinaire"><code><a href="#baller-extraordinaire" class="no-underline">Baller</a></code><a href="#baller-extraordinaire" class="no-underline"> Extraordinaire</a></h2>`,
+		must(transformHeaders(`<h2><code>Baller</code> Extraordinaire</h2>`,
+			nil,
+		)),
+	)
 }
