@@ -20,14 +20,6 @@ type header struct {
 // RenderFromHTML extracts a structure from the given HTML content and renders
 // a corresponding table of contents as an HTML string.
 func RenderFromHTML(content string) (string, error) {
-	return RenderFromHTMLWithMaxLevel(content, -1)
-}
-
-// RenderFromHTMLWithMaxLevel extracts a structure from the given HTML content
-// and renders a corresponding table of contents as an HTML string, but only
-// considers headers of maxLevel or lower. For example, if maxLevel is 2, only
-// h1s and h2s will be included.
-func RenderFromHTMLWithMaxLevel(content string, maxLevel int) (string, error) {
 	matches := headerRegexp.FindAllStringSubmatch(content, -1)
 	headers := make([]*header, 0, len(matches))
 	for _, match := range matches {
@@ -47,11 +39,6 @@ func RenderFromHTMLWithMaxLevel(content string, maxLevel int) (string, error) {
 		// Do DFS to calculate the slug
 		headerText := strings.TrimSpace(mmarkdownext.DFS(parsedHeader))
 		slug := mmarkdownext.Slugify(headerText)
-
-		if maxLevel != -1 && level > maxLevel {
-			continue
-		}
-
 		headers = append(headers, &header{level, "#" + slug, headerText})
 	}
 

@@ -302,10 +302,10 @@ func transformHeaders(source string, _ *RenderOptions) (string, error) {
 		}
 
 		// Extract the h* element
-		parsedHeader := findH(doc)
+		parsedHeader := FindH(doc)
 
 		// Do DFS to calculate the slug
-		headerText := strings.TrimSpace(dfs(parsedHeader))
+		headerText := strings.TrimSpace(DFS(parsedHeader))
 		slug := Slugify(headerText)
 		setAttr(parsedHeader, "id", slug)
 
@@ -325,21 +325,21 @@ func transformHeaders(source string, _ *RenderOptions) (string, error) {
 }
 
 // Find the first <h*> node
-func findH(n *html.Node) *html.Node {
+func FindH(n *html.Node) *html.Node {
 	if n.Type == html.ElementNode && strings.HasPrefix(n.Data, "h") {
 		if len(n.Data) == 2 && n.Data[1] >= '1' && n.Data[1] <= '6' {
 			return n
 		}
 	}
 	for c := n.FirstChild; c != nil; c = c.NextSibling {
-		if found := findH(c); found != nil {
+		if found := FindH(c); found != nil {
 			return found
 		}
 	}
 	return nil
 }
 
-func dfs(n *html.Node) string {
+func DFS(n *html.Node) string {
 	if n == nil {
 		return ""
 	}
@@ -348,7 +348,7 @@ func dfs(n *html.Node) string {
 	}
 	var sb strings.Builder
 	for c := n.FirstChild; c != nil; c = c.NextSibling {
-		sb.WriteString(dfs(c))
+		sb.WriteString(DFS(c))
 	}
 	return sb.String()
 }

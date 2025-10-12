@@ -29,15 +29,15 @@ func TestBuildTree_Complex(t *testing.T) {
 	// Be careful with this one, and you may want to run it with `go test -v`.
 
 	node := buildTree([]*header{
-		{2, "#h-a", "Header A"},
-		{2, "#h-b", "Header B"},
-		{3, "#h-c", "Header C"},
-		{4, "#h-d", "Header D"},
-		{5, "#h-e", "Header E"},
-		{4, "#h-f", "Header F"},
-		{5, "#h-g", "Header G"},
-		{3, "#h-h", "Header H"},
-		{2, "#h-i", "Header I"},
+		{2, "#heading-a", "Header A"},
+		{2, "#heading-b", "Header B"},
+		{3, "#heading-c", "Header C"},
+		{4, "#heading-d", "Header D"},
+		{5, "#heading-e", "Header E"},
+		{4, "#heading-f", "Header F"},
+		{5, "#heading-g", "Header G"},
+		{3, "#heading-h", "Header H"},
+		{2, "#heading-i", "Header I"},
 	})
 
 	/*
@@ -174,20 +174,20 @@ func TestRenderFromHTML_Basic(t *testing.T) {
 	content := `
 		Intro.
 
-		<h2 id="h-a">Heading A</h2>
+		<h2 id="heading-a"><a href="#heading-a">Heading A</a></h2>
 
 		Content.
 
-		<h3 id="h-b">Heading B</h3>
+		<h3 id="heading-b"><a href="#heading-b">Heading B</a></h3>
 
 		Content
 
-		<h2 id="h-c"><a href="#h-c">Heading C</a></h2>
+		<h2 id="heading-c"><a href="#heading-c">Heading C</a></h2>
 
 		Content.
 	`
-	expected := `<ol><li><a href="#h-a">Heading A</a><ol>` +
-		`<li><a href="#h-b">Heading B</a></li></ol></li><li><a href="#h-c">Heading C</a></li></ol>`
+	expected := `<ol><li><a href="#heading-a">Heading A</a><ol>` +
+		`<li><a href="#heading-b">Heading B</a></li></ol></li><li><a href="#heading-c">Heading C</a></li></ol>`
 
 	rendered, err := RenderFromHTML(content)
 	assert.NoError(t, err)
@@ -202,26 +202,20 @@ func TestRenderFromHTML_Empty(t *testing.T) {
 
 func TestRenderFromHTML_OtherAttrs(t *testing.T) {
 	content := `
-		<h2 style="font-weight: bold;" id="h-a" class="link">Heading A</h2>
+		<h2 style="font-weight: bold;" id="heading-a"><a href="#heading-a">Heading A</a></h2>
 
 		Content.
 	`
-	expected := `<ol><li><a href="#h-a">Heading A</a></li></ol>`
+	expected := `<ol><li><a href="#heading-a">Heading A</a></li></ol>`
 
 	rendered, err := RenderFromHTML(content)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, rendered)
-}
 
-func TestRenderFromHTMLWithMaxLevel(t *testing.T) {
-	content := `
+	content = `
 		Intro.
 
 		<h2 id="heading-a"><a href="#heading-a">Heading A</a></h2>
-
-		Content.
-
-		<h3 id="heading-b"><a href="#heading-b">Heading B</a></h3>
 
 		Content
 
@@ -229,9 +223,9 @@ func TestRenderFromHTMLWithMaxLevel(t *testing.T) {
 
 		Content.
 	`
-	expected := `<ol><li><a href="#heading-a">Heading A</a></li><li><a href="#heading-c">Heading C</a></li></ol>`
+	expected = `<ol><li><a href="#heading-a">Heading A</a></li><li><a href="#heading-c">Heading C</a></li></ol>`
 
-	rendered, err := RenderFromHTMLWithMaxLevel(content, 2)
+	rendered, err = RenderFromHTML(content)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, rendered)
 }
