@@ -2,8 +2,10 @@ package mtoc
 
 import (
 	"bytes"
+	"coolstercodes/modules/modulir/mmarkdownext"
 	"regexp"
 	"strconv"
+	"strings"
 
 	"golang.org/x/net/html"
 	"golang.org/x/xerrors"
@@ -34,11 +36,23 @@ func RenderFromHTMLWithMaxLevel(content string, maxLevel int) (string, error) {
 			return "", xerrors.Errorf("error extracting header level: %w", err)
 		}
 
+		// Parse the header into an HTML doc
+		doc, err := html.Parse(strings.NewReader(match[0]))
+		if err != nil {
+			return "", xerrors.Errorf("error extracting header level: %w", err)
+		}
+
+		// Extract the h* element
+		parsedHeader := mmarkdownext.FindH(doc)
+		// Do DFS to calculate the slug
+		headerText := strings.TrimSpace(mmarkdownext.DFS(parsedHeader))
+		slug := mmarkdownext.Slugify(headerText)
+
 		if maxLevel != -1 && level > maxLevel {
 			continue
 		}
 
-		headers = append(headers, &header{level, "#" + match[2], match[4]})
+		headers = append(headers, &header{level, "#" + slug, headerText})
 	}
 
 	node := buildTree(headers)

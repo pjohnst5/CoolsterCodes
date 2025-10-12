@@ -217,19 +217,19 @@ func TestRenderFromHTMLWithMaxLevel(t *testing.T) {
 	content := `
 		Intro.
 
-		<h2 id="h-a">Heading A</h2>
+		<h2 id="heading-a"><a href="#heading-a">Heading A</a></h2>
 
 		Content.
 
-		<h3 id="h-b">Heading B</h3>
+		<h3 id="heading-b"><a href="#heading-b">Heading B</a></h3>
 
 		Content
 
-		<h2 id="h-c"><a href="#h-c">Heading C</a></h2>
+		<h2 id="heading-c"><a href="#heading-c">Heading C</a></h2>
 
 		Content.
 	`
-	expected := `<ol><li><a href="#h-a">Heading A</a></li><li><a href="#h-c">Heading C</a></li></ol>`
+	expected := `<ol><li><a href="#heading-a">Heading A</a></li><li><a href="#heading-c">Heading C</a></li></ol>`
 
 	rendered, err := RenderFromHTMLWithMaxLevel(content, 2)
 	assert.NoError(t, err)
