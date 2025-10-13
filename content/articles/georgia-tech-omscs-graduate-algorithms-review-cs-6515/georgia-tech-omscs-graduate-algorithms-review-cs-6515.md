@@ -122,7 +122,7 @@ You’ll have to compute two things:
 - Find(p): given the set p, find the **root** node of the set of nodes
 - Union(u,v): given two sets of nodes, **union** them into an MST
 
-![](./SpanningTree-edited%20(1).png)
+![](./SpanningTree-edited.png)
 *A Minimum Spanning Tree*
 
 ## Exams
