@@ -299,10 +299,6 @@ func replaceAll(source string, _ *RenderOptions) (string, error) {
 	return source, nil
 }
 
-const headingHTML = `
-<a href="#%s" class="no-underline">%s</a>
-`
-
 var headingRE = regexp.MustCompile(`<a href="#[^"]+"`)
 
 func transformHeadingLinks(source string, _ *RenderOptions) (string, error) {
