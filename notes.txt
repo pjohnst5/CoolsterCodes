@@ -122,6 +122,8 @@ Update readme ✅
 Fix slashes ✅
 Move sluggification to one place ✅
 Fix video audio ✅
+Remove numbers from TOC
+Write unit tests for new transform functions
 Links
     - Headers with links underlined ✅
         - Fix TOC though ✅
