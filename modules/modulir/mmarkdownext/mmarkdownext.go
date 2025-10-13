@@ -104,6 +104,46 @@ func transformGoTemplate(source string, options *RenderOptions) (string, error) 
 	return b.String(), nil
 }
 
+const figureHTMLCaption = `
+<figure class="text-center">
+  <a data-fancybox="gallery" href="%s" data-caption="%s">
+    <img src="%s" />
+  </a>
+  <figcaption>%s</figcaption>
+</figure>
+`
+
+const figureHTMLNoCaption = `
+<a data-fancybox="gallery" href="%s">
+  <img src="%s" />
+</a>
+`
+
+var figureRE = regexp.MustCompile(`(!\[\]\(([^)]+\.(?:png|jpg|gif|svg))\))(\n\*(.*)\*)?`)
+
+func transformImages(source string, opts *RenderOptions) (string, error) {
+	return figureRE.ReplaceAllStringFunc(source, func(figure string) string {
+		matches := figureRE.FindStringSubmatch(figure)
+		if len(matches) != 5 {
+			return figure
+		}
+		// Grab the image (it's the same every time)
+		img := matches[2]
+		if opts.ImgDir != "" {
+			img = filepath.Join(opts.ImgDir, img)
+		}
+
+		// No caption option
+		if matches[3] == "" {
+			return fmt.Sprintf(figureHTMLNoCaption, img, img)
+		}
+
+		// Grab the caption (only if 3rd arg isn't empty)
+		caption := matches[4]
+		return fmt.Sprintf(figureHTMLCaption, img, caption, img, caption)
+	}), nil
+}
+
 const pdfHTMLCaption = `
 <iframe width="100%%" height="800" src="%s">
 </iframe>
@@ -179,63 +219,6 @@ func transformVideos(source string, opts *RenderOptions) (string, error) {
 		// Grab the caption (only if 3rd arg isn't empty)
 		caption := matches[3]
 		return fmt.Sprintf(videoHTMLCaption, video, caption)
-	}), nil
-}
-
-const figureHTMLCaption = `
-<figure class="text-center">
-  <a data-fancybox="gallery" href="%s" data-caption="%s">
-    <img src="%s" />
-  </a>
-  <figcaption>%s</figcaption>
-</figure>
-`
-
-const figureHTMLNoCaption = `
-<a data-fancybox="gallery" href="%s">
-  <img src="%s" />
-</a>
-`
-
-// Let me break this regex down:
-/*
-	( - Starts first group
-		!\[\] - Matches the "![]"
-			Note: if we wanted to add alt text later, it would be !\[(.*)\]
-		\( - matches first paren
-		(.*) - matches everything until closing paren
-		\) - matches closing paren
-	) - Ends first group
-	( - Starts second optional group
-		\n - matches newline
-		\* - matches first asterisk after newline
-		(.*) - matches everything until next asterisk
-		\* - matches last asterisk
-	) - Ends second optional group
-	? - Makes second group option (in case there is no caption given)
-*/
-var figureRE = regexp.MustCompile(`(!\[\]\(([^)]+\.(?:png|jpg|gif|svg))\))(\n\*(.*)\*)?`)
-
-func transformImages(source string, opts *RenderOptions) (string, error) {
-	return figureRE.ReplaceAllStringFunc(source, func(figure string) string {
-		matches := figureRE.FindStringSubmatch(figure)
-		if len(matches) != 5 {
-			return figure
-		}
-		// Grab the image (it's the same every time)
-		img := matches[2]
-		if opts.ImgDir != "" {
-			img = filepath.Join(opts.ImgDir, img)
-		}
-
-		// No caption option
-		if matches[3] == "" {
-			return fmt.Sprintf(figureHTMLNoCaption, img, img)
-		}
-
-		// Grab the caption (only if 3rd arg isn't empty)
-		caption := matches[4]
-		return fmt.Sprintf(figureHTMLCaption, img, caption, img, caption)
 	}), nil
 }
 
