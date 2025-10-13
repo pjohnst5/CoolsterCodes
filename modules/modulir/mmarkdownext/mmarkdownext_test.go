@@ -44,6 +44,30 @@ func TestTransformImages(t *testing.T) {
 `,
 		must(transformImages(`![](./img.png)`, &RenderOptions{ImgDir: "/content/images/hey"})),
 	)
+
+	assert.Equal(t, `
+<a data-fancybox="gallery" href="/content/images/hey/img.jpg">
+  <img src="/content/images/hey/img.jpg" />
+</a>
+`,
+		must(transformImages(`![](./img.jpg)`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+
+	assert.Equal(t, `
+<a data-fancybox="gallery" href="/content/images/hey/img.gif">
+  <img src="/content/images/hey/img.gif" />
+</a>
+`,
+		must(transformImages(`![](./img.gif)`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+
+	assert.Equal(t, `
+<a data-fancybox="gallery" href="/content/images/hey/img.svg">
+  <img src="/content/images/hey/img.svg" />
+</a>
+`,
+		must(transformImages(`![](./img.svg)`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
 }
 
 func TestTransformFootnotes(t *testing.T) {

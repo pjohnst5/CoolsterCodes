@@ -51,9 +51,9 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	//
 
 	transformGoTemplate,
+	transformImages,
 	transformPDFs,
 	transformVideos,
-	transformImages,
 	transformFiles,
 
 	// The actual Blackfriday rendering
@@ -213,7 +213,7 @@ const figureHTMLNoCaption = `
 	) - Ends second optional group
 	? - Makes second group option (in case there is no caption given)
 */
-var figureRE = regexp.MustCompile(`(!\[\]\((.*)\))(\n\*(.*)\*)?`)
+var figureRE = regexp.MustCompile(`(!\[\]\(([^)]+\.(?:png|jpg|gif|svg))\))(\n\*(.*)\*)?`)
 
 func transformImages(source string, opts *RenderOptions) (string, error) {
 	return figureRE.ReplaceAllStringFunc(source, func(figure string) string {
