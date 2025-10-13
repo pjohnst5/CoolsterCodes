@@ -226,7 +226,7 @@ const fileHTML = `
 <a href="%s" download">%s</a>
 `
 
-var fileRE = regexp.MustCompile(`\[(.*)\]\((\./[^)]+)\)`)
+var fileRE = regexp.MustCompile(`\[(.*)\]\((\.[^)]+)\)`)
 
 func transformFiles(source string, opts *RenderOptions) (string, error) {
 	return fileRE.ReplaceAllStringFunc(source, func(figure string) string {
