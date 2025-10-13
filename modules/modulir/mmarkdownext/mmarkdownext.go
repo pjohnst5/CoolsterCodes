@@ -115,16 +115,16 @@ const pdfHTMLNoCaption = `
 </iframe>
 `
 
-var pdfRE = regexp.MustCompile(`(!\[\]\((.*).pdf\))(\n\*(.*)\*)?`)
+var pdfRE = regexp.MustCompile(`!\[\]\(([^)]+\.pdf)\)(\n\*(.*)\*)?`)
 
 func transformPDFs(source string, opts *RenderOptions) (string, error) {
 	return pdfRE.ReplaceAllStringFunc(source, func(figure string) string {
-		matches := figureRE.FindStringSubmatch(figure)
-		if len(matches) != 5 {
+		matches := pdfRE.FindStringSubmatch(figure)
+		if len(matches) != 4 {
 			return figure
 		}
 		// Grab the pdf (it's the same every time)
-		pdf := matches[2]
+		pdf := matches[1]
 		if opts.ImgDir != "" {
 			pdf = filepath.Join(opts.ImgDir, pdf)
 		}
@@ -134,8 +134,8 @@ func transformPDFs(source string, opts *RenderOptions) (string, error) {
 			return fmt.Sprintf(pdfHTMLNoCaption, pdf)
 		}
 
-		// Grab the caption (only if 3rd arg isn't empty)
-		caption := matches[4]
+		// Grab the caption
+		caption := matches[3]
 		return fmt.Sprintf(pdfHTMLCaption, pdf, caption)
 	}), nil
 }
