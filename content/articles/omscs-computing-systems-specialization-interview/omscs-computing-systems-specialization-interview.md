@@ -47,7 +47,7 @@ youtube = "https://youtu.be/be3ZSuj_zqM"
 ## What were your favorite 3 classes at OMSCS?
 
 - Advanced Operating Systems
-- [Robotics AI Techniques](/georgia-tech-omscs-ai-for-robotics-review-cs-7638)
+- [Robotics AI Techniques](../georgia-tech-omscs-ai-for-robotics-review-cs-7638/)
 - Tied between HCI and Network Science
 
 ## Did you like the Computing Specialization?
