@@ -54,8 +54,8 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	transformImages,
 	transformPDFs,
 	transformVideos,
-	transformFiles,
 	transformHeadingLinks,
+	transformFiles,
 
 	// The actual Blackfriday rendering
 	func(source string, _ *RenderOptions) (string, error) {
