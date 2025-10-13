@@ -29,15 +29,15 @@ func TestBuildTree_Complex(t *testing.T) {
 	// Be careful with this one, and you may want to run it with `go test -v`.
 
 	node := buildTree([]*header{
-		{2, "#heading-a", "Header A"},
-		{2, "#heading-b", "Header B"},
-		{3, "#heading-c", "Header C"},
-		{4, "#heading-d", "Header D"},
-		{5, "#heading-e", "Header E"},
-		{4, "#heading-f", "Header F"},
-		{5, "#heading-g", "Header G"},
-		{3, "#heading-h", "Header H"},
-		{2, "#heading-i", "Header I"},
+		{2, "#header-a", "Header A"},
+		{2, "#header-b", "Header B"},
+		{3, "#header-c", "Header C"},
+		{4, "#header-d", "Header D"},
+		{5, "#header-e", "Header E"},
+		{4, "#header-f", "Header F"},
+		{5, "#header-g", "Header G"},
+		{3, "#header-h", "Header H"},
+		{2, "#header-i", "Header I"},
 	})
 
 	/*
@@ -59,7 +59,7 @@ func TestBuildTree_Complex(t *testing.T) {
 	assert.Equal(t, "li", h2Node.Data)
 
 	node = h2Node.FirstChild
-	assert.Equal(t, `<a href="#h-a">Header A</a>`, mustRenderTree(node))
+	assert.Equal(t, `<a href="#header-a">Header A</a>`, mustRenderTree(node))
 
 	//
 	// #h-b (<h2>) -- next sibling of #h-a
@@ -70,7 +70,7 @@ func TestBuildTree_Complex(t *testing.T) {
 	assert.Equal(t, "li", h2Node.Data)
 
 	node = h2Node.FirstChild
-	assert.Equal(t, `<a href="#h-b">Header B</a>`, mustRenderTree(node))
+	assert.Equal(t, `<a href="#header-b">Header B</a>`, mustRenderTree(node))
 
 	//
 	// #h-c (<h3>) -- child of #h-b
@@ -86,7 +86,7 @@ func TestBuildTree_Complex(t *testing.T) {
 	assert.Equal(t, "li", h3Node.Data)
 
 	node = h3Node.FirstChild
-	assert.Equal(t, `<a href="#h-c">Header C</a>`, mustRenderTree(node))
+	assert.Equal(t, `<a href="#header-c">Header C</a>`, mustRenderTree(node))
 
 	//
 	// #h-d (<h4>) -- child of #h-c
@@ -102,7 +102,7 @@ func TestBuildTree_Complex(t *testing.T) {
 	assert.Equal(t, "li", h4Node.Data)
 
 	node = h4Node.FirstChild
-	assert.Equal(t, `<a href="#h-d">Header D</a>`, mustRenderTree(node))
+	assert.Equal(t, `<a href="#header-d">Header D</a>`, mustRenderTree(node))
 
 	//
 	// #h-e (<h5>) -- child of #h-d
@@ -118,7 +118,7 @@ func TestBuildTree_Complex(t *testing.T) {
 	assert.Equal(t, "li", h5Node.Data)
 
 	node = h5Node.FirstChild
-	assert.Equal(t, `<a href="#h-e">Header E</a>`, mustRenderTree(node))
+	assert.Equal(t, `<a href="#header-e">Header E</a>`, mustRenderTree(node))
 
 	//
 	// #h-f (<h4>) -- next sibiling of #h-d
@@ -129,7 +129,7 @@ func TestBuildTree_Complex(t *testing.T) {
 	assert.Equal(t, "li", h4Node.Data)
 
 	node = h4Node.FirstChild
-	assert.Equal(t, `<a href="#h-f">Header F</a>`, mustRenderTree(node))
+	assert.Equal(t, `<a href="#header-f">Header F</a>`, mustRenderTree(node))
 
 	//
 	// #h-g (<h5>) -- child of #h-f
@@ -145,7 +145,7 @@ func TestBuildTree_Complex(t *testing.T) {
 	assert.Equal(t, "li", h5Node.Data)
 
 	node = h5Node.FirstChild
-	assert.Equal(t, `<a href="#h-g">Header G</a>`, mustRenderTree(node))
+	assert.Equal(t, `<a href="#header-g">Header G</a>`, mustRenderTree(node))
 
 	//
 	// #h-h (<h2>) -- next sibling of #h-c
@@ -156,7 +156,7 @@ func TestBuildTree_Complex(t *testing.T) {
 	assert.Equal(t, "li", h2Node.Data)
 
 	node = h3Node.FirstChild
-	assert.Equal(t, `<a href="#h-h">Header H</a>`, mustRenderTree(node))
+	assert.Equal(t, `<a href="#header-h">Header H</a>`, mustRenderTree(node))
 
 	//
 	// #h-i (<h2>) -- next sibling of #h-b
@@ -167,7 +167,7 @@ func TestBuildTree_Complex(t *testing.T) {
 	assert.Equal(t, "li", h2Node.Data)
 
 	node = h2Node.FirstChild
-	assert.Equal(t, `<a href="#h-i">Header I</a>`, mustRenderTree(node))
+	assert.Equal(t, `<a href="#header-i">Header I</a>`, mustRenderTree(node))
 }
 
 func TestRenderFromHTML_Basic(t *testing.T) {

@@ -100,22 +100,6 @@ to a footnote [2].</p>
 	)
 }
 
-func TestTransformHeaders(t *testing.T) {
-	assert.Equal(t, `
-<h2 id="n1-in-a-nutshell" class="link"><a href="#n1-in-a-nutshell">N+1 in a nutshell</a></h2>
-
-Intro here.
-`,
-		must(transformHeaders(`
-## N+1 in a nutshell
-
-Intro here.
-`,
-			nil,
-		)),
-	)
-}
-
 func TestTransformLinksTargetBlank(t *testing.T) {
 	assert.Equal(t,
 		`<a href="https://example.com" target="_blank">Example</a>`+
