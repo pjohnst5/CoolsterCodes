@@ -126,7 +126,7 @@ Links
     - Headers with links underlined ✅
         - Fix TOC though ✅
     - Same page links (Tier video) not underlined ✅
-    - Join paths to be able to reference other files not in same directory
+    - Join paths to be able to reference other files not in same directory ✅
     - Change "../slug" into "/slug" links
     - Links in image description (that would be epic)
 Add all my articles
