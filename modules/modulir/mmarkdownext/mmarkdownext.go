@@ -55,6 +55,7 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	transformPDFs,
 	transformVideos,
 	transformFiles,
+	transformHeadingLinks,
 
 	// The actual Blackfriday rendering
 	func(source string, _ *RenderOptions) (string, error) {
@@ -259,6 +260,28 @@ func transformFiles(source string, opts *RenderOptions) (string, error) {
 		display := matches[1]
 
 		return fmt.Sprintf(fileHTML, file, display)
+	}), nil
+}
+
+const headingHTML = `
+<a href="#%s" class="no-underline">%s</a>
+`
+
+var headingRE = regexp.MustCompile(`\[(.*)\]\(#(.*)\)`)
+
+func transformHeadingLinks(source string, opts *RenderOptions) (string, error) {
+	return headingRE.ReplaceAllStringFunc(source, func(figure string) string {
+		matches := headingRE.FindStringSubmatch(figure)
+		if len(matches) != 3 {
+			return figure
+		}
+		// Grab the url
+		url := matches[2]
+
+		// Grab the display text
+		text := matches[1]
+
+		return fmt.Sprintf(headingHTML, url, text)
 	}), nil
 }
 
