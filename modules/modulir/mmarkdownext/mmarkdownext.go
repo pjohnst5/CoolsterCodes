@@ -47,10 +47,6 @@ func Render(s string, options *RenderOptions) (string, error) {
 // to get our fully rendered Markdown. This includes the rendering itself, but
 // also a number of custom transformation options.
 var renderStack = []func(string, *RenderOptions) (string, error){
-	//
-	// Pre-transformation functions
-	//
-
 	transformGoTemplate,
 	transformImages,
 	transformPDFs,
