@@ -274,7 +274,7 @@ const headingHTML = `
 
 var headingRE = regexp.MustCompile(`\[(.*)\]\(#(.*)\)`)
 
-func transformHeadingLinks(source string, opts *RenderOptions) (string, error) {
+func transformHeadingLinks(source string, _ *RenderOptions) (string, error) {
 	return headingRE.ReplaceAllStringFunc(source, func(figure string) string {
 		matches := headingRE.FindStringSubmatch(figure)
 		if len(matches) != 3 {
@@ -359,7 +359,7 @@ func transformHeaders(source string, _ *RenderOptions) (string, error) {
 	return source, nil
 }
 
-// Find the first <h*> node
+// Find the first <h*> node.
 func FindH(n *html.Node) *html.Node {
 	if n.Type == html.ElementNode && strings.HasPrefix(n.Data, "h") {
 		if len(n.Data) == 2 && n.Data[1] >= '1' && n.Data[1] <= '6' {
@@ -408,7 +408,7 @@ func walk(n *html.Node) {
 	if n.Type == html.ElementNode && len(n.Data) == 2 && n.Data[0] == 'h' && n.Data[1] >= '1' && n.Data[1] <= '6' {
 		for _, a := range n.Attr {
 			if a.Key == "id" {
-				wrapWithID(n, a.Val, false)
+				wrapWithID(n)
 			}
 		}
 	}
@@ -417,7 +417,7 @@ func walk(n *html.Node) {
 	}
 }
 
-func wrapWithID(h *html.Node, h2id string, inLink bool) {
+func wrapWithID(h *html.Node) {
 	if h == nil || h.Type != html.ElementNode {
 		return
 	}
@@ -492,21 +492,22 @@ func wrapWithID(h *html.Node, h2id string, inLink bool) {
 		// Treat a child as a separator if:
 		//  - it is an <a> element itself (direct anchor child), OR
 		//  - it contains any descendant <a> (so we avoid creating nested anchors inside it)
-		if c.Type == html.ElementNode && strings.EqualFold(c.Data, "a") {
-			// flush accumulated run, then append this anchor child unchanged
-			flushRun(run)
-			run = nil
-			// reattach anchor child (remove then append to preserve order)
-			h.RemoveChild(c)
-			h.AppendChild(c)
-		} else if containsLink(c) {
-			// This child contains an <a> somewhere inside (example: <strong><a>..</a></strong>)
-			// flush run first, then append this whole child unchanged.
+		switch {
+		case c.Type == html.ElementNode && strings.EqualFold(c.Data, "a"):
+			// direct <a> child
 			flushRun(run)
 			run = nil
 			h.RemoveChild(c)
 			h.AppendChild(c)
-		} else {
+
+		case containsLink(c):
+			// contains descendant <a>
+			flushRun(run)
+			run = nil
+			h.RemoveChild(c)
+			h.AppendChild(c)
+
+		default:
 			// accumulate into a run to be wrapped
 			run = append(run, c)
 		}
@@ -515,7 +516,7 @@ func wrapWithID(h *html.Node, h2id string, inLink bool) {
 	flushRun(run)
 }
 
-// recursively check if there is any <a> descendant
+// recursively check if there is any <a> descendant.
 func containsLink(n *html.Node) bool {
 	for c := n.FirstChild; c != nil; c = c.NextSibling {
 		if c.Type == html.ElementNode && strings.EqualFold(c.Data, "a") {
@@ -532,7 +533,7 @@ func renderBackToHTML(n *html.Node) (string, error) {
 	var b bytes.Buffer
 	err := html.Render(&b, n)
 	if err != nil {
-		return "", err
+		return "", xerrors.Errorf("error rednering to html %+v", err)
 	}
 
 	renderedHTML := b.String()

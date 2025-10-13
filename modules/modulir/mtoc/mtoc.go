@@ -2,13 +2,14 @@ package mtoc
 
 import (
 	"bytes"
-	"coolstercodes/modules/modulir/mmarkdownext"
 	"regexp"
 	"strconv"
 	"strings"
 
 	"golang.org/x/net/html"
 	"golang.org/x/xerrors"
+
+	"coolstercodes/modules/modulir/mmarkdownext"
 )
 
 type header struct {
