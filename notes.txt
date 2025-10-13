@@ -121,7 +121,7 @@ Automation: ✅
 Update readme ✅
 Fix slashes ✅
 Move sluggification to one place ✅
-Fix video audio
+Fix video audio ✅
 Links
     - Headers with links underlined ✅
         - Fix TOC though ✅
