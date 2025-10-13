@@ -157,16 +157,16 @@ const videoHTMLNoCaption = `
 </video>
 `
 
-var videoRE = regexp.MustCompile(`(!\[\]\((.*).mp4\))(\n\*(.*)\*)?`)
+var videoRE = regexp.MustCompile(`!\[\]\(([^)]+\.mp4)\)(\n\*(.*)\*)?`)
 
 func transformVideos(source string, opts *RenderOptions) (string, error) {
 	return videoRE.ReplaceAllStringFunc(source, func(figure string) string {
-		matches := figureRE.FindStringSubmatch(figure)
-		if len(matches) != 5 {
+		matches := videoRE.FindStringSubmatch(figure)
+		if len(matches) != 4 {
 			return figure
 		}
 		// Grab the video (it's the same every time)
-		video := matches[2]
+		video := matches[1]
 		if opts.ImgDir != "" {
 			video = filepath.Join(opts.ImgDir, video)
 		}
@@ -177,7 +177,7 @@ func transformVideos(source string, opts *RenderOptions) (string, error) {
 		}
 
 		// Grab the caption (only if 3rd arg isn't empty)
-		caption := matches[4]
+		caption := matches[3]
 		return fmt.Sprintf(videoHTMLCaption, video, caption)
 	}), nil
 }
