@@ -6,6 +6,7 @@ package mmarkdownext
 import (
 	"bytes"
 	"fmt"
+	"path"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -226,6 +227,10 @@ const fileHTML = `
 <a href="%s" download">%s</a>
 `
 
+const slugHTML = `
+<a href="%s">%s</a>
+`
+
 var fileRE = regexp.MustCompile(`\[(.*)\]\((\.[^)]+)\)`)
 
 func transformFiles(source string, opts *RenderOptions) (string, error) {
@@ -234,16 +239,37 @@ func transformFiles(source string, opts *RenderOptions) (string, error) {
 		if len(matches) != 3 {
 			return figure
 		}
-		// Grab the file (it's the same every time)
-		file := matches[2]
-		if opts.ImgDir != "" {
-			file = filepath.Join(opts.ImgDir, file)
-		}
+
 		// Grab the display name
 		display := matches[1]
 
+		// Grab the file
+		file := matches[2]
+
+		// If it's a slug (like to an article directory) make it a url to that article
+		if isSlug(file) {
+			url := getArticleURL(file)
+			return fmt.Sprintf(slugHTML, url, display)
+		}
+
+		// Otherwise, treat it as a downloadable file
+		if opts.ImgDir != "" {
+			file = filepath.Join(opts.ImgDir, file)
+		}
+
 		return fmt.Sprintf(fileHTML, file, display)
 	}), nil
+}
+
+func isSlug(source string) bool {
+	// If the path is something like "../georgia-tech-omscs-ai-for-robotics-review-cs-7638/" then it's a path to another article
+	return strings.HasSuffix(source, "/")
+}
+
+func getArticleURL(input string) string {
+	clean := path.Clean(input) // → "../georgia-tech-omscs-ai-for-robotics-review-cs-7638"
+	clean = strings.TrimPrefix(clean, "..")
+	return clean
 }
 
 const headingHTML = `
