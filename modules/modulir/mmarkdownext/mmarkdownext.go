@@ -119,7 +119,7 @@ const figureHTMLNoCaption = `
 </a>
 `
 
-var figureRE = regexp.MustCompile(`(!\[\]\(([^)]+\.(?:png|jpg|gif|svg))\))(\n\*(.*)\*)?`)
+var figureRE = regexp.MustCompile(`(!\[\]\(([^)]+\.(?:png|jpg|jpeg|gif|svg))\))(\n\*(.*)\*)?`)
 
 func transformImages(source string, opts *RenderOptions) (string, error) {
 	return figureRE.ReplaceAllStringFunc(source, func(figure string) string {
@@ -226,7 +226,7 @@ const fileHTML = `
 <a href="%s" download">%s</a>
 `
 
-var fileRE = regexp.MustCompile(`\[(.*)\]\(\./(.*)\)`)
+var fileRE = regexp.MustCompile(`\[(.*)\]\((\./[^)]+)\)`)
 
 func transformFiles(source string, opts *RenderOptions) (string, error) {
 	return fileRE.ReplaceAllStringFunc(source, func(figure string) string {
