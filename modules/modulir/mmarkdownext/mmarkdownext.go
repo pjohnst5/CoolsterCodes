@@ -51,7 +51,6 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	transformImages,
 	transformPDFs,
 	transformVideos,
-	transformHeadingLinks,
 	transformFiles,
 
 	// The actual Blackfriday rendering
@@ -60,6 +59,8 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	},
 
 	replaceAll,
+
+	transformHeadingLinks,
 
 	transformHeaders,
 
@@ -268,28 +269,6 @@ func getArticleURL(input string) string {
 	return clean
 }
 
-const headingHTML = `
-<a href="#%s" class="no-underline">%s</a>
-`
-
-var headingRE = regexp.MustCompile(`\[(.*)\]\(#(.*)\)`)
-
-func transformHeadingLinks(source string, _ *RenderOptions) (string, error) {
-	return headingRE.ReplaceAllStringFunc(source, func(figure string) string {
-		matches := headingRE.FindStringSubmatch(figure)
-		if len(matches) != 3 {
-			return figure
-		}
-		// Grab the url
-		url := matches[2]
-
-		// Grab the display text
-		text := matches[1]
-
-		return fmt.Sprintf(headingHTML, url, text)
-	}), nil
-}
-
 // Look for any whitespace between HTML tags.
 var whitespaceRE = regexp.MustCompile(`>\s+<`)
 
@@ -318,6 +297,18 @@ func replaceAll(source string, _ *RenderOptions) (string, error) {
 	source = strings.ReplaceAll(source, "’", "'")
 	source = strings.ReplaceAll(source, "–", "-")
 	return source, nil
+}
+
+const headingHTML = `
+<a href="#%s" class="no-underline">%s</a>
+`
+
+var headingRE = regexp.MustCompile(`<a href="#[^"]+"`)
+
+func transformHeadingLinks(source string, _ *RenderOptions) (string, error) {
+	return headingRE.ReplaceAllStringFunc(source, func(link string) string {
+		return link + " class=\"no-underline\""
+	}), nil
 }
 
 // The whole point of this function is to change something like this:
