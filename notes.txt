@@ -127,7 +127,7 @@ Links
         - Fix TOC though ✅
     - Same page links (Tier video) not underlined ✅
     - Join paths to be able to reference other files not in same directory ✅
-    - Change "../slug" into "/slug" links
+    - Change "../slug/" into "/slug" links ✅
     - Links in image description (that would be epic)
 Add all my articles
     - Put YouTube link in article and embed ✅
