@@ -92,9 +92,7 @@ func buildTree(headers []*header) *html.Node {
 
 			// for each level indented, create a new nested list
 			for range header.level - level {
-				listNode = &html.Node{Data: "ol", Type: html.ElementNode, Attr: []html.Attribute{
-					{Key: "class", Val: "ps-0"},
-				}}
+				listNode = &html.Node{Data: "ol", Type: html.ElementNode}
 				listItemNode.AppendChild(listNode)
 			}
 
@@ -127,6 +125,7 @@ func buildTree(headers []*header) *html.Node {
 			Data: "a",
 			Attr: []html.Attribute{
 				{Namespace: "", Key: "href", Val: header.id},
+				{Key: "class", Val: "py-1"},
 			},
 			Type: html.ElementNode,
 		}
