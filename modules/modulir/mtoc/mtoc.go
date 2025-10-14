@@ -64,12 +64,16 @@ func buildTree(headers []*header) *html.Node {
 		return nil
 	}
 
-	listNode := &html.Node{Data: "ol", Type: html.ElementNode}
+	listNode := &html.Node{Data: "ol", Type: html.ElementNode, Attr: []html.Attribute{
+		{Key: "class", Val: "ps-0"},
+	}}
 
 	// keep a reference back to the top of the list
 	topNode := listNode
 
-	listItemNode := &html.Node{Data: "li", Type: html.ElementNode}
+	listItemNode := &html.Node{Data: "li", Type: html.ElementNode, Attr: []html.Attribute{
+		{Key: "class", Val: "list-none"},
+	}}
 	listNode.AppendChild(listItemNode)
 
 	// This basically helps us track whether we've insert multiple headers on
@@ -88,7 +92,9 @@ func buildTree(headers []*header) *html.Node {
 
 			// for each level indented, create a new nested list
 			for range header.level - level {
-				listNode = &html.Node{Data: "ol", Type: html.ElementNode}
+				listNode = &html.Node{Data: "ol", Type: html.ElementNode, Attr: []html.Attribute{
+					{Key: "class", Val: "ps-0"},
+				}}
 				listItemNode.AppendChild(listNode)
 			}
 
@@ -109,7 +115,9 @@ func buildTree(headers []*header) *html.Node {
 		}
 
 		if needNewListNode {
-			listItemNode = &html.Node{Data: "li", Type: html.ElementNode}
+			listItemNode = &html.Node{Data: "li", Type: html.ElementNode, Attr: []html.Attribute{
+				{Key: "class", Val: "list-none"},
+			}}
 			listNode.AppendChild(listItemNode)
 		}
 

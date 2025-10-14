@@ -1846,6 +1846,10 @@ video {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.list-none {
+  list-style-type: none;
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -2067,6 +2071,10 @@ video {
 
 .pr-3 {
   padding-right: 0.75rem;
+}
+
+.ps-0 {
+  padding-inline-start: 0px;
 }
 
 .pt-1 {
