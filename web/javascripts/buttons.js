@@ -140,8 +140,7 @@ class Scroller {
       let activeIndex = this.headers.findIndex((header) => {
         return header.getBoundingClientRect().top > 180;
       });
-      this.tocLinks[activeIndex].parentNode.classList.add("bg-myblueDarker");
-      this.tocLinks[activeIndex].classList.add("text-white");
+      this.tocLinks[activeIndex].classList.add("bg-myblueDarker", "text-white");
       this.ticking = false;
       window.addEventListener('scroll', (e) => {
         this.onScroll()
@@ -166,16 +165,13 @@ class Scroller {
     } else if (activeIndex > 0) {
       activeIndex--;
     } else {
-      this.tocLinks[0].parentNode.classList.add("bg-myblueDarker");
-      this.tocLinks[0].classList.add("text-white");
+      this.tocLinks[0].classList.add("bg-myblueDarker", "text-white");
     }
     let active = this.headers[activeIndex];
     if (active !== this.activeHeader) {
       this.activeHeader = active;
-      this.tocLinks.forEach(link => link.parentNode.classList.remove('bg-myblueDarker'));
-      this.tocLinks.forEach(link => link.classList.remove('text-white'));
-      this.tocLinks[activeIndex].parentNode.classList.add('bg-myblueDarker');
-      this.tocLinks[activeIndex].classList.add('text-white');
+      this.tocLinks.forEach(link => link.classList.remove('bg-myblueDarker', 'text-white'));
+      this.tocLinks[activeIndex].classList.add('bg-myblueDarker', 'text-white');
     }
     this.ticking = false;
   }
