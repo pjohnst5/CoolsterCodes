@@ -138,7 +138,7 @@ class Scroller {
         return document.querySelector(`#${link.href.split('#')[1]}`);
       })
       let activeIndex = this.headers.findIndex((header) => {
-        return header.getBoundingClientRect().top > 180;
+        return header.getBoundingClientRect().top > 250;
       });
       this.tocLinks[activeIndex].classList.add("bg-myblueDarker", "text-white");
       this.ticking = false;
@@ -158,7 +158,7 @@ class Scroller {
   static update() {
     this.activeHeader ||= this.headers[0];
     let activeIndex = this.headers.findIndex((header) => {
-      return header.getBoundingClientRect().top > 180;
+      return header.getBoundingClientRect().top > 250;
     });
     if (activeIndex == -1) {
       activeIndex = this.headers.length - 1;
