@@ -9,7 +9,7 @@ import (
 
 func TestBuildTree_Basic(t *testing.T) {
 	node := buildTree([]*header{
-		{2, "#h-a", "Header A"},
+		{2, "#header-a", "Header A"},
 	})
 	assert.Equal(t, "ol", node.Data)
 
@@ -22,7 +22,7 @@ func TestBuildTree_Basic(t *testing.T) {
 	assert.Equal(t, "li", h2Node.Data)
 
 	node = h2Node.FirstChild
-	assert.Equal(t, `<a href="#h-a">Header A</a>`, mustRenderTree(node))
+	assert.Equal(t, `<a href="#header-a" class="py-1">Header A</a>`, mustRenderTree(node))
 }
 
 func TestBuildTree_Complex(t *testing.T) {
@@ -59,7 +59,7 @@ func TestBuildTree_Complex(t *testing.T) {
 	assert.Equal(t, "li", h2Node.Data)
 
 	node = h2Node.FirstChild
-	assert.Equal(t, `<a href="#header-a">Header A</a>`, mustRenderTree(node))
+	assert.Equal(t, `<a href="#header-a" class="py-1">Header A</a>`, mustRenderTree(node))
 
 	//
 	// #h-b (<h2>) -- next sibling of #h-a
@@ -70,7 +70,7 @@ func TestBuildTree_Complex(t *testing.T) {
 	assert.Equal(t, "li", h2Node.Data)
 
 	node = h2Node.FirstChild
-	assert.Equal(t, `<a href="#header-b">Header B</a>`, mustRenderTree(node))
+	assert.Equal(t, `<a href="#header-b" class="py-1">Header B</a>`, mustRenderTree(node))
 
 	//
 	// #h-c (<h3>) -- child of #h-b
@@ -86,7 +86,7 @@ func TestBuildTree_Complex(t *testing.T) {
 	assert.Equal(t, "li", h3Node.Data)
 
 	node = h3Node.FirstChild
-	assert.Equal(t, `<a href="#header-c">Header C</a>`, mustRenderTree(node))
+	assert.Equal(t, `<a href="#header-c" class="py-1">Header C</a>`, mustRenderTree(node))
 
 	//
 	// #h-d (<h4>) -- child of #h-c
@@ -102,7 +102,7 @@ func TestBuildTree_Complex(t *testing.T) {
 	assert.Equal(t, "li", h4Node.Data)
 
 	node = h4Node.FirstChild
-	assert.Equal(t, `<a href="#header-d">Header D</a>`, mustRenderTree(node))
+	assert.Equal(t, `<a href="#header-d" class="py-1">Header D</a>`, mustRenderTree(node))
 
 	//
 	// #h-e (<h5>) -- child of #h-d
@@ -118,7 +118,7 @@ func TestBuildTree_Complex(t *testing.T) {
 	assert.Equal(t, "li", h5Node.Data)
 
 	node = h5Node.FirstChild
-	assert.Equal(t, `<a href="#header-e">Header E</a>`, mustRenderTree(node))
+	assert.Equal(t, `<a href="#header-e" class="py-1">Header E</a>`, mustRenderTree(node))
 
 	//
 	// #h-f (<h4>) -- next sibiling of #h-d
@@ -129,7 +129,7 @@ func TestBuildTree_Complex(t *testing.T) {
 	assert.Equal(t, "li", h4Node.Data)
 
 	node = h4Node.FirstChild
-	assert.Equal(t, `<a href="#header-f">Header F</a>`, mustRenderTree(node))
+	assert.Equal(t, `<a href="#header-f" class="py-1">Header F</a>`, mustRenderTree(node))
 
 	//
 	// #h-g (<h5>) -- child of #h-f
@@ -145,7 +145,7 @@ func TestBuildTree_Complex(t *testing.T) {
 	assert.Equal(t, "li", h5Node.Data)
 
 	node = h5Node.FirstChild
-	assert.Equal(t, `<a href="#header-g">Header G</a>`, mustRenderTree(node))
+	assert.Equal(t, `<a href="#header-g" class="py-1">Header G</a>`, mustRenderTree(node))
 
 	//
 	// #h-h (<h2>) -- next sibling of #h-c
@@ -156,7 +156,7 @@ func TestBuildTree_Complex(t *testing.T) {
 	assert.Equal(t, "li", h2Node.Data)
 
 	node = h3Node.FirstChild
-	assert.Equal(t, `<a href="#header-h">Header H</a>`, mustRenderTree(node))
+	assert.Equal(t, `<a href="#header-h" class="py-1">Header H</a>`, mustRenderTree(node))
 
 	//
 	// #h-i (<h2>) -- next sibling of #h-b
@@ -167,7 +167,7 @@ func TestBuildTree_Complex(t *testing.T) {
 	assert.Equal(t, "li", h2Node.Data)
 
 	node = h2Node.FirstChild
-	assert.Equal(t, `<a href="#header-i">Header I</a>`, mustRenderTree(node))
+	assert.Equal(t, `<a href="#header-i" class="py-1">Header I</a>`, mustRenderTree(node))
 }
 
 func TestRenderFromHTML_Basic(t *testing.T) {
@@ -186,8 +186,8 @@ func TestRenderFromHTML_Basic(t *testing.T) {
 
 		Content.
 	`
-	expected := `<ol><li><a href="#heading-a">Heading A</a><ol>` +
-		`<li><a href="#heading-b">Heading B</a></li></ol></li><li><a href="#heading-c">Heading C</a></li></ol>`
+	expected := `<ol class="ps-0"><li class="list-none"><a href="#heading-a" class="py-1">Heading A</a><ol>` +
+		`<li class="list-none"><a href="#heading-b" class="py-1">Heading B</a></li></ol></li><li class="list-none"><a href="#heading-c" class="py-1">Heading C</a></li></ol>`
 
 	rendered, err := RenderFromHTML(content)
 	assert.NoError(t, err)
@@ -206,7 +206,7 @@ func TestRenderFromHTML_OtherAttrs(t *testing.T) {
 
 		Content.
 	`
-	expected := `<ol><li><a href="#heading-a">Heading A</a></li></ol>`
+	expected := `<ol class="ps-0"><li class="list-none"><a href="#heading-a" class="py-1">Heading A</a></li></ol>`
 
 	rendered, err := RenderFromHTML(content)
 	assert.NoError(t, err)
@@ -223,7 +223,7 @@ func TestRenderFromHTML_OtherAttrs(t *testing.T) {
 
 		Content.
 	`
-	expected = `<ol><li><a href="#heading-a">Heading A</a></li><li><a href="#heading-c">Heading C</a></li></ol>`
+	expected = `<ol class="ps-0"><li class="list-none"><a href="#heading-a" class="py-1">Heading A</a></li><li class="list-none"><a href="#heading-c" class="py-1">Heading C</a></li></ol>`
 
 	rendered, err = RenderFromHTML(content)
 	assert.NoError(t, err)

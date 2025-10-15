@@ -70,6 +70,85 @@ func TestTransformImages(t *testing.T) {
 	)
 }
 
+func TestTransformPDFs(t *testing.T) {
+	assert.Equal(t, `
+<iframe width="100%" height="800" src="/content/images/hey/pdf.pdf">
+</iframe>
+<figcaption class="text-center">A cool pdf</figcaption>
+`,
+		must(transformPDFs(`![](./pdf.pdf)
+*A cool pdf*`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+
+	assert.Equal(t, `
+<iframe width="100%" height="800" src="/content/images/hey/pdf.pdf">
+</iframe>
+`,
+		must(transformPDFs(`![](./pdf.pdf)`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+}
+
+func TestTransformVideos(t *testing.T) {
+	assert.Equal(t, `
+<figure class="text-center">
+  <video controls>
+    <source src="/content/images/hey/video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <figcaption class="text-center">A dope video</figcaption>
+</figure>
+`,
+		must(transformVideos(`![](./video.mp4)
+*A dope video*`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+
+	assert.Equal(t, `
+<video controls>
+  <source src="/content/images/hey/video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+`,
+		must(transformVideos(`![](./video.mp4)`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+}
+
+func TestFiles(t *testing.T) {
+	assert.Equal(t, `
+<a href="/content/images/hey/file.txt" download">file.txt</a>
+`,
+		must(transformFiles(`[file.txt](./file.txt)`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+
+	assert.Equal(t, `
+<a href="/content/images/hey/file.csv" download">file.csv</a>
+`,
+		must(transformFiles(`[file.csv](./file.csv)`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+
+	assert.Equal(t, `
+<a href="/content/images/hey/binary" download">binary of dreams</a>
+`,
+		must(transformFiles(`[binary of dreams](./binary)`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+}
+
+func TestIsSlug(t *testing.T) {
+	assert.Equal(t, true, isSlug("../georgia-tech-omscs-ai-for-robotics-review-cs-7638/"))
+	assert.Equal(t, false, isSlug("../georgia-tech-omscs-ai-for-robotics-review-cs-7638"))
+}
+
+func TestGetArticleURL(t *testing.T) {
+	assert.Equal(t, "/georgia-tech-omscs-ai-for-robotics-review-cs-7638", getArticleURL("../georgia-tech-omscs-ai-for-robotics-review-cs-7638/"))
+}
+
+func TestTransformHeadingLinks(t *testing.T) {
+	assert.Equal(t, `<a href="#reinforcement-learning" class="no-underline">Reinforcement Learning</a>`,
+		must(transformHeadingLinks(`<a href="#reinforcement-learning">Reinforcement Learning</a>`,
+			nil,
+		)),
+	)
+}
+
 func TestTransformFootnotes(t *testing.T) {
 	assert.Equal(t, `
 <p>This is a reference <sup id="footnote-1-source"><a href="#footnote-1">1</a></sup>
