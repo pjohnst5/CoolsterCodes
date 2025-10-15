@@ -2311,6 +2311,16 @@ video {
   border-bottom-color: rgb(2 132 199 / var(--tw-border-opacity, 1));
 }
 
+.hover\:bg-myblueDarkest:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(9 83 133 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:\!text-white:hover {
+  --tw-text-opacity: 1 !important;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1)) !important;
+}
+
 .hover\:text-sky-600:hover {
   --tw-text-opacity: 1;
   color: rgb(2 132 199 / var(--tw-text-opacity, 1));
