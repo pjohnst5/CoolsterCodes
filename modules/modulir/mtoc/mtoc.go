@@ -125,7 +125,7 @@ func buildTree(headers []*header) *html.Node {
 			Data: "a",
 			Attr: []html.Attribute{
 				{Namespace: "", Key: "href", Val: header.id},
-				{Key: "class", Val: "py-1"},
+				{Key: "class", Val: "py-1 rounded px-1.5 inline-block"},
 			},
 			Type: html.ElementNode,
 		}
