@@ -140,6 +140,13 @@ class Scroller {
       let activeIndex = this.headers.findIndex((header) => {
         return header.getBoundingClientRect().top > 250;
       });
+      if (activeIndex == -1) {
+        activeIndex = this.headers.length - 1;
+      } else if (activeIndex > 0) {
+        activeIndex--;
+      } else {
+        this.tocLinks[0].classList.add("bg-myblueDarker", "text-white", "hover:bg-myblueDarkest", "hover:!text-white");
+      }
       this.tocLinks[activeIndex].classList.add("bg-myblueDarker", "text-white", "hover:bg-myblueDarkest", "hover:!text-white");
       this.ticking = false;
       window.addEventListener('scroll', (e) => {
