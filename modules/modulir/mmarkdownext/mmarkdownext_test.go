@@ -133,8 +133,8 @@ func TestFiles(t *testing.T) {
 }
 
 func TestIsSlug(t *testing.T) {
-	assert.Equal(t, true, isSlug("../georgia-tech-omscs-ai-for-robotics-review-cs-7638/"))
-	assert.Equal(t, false, isSlug("../georgia-tech-omscs-ai-for-robotics-review-cs-7638"))
+	assert.True(t, isSlug("../georgia-tech-omscs-ai-for-robotics-review-cs-7638/"))
+	assert.False(t, isSlug("../georgia-tech-omscs-ai-for-robotics-review-cs-7638"))
 }
 
 func TestGetArticleURL(t *testing.T) {
