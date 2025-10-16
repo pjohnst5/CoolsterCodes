@@ -141,7 +141,7 @@ class Scroller {
 
   static updateHeaders() {
     let activeIndex = this.headers.findIndex((header) => {
-      return header.getBoundingClientRect().top > 250;
+      return header.getBoundingClientRect().top > 180;
     });
     if (activeIndex == -1) {
       activeIndex = this.headers.length - 1;
@@ -176,7 +176,7 @@ class Scroller {
   static update() {
     this.activeHeader ||= this.headers[0];
     let activeIndex = this.headers.findIndex((header) => {
-      return header.getBoundingClientRect().top > 250;
+      return header.getBoundingClientRect().top > 180;
     });
     if (activeIndex == -1) {
       activeIndex = this.headers.length - 1;
