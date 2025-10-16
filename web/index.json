@@ -6,6 +6,9 @@
   "tags": [
    "OMSCS"
   ],
+  "tagslugged": [
+   "omscs"
+  ],
   "img": "/content/images/10-tips-and-tricks-to-survive-the-omscs-program/tips.jpg"
  },
  "about": {
@@ -13,6 +16,7 @@
   "title": "About",
   "summary": "  Hello I'm Paul, a Senior Software Engineer at Microsoft who likes to make YouTube videos by night.",
   "tags": null,
+  "tagslugged": null,
   "img": ""
  },
  "configmap-file-mount-on-a-windows-kubernetes-pod": {
@@ -22,6 +26,10 @@
   "tags": [
    "Kubernetes",
    "Windows"
+  ],
+  "tagslugged": [
+   "kubernetes",
+   "windows"
   ],
   "img": "/content/images/configmap-file-mount-on-a-windows-kubernetes-pod/terminal.jpg"
  },
@@ -34,6 +42,11 @@
    "Docker",
    "Windows"
   ],
+  "tagslugged": [
+   "development",
+   "docker",
+   "windows"
+  ],
   "img": "/content/images/docker-nanoserver-base-image-windows/docker.png"
  },
  "euclid": {
@@ -43,6 +56,10 @@
   "tags": [
    "Programming",
    "Science"
+  ],
+  "tagslugged": [
+   "programming",
+   "science"
   ],
   "img": "/content/images/euclid/Euclid.png"
  },
@@ -55,6 +72,11 @@
    "Ethics",
    "OMSCS"
   ],
+  "tagslugged": [
+   "ai",
+   "ethics",
+   "omscs"
+  ],
   "img": "/content/images/georgia-tech-omscs-ai-ethics-and-society-review-cs-6603/Ethics5.jpg"
  },
  "georgia-tech-omscs-ai-for-robotics-review-cs-7638": {
@@ -66,6 +88,11 @@
    "Robotics",
    "Science"
   ],
+  "tagslugged": [
+   "omscs",
+   "robotics",
+   "science"
+  ],
   "img": "/content/images/georgia-tech-omscs-ai-for-robotics-review-cs-7638/AIforR2.jpg"
  },
  "georgia-tech-omscs-artificial-intelligence-review-cs-6601": {
@@ -75,6 +102,10 @@
   "tags": [
    "AI",
    "OMSCS"
+  ],
+  "tagslugged": [
+   "ai",
+   "omscs"
   ],
   "img": "/content/images/georgia-tech-omscs-artificial-intelligence-review-cs-6601/AI2.jpg"
  },
@@ -86,15 +117,23 @@
    "Networking",
    "OMSCS"
   ],
+  "tagslugged": [
+   "networking",
+   "omscs"
+  ],
   "img": "/content/images/georgia-tech-omscs-computer-networks-review-cs-6250/Networks3.jpg"
  },
  "georgia-tech-omscs-graduate-algorithms-review-cs-6515": {
   "href": "georgia-tech-omscs-graduate-algorithms-review-cs-6515",
   "title": "Georgia Tech OMSCS Graduate Algorithms Review | CS 6515",
-  "summary": "Georgia Tech's dreaded Grad Algos class 😱 What is Graduate Algorithms?  Algorithms is the study of getting computers to do things fast and efficiently 🏃🏻‍♂️🚀  Graded Course Material  8 Homeworks (~%2 each) 3 Coding Project (%3 each) 3 Exams (%24 each)  Homework 0: Big-O Notation, Graph Theory and Boolean Logic  This is a self-assessment in how well you know:  Big-O Notation Graph theory Boolean logic  Homework 1: Dynamic Programming  Example: Edit Distance  You're trying to find out how “close” two words are The allowed actions are Replace, Insert and Remove  You can solve this using Dynamic Programming  Example Edit Distance  Dynamic Programming way!  Homework 2: Graphs and logarithmic  Example: Traveling Salesman Problem  Try to find the shortest path between cities Actually super complicated 😱  Traveling Salesman Problem visualized  Homework 3: Fast-Fourier Transform  Fast Fourier Transform lets you break apart into pieces things like sound, electric signals etc. Sounds like it is super useful for stuff.. I guess that's how Shazam works.. 🤷🏻‍♂️  Basically lets you “undo” a smoothie.. but with math.. 🤯  Homework 5: Minimum Spanning Trees  This one is about merging two MSTs together, using an algorithm that is efficient and correct  Minimum Spanning Tree  Homework 6: Modular math and RSA  RSA) is an encryption algorithm. It is how many things are “encrypted” these days Basically, it comes down to the fact that it's really hard to find out the two prime numbers that make up a really big number  Mod.. Now you know RSA!  Project 1: Dynamic Programming  Dynamic programming is a way to break up a problem into a bunch of smaller problems that “add back up” to the original problem  Take for example, the Fibonacci sequence  What is the nth Fibonacci number?  Recursive (slow) way:  def fib(n):     if n \u003c= 1:         return n     return fib(n-1) + fib(n-2)  Dymanic Programming! (fast way!)  def fib(n):     a = 0     b = 1     if n == 0:         return a     elif n == 1:         return b     else:         for i in range(2, n+1):             c = a + b             a = b             b = c         return b  In this project, you're solving the Knapsack Problem  Project 2: Minmum Spanning Tree w/ Kruskal's Algorithm  Minimum Spanning trees are basically just finding the most direct route from nodes in a graph.  In this project, you'll use Kruskal's algorithm to find the MST  You'll have to compute two things:  Find(p): given the set p, find the root node of the set of nodes Union(u,v): given two sets of nodes, union them into an MST  .png) A Minimum Spanning Tree  Exams  2 Free response questions A prompt, followed by your input for an algorithm that satisfies the prompt  🚨 OPINION TIME! 🚨  The content in this class is awesome I think this class relies too much on psuedo code Some more real code in this class would be great  Should you take this class?  If you are doing your master's for personal benefit, and just to learn something new, you may like this class's lecture videos  If you are doing your master's to perform well in academia, and kind of like that style of thing, maybe this is the class for you  If you are doing your master's to get your degree, I would suggest taking the Interactive Intelligence route and skipping this class",
+  "summary": "Georgia Tech's dreaded Grad Algos class 😱 What is Graduate Algorithms?  Algorithms is the study of getting computers to do things fast and efficiently 🏃🏻‍♂️🚀  Graded Course Material  8 Homeworks (~%2 each) 3 Coding Project (%3 each) 3 Exams (%24 each)  Homework 0: Big-O Notation, Graph Theory and Boolean Logic  This is a self-assessment in how well you know:  Big-O Notation Graph theory Boolean logic  Homework 1: Dynamic Programming  Example: Edit Distance  You're trying to find out how “close” two words are The allowed actions are Replace, Insert and Remove  You can solve this using Dynamic Programming  Example Edit Distance  Dynamic Programming way!  Homework 2: Graphs and logarithmic  Example: Traveling Salesman Problem  Try to find the shortest path between cities Actually super complicated 😱  Traveling Salesman Problem visualized  Homework 3: Fast-Fourier Transform  Fast Fourier Transform lets you break apart into pieces things like sound, electric signals etc. Sounds like it is super useful for stuff.. I guess that's how Shazam works.. 🤷🏻‍♂️  Basically lets you “undo” a smoothie.. but with math.. 🤯  Homework 5: Minimum Spanning Trees  This one is about merging two MSTs together, using an algorithm that is efficient and correct  Minimum Spanning Tree  Homework 6: Modular math and RSA  RSA) is an encryption algorithm. It is how many things are “encrypted” these days Basically, it comes down to the fact that it's really hard to find out the two prime numbers that make up a really big number  Mod.. Now you know RSA!  Project 1: Dynamic Programming  Dynamic programming is a way to break up a problem into a bunch of smaller problems that “add back up” to the original problem  Take for example, the Fibonacci sequence  What is the nth Fibonacci number?  Recursive (slow) way:  def fib(n):     if n \u003c= 1:         return n     return fib(n-1) + fib(n-2)  Dymanic Programming! (fast way!)  def fib(n):     a = 0     b = 1     if n == 0:         return a     elif n == 1:         return b     else:         for i in range(2, n+1):             c = a + b             a = b             b = c         return b  In this project, you're solving the Knapsack Problem  Project 2: Minmum Spanning Tree w/ Kruskal's Algorithm  Minimum Spanning trees are basically just finding the most direct route from nodes in a graph.  In this project, you'll use Kruskal's algorithm to find the MST  You'll have to compute two things:  Find(p): given the set p, find the root node of the set of nodes Union(u,v): given two sets of nodes, union them into an MST  A Minimum Spanning Tree  Exams  2 Free response questions A prompt, followed by your input for an algorithm that satisfies the prompt  🚨 OPINION TIME! 🚨  The content in this class is awesome I think this class relies too much on psuedo code Some more real code in this class would be great  Should you take this class?  If you are doing your master's for personal benefit, and just to learn something new, you may like this class's lecture videos  If you are doing your master's to perform well in academia, and kind of like that style of thing, maybe this is the class for you  If you are doing your master's to get your degree, I would suggest taking the Interactive Intelligence route and skipping this class",
   "tags": [
    "Algorithms",
    "OMSCS"
+  ],
+  "tagslugged": [
+   "algorithms",
+   "omscs"
   ],
   "img": "/content/images/georgia-tech-omscs-graduate-algorithms-review-cs-6515/Thumbnail_Grad_Algos-scaled.jpeg"
  },
@@ -106,6 +145,10 @@
    "HCI",
    "OMSCS"
   ],
+  "tagslugged": [
+   "hci",
+   "omscs"
+  ],
   "img": "/content/images/georgia-tech-omscs-human-computer-interaction-review-cs-6750/c-me-p0.jpg"
  },
  "georgia-tech-omscs-knowledge-based-ai-cs-7637": {
@@ -115,6 +158,10 @@
   "tags": [
    "AI",
    "OMSCS"
+  ],
+  "tagslugged": [
+   "ai",
+   "omscs"
   ],
   "img": "/content/images/georgia-tech-omscs-knowledge-based-ai-cs-7637/KBAI4.jpg"
  },
@@ -126,6 +173,10 @@
    "Machine Learning",
    "OMSCS"
   ],
+  "tagslugged": [
+   "machine-learning",
+   "omscs"
+  ],
   "img": "/content/images/georgia-tech-omscs-machine-learning-for-trading-review-cs-7646/thumbnail.jpeg"
  },
  "georgia-tech-omscs-machine-learning-review-cs-7641": {
@@ -135,6 +186,10 @@
   "tags": [
    "Machine Learning",
    "OMSCS"
+  ],
+  "tagslugged": [
+   "machine-learning",
+   "omscs"
   ],
   "img": "/content/images/georgia-tech-omscs-machine-learning-review-cs-7641/ML2.jpg"
  },
@@ -146,6 +201,10 @@
    "Machine Learning",
    "OMSCS"
   ],
+  "tagslugged": [
+   "machine-learning",
+   "omscs"
+  ],
   "img": "/content/images/georgia-tech-omscs-reinforcement-learning-review-cs-7642/Thumby-scaled.jpeg"
  },
  "georgia-tech-omscs-software-development-process-review-cs-6300": {
@@ -155,6 +214,10 @@
   "tags": [
    "Development",
    "OMSCS"
+  ],
+  "tagslugged": [
+   "development",
+   "omscs"
   ],
   "img": "/content/images/georgia-tech-omscs-software-development-process-review-cs-6300/Thumby_SDP-scaled.jpeg"
  },
@@ -166,6 +229,10 @@
    "Career",
    "Microsoft"
   ],
+  "tagslugged": [
+   "career",
+   "microsoft"
+  ],
   "img": "/content/images/how-i-got-a-job-at-microsoft/Thumbnail1.jpg"
  },
  "install-certs-on-nanoserver": {
@@ -176,6 +243,10 @@
    "Docker",
    "Windows"
   ],
+  "tagslugged": [
+   "docker",
+   "windows"
+  ],
   "img": "/content/images/install-certs-on-nanoserver/shield.jpg"
  },
  "install-wireshark-via-windows-command-line": {
@@ -185,6 +256,10 @@
   "tags": [
    "Networking",
    "Windows"
+  ],
+  "tagslugged": [
+   "networking",
+   "windows"
   ],
   "img": "/content/images/install-wireshark-via-windows-command-line/Wireshark_icon.svg.png"
  },
@@ -197,16 +272,24 @@
    "Powershell",
    "Windows"
   ],
+  "tagslugged": [
+   "docker",
+   "powershell",
+   "windows"
+  ],
   "img": "/content/images/installing-modules-for-powershell-core-pwsh/pwsh.png"
  },
- "is-georgia-techs-online-masters-worth-it": {
-  "href": "is-georgia-techs-online-masters-worth-it",
+ "is-georgia-techs-online-masters-worth-it-omscs": {
+  "href": "is-georgia-techs-online-masters-worth-it-omscs",
   "title": "Is Georgia Tech’s Online Master’s Worth It? #OMSCS",
   "summary": "Is the OMSCS actually worth it? Cost  The whole thing only costs $,8000!   I'm talking books, tuition, fees, everything for the whole program   Compare that to UC Berkeley's Master's in Data Science where 1 semester costs $16,000  Here's a spreadsheet with the details compared  Different master's programs compared  Flexibility  Are allowed to skip 2 semesters sequentially, without re-applying to the program   That being said, you should be careful not to go that point too often   It will just take you longer to finish the program (theoretically, you could take 10 years to finish if you wanted to haha)  The average time it takes students to finish the program is actually about 10 semesters (so a little over 3 years)  Email from Dr. Joyner describing new price points of the OMSCS  Here's a course planner I made about how to schedule my classes while I was in the program  My own course planner  Online  This program is completely online, no need to go in ever to Atlanta, not even for graduation if you don't want to haha   Your degree also will not have \"online\" on it at all  Diploma-in it up  Work-life-school 😋 balance  I did this whole program while working full time   It is definintely hard, but do-able!   Try it out, it is honestly ok if you just want to take 1 class at a time, to just make sure you are keeping up with other areas of your life    Content  Well you're here reading this blog so you must know by now I've made a ton of articles and videos about the OMSCS  I personally thought it was a great program, there was a lot to learn, and really smart people doing it alongside you  I felt like I was able to learn a lot just by being around my classmates (virtually of course), and it honestly felt like just as good as my undergrad, if not better, because I had to learn this all myself (no help from classmates in person etc., though you can always ask questions on EdStem boards and what not, it just forces you to read, reason and think clearly more haha)  Specializations  There are now 6 specializations at the OMSCS:  The 6 specializations for the OMSCS  Thesis?  You actually totally can do a thesis (see my video with Dr. Joyner) in the program   You just need to get started on that right as you start the program, and pair up with a professor who is willing to do it with you  Worth it?  This is such an amazing program!!! And it's so affordable!!! And so flexible!!!   You should definitely consider doing the program.",
   "tags": [
    "OMSCS"
   ],
-  "img": "/content/images/is-georgia-techs-online-masters-worth-it/Presentation1.jpg"
+  "tagslugged": [
+   "omscs"
+  ],
+  "img": "/content/images/is-georgia-techs-online-masters-worth-it-omscs/Presentation1.jpg"
  },
  "omscs-computing-systems-specialization-interview": {
   "href": "omscs-computing-systems-specialization-interview",
@@ -214,6 +297,9 @@
   "summary": "Learn what the Computing Systems spcialization is like! Introducing - Ryan Denney  Software Engineer @ Oracle OMSCS specialization in Computing Systems Baller 😎  What were your overall impressions of the OMSCS program?  Definitely, know what you want to get out of it It's tough! But do not dismay, CoolsterCodes.com is here to lead the way  What was relevant in OMSCS for work?  Embedded work Operating Systems Distributed systems  What was your least favorite thing about OMSCS?  Sometimes it was hard to understand what to expect out of a class Also sometimes it was tough to juggle work, life and OMSCS at the same time 😅  What's your best advice for future students?  Know your strengths! Ease into it  What was your first class in the program?  Information security systems  What was your favorite thing about the OSMCS program?  Flexibility!! This section is great, make sure to watch the video for more details     Essentially, it's not as rigid as some graduate programs which Ryan compares one specifically  What were your favorite 3 classes at OMSCS?  Advanced Operating Systems Robotics AI Techniques Tied between HCI and Network Science  Did you like the Computing Specialization?  Generally yes but they didn't have many options back in the day Now they have HCI and Perception  Would you choose Computing Systems again if you could go back?  Maybe, I feel like Machine Learning would have been a more “hot topic” one, but I feel like Computing Systems is always relevant  Are there any classes you would try to avoid?  Embedded systems, just because it's all in Python, and you do only a little work in actual embedded systems  Thanks Ryan!",
   "tags": [
    "OMSCS"
+  ],
+  "tagslugged": [
+   "omscs"
   ],
   "img": "/content/images/omscs-computing-systems-specialization-interview/thumbnail.png"
  },
@@ -224,6 +310,9 @@
   "tags": [
    "OMSCS"
   ],
+  "tagslugged": [
+   "omscs"
+  ],
   "img": "/content/images/omscs-tier-list/tier-thumbnail5.jpg"
  },
  "reference": {
@@ -232,6 +321,9 @@
   "summary": "This is my first blog post Author's note: This is just my first blog post, testing out all the features in one post. Jump to What now?  ---  This is a header  And code two lines after it ey yo whats up    Sometimes people ask me, why am I so cool?     Then I answer, just cuz  What now?  Let's say we have a model Product that can render [1] a public-facing API resource for itself by implementing #render. I'll be talking about API resources a lot because that's what I'm used, but keep in mind that this could also be an object that's used to render an HTML view and all the same concepts apply. class Product \u003c ApplicationRecord   belongsto :owner # needs to lazy load an owner    def render     {       id:          self.id,       name:        self.name,       ownerid:    self.ownerid,       owneremail: self.owner.email,     }   end end  This is a link  This is a relative link  Some puppies  [1] I realize that REST is designed to provide much greater     facilities in the form of discovery and content     negotiation, but in practice these just don't see a lot     of use, which is why I normally say that convention is     REST's strongest attribute. Google.com is where I go code it up",
   "tags": [
    "Test"
+  ],
+  "tagslugged": [
+   "test"
   ],
   "img": "/content/images/reference/pexels-photo-1108099.jpeg"
  },
@@ -243,6 +335,10 @@
    "Kubernetes",
    "Windows"
   ],
+  "tagslugged": [
+   "kubernetes",
+   "windows"
+  ],
   "img": "/content/images/windows-hostprocess-pod-failed-to-get-application-name/error.jpg"
  },
  "windows-hostprocess-pod-host-file-access": {
@@ -253,6 +349,10 @@
    "Kubernetes",
    "Windows"
   ],
+  "tagslugged": [
+   "kubernetes",
+   "windows"
+  ],
   "img": "/content/images/windows-hostprocess-pod-host-file-access/folder.jpg"
  },
  "windows-pod-host-file-mount-on-kubernetes": {
@@ -262,6 +362,10 @@
   "tags": [
    "Kubernetes",
    "Windows"
+  ],
+  "tagslugged": [
+   "kubernetes",
+   "windows"
   ],
   "img": "/content/images/windows-pod-host-file-mount-on-kubernetes/Windows.png"
  }

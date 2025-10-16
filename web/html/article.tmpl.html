@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <div class="font-bold mb-0.5 text-white px-4 py-4">
-                    <p class="mb-2">YouTube<br> <a class="hover:border-b-sky-600 hover:text-sky-600 font-bold text-myblue underline" href="{{ if .Article.YouTube }}{{.Article.YouTube}}{{ else }}https://www.youtube.com/@coolstercodes{{ end }}" target="_blank">@coolstercodes</a></p>
+                    <p class="mb-2">YouTube<br> <a class="hover:border-b-sky-600 hover:text-sky-600 text-myblue underline" href="{{ if .Article.YouTube }}{{.Article.YouTube}}{{ else }}https://www.youtube.com/@coolstercodes{{ end }}" target="_blank">@coolstercodes</a></p>
                 </div>
             </div>
         </div>
@@ -82,7 +82,6 @@
                 max-w-none
                 prose prose-lg
                 prose-a:font-sans
-                prose-blockquote:text-slate-300
                 prose-img:w-full prose-img:my-0
                 prose-h2:text-xl prose-h2:mb-1 prose-a:prose-h2:border-b-0 prose-a:prose-h2:font-bold prose-h2:text-myblue 
                 prose-h3:text-lg prose-h3:mb-1 prose-a:prose-h3:border-b-0 prose-a:prose-h3:font-bold prose-h3:text-myblue 
@@ -94,7 +93,6 @@
                 prose-figcaption:mt-3
                 prose-p:prose-blockquote:font-sans
                 prose-pre:leading-[1.15rem] prose-pre:text-[0.9rem]
-                prose-strong:text-slate-100
                 prose-ol:font-serif
                 prose-ul:font-serif
                 prose-a:text-myblue
@@ -147,7 +145,9 @@
 
                     sticky top-5
                     text-xs
+                    tocLinks
                 ">
+                    <div class="font-bold mb-0.5 text-white ml-1">Contents</div>
                     {{.Article.TOC}}
                 </div>
             </div>
