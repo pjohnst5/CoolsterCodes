@@ -139,7 +139,7 @@ class Scroller {
     }
   }
 
-  static updateHeaders() {
+  static updateHeaders(scrolling) {
     let activeIndex = this.headers.findIndex((header) => {
       return header.getBoundingClientRect().top > 180;
     });
@@ -148,7 +148,17 @@ class Scroller {
     } else if (activeIndex > 0) {
       activeIndex--;
     }
-    this.updateElement(this.tocLinks[activeIndex], true);
+
+    if (scrolling === true) {
+      let active = this.headers[activeIndex];
+      if (active !== this.activeHeader) {
+        this.activeHeader = active;
+        this.tocLinks.forEach(link => this.updateElement(link, false));
+        this.updateElement(this.tocLinks[activeIndex], true);
+      }
+    } else {
+      this.updateElement(this.tocLinks[activeIndex], true);
+    }
   }
 
   static init() {
@@ -158,7 +168,7 @@ class Scroller {
       this.headers = Array.from(this.tocLinks).map(link => {
         return document.querySelector(`#${link.href.split('#')[1]}`);
       })
-      this.updateHeaders();
+      this.updateHeaders(false);
       this.ticking = false;
       window.addEventListener('scroll', (e) => {
         this.onScroll();
@@ -175,22 +185,7 @@ class Scroller {
 
   static update() {
     this.activeHeader ||= this.headers[0];
-    let activeIndex = this.headers.findIndex((header) => {
-      return header.getBoundingClientRect().top > 180;
-    });
-    if (activeIndex == -1) {
-      activeIndex = this.headers.length - 1;
-    } else if (activeIndex > 0) {
-      activeIndex--;
-    } else {
-      this.updateElement(this.tocLinks[0], true);
-    }
-    let active = this.headers[activeIndex];
-    if (active !== this.activeHeader) {
-      this.activeHeader = active;
-      this.tocLinks.forEach(link => this.updateElement(link, false));
-      this.updateElement(this.tocLinks[activeIndex], true);
-    }
+    this.updateHeaders(true);
     this.ticking = false;
   }
 }
