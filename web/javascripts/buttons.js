@@ -129,7 +129,26 @@ function fallbackCopyText(text) {
   document.body.removeChild(textarea);
 }
 
+
 class Scroller {
+  static updateElement(element, add) {
+    if (add === true) {
+      element.classList.add("bg-myblueDarker", "text-white", "hover:bg-myblueDarkest", "hover:!text-white")
+    }
+  }
+
+  static updateHeaders() {
+    let activeIndex = this.headers.findIndex((header) => {
+      return header.getBoundingClientRect().top > 250;
+    });
+    if (activeIndex == -1) {
+      activeIndex = this.headers.length - 1;
+    } else if (activeIndex > 0) {
+      activeIndex--;
+    }
+    this.updateElement(this.tocLinks[activeIndex], true);
+  }
+
   static init() {
     if (document.querySelector('.tocLinks')) {
       this.tocLinks = document.querySelectorAll('.tocLinks a');
@@ -137,20 +156,10 @@ class Scroller {
       this.headers = Array.from(this.tocLinks).map(link => {
         return document.querySelector(`#${link.href.split('#')[1]}`);
       })
-      let activeIndex = this.headers.findIndex((header) => {
-        return header.getBoundingClientRect().top > 250;
-      });
-      if (activeIndex == -1) {
-        activeIndex = this.headers.length - 1;
-      } else if (activeIndex > 0) {
-        activeIndex--;
-      } else {
-        this.tocLinks[0].classList.add("bg-myblueDarker", "text-white", "hover:bg-myblueDarkest", "hover:!text-white");
-      }
-      this.tocLinks[activeIndex].classList.add("bg-myblueDarker", "text-white", "hover:bg-myblueDarkest", "hover:!text-white");
+      this.updateHeaders();
       this.ticking = false;
       window.addEventListener('scroll', (e) => {
-        this.onScroll()
+        this.onScroll();
       })
     }
   }
@@ -172,13 +181,13 @@ class Scroller {
     } else if (activeIndex > 0) {
       activeIndex--;
     } else {
-      this.tocLinks[0].classList.add("bg-myblueDarker", "text-white", "hover:bg-myblueDarkest", "hover:!text-white");
+      this.updateElement(this.tocLinks[0], true);
     }
     let active = this.headers[activeIndex];
     if (active !== this.activeHeader) {
       this.activeHeader = active;
       this.tocLinks.forEach(link => link.classList.remove('bg-myblueDarker', 'text-white', 'hover:bg-myblueDarkest', 'hover:!text-white'));
-      this.tocLinks[activeIndex].classList.add('bg-myblueDarker', 'text-white', 'hover:bg-myblueDarkest', 'hover:!text-white');
+      this.updateElement(this.tocLinks[activeIndex], true);
     }
     this.ticking = false;
   }
