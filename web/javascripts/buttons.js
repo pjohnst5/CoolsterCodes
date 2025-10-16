@@ -134,6 +134,8 @@ class Scroller {
   static updateElement(element, add) {
     if (add === true) {
       element.classList.add("bg-myblueDarker", "text-white", "hover:bg-myblueDarkest", "hover:!text-white")
+    } else {
+      element.classList.remove("bg-myblueDarker", "text-white", "hover:bg-myblueDarkest", "hover:!text-white");
     }
   }
 
@@ -186,7 +188,7 @@ class Scroller {
     let active = this.headers[activeIndex];
     if (active !== this.activeHeader) {
       this.activeHeader = active;
-      this.tocLinks.forEach(link => link.classList.remove('bg-myblueDarker', 'text-white', 'hover:bg-myblueDarkest', 'hover:!text-white'));
+      this.tocLinks.forEach(link => this.updateElement(link, false));
       this.updateElement(this.tocLinks[activeIndex], true);
     }
     this.ticking = false;
