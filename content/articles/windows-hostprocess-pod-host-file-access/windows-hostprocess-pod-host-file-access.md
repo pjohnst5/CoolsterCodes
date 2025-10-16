@@ -108,7 +108,7 @@ Start-Sleep -Seconds 180
 }
 ```
 
-## Requirements
+### Requirements
 
 - Kubernetes version `1.23` or higher is required for HostProcess pods to work on the cluster.
 - Containerd version `1.6` or higher

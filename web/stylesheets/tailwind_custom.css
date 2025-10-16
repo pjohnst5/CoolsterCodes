@@ -72,8 +72,8 @@ html img[src$=".svg"], .dark svg {
     position: relative;
     display: inline-block;
     transform: scale(1);
-    width: 14px;
-    height: 18px;
+    width: 12px;
+    height: 16px;
     border: 2px solid;
     border-radius: 2px;
     border-right: 0;
@@ -85,8 +85,8 @@ html img[src$=".svg"], .dark svg {
     display: inline-block;
     box-sizing: border-box;
     position: absolute;
-    width: 13px;
-    height: 17px;
+    width: 11px;
+    height: 15px;
     border: 2px solid;
     left: 1px;
     top: 1px;

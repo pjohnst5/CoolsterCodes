@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"regexp"
 	"strconv"
+	"strings"
 
 	"golang.org/x/net/html"
 	"golang.org/x/xerrors"
+
+	"coolstercodes/modules/modulir/mmarkdownext"
 )
 
 type header struct {
@@ -18,14 +21,6 @@ type header struct {
 // RenderFromHTML extracts a structure from the given HTML content and renders
 // a corresponding table of contents as an HTML string.
 func RenderFromHTML(content string) (string, error) {
-	return RenderFromHTMLWithMaxLevel(content, -1)
-}
-
-// RenderFromHTMLWithMaxLevel extracts a structure from the given HTML content
-// and renders a corresponding table of contents as an HTML string, but only
-// considers headers of maxLevel or lower. For example, if maxLevel is 2, only
-// h1s and h2s will be included.
-func RenderFromHTMLWithMaxLevel(content string, maxLevel int) (string, error) {
 	matches := headerRegexp.FindAllStringSubmatch(content, -1)
 	headers := make([]*header, 0, len(matches))
 	for _, match := range matches {
@@ -34,11 +29,18 @@ func RenderFromHTMLWithMaxLevel(content string, maxLevel int) (string, error) {
 			return "", xerrors.Errorf("error extracting header level: %w", err)
 		}
 
-		if maxLevel != -1 && level > maxLevel {
-			continue
+		// Parse the header into an HTML doc
+		doc, err := html.Parse(strings.NewReader(match[0]))
+		if err != nil {
+			return "", xerrors.Errorf("error extracting header level: %w", err)
 		}
 
-		headers = append(headers, &header{level, "#" + match[2], match[4]})
+		// Extract the h* element
+		parsedHeader := mmarkdownext.FindH(doc)
+		// Do DFS to calculate the slug
+		headerText := strings.TrimSpace(mmarkdownext.DFS(parsedHeader))
+		slug := mmarkdownext.Slugify(headerText)
+		headers = append(headers, &header{level, "#" + slug, headerText})
 	}
 
 	node := buildTree(headers)
@@ -62,12 +64,16 @@ func buildTree(headers []*header) *html.Node {
 		return nil
 	}
 
-	listNode := &html.Node{Data: "ol", Type: html.ElementNode}
+	listNode := &html.Node{Data: "ol", Type: html.ElementNode, Attr: []html.Attribute{
+		{Key: "class", Val: "ps-0"},
+	}}
 
 	// keep a reference back to the top of the list
 	topNode := listNode
 
-	listItemNode := &html.Node{Data: "li", Type: html.ElementNode}
+	listItemNode := &html.Node{Data: "li", Type: html.ElementNode, Attr: []html.Attribute{
+		{Key: "class", Val: "list-none"},
+	}}
 	listNode.AppendChild(listItemNode)
 
 	// This basically helps us track whether we've insert multiple headers on
@@ -107,7 +113,9 @@ func buildTree(headers []*header) *html.Node {
 		}
 
 		if needNewListNode {
-			listItemNode = &html.Node{Data: "li", Type: html.ElementNode}
+			listItemNode = &html.Node{Data: "li", Type: html.ElementNode, Attr: []html.Attribute{
+				{Key: "class", Val: "list-none"},
+			}}
 			listNode.AppendChild(listItemNode)
 		}
 
@@ -117,6 +125,7 @@ func buildTree(headers []*header) *html.Node {
 			Data: "a",
 			Attr: []html.Attribute{
 				{Namespace: "", Key: "href", Val: header.id},
+				{Key: "class", Val: "py-1 rounded px-1.5 inline-block"},
 			},
 			Type: html.ElementNode,
 		}

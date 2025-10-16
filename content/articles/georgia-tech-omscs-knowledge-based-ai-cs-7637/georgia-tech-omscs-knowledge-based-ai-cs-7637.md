@@ -46,13 +46,13 @@ The correct answer above is **8**, don’t ask me how…
 
 That’s why we have AI! 😅
 
-## Coding
+### Coding
 
 The only code you are given to start out, is how to read in images A, B, C, etc. etc..
 
 The rest, you have to find out in Python ([spec](https://lucylabs.gatech.edu/kbai/spring-2021/project-overview/))
 
-## Strategies
+### Strategies
 
 My advice is to use the “[Affine and Set Transformation Induction](https://www.sciencedirect.com/science/article/abs/pii/S1389041712000423)” model from a paper written by Professor Goel himself
 
@@ -60,7 +60,7 @@ The idea is you flip and rotate the images to see which one of the possible answ
 
 It’s not very advanced but I was able to get **68/96** puzzles solved with it and still get an A in the class
 
-## Check-ins
+### Check-ins
 
 You have to turn in your code every-other week and solve x number of puzzles
 

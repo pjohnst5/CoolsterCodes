@@ -52,6 +52,6 @@ I believe I had 8-9 interviews come from this simple trick (and eventually, 3-4 
 
 ## Landing an internship!
 
-![](./MrStatMapScreencast_20190903_Final_Trim.mp4)
+![](./llnl.mp4)
 *My summer internship project*
 

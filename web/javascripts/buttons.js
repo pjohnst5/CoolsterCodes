@@ -69,7 +69,7 @@ function toggle(x) {
 }
 
 function animate_blue(x) {
-  x.classList.toggle("bg-myblue");
+  x.classList.toggle("bg-myblueDarker");
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const link = item.querySelector('a');
     const href = link.getAttribute('href');
     if (href === window.location.pathname) {
-      item.classList.add('bg-myblue');
+      item.classList.add('bg-myblueDarker');
     }
   });
 });
@@ -128,3 +128,68 @@ function fallbackCopyText(text) {
   document.execCommand('copy');
   document.body.removeChild(textarea);
 }
+
+
+class Scroller {
+  static updateElement(element, add) {
+    if (add === true) {
+      element.classList.add("bg-myblueDarker", "text-white", "hover:bg-myblueDarkest", "hover:!text-white")
+    } else {
+      element.classList.remove("bg-myblueDarker", "text-white", "hover:bg-myblueDarkest", "hover:!text-white");
+    }
+  }
+
+  static updateHeaders(scrolling) {
+    let activeIndex = this.headers.findIndex((header) => {
+      return header.getBoundingClientRect().top > 180;
+    });
+    if (activeIndex == -1) {
+      activeIndex = this.headers.length - 1;
+    } else if (activeIndex > 0) {
+      activeIndex--;
+    }
+
+    if (scrolling === true) {
+      let active = this.headers[activeIndex];
+      if (active !== this.activeHeader) {
+        this.activeHeader = active;
+        this.tocLinks.forEach(link => this.updateElement(link, false));
+        this.updateElement(this.tocLinks[activeIndex], true);
+      }
+    } else {
+      this.updateElement(this.tocLinks[activeIndex], true);
+    }
+  }
+
+  static init() {
+    if (document.querySelector('.tocLinks')) {
+      this.tocLinks = document.querySelectorAll('.tocLinks a');
+      this.tocLinks.forEach(link => link.classList.add('transition', 'duration-200'))
+      this.headers = Array.from(this.tocLinks).map(link => {
+        return document.querySelector(`#${link.href.split('#')[1]}`);
+      })
+      this.updateHeaders(false);
+      this.ticking = false;
+      window.addEventListener('scroll', (e) => {
+        this.onScroll();
+      })
+    }
+  }
+
+  static onScroll() {
+    if (!this.ticking) {
+      requestAnimationFrame(this.update.bind(this));
+      this.ticking = true;
+    }
+  }
+
+  static update() {
+    this.activeHeader ||= this.headers[0];
+    this.updateHeaders(true);
+    this.ticking = false;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function (e) {
+  Scroller.init();
+})

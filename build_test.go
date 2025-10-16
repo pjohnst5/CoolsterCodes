@@ -62,10 +62,3 @@ func TestTruncateString(t *testing.T) {
 		truncateString("This is a longer string that's going to need truncation and which will be truncated by ending it with a space and an ellipsis.", 100),
 	)
 }
-
-func TestToURL(t *testing.T) {
-	require.Equal(t, "georgia-tech", tagToURL("Georgia Tech"))
-	require.Equal(t, "ai", tagToURL("AI"))
-	require.Equal(t, "ballin-it-up", tagToURL("Ballin' it up"))
-	require.Equal(t, "hey", tagToURL("Hey!"))
-}

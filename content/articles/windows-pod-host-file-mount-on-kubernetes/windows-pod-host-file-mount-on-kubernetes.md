@@ -133,7 +133,7 @@ Finally, execute notepad `hostfile.txt` and type a funny message:
 ![](./hostfilewindpod.png)
 *Writing a host file which we will read and write to from inside the pod*
 
-## Change the text file permissions
+### Change the text file permissions
 
 > Update 04/10/2022: Check out our post on [HostProcess pods](/windows-hostprocess-pod-host-file-access) where this step is no longer needed
 
