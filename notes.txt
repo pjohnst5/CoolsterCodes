@@ -124,7 +124,7 @@ Move sluggification to one place ✅
 Fix video audio ✅
 Remove numbers from TOC ✅
 Auto highlight TOC (so sick) ✅
-Write unit tests for new transform functions
+Write unit tests for new transform functions ✅
 Links
     - Headers with links underlined ✅
         - Fix TOC though ✅
@@ -144,8 +144,8 @@ Add all my articles
     - Make pages like articles ✅
     - Make image paths relative ✅
     - Move equivalent of articles
-Host it
-    - Make sure to make CC_Env=Prod
+Host it ✅
+    - Make sure to make CC_Env=Prod ✅
 Make it so big titles don't overflow on mobile?
 Remove IncludeMarkdown func
 May not need transformGoTemplate
