@@ -79,7 +79,7 @@ jobs:
           version: v2.0.0
 
   deploy_prod:
-    # if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -124,7 +124,6 @@ jobs:
           azcliversion: latest
           inlineScript: |
             az account show
-            # You can write your Azure CLI inline scripts here.
 
       - name: Send it
         run: swa deploy ./public --app-name CoolsterCodes --env production --deployment-token ${{ secrets.SWA_TOKEN }}
