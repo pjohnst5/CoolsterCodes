@@ -81,6 +81,8 @@ jobs:
   deploy_prod:
     # if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -103,7 +105,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install Azure Static Web Apps CLI
         run: npm install -g @azure/static-web-apps-cli
@@ -125,5 +127,3 @@ jobs:
 
       - name: Send it
         run: swa deploy ./public --app-name CoolsterCodes --env production --deployment-token ${{ secrets.SWA_TOKEN }}
-
-
