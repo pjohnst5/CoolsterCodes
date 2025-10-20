@@ -71,7 +71,7 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	transformLinksToTargetBlank,
 }
 
-var captionRE = regexp.MustCompile(`\[(.*)\]\((.*)\)`)
+var captionRE = regexp.MustCompile(`\[(.*?)\]\((.*?)\)`)
 
 // If the caption has markdown in it, 2 things:
 // 1. We need to render it for view when not clicking the resource
