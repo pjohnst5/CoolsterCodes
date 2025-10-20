@@ -71,6 +71,58 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	transformLinksToTargetBlank,
 }
 
+var captionRE = regexp.MustCompile(`\[(.*)\]\((.*)\)`)
+
+// If the caption has markdown in it, 2 things:
+// 1. We need to render it for view when not clicking the resource
+// 2. We need to render it as a view for when yes clicking the resource
+// So basically, if it has "[]()" in it (I won't be "!" anything, just file, external url, or header links), parse it first as a link
+// So transform [hey](./hey.txt) or [hey](https://google.com) to
+// hey, <a href="/content/.../hey.txt">hey</a>, nil
+func transformCaption(rawCaption string, opts *RenderOptions) (string, string) {
+	// Extracts out display text value
+	displayText := captionRE.ReplaceAllStringFunc(rawCaption, func(caption string) string {
+		matches := captionRE.FindStringSubmatch(caption)
+		if len(matches) != 3 {
+			return caption
+		}
+
+		// Grab the display name that's it for this function
+		display := matches[1]
+		return display
+	})
+
+	// Extracts html display, escaped 🤩
+	htmlDisplayText := captionRE.ReplaceAllStringFunc(rawCaption, func(figure string) string {
+		return figure
+		// matches := fileRE.FindStringSubmatch(figure)
+		// if len(matches) != 3 {
+		// 	return figure
+		// }
+
+		// // Grab the display name
+		// display := matches[1]
+
+		// // Grab the file
+		// file := matches[2]
+
+		// // If it's a slug (like to an article directory) make it a url to that article
+		// if isSlug(file) {
+		// 	url := getArticleURL(file)
+		// 	return fmt.Sprintf(slugHTML, url, display)
+		// }
+
+		// // Otherwise, treat it as a downloadable file
+		// if opts.ImgDir != "" {
+		// 	file = filepath.Join(opts.ImgDir, file)
+		// }
+
+		// return fmt.Sprintf(fileHTML, file, display)
+	})
+
+	return displayText, htmlDisplayText
+}
+
 const figureHTMLCaption = `
 <figure class="text-center">
   <a data-fancybox="gallery" href="%s" data-caption="%s">
@@ -107,7 +159,10 @@ func transformImages(source string, opts *RenderOptions) (string, error) {
 
 		// Grab the caption (only if 3rd arg isn't empty)
 		caption := matches[4]
-		return fmt.Sprintf(figureHTMLCaption, img, caption, img, caption)
+
+		// Process the caption in case it has markdown in it
+		caption, htmlCaption := transformCaption(caption, opts)
+		return fmt.Sprintf(figureHTMLCaption, img, htmlCaption, img, caption)
 	}), nil
 }
 
