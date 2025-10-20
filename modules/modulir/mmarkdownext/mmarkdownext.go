@@ -71,56 +71,52 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	transformLinksToTargetBlank,
 }
 
+const link = `<a href="%s" class="text-myblue">%s</a>`
+const externalLink = `<a href="%s" target="_blank" class="text-myblue underline">%s</a>`
+const fileInCaptionHTML = `<a href="%s" download" class="text-myblue underline">%s</a>`
+
 var captionRE = regexp.MustCompile(`\[(.*?)\]\((.*?)\)`)
 
-// If the caption has markdown in it, 2 things:
-// 1. We need to render it for view when not clicking the resource
-// 2. We need to render it as a view for when yes clicking the resource
-// So basically, if it has "[]()" in it (I won't be "!" anything, just file, external url, or header links), parse it first as a link
-// So transform [hey](./hey.txt) or [hey](https://google.com) to
-// hey, <a href="/content/.../hey.txt">hey</a>, nil
-func transformCaption(rawCaption string, opts *RenderOptions) (string, string) {
-	// Extracts out display text value
-	displayText := captionRE.ReplaceAllStringFunc(rawCaption, func(caption string) string {
+// This basically takes a caption with markdown in it, and transforms it appropriately
+func transformCaption(rawCaption string, opts *RenderOptions) string {
+	// Extracts html display 🤩
+	captionAsHTML := captionRE.ReplaceAllStringFunc(rawCaption, func(caption string) string {
 		matches := captionRE.FindStringSubmatch(caption)
 		if len(matches) != 3 {
 			return caption
 		}
 
-		// Grab the display name that's it for this function
+		// Grab the display name
 		display := matches[1]
-		return display
+
+		// Grab the file/url
+		file := matches[2]
+
+		// If it starts with "#" or "/" just leave it (it's a header or to a slug)
+		if strings.HasPrefix(file, "#") || strings.HasPrefix(file, "/") {
+			return fmt.Sprintf(link, file, display)
+		}
+
+		// If it starts with "http", external link
+		if strings.HasPrefix(file, "http") {
+			return fmt.Sprintf(externalLink, file, display)
+		}
+
+		// If it's a slug (like to an article directory) make it a url to that article
+		if isSlug(file) {
+			url := getArticleURL(file)
+			return fmt.Sprintf(link, url, display)
+		}
+
+		// Otherwise, treat it as a downloadable file
+		if opts.ImgDir != "" {
+			file = filepath.Join(opts.ImgDir, file)
+		}
+
+		return fmt.Sprintf(fileInCaptionHTML, file, display)
 	})
 
-	// Extracts html display, escaped 🤩
-	htmlDisplayText := captionRE.ReplaceAllStringFunc(rawCaption, func(figure string) string {
-		return figure
-		// matches := fileRE.FindStringSubmatch(figure)
-		// if len(matches) != 3 {
-		// 	return figure
-		// }
-
-		// // Grab the display name
-		// display := matches[1]
-
-		// // Grab the file
-		// file := matches[2]
-
-		// // If it's a slug (like to an article directory) make it a url to that article
-		// if isSlug(file) {
-		// 	url := getArticleURL(file)
-		// 	return fmt.Sprintf(slugHTML, url, display)
-		// }
-
-		// // Otherwise, treat it as a downloadable file
-		// if opts.ImgDir != "" {
-		// 	file = filepath.Join(opts.ImgDir, file)
-		// }
-
-		// return fmt.Sprintf(fileHTML, file, display)
-	})
-
-	return displayText, htmlDisplayText
+	return captionAsHTML
 }
 
 const figureHTMLCaption = `
@@ -161,8 +157,9 @@ func transformImages(source string, opts *RenderOptions) (string, error) {
 		caption := matches[4]
 
 		// Process the caption in case it has markdown in it
-		caption, htmlCaption := transformCaption(caption, opts)
-		return fmt.Sprintf(figureHTMLCaption, img, htmlCaption, img, caption)
+		htmlCaption := transformCaption(caption, opts)
+		htmlCaptionEscaped := template.HTMLEscapeString(htmlCaption)
+		return fmt.Sprintf(figureHTMLCaption, img, htmlCaptionEscaped, img, htmlCaption)
 	}), nil
 }
 
