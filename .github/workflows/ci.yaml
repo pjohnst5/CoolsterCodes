@@ -78,33 +78,52 @@ jobs:
         with:
           version: v2.0.0
 
-  # deploy_prod:
-  #   if: github.ref == 'refs/heads/main'
-  #   environment:
-  #     name: github-pages
-  #     url: ${{steps.deployment.outputs.page_url}}
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v5
-  #     - name: Install Go
-  #       uses: actions/setup-go@v5
-  #       with:
-  #         check-latest: true
-  #         go-version-file: "go.mod"
-  #     - name: "Go: Install"
-  #       run: make install
-  #     - name: "Build: Production"
-  #       run: make build
-  #       env:
-  #         TARGET_DIR: ./public
-  #         CC_ENV: prod
-  #     - name: Setup Pages
-  #       uses: actions/configure-pages@v5
-  #     - name: Upload Artifact
-  #       uses: actions/upload-pages-artifact@v4
-  #       with:
-  #         path: './public'
-  #     - name: Deploy to GitHub Pages
-  #       id: deployment
-  #       uses: actions/deploy-pages@v4
+  deploy_prod:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install Go
+        uses: actions/setup-go@v5
+        with:
+          check-latest: true
+          go-version-file: "go.mod"
+
+      - name: Go Install
+        run: make install
+
+      - name: Build the app
+        run: make build
+        env:
+          TARGET_DIR: ./public
+          CC_ENV: prod
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Azure Static Web Apps CLI
+        run: npm install -g @azure/static-web-apps-cli
+
+      - name: Azure CLI Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Azure CLI script
+        uses: azure/cli@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az account show
+
+      - name: Send it
+        run: swa deploy ./public --app-name CoolsterCodes --env production --deployment-token ${{ secrets.SWA_TOKEN }}
