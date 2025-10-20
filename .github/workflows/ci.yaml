@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  unit_tests:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,10 +33,10 @@ jobs:
       - name: Go Install
         run: make install
 
-      - name: "Go: Test"
+      - name: Go Test
         run: make test
 
-      - name: "Build"
+      - name: Build
         run: make build
         env:
           TARGET_DIR: ./public
