@@ -3,7 +3,7 @@ title = "ConfigMap File Mount on a Windows Kubernetes Pod"
 hook = "Mounting a ConfigMap as a file in Windows Kubernetes"
 image = "./terminal.jpg"
 published_at = 2022-01-30T01:01:00-06:00
-tags = ["Kubernetes", "Windows"]
+tags = ["Kubernetes", "Windows", "Tutorials"]
 youtube = "https://youtu.be/8Sab4zv0GXg"
 +++
 

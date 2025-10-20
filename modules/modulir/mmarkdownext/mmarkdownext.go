@@ -47,7 +47,6 @@ func Render(s string, options *RenderOptions) (string, error) {
 // to get our fully rendered Markdown. This includes the rendering itself, but
 // also a number of custom transformation options.
 var renderStack = []func(string, *RenderOptions) (string, error){
-	transformGoTemplate,
 	transformImages,
 	transformPDFs,
 	transformVideos,
@@ -70,36 +69,6 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	transformFootnotes,
 
 	transformLinksToTargetBlank,
-}
-
-// Note that this should come early as we currently rely on a later step to
-// give images a retina srcset.
-func transformGoTemplate(source string, options *RenderOptions) (string, error) {
-	// Skip this step if it doesn't look like there's any Go template code
-	// contained in the source. (This may be a premature optimization.)
-	if !strings.Contains(source, "{{") {
-		return source, nil
-	}
-
-	tmpl, err := template.New("fmarkdownTemp").Funcs(FuncMap).Parse(source)
-	if err != nil {
-		return "", xerrors.Errorf("error parsing template: %w", err)
-	}
-
-	var templateData interface{}
-	if options != nil {
-		templateData = options.TemplateData
-	}
-
-	// Run the template to verify the output.
-	var b bytes.Buffer
-	err = tmpl.Execute(&b, templateData)
-	if err != nil {
-		return "", xerrors.Errorf("error executing template: %w", err)
-	}
-
-	// fmt.Printf("output in = %v ...\n", b.String())
-	return b.String(), nil
 }
 
 const figureHTMLCaption = `
