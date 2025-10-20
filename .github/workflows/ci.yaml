@@ -84,18 +84,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+
       - name: Install Go
         uses: actions/setup-go@v5
         with:
           check-latest: true
           go-version-file: "go.mod"
-      - name: "Go: Install"
+
+      - name: Go Install
         run: make install
-      - name: "Build: Production"
+
+      - name: Build the app
         run: make build
         env:
           TARGET_DIR: ./public
           CC_ENV: prod
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -104,5 +108,22 @@ jobs:
       - name: Install Azure Static Web Apps CLI
         run: npm install -g @azure/static-web-apps-cli
 
-      - name: Verify SWA CLI installation
-        run: swa --version
+      - name: Azure CLI Login
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Azure CLI script
+      uses: azure/cli@v2
+      with:
+        azcliversion: latest
+        inlineScript: |
+          az account show
+          # You can write your Azure CLI inline scripts here.
+
+      - name: Send it
+        run: swa deploy ./public --app-name CoolsterCodes --env production --deployment-token ${{ secrets.SWA_TOKEN }}
+
+
