@@ -124,14 +124,14 @@ Move sluggification to one place ✅
 Fix video audio ✅
 Remove numbers from TOC ✅
 Auto highlight TOC (so sick) ✅
-Write unit tests for new transform functions
-Links
+Write unit tests for new transform functions ✅
+Links ✅
     - Headers with links underlined ✅
         - Fix TOC though ✅
     - Same page links (Tier video) not underlined ✅
     - Join paths to be able to reference other files not in same directory ✅
     - Change "../slug/" into "/slug" links ✅
-    - Links in image description (that would be epic)
+    - Links in image description (that would be epic) ✅
 Add all my articles
     - Put YouTube link in article and embed ✅
     - Rename to "Home" and "Tags" ✅
@@ -144,21 +144,22 @@ Add all my articles
     - Make pages like articles ✅
     - Make image paths relative ✅
     - Move equivalent of articles
-Host it
-    - Make sure to make CC_Env=Prod
+    - Add missing articles
+Make code copyable
+Play with Shiki code
+Make it so when you hover over published time, it shows full timestamp 😎
 Make it so big titles don't overflow on mobile?
 Remove IncludeMarkdown func
 May not need transformGoTemplate
 Maybe make InsertOrReplaceArticle more generic
-Play with Shiki code
-Make code copyable
-Make it so when you hover over published time, it shows full timestamp 😎
 Explore colors thoroughly (inline and search)
 Search fix? (why doesn't "wife" show up?)
 Final cosmetic review
     - Make underlines bold? (see CN review)
     - Fix sizing of headers? (nested)
     - Picture size? (like smaller picture size for smaller pictures)
+Host it
+    - Make sure to make CC_Env=Prod ✅
 
 -- Commands --
 curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.15/tailwindcss-macos-arm64
@@ -177,8 +178,6 @@ With Fragments, there was a "content/fragments-drafts" and "content/fragments-de
 Eventually make it so year bar shows even when clicking button (and filtering them out/back in)
 
 -- Could never do: --
-Link in figure captions ❌
-    - It gets super-imposed by fancy box, would need to change fancybox
 Make it so single # is header ❌
     - It then makes headers out of single "#" code comments
 Remove weird newline constraint on headers ❌

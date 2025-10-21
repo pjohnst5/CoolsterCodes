@@ -114,7 +114,7 @@ You’re given a set of “alarms”, that only sound on certain conditions; i.e
 I would read very carefully the documentation here: [https://pgmpy.org/models/bayesiannetwork.html](https://pgmpy.org/models/bayesiannetwork.html) as it explains one example using grades very well
 
 ![](./image-1.png)
-*Documentation from https://pgmpy.org/models/bayesiannetwork.html*
+*Documentation from [https://pgmpy.org/models/bayesiannetwork.html](https://pgmpy.org/models/bayesiannetwork.html)*
 
 Noice how all the columns add up to 1  
 So this is saying “Given that the class is easy, the student is smart, the chance the student gets a grade C is 80%”  

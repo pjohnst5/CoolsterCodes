@@ -47,7 +47,6 @@ func Render(s string, options *RenderOptions) (string, error) {
 // to get our fully rendered Markdown. This includes the rendering itself, but
 // also a number of custom transformation options.
 var renderStack = []func(string, *RenderOptions) (string, error){
-	transformGoTemplate,
 	transformImages,
 	transformPDFs,
 	transformVideos,
@@ -72,34 +71,52 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	transformLinksToTargetBlank,
 }
 
-// Note that this should come early as we currently rely on a later step to
-// give images a retina srcset.
-func transformGoTemplate(source string, options *RenderOptions) (string, error) {
-	// Skip this step if it doesn't look like there's any Go template code
-	// contained in the source. (This may be a premature optimization.)
-	if !strings.Contains(source, "{{") {
-		return source, nil
-	}
+const link = `<a href="%s" class="text-myblue">%s</a>`
+const externalLink = `<a href="%s" target="_blank" class="text-myblue underline">%s</a>`
+const fileInCaptionHTML = `<a href="%s" download class="text-myblue underline">%s</a>`
 
-	tmpl, err := template.New("fmarkdownTemp").Funcs(FuncMap).Parse(source)
-	if err != nil {
-		return "", xerrors.Errorf("error parsing template: %w", err)
-	}
+var captionRE = regexp.MustCompile(`\[(.*?)\]\((.*?)\)`)
 
-	var templateData interface{}
-	if options != nil {
-		templateData = options.TemplateData
-	}
+// This basically takes a caption with markdown in it, and transforms it appropriately.
+func transformCaption(rawCaption string, opts *RenderOptions) string {
+	// Extracts html display 🤩
+	captionAsHTML := captionRE.ReplaceAllStringFunc(rawCaption, func(caption string) string {
+		matches := captionRE.FindStringSubmatch(caption)
+		if len(matches) != 3 {
+			return caption
+		}
 
-	// Run the template to verify the output.
-	var b bytes.Buffer
-	err = tmpl.Execute(&b, templateData)
-	if err != nil {
-		return "", xerrors.Errorf("error executing template: %w", err)
-	}
+		// Grab the display name
+		display := matches[1]
 
-	// fmt.Printf("output in = %v ...\n", b.String())
-	return b.String(), nil
+		// Grab the file/url
+		file := matches[2]
+
+		// If it starts with "#" or "/" just leave it (it's a header or to a slug)
+		if strings.HasPrefix(file, "#") || strings.HasPrefix(file, "/") {
+			return fmt.Sprintf(link, file, display)
+		}
+
+		// If it starts with "http", external link
+		if strings.HasPrefix(file, "http") {
+			return fmt.Sprintf(externalLink, file, display)
+		}
+
+		// If it's a slug (like to an article directory) make it a url to that article
+		if isSlug(file) {
+			url := getArticleURL(file)
+			return fmt.Sprintf(link, url, display)
+		}
+
+		// Otherwise, treat it as a downloadable file
+		if opts.ImgDir != "" {
+			file = filepath.Join(opts.ImgDir, file)
+		}
+
+		return fmt.Sprintf(fileInCaptionHTML, file, display)
+	})
+
+	return captionAsHTML
 }
 
 const figureHTMLCaption = `
@@ -138,7 +155,11 @@ func transformImages(source string, opts *RenderOptions) (string, error) {
 
 		// Grab the caption (only if 3rd arg isn't empty)
 		caption := matches[4]
-		return fmt.Sprintf(figureHTMLCaption, img, caption, img, caption)
+
+		// Process the caption in case it has markdown in it
+		htmlCaption := transformCaption(caption, opts)
+		htmlCaptionEscaped := template.HTMLEscapeString(htmlCaption)
+		return fmt.Sprintf(figureHTMLCaption, img, htmlCaptionEscaped, img, htmlCaption)
 	}), nil
 }
 
@@ -174,7 +195,8 @@ func transformPDFs(source string, opts *RenderOptions) (string, error) {
 
 		// Grab the caption
 		caption := matches[3]
-		return fmt.Sprintf(pdfHTMLCaption, pdf, caption)
+		htmlCaption := transformCaption(caption, opts)
+		return fmt.Sprintf(pdfHTMLCaption, pdf, htmlCaption)
 	}), nil
 }
 
@@ -216,12 +238,13 @@ func transformVideos(source string, opts *RenderOptions) (string, error) {
 
 		// Grab the caption (only if 3rd arg isn't empty)
 		caption := matches[3]
-		return fmt.Sprintf(videoHTMLCaption, video, caption)
+		htmlCaption := transformCaption(caption, opts)
+		return fmt.Sprintf(videoHTMLCaption, video, htmlCaption)
 	}), nil
 }
 
 const fileHTML = `
-<a href="%s" download">%s</a>
+<a href="%s" download>%s</a>
 `
 
 const slugHTML = `

@@ -3,7 +3,7 @@ title = "Docker Nanoserver base image Windows"
 hook = "Building a docker image using nanoserver base"
 image = "./docker.png"
 published_at = 2022-01-09T05:30:00-07:00
-tags = ["Windows", "Development", "Docker"]
+tags = ["Windows", "Development", "Docker", "Tutorials"]
 youtube = "https://youtu.be/1ad5dq0Wi-c"
 +++
 
