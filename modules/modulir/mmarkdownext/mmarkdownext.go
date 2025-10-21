@@ -73,7 +73,7 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 
 const link = `<a href="%s" class="text-myblue">%s</a>`
 const externalLink = `<a href="%s" target="_blank" class="text-myblue underline">%s</a>`
-const fileInCaptionHTML = `<a href="%s" download" class="text-myblue underline">%s</a>`
+const fileInCaptionHTML = `<a href="%s" download class="text-myblue underline">%s</a>`
 
 var captionRE = regexp.MustCompile(`\[(.*?)\]\((.*?)\)`)
 
@@ -244,7 +244,7 @@ func transformVideos(source string, opts *RenderOptions) (string, error) {
 }
 
 const fileHTML = `
-<a href="%s" download">%s</a>
+<a href="%s" download>%s</a>
 `
 
 const slugHTML = `

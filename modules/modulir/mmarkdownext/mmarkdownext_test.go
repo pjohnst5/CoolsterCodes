@@ -6,6 +6,25 @@ import (
 	assert "github.com/stretchr/testify/require"
 )
 
+func TestTransformCaptions(t *testing.T) {
+	assert.Equal(t, `Paul is a <a href="https://linkedin.com" target="_blank" class="text-myblue underline">baller</a>`, transformCaption("Paul is a [baller](https://linkedin.com)", &RenderOptions{ImgDir: "/content/images/hey"}))
+
+	assert.Equal(t, `Paul is a <a href="#baller" class="text-myblue">baller</a>`, transformCaption("Paul is a [baller](#baller)", &RenderOptions{ImgDir: "/content/images/hey"}))
+
+	assert.Equal(t, `Paul is a <a href="/tags/baller" class="text-myblue">baller</a>`, transformCaption("Paul is a [baller](/tags/baller)", &RenderOptions{ImgDir: "/content/images/hey"}))
+
+	assert.Equal(t, `Paul is a <a href="/baller" class="text-myblue">baller</a>`, transformCaption("Paul is a [baller](../baller/)", &RenderOptions{ImgDir: "/content/images/hey"}))
+
+	assert.Equal(t, `Paul is a <a href="/content/images/hey/baller.txt" download class="text-myblue underline">baller</a>`, transformCaption("Paul is a [baller](./baller.txt)", &RenderOptions{ImgDir: "/content/images/hey"}))
+
+	assert.Equal(t, `Paul is a <a href="/content/images/hey/baller.txt" download class="text-myblue underline">baller</a>`, transformCaption("Paul is a [baller](./baller.txt)", &RenderOptions{ImgDir: "/content/images/hey"}))
+
+	assert.Equal(t,
+		`<a href="https://linked.com" target="_blank" class="text-myblue underline">Paul</a> is <a href="#quite" class="text-myblue">quite</a> the <a href="/content/images/hey/baller.txt" download class="text-myblue underline">baller</a> around <a href="/these" class="text-myblue">these</a> <a href="/tags/parts" class="text-myblue">parts</a>`,
+		transformCaption("[Paul](https://linked.com) is [quite](#quite) the [baller](./baller.txt) around [these](../these/) [parts](/tags/parts)", &RenderOptions{ImgDir: "/content/images/hey"}),
+	)
+}
+
 func TestCollapseHTML(t *testing.T) {
 	assert.Equal(t, "<p><strong>strong</strong></p>", collapseHTML(`
   <p>
@@ -114,19 +133,19 @@ func TestTransformVideos(t *testing.T) {
 
 func TestFiles(t *testing.T) {
 	assert.Equal(t, `
-<a href="/content/images/hey/file.txt" download">file.txt</a>
+<a href="/content/images/hey/file.txt" download>file.txt</a>
 `,
 		must(transformFiles(`[file.txt](./file.txt)`, &RenderOptions{ImgDir: "/content/images/hey"})),
 	)
 
 	assert.Equal(t, `
-<a href="/content/images/hey/file.csv" download">file.csv</a>
+<a href="/content/images/hey/file.csv" download>file.csv</a>
 `,
 		must(transformFiles(`[file.csv](./file.csv)`, &RenderOptions{ImgDir: "/content/images/hey"})),
 	)
 
 	assert.Equal(t, `
-<a href="/content/images/hey/binary" download">binary of dreams</a>
+<a href="/content/images/hey/binary" download>binary of dreams</a>
 `,
 		must(transformFiles(`[binary of dreams](./binary)`, &RenderOptions{ImgDir: "/content/images/hey"})),
 	)
