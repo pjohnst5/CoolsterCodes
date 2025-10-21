@@ -148,8 +148,6 @@ Add all my articles
 Make code copyable
 Play with Shiki code
 Make it so when you hover over published time, it shows full timestamp 😎
-Host it
-    - Make sure to make CC_Env=Prod ✅
 Make it so big titles don't overflow on mobile?
 Remove IncludeMarkdown func
 May not need transformGoTemplate
@@ -160,6 +158,8 @@ Final cosmetic review
     - Make underlines bold? (see CN review)
     - Fix sizing of headers? (nested)
     - Picture size? (like smaller picture size for smaller pictures)
+Host it
+    - Make sure to make CC_Env=Prod ✅
 
 -- Commands --
 curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.15/tailwindcss-macos-arm64
