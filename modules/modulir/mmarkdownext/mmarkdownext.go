@@ -195,7 +195,8 @@ func transformPDFs(source string, opts *RenderOptions) (string, error) {
 
 		// Grab the caption
 		caption := matches[3]
-		return fmt.Sprintf(pdfHTMLCaption, pdf, caption)
+		htmlCaption := transformCaption(caption, opts)
+		return fmt.Sprintf(pdfHTMLCaption, pdf, htmlCaption)
 	}), nil
 }
 
@@ -237,7 +238,8 @@ func transformVideos(source string, opts *RenderOptions) (string, error) {
 
 		// Grab the caption (only if 3rd arg isn't empty)
 		caption := matches[3]
-		return fmt.Sprintf(videoHTMLCaption, video, caption)
+		htmlCaption := transformCaption(caption, opts)
+		return fmt.Sprintf(videoHTMLCaption, video, htmlCaption)
 	}), nil
 }
 
