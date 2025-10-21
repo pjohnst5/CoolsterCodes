@@ -16,7 +16,7 @@ Compare that to [UC Berkeley's](https://ischoolonline.berkeley.edu/data-science/
 Here's a [spreadsheet](./Masters.xlsx) with the details compared
 
 ![](./master's%20sheet%20compared.png)
-*Different master's programs compared*
+*Different master's programs [compared](./Masters.xlsx)*
 
 ## Flexibility
 
@@ -32,7 +32,7 @@ The average time it takes students to finish the program is actually about 10 se
 Here's a [course planner](./Course%20Plan.xlsx) I made about how to schedule my classes while I was in the program
 
 ![](./course_planner.png)
-*My own course planner*
+*My own [course planner](./Course%20Plan.xlsx)*
 
 ## Online
 
