@@ -145,14 +145,15 @@ Add all my articles
     - Make image paths relative ✅
     - Move equivalent of articles
 Make code copyable
+Play with Shiki code
+Create articles for missing YouTube videos
+Make it so when you hover over published time, it shows full timestamp 😎
 Host it
     - Make sure to make CC_Env=Prod ✅
 Make it so big titles don't overflow on mobile?
 Remove IncludeMarkdown func
 May not need transformGoTemplate
 Maybe make InsertOrReplaceArticle more generic
-Play with Shiki code
-Make it so when you hover over published time, it shows full timestamp 😎
 Explore colors thoroughly (inline and search)
 Search fix? (why doesn't "wife" show up?)
 Final cosmetic review
