@@ -144,9 +144,9 @@ Add all my articles
     - Make pages like articles ✅
     - Make image paths relative ✅
     - Move equivalent of articles
+    - Add missing articles
 Make code copyable
 Play with Shiki code
-Create articles for missing YouTube videos
 Make it so when you hover over published time, it shows full timestamp 😎
 Host it
     - Make sure to make CC_Env=Prod ✅
