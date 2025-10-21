@@ -89,7 +89,7 @@ You can literally do this with word embeddings [1]
 Problem is there are biased meanings in words today, so you’ll investigate that
 
 ![](./wordtovecillustrated-1536x826.png)
-*Word embeddings visualized courtesy of Jay Alammar*
+*Word embeddings visualized courtesy of [Jay Alammar](https://jalammar.github.io/illustrated-word2vec/)*
 
 ### Fairness and Bias
 
@@ -104,7 +104,7 @@ It will help you render all the graphs you need
 One hack a student found in my semester was to inspect the website for the AI 360 fairness assignment to [make your graph](https://coolstercodes.com/wp-content/uploads/2022/12/render_post.pdf)
 
 ![](./matplotlib-2048x945.png)
-*Use Matplotlib for everything in this class*
+*Use [Matplotlib](https://matplotlib.org/) for everything in this class*
 
 ### Final Project
 

@@ -48,7 +48,7 @@ I believe I had 8-9 interviews come from this simple trick (and eventually, 3-4 
 *Putting a QR code of my website on the BACK of my paper-resume REALLY impressed recruiters!*
 
 ![](./website.png)
-*My personal website at pjohnst5.github.io*
+*My personal website at [pjohnst5.github.io](https://pjohnst5.github.io)*
 
 ## Landing an internship!
 

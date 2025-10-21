@@ -3,7 +3,7 @@ title = "Installing Modules for Powershell Core (pwsh)"
 hook = "Installing powershell modules with `pwsh`"
 image = "./pwsh.png"
 published_at = 2022-07-09T09:15:25-06:00
-tags = ["Powershell", "Docker", "Windows"]
+tags = ["Powershell", "Docker", "Windows", "Tutorials"]
 youtube = "https://youtu.be/HcNL7BvExY4"
 +++
 

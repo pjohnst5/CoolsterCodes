@@ -99,7 +99,7 @@ Given a simple sentence, try to give the correct answer back as a word ([spec](h
 - “Twelve”
 
 ![](./12-1.jpg)
-*Example question in the project (just kidding, it’s from The Benchwarmers)*
+*Example question in the project (just kidding, it’s from [The Benchwarmers](https://en.wikipedia.org/wiki/The_Benchwarmers))*
 
 - Tougher and more time consuming than most mini-projects so start early
 - Categorize words into adjectives, nouns, verbs etc. etc.
