@@ -77,7 +77,7 @@ const fileInCaptionHTML = `<a href="%s" download class="text-myblue underline">%
 
 var captionRE = regexp.MustCompile(`\[(.*?)\]\((.*?)\)`)
 
-// This basically takes a caption with markdown in it, and transforms it appropriately
+// This basically takes a caption with markdown in it, and transforms it appropriately.
 func transformCaption(rawCaption string, opts *RenderOptions) string {
 	// Extracts html display 🤩
 	captionAsHTML := captionRE.ReplaceAllStringFunc(rawCaption, func(caption string) string {
