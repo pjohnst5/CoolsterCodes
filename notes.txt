@@ -127,6 +127,7 @@ Auto highlight TOC (so sick) ✅
 Write unit tests for new transform functions ✅
 Make it so big titles don't overflow on mobile ✅
 Fix up spacing on main list of articles
+Make hidden contact page
 Links ✅
     - Headers with links underlined ✅
         - Fix TOC though ✅
