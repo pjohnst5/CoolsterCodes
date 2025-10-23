@@ -125,6 +125,9 @@ Fix video audio ✅
 Remove numbers from TOC ✅
 Auto highlight TOC (so sick) ✅
 Write unit tests for new transform functions ✅
+Make it so big titles don't overflow on mobile ✅
+Fix up spacing on main list of articles
+Make hidden contact page
 Links ✅
     - Headers with links underlined ✅
         - Fix TOC though ✅
@@ -148,7 +151,6 @@ Add all my articles
 Make code copyable
 Play with Shiki code
 Make it so when you hover over published time, it shows full timestamp 😎
-Make it so big titles don't overflow on mobile?
 Remove IncludeMarkdown func
 May not need transformGoTemplate
 Maybe make InsertOrReplaceArticle more generic
