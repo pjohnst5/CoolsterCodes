@@ -1685,6 +1685,10 @@ video {
   margin-bottom: 2.25rem;
 }
 
+.mb-\[1px\] {
+  margin-bottom: 1px;
+}
+
 .ml-0\.5 {
   margin-left: 0.125rem;
 }
@@ -1715,6 +1719,10 @@ video {
 
 .mt-8 {
   margin-top: 2rem;
+}
+
+.mt-\[3px\] {
+  margin-top: 3px;
 }
 
 .block {
@@ -1856,6 +1864,10 @@ video {
 
 .flex-col {
   flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
 }
 
 .items-center {
