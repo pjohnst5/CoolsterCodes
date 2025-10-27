@@ -104,7 +104,7 @@
                 ">
                 {{ if .Article.YouTubeEmbed }}
                 <div class="relative pb-[56.25%] h-0 overflow-hidden w-full">
-                    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="{{.Article.YouTubeEmbed}}">
+                    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="{{.Article.YouTubeEmbed}}" referrerpolicy="strict-origin-when-cross-origin">
                     </iframe>
                 </div>
                 {{ end }}

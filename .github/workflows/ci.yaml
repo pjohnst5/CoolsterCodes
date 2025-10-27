@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,12 +35,6 @@ jobs:
 
       - name: Go Test
         run: make test
-
-      - name: Build
-        run: make build
-        env:
-          TARGET_DIR: ./public
-          CC_ENV: prod
 
   css:
     runs-on: macos-latest
@@ -84,12 +78,13 @@ jobs:
         with:
           version: v2.0.0
 
-  deploy_prod:
-    if: github.ref == 'refs/heads/main'
+  deploy:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
+    env:
+      SWA_ENV: ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -125,4 +120,4 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Send it
-        run: swa deploy ./public --app-name CoolsterCodes --env production --deployment-token ${{ secrets.SWA_TOKEN }}
+        run: swa deploy ./public --app-name CoolsterCodes --env $SWA_ENV --deployment-token ${{ secrets.SWA_TOKEN }}
