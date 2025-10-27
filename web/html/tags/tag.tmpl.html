@@ -37,8 +37,8 @@
         <div class="pb-8 md:flex-grow md:min-w-0 md:pl-6 md:pr-6">
             <ul class="clear-both mb-9">
                 {{- range .Articles -}}
-                <li class="clear-both mb-9 mt-1.5 text-md text-white">
-                    <div class="mb-2">
+                <li class="clear-both mb-7 mt-1.5 text-md text-white">
+                    <div class="mb-[1px]">
                         {{if .Image}}
                         <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
                             <a href="/{{.Slug}}">
@@ -51,9 +51,9 @@
                         <span class="italic ml-0.5 text-gray-300 text-xs">{{FormatTime .PublishedAt "Jan 2, 2006"}}</span>
 
                         {{if gt (len .TagCounts) 0}}
-                        <div class="flex items-center pt-2">
+                        <div class="flex flex-wrap items-center pt-1">
                             {{range .TagCounts}}
-                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600 mx-0.5"
+                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] mt-[3px] text-myblue text-sm hover:text-sky-600 mx-0.5"
                                 href="/tags/{{.URLTag}}">#{{.Tag}}</a>
                             {{end}}
                         </div>

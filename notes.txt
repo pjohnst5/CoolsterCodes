@@ -126,9 +126,8 @@ Remove numbers from TOC ✅
 Auto highlight TOC (so sick) ✅
 Write unit tests for new transform functions ✅
 Make it so big titles don't overflow on mobile ✅
-Fix up spacing on main list of articles
 Make hidden contact page ✅
-Fix youtube embed issue
+Fix youtube embed issue ✅
 Links ✅
     - Headers with links underlined ✅
         - Fix TOC though ✅
@@ -156,6 +155,7 @@ Remove IncludeMarkdown func
 May not need transformGoTemplate
 Maybe make InsertOrReplaceArticle more generic
 Explore colors thoroughly (inline and search)
+Fix up spacing on main list of articles
 Search fix? (why doesn't "wife" show up?)
 Final cosmetic review
     - Make underlines bold? (see CN review)

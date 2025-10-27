@@ -13,11 +13,12 @@
 
 {{- define "article_content" -}}
 
-<div class="pt-4 pb-4 px-4">
-    <h1 class="prose prose-lg font-normal font-serif text-center text-8xl tracking-tighter
-                prose-a:text-white prose-a:no-underline">
-        {{.Page.Title}}
-    </h1>
+<div class="mb-12 mt-0 px-4">
+    <div class="container max-w-[950px] mx-auto">
+        <h1 class="font-semibold font-sans leading-none my-8 text-center text-6xl text-white tracking-tighter md:font-normal md:text-8xl">
+            {{.Page.Title}}
+        </h1>
+    </div>
 </div>
 
 <div class="container hyphens-auto max-w-[800px] mx-auto mt-0 mb-8

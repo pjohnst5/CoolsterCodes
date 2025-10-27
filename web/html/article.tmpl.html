@@ -107,11 +107,7 @@
                     <iframe class="absolute w-full h-full top-0 left-0 border-0" src="{{.Article.YouTubeEmbed}}" referrerpolicy="strict-origin-when-cross-origin">
                     </iframe>
                 </div>
-                {{ end }}
-
-                <div class="font-bold my-1 text-white text-sm md:hidden">Published {{FormatTime .Article.PublishedAt "January 2, 2006"}}
-                </div>
-                
+                {{ end }}                
                 {{.Article.Content}}
             </div>
             {{if gt (len .Article.TagCounts) 0}}
@@ -125,6 +121,7 @@
                 </div>
             </div>
             {{end}}
+            <div class="mt-1 italic text-white text-sm md:hidden">Published {{FormatTime .Article.PublishedAt "January 2, 2006"}}</div>
         </div>
         {{if ne .Article.TOC ""}}
             <div class="basis-[190px] border-l flex-grow-0 flex-shrink-0 hidden xl:block ">
@@ -193,7 +190,7 @@
 </div>
 {{end}}
 
-<div class="border-t pb-8 p-8 w-vp ">
+<div class="border-t pb-4 p-4 w-vp ">
     <div class="container max-w-[650px] mx-auto">
         <div class="hyphens-auto
             italic
