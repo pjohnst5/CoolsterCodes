@@ -1,6 +1,7 @@
 +++
 title = "About"
 description = "About CoolsterCodes"
+hidden = false
 +++
 
 ![](./Johnston_Paul.jpg)

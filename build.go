@@ -441,6 +441,9 @@ type Page struct {
 
 	// This would be '/content/images/<slug>/
 	ImgDir string `toml:"-"`
+
+	// Hidden to search
+	Hidden bool `toml:"hidden"`
 }
 
 type IndexEntry struct {
@@ -860,10 +863,12 @@ func generateIndex(srcPath, dstPath string, articles []*Article, pages []*Page) 
 	}
 
 	for _, p := range pages {
-		entries[p.Slug] = IndexEntry{
-			Href:    p.Slug,
-			Title:   p.Title,
-			Summary: p.Body,
+		if !p.Hidden {
+			entries[p.Slug] = IndexEntry{
+				Href:    p.Slug,
+				Title:   p.Title,
+				Summary: p.Body,
+			}
 		}
 	}
 
