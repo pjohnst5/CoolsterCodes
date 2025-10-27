@@ -83,6 +83,8 @@ jobs:
     permissions:
       id-token: write
       contents: read
+    env:
+      SWA_ENV: ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -117,9 +119,5 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Preview it
-        run: swa deploy ./public --app-name CoolsterCodes --env preview --deployment-token ${{ secrets.SWA_TOKEN }}
-
       - name: Send it
-        if: github.ref == 'refs/heads/main'
-        run: swa deploy ./public --app-name CoolsterCodes --env production --deployment-token ${{ secrets.SWA_TOKEN }}
+        run: swa deploy ./public --app-name CoolsterCodes --env $SWA_ENV --deployment-token ${{ secrets.SWA_TOKEN }}
