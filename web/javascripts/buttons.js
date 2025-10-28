@@ -118,7 +118,7 @@ async function copyText(text, alertID) {
 }
 
 function copyCode(ahref, alertID) {
-  const pre = ahref.closest('div').nextElementSibling; // the <pre> after the header
+  const pre = ahref.closest('.relative').querySelector('pre');
   const code = pre.innerText;
   copyText(code, alertID);
 }

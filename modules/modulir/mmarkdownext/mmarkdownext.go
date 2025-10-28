@@ -555,19 +555,35 @@ func renderBackToHTML(n *html.Node) (string, error) {
 	return renderedHTML, nil
 }
 
+var pretty = map[string]string{
+	"yaml":       "YAML",
+	"python":     "Python",
+	"go":         "Go",
+	"javascript": "JavaScript",
+	"docker":     "Docker",
+	"shell":      "Shell",
+	"json":       "JSON",
+	"bash":       "Bash",
+	"ps1":        "Powershell",
+}
+
 var preRE = regexp.MustCompile(`<pre\b[^>]*>[\s\S]*?<\/pre>`)
 
 const copyButtonHTML = `
-<div class="relative my-4 rounded-lg overflow-hidden border border-gray-700 bg-[#24292e]">
+<div class="relative my-4 rounded-lg overflow-hidden">
 	<!-- Header bar -->
-	<div class="flex justify-end px-3 pt-1">
-		<span id="copyalert-%s"
-			class="hidden tooltip -translate-x-1/2 bg-gray-600 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300">
+	<div class="flex bg-codeHeader">
+		<div class="w-24 pl-3 py-1 font-bold">%s</div>
+		<div class="flex flex-grow px-3 py-1"></div>
+		<div class="flex justify-end w-10 px-3 py-1">
+			<span id="copyalert-%s"
+			class="hidden tooltip mr-1 bg-gray-600 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300">
 			Copied!
-		</span>
-		<a class="no-underline" href="javascript:void(0)" onclick="copyCode(this, 'copyalert-' + '%s')">
-			<span class="mx-0.5"><b class="copy text-myblue no-underline"></b></span>
-		</a>
+			</span>
+			<a class="no-underline" href="javascript:void(0)" onclick="copyCode(this, 'copyalert-' + '%s')">
+				<span class="mx-0.5"><b class="copy text-myblue no-underline"></b></span>
+			</a>
+		</div>
 	</div>
 
 	<!-- Code block -->
@@ -577,9 +593,24 @@ const copyButtonHTML = `
 
 func addCodeCopyButtons(source string, _ *RenderOptions) (string, error) {
 	return preRE.ReplaceAllStringFunc(source, func(pre string) string {
-		matches := preRE.FindStringSubmatch(pre)
+		// Make a short id for this instance
 		short_id := shortID()
-		return fmt.Sprintf(copyButtonHTML, short_id, short_id, matches[0])
+
+		// Compile a regex to capture the language name
+		re := regexp.MustCompile(`language-([a-zA-Z0-9_+-]+)`)
+
+		var language string
+		match := re.FindStringSubmatch(pre)
+
+		// If there is a language specified, try to get it out of our map
+		if len(match) > 1 {
+			language = match[1]
+			if p, ok := pretty[match[1]]; ok {
+				language = p
+			}
+		}
+
+		return fmt.Sprintf(copyButtonHTML, language, short_id, short_id, pre)
 	}), nil
 }
 
