@@ -5,6 +5,8 @@ package mmarkdownext
 
 import (
 	"bytes"
+	"crypto/sha1"
+	"encoding/base64"
 	"fmt"
 	"path"
 	"path/filepath"
@@ -12,6 +14,7 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/google/uuid"
 	"golang.org/x/net/html"
 	"golang.org/x/xerrors"
 	"gopkg.in/russross/blackfriday.v2"
@@ -62,6 +65,8 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	transformHeadingLinks,
 
 	transformHeaders,
+
+	addCodeCopyButtons,
 
 	// DEPRECATED: Find a different way to do this.
 	transformCodeWithLanguagePrefix,
@@ -548,6 +553,41 @@ func renderBackToHTML(n *html.Node) (string, error) {
 
 	renderedHTML := b.String()
 	return renderedHTML, nil
+}
+
+var preRE = regexp.MustCompile(`<pre\b[^>]*>[\s\S]*?<\/pre>`)
+
+const copyButtonHTML = `
+<div class="relative my-4 rounded-lg overflow-hidden border border-gray-700 bg-[#24292e]">
+	<!-- Header bar -->
+	<div class="flex justify-end px-3 pt-1">
+		<span id="copyalert-%s"
+			class="hidden tooltip -translate-x-1/2 bg-gray-600 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300">
+			Copied!
+		</span>
+		<a class="no-underline" href="javascript:void(0)" onclick="copyCode(this, 'copyalert-' + '%s')">
+			<span class="mx-0.5"><b class="copy text-myblue no-underline"></b></span>
+		</a>
+	</div>
+
+	<!-- Code block -->
+	%s
+</div>
+`
+
+func addCodeCopyButtons(source string, _ *RenderOptions) (string, error) {
+	return preRE.ReplaceAllStringFunc(source, func(pre string) string {
+		matches := preRE.FindStringSubmatch(pre)
+		short_id := shortID()
+		return fmt.Sprintf(copyButtonHTML, short_id, short_id, matches[0])
+	}), nil
+}
+
+func shortID() string {
+	u := uuid.New()
+	h := sha1.Sum([]byte(u.String()))
+	s := base64.URLEncoding.EncodeToString(h[:])
+	return strings.ToLower(s[:5]) // e.g., "sq93s"
 }
 
 var codeRE = regexp.MustCompile(`<code class="(\w+)">`)

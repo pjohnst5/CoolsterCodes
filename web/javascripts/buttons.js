@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-async function copyText(text) {
+async function copyText(text, alertID) {
   try {
     if (navigator.clipboard && document.hasFocus()) {
       // Modern API
@@ -104,7 +104,7 @@ async function copyText(text) {
     fallbackCopyText(text);
   }
   // Show tooltip
-  const tooltip = document.getElementById('copyalert');
+  const tooltip = document.getElementById(alertID);
   tooltip.classList.remove('opacity-0');
   tooltip.classList.remove('hidden');
   tooltip.classList.add('opacity-100');
@@ -115,6 +115,12 @@ async function copyText(text) {
     tooltip.classList.add('hidden');
     tooltip.classList.remove('opacity-100');
   }, 2000);
+}
+
+function copyCode(ahref, alertID) {
+  const pre = ahref.closest('div').nextElementSibling; // the <pre> after the header
+  const code = pre.innerText;
+  copyText(code, alertID);
 }
 
 function fallbackCopyText(text) {

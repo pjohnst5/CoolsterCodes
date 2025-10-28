@@ -2532,6 +2532,15 @@ video {
   line-height: 1rem;
 }
 
+.prose-pre\:mt-0 :is(:where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  margin-top: 0px;
+}
+
+.prose-pre\:py-0 :is(:where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
 .prose-pre\:text-\[0\.9rem\] :is(:where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   font-size: 0.9rem;
 }
