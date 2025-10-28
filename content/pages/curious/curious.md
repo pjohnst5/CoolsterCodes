@@ -1,5 +1,5 @@
 +++
-title = "Congratulations"
+title = "Congrats!"
 description = "Contact CoolsterCodes"
 hidden = true
 +++
