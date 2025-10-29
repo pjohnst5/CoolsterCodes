@@ -17,7 +17,8 @@ module.exports = {
             colors: {
                 myblue: '#5da7d8',
                 myblueDarker: '#2b7cb3',
-                myblueDarkest: '#095385'
+                myblueDarkest: '#095385',
+                codeHeader: '#24292e'
             },
             fontFamily: {
             },
