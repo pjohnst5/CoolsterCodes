@@ -1696,6 +1696,10 @@ video {
   margin-right: 0.125rem;
 }
 
+.mr-1 {
+  margin-right: 0.25rem;
+}
+
 .mr-2 {
   margin-right: 0.5rem;
 }
@@ -1951,6 +1955,11 @@ video {
 .bg-\[\#222222\] {
   --tw-bg-opacity: 1;
   background-color: rgb(34 34 34 / var(--tw-bg-opacity, 1));
+}
+
+.bg-codeHeader {
+  --tw-bg-opacity: 1;
+  background-color: rgb(36 41 46 / var(--tw-bg-opacity, 1));
 }
 
 .bg-gray-600 {
@@ -2535,6 +2544,14 @@ video {
 .prose-code\:prose-a\:text-xs :is(:where(a):not(:where([class~="not-prose"],[class~="not-prose"] *))) :is(:where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.prose-pre\:mt-0 :is(:where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  margin-top: 0px;
+}
+
+.prose-pre\:pt-0 :is(:where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  padding-top: 0px;
 }
 
 .prose-pre\:text-\[0\.9rem\] :is(:where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *))) {

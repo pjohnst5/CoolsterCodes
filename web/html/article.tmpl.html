@@ -38,7 +38,7 @@
                 <div class="border-b px-4 pb-4 ">
                     <div class="font-bold mb-0.5 text-white">Article</div>
                     <div class="text-myblue">
-                        <a class="no-underline" href="javascript:void(0)" onclick="copyText('{{.AbsoluteURL}}/{{.Article.Slug}}')">
+                        <a class="no-underline" href="javascript:void(0)" onclick="copyText('{{.AbsoluteURL}}/{{.Article.Slug}}', 'copyalert')">
                             {{.Article.Title}} <span class="mx-0.5"><b class="copy text-myblue no-underline"></b></span>
                         </a>
                         <span
@@ -93,6 +93,7 @@
                 prose-figcaption:mt-3
                 prose-p:prose-blockquote:font-sans
                 prose-pre:leading-[1.15rem] prose-pre:text-[0.9rem]
+                prose-pre:mt-0 prose-pre:pt-0
                 prose-ol:font-serif
                 prose-ul:font-serif
                 prose-a:text-myblue
