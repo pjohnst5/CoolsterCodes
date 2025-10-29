@@ -5,7 +5,7 @@ package mmarkdownext
 
 import (
 	"bytes"
-	"crypto/sha1"
+	"crypto/sha256"
 	"encoding/base64"
 	"fmt"
 	"path"
@@ -577,15 +577,15 @@ const copyButtonHTML = `
 func addCodeCopyButtons(source string, _ *RenderOptions) (string, error) {
 	return preRE.ReplaceAllStringFunc(source, func(pre string) string {
 		// Make a short id for this instance
-		short_id := shortID()
+		shortID := shortID()
 
-		return fmt.Sprintf(copyButtonHTML, short_id, short_id, pre)
+		return fmt.Sprintf(copyButtonHTML, shortID, shortID, pre)
 	}), nil
 }
 
 func shortID() string {
 	u := uuid.New()
-	h := sha1.Sum([]byte(u.String()))
+	h := sha256.Sum256([]byte(u.String()))
 	s := base64.URLEncoding.EncodeToString(h[:])
 	return strings.ToLower(s[:5])
 }
