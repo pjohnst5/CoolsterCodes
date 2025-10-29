@@ -1728,6 +1728,10 @@ video {
   margin-top: 3px;
 }
 
+.mt-4 {
+  margin-top: 1rem;
+}
+
 .block {
   display: block;
 }
@@ -1959,7 +1963,7 @@ video {
 
 .bg-codeHeader {
   --tw-bg-opacity: 1;
-  background-color: rgb(36 41 46 / var(--tw-bg-opacity, 1));
+  background-color: rgb(51 51 51 / var(--tw-bg-opacity, 1));
 }
 
 .bg-gray-600 {
