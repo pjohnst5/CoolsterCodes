@@ -1720,16 +1720,16 @@ video {
   margin-top: 0.375rem;
 }
 
+.mt-4 {
+  margin-top: 1rem;
+}
+
 .mt-8 {
   margin-top: 2rem;
 }
 
 .mt-\[3px\] {
   margin-top: 3px;
-}
-
-.mt-4 {
-  margin-top: 1rem;
 }
 
 .block {
