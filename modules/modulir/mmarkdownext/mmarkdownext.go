@@ -558,7 +558,7 @@ func renderBackToHTML(n *html.Node) (string, error) {
 var preRE = regexp.MustCompile(`<pre\b[^>]*>[\s\S]*?<\/pre>`)
 
 const copyButtonHTML = `
-<div class="relative my-4 rounded-lg overflow-hidden">
+<div class="relative my-4 rounded-lg overflow-hidden pt-4">
 	<!-- Header bar -->
 	<div class="flex bg-codeHeader justify-end pr-3 pt-1">
 		<span id="copyalert-%s"

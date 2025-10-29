@@ -2546,8 +2546,9 @@ video {
   line-height: 1rem;
 }
 
-.prose-pre\:mt-0 :is(:where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+.prose-pre\:my-0 :is(:where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .prose-pre\:pt-0 :is(:where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
