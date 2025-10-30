@@ -128,6 +128,9 @@ Write unit tests for new transform functions ✅
 Make it so big titles don't overflow on mobile ✅
 Make hidden contact page ✅
 Fix youtube embed issue ✅
+Make code copyable ✅
+    - Fine tune copy header
+Play with Shiki code
 Links ✅
     - Headers with links underlined ✅
         - Fix TOC though ✅
@@ -148,8 +151,6 @@ Add all my articles
     - Make image paths relative ✅
     - Move equivalent of articles
     - Add missing articles
-Make code copyable
-Play with Shiki code
 Make it so when you hover over published time, it shows full timestamp 😎
 Remove IncludeMarkdown func
 May not need transformGoTemplate

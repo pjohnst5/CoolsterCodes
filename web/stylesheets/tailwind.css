@@ -1720,6 +1720,10 @@ video {
   margin-top: 0.375rem;
 }
 
+.mt-4 {
+  margin-top: 1rem;
+}
+
 .mt-8 {
   margin-top: 2rem;
 }
@@ -1959,7 +1963,7 @@ video {
 
 .bg-codeHeader {
   --tw-bg-opacity: 1;
-  background-color: rgb(36 41 46 / var(--tw-bg-opacity, 1));
+  background-color: rgb(51 51 51 / var(--tw-bg-opacity, 1));
 }
 
 .bg-gray-600 {
@@ -2551,8 +2555,8 @@ video {
   margin-bottom: 0px;
 }
 
-.prose-pre\:pt-0 :is(:where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-  padding-top: 0px;
+.prose-pre\:rounded-none :is(:where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  border-radius: 0px;
 }
 
 .prose-pre\:text-\[0\.9rem\] :is(:where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
