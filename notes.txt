@@ -131,6 +131,7 @@ Fix youtube embed issue ✅
 Make code copyable ✅
     - Fine tune copy header
 Play with Shiki code
+Downsize images
 Links ✅
     - Headers with links underlined ✅
         - Fix TOC though ✅
