@@ -19,7 +19,7 @@ We will use [AKS Engine](https://github.com/Azure/aks-engine#readme) to create a
 
 `make-aks-engine-cluster.ps1` along with win-cluster.json will create a Windows Kubernetes cluster for you in Azure. All you need to provide is a `$SUBSCRIPTION_ID`.
 
-```txt
+```ps1
 $SUBSCRIPTION_ID=''
 $CLUSTER_NAME='win-cluster'
 $LOCATION='westus2'
