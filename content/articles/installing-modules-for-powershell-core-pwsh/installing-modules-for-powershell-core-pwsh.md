@@ -40,7 +40,7 @@ Here we have created a Dockerfile with a list of commands to both use the `mcr.m
 
 To build the docker image, simply run:
 
-```shell
+```bash
 docker build -t dns-module:v1.0.0 -f Dockerfile .
 ```
 
@@ -72,7 +72,7 @@ ENTRYPOINT [ "Resolve-DNS", "www.microsoft.com" ]
 
 Furthermore, to run Powershell Core interactively inside the Docker container itself, run:
 
-```shell
+```bash
 docker run -it --entrypoint pwsh dns-module:v1.0.0
 ```
 

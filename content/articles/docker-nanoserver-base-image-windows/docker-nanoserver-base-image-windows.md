@@ -28,7 +28,7 @@ This is great for deploying your [.Net](https://dotnet.microsoft.com/en-us/downl
 
 First we need to create a sample .Net app
 
-``` shell
+```bash
 dotnet new console -o App -n DotNet.Docker
 ```
 
@@ -54,7 +54,7 @@ We’ll build the app and copy the binaries into the container image
 
 Navigate to the App directory and run:
 
-``` shell
+```bash
 dotnet publish -c Release
 ```
 
@@ -108,7 +108,7 @@ Instead of manually installing via this `dotnet-install.ps1` script, you could a
 
 ## Build the Docker image
 
-``` shell
+```bash
 docker build -t dotnetexample:v1.0.0 -f .\Dockerfile .
 ```
 
@@ -128,7 +128,7 @@ If you need quick access to a Windows 10 Enterprise machine, you can create one 
 
 ## Run image
 
-``` shell
+```bash
 docker run dotnetexample:v1.0.0
 ```
 
@@ -137,7 +137,7 @@ docker run dotnetexample:v1.0.0
 
 You can also interactively run powershell commands in the container with:
 
-``` shell
+```bash
 docker run -it --entrypoint pwsh dotnetexample:v1.0.0
 ```
 

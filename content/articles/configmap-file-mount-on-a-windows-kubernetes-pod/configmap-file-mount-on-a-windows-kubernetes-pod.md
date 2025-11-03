@@ -219,7 +219,7 @@ And finally, we pass `C:\\configmapdirectory\\configfile.json` to the container 
 
 To deploy this pod, we use `kubectl` like so:
 
-```bash
+```ps1
 .\kubectl --kubeconfig .\_output\win-cluster\kubeconfig\kubeconfig.westus2.json apply -f configmapfilemount.yaml
 ```
 
@@ -228,7 +228,7 @@ To deploy this pod, we use `kubectl` like so:
 
 Then we can check on the container logs with `kubectl` like so:
 
-```bash
+```ps1
 .\kubectl --kubeconfig .\_output\win-cluster\kubeconfig\kubeconfig.westus2.json logs configmapfilemount
 ```
 
