@@ -575,6 +575,7 @@ var languages = map[string]LangInfo{
 	"html":       {"HTML", "bg-pink-500"},
 	"css":        {"CSS", "bg-fuchsia-500"},
 	"ps1":        {"Powershell", "bg-blue-500"},
+	"txt":        {"Txt", "bg-gray-700"},
 	"":           {"", ""},
 }
 
