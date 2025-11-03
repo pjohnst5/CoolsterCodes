@@ -555,19 +555,50 @@ func renderBackToHTML(n *html.Node) (string, error) {
 	return renderedHTML, nil
 }
 
+// Define a small struct to hold both name and color
+type LangInfo struct {
+	Pretty string
+	Color  string
+}
+
+var languages = map[string]LangInfo{
+	"yaml":       {"YAML", "blue"},
+	"python":     {"Python", "yellow"},
+	"go":         {"Go", "teal"},
+	"javascript": {"JavaScript", "gold"},
+	"c":          {"C", "gray"},
+	"cpp":        {"C++", "lightblue"},
+	"rust":       {"Rust", "orange"},
+	"bash":       {"Bash", "green"},
+	"json":       {"JSON", "purple"},
+	"html":       {"HTML", "red"},
+	"css":        {"CSS", "blue"},
+	"ps1":        {"Powershell", "blue"},
+	"":           {"", ""},
+}
+
 var preRE = regexp.MustCompile(`<pre\b[^>]*>[\s\S]*?<\/pre>`)
+
+var languageRE = regexp.MustCompile(`language-([a-zA-Z0-9_+-]+)`)
 
 const copyButtonHTML = `
 <div class="relative my-4 rounded-lg overflow-hidden mt-4">
 	<!-- Header bar -->
-	<div class="flex bg-codeHeader justify-end pr-3 py-1">
-		<span id="copyalert-%s"
-		class="hidden tooltip mr-1 bg-gray-600 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300">
-		Copied!
-		</span>
-		<a class="no-underline" href="javascript:void(0)" onclick="copyCode(this, 'copyalert-' + '%s')">
-			<span class="mx-0.5"><b class="copy text-myblue no-underline"></b></span>
-		</a>
+	<div class="flex bg-codeHeader pr-3">
+		<div class="w-32 bg-myblue flex justify-center py-1 font-bold">
+			%s
+		</div>
+		<div class="flex-grow  py-1">
+		</div>
+		<div class="w-32 flex justify-end py-1">
+			<span id="copyalert-%s"
+			class="hidden tooltip mr-1 bg-gray-600 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300">
+			Copied!
+			</span>
+			<a class="no-underline" href="javascript:void(0)" onclick="copyCode(this, 'copyalert-' + '%s')">
+				<span class="mx-0.5"><b class="copy text-myblue no-underline"></b></span>
+			</a>
+		</div>
 	</div>
 	<!-- Code block -->
 	%s
@@ -579,7 +610,17 @@ func addCodeCopyButtons(source string, _ *RenderOptions) (string, error) {
 		// Make a short id for this instance
 		shortID := shortID()
 
-		return fmt.Sprintf(copyButtonHTML, shortID, shortID, pre)
+		// Get the language
+		var language string
+		match := languageRE.FindStringSubmatch(pre)
+		if len(match) > 1 {
+			language = match[1]
+		}
+
+		// Get pretty print version of language
+		languagePretty := languages[language].Pretty
+
+		return fmt.Sprintf(copyButtonHTML, languagePretty, shortID, shortID, pre)
 	}), nil
 }
 
