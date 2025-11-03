@@ -75,7 +75,7 @@ RUN Remove-Item certsonnanoserverkv-dummycert-20220730.pfx
 
 On a Windows machine with Docker installed, run the following to actually do the demo:
 
-```shell
+```bash
 docker build -t cert:test -f .\Dockerfile .
 ```
 

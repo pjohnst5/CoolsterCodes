@@ -196,8 +196,8 @@ spec:
 
 Now you should be able to launch your pod seamlessly like so:
 
-```shell
-kubectl --kubeconfig .\_output\win-hostprocess-cluster\kubeconfig\kubeconfig.westus2.json apply -f hostprocesspod.yaml
+```ps1
+.\kubectl --kubeconfig .\_output\win-hostprocess-cluster\kubeconfig\kubeconfig.westus2.json apply -f hostprocesspod.yaml
 ```
 
 ![](./success.png)

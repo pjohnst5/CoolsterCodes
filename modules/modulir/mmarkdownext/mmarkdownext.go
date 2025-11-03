@@ -555,19 +555,55 @@ func renderBackToHTML(n *html.Node) (string, error) {
 	return renderedHTML, nil
 }
 
+// Define a small struct to hold both name and color.
+type LangInfo struct {
+	Pretty string
+	Color  string
+}
+
+var languages = map[string]LangInfo{
+	"yaml":       {"YAML", "bg-cyan-500"},
+	"python":     {"Python", "bg-lime-600"},
+	"docker":     {"Docker", "bg-purple-500"},
+	"go":         {"Go", "bg-myblue"},
+	"javascript": {"JavaScript", "bg-amber-300"},
+	"c":          {"C", "bg-green-500"},
+	"c#":         {"C#", "bg-teal-500"},
+	"bash":       {"Bash", "bg-zinc-800"},
+	"cmd":        {"CMD", "bg-zinc-800"},
+	"sh":         {"Shell", "bg-zinc-800"},
+	"shell":      {"Shell", "bg-zinc-800"},
+	"json":       {"JSON", "bg-orange-400"},
+	"html":       {"HTML", "bg-pink-500"},
+	"css":        {"CSS", "bg-fuchsia-500"},
+	"ps1":        {"Powershell", "bg-blue-500"},
+	"powershell": {"Powershell", "bg-blue-500"},
+	"txt":        {"Txt", "bg-gray-700"},
+	"":           {"", ""},
+}
+
 var preRE = regexp.MustCompile(`<pre\b[^>]*>[\s\S]*?<\/pre>`)
+
+var languageRE = regexp.MustCompile(`language-([a-zA-Z0-9_+#+-]+)`)
 
 const copyButtonHTML = `
 <div class="relative my-4 rounded-lg overflow-hidden mt-4">
 	<!-- Header bar -->
-	<div class="flex bg-codeHeader justify-end pr-3 py-1">
-		<span id="copyalert-%s"
-		class="hidden tooltip mr-1 bg-gray-600 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300">
-		Copied!
-		</span>
-		<a class="no-underline" href="javascript:void(0)" onclick="copyCode(this, 'copyalert-' + '%s')">
-			<span class="mx-0.5"><b class="copy text-myblue no-underline"></b></span>
-		</a>
+	<div class="flex bg-codeHeader pr-3">
+		<div class="w-32 %s flex justify-center py-1 font-bold">
+			%s
+		</div>
+		<div class="flex-grow  py-1">
+		</div>
+		<div class="w-32 flex justify-end py-1">
+			<span id="copyalert-%s"
+			class="hidden tooltip mr-1 bg-gray-600 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300">
+			Copied!
+			</span>
+			<a class="no-underline" href="javascript:void(0)" onclick="copyCode(this, 'copyalert-' + '%s')">
+				<span class="mx-0.5"><b class="copy text-myblue no-underline"></b></span>
+			</a>
+		</div>
 	</div>
 	<!-- Code block -->
 	%s
@@ -579,7 +615,20 @@ func addCodeCopyButtons(source string, _ *RenderOptions) (string, error) {
 		// Make a short id for this instance
 		shortID := shortID()
 
-		return fmt.Sprintf(copyButtonHTML, shortID, shortID, pre)
+		// Get the language
+		var language string
+		match := languageRE.FindStringSubmatch(pre)
+		if len(match) > 1 {
+			language = match[1]
+		}
+
+		// Get pretty print version of language
+		languagePretty := languages[language].Pretty
+
+		// Get the color of the language block
+		languageColor := languages[language].Color
+
+		return fmt.Sprintf(copyButtonHTML, languageColor, languagePretty, shortID, shortID, pre)
 	}), nil
 }
 
