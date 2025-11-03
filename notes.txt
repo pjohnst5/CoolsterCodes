@@ -130,8 +130,15 @@ Make hidden contact page ✅
 Fix youtube embed issue ✅
 Make code copyable ✅
     - Fine tune copy header
-Play with Shiki code
+Play with Shiki code ✅
+Explore colors thoroughly (inline)
 Downsize images
+Make it so when you hover over published time, it shows full timestamp 😎
+Remove IncludeMarkdown func
+May not need transformGoTemplate
+Maybe make InsertOrReplaceArticle more generic
+Fix up spacing on main list of articles
+Search fix? (why doesn't "wife" show up?)
 Links ✅
     - Headers with links underlined ✅
         - Fix TOC though ✅
@@ -152,13 +159,6 @@ Add all my articles
     - Make image paths relative ✅
     - Move equivalent of articles
     - Add missing articles
-Make it so when you hover over published time, it shows full timestamp 😎
-Remove IncludeMarkdown func
-May not need transformGoTemplate
-Maybe make InsertOrReplaceArticle more generic
-Explore colors thoroughly (inline and search)
-Fix up spacing on main list of articles
-Search fix? (why doesn't "wife" show up?)
 Final cosmetic review
     - Make underlines bold? (see CN review)
     - Fix sizing of headers? (nested)
