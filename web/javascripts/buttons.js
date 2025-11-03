@@ -1,4 +1,21 @@
+function printTime(now, msg) {
+  // Extract the hours, minutes, and seconds
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+
+  // Format the time to ensure two digits for minutes and seconds if they are less than 10
+  const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+  const formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
+
+  // Print the current time to the console
+  console.log(`${msg}: ${hours}:${formattedMinutes}:${formattedSeconds}`);
+}
+
+printTime(new Date(), "Before filterByTag");
 filterByTag("all")
+printTime(new Date(), "After filterByTag");
+
 function filterByTag(tag) {
   // If a current button is white, you KNOW you have to make it blue again (for the functionality we want)
   var b = document.getElementsByClassName("btn-white");
@@ -73,6 +90,7 @@ function animate_blue(x) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+  printTime(new Date(), "Nav dom");
   document.querySelectorAll('.nav_item').forEach(item => {
     const href = item.getAttribute('href');
     if (href === window.location.pathname) {
@@ -196,5 +214,6 @@ class Scroller {
 }
 
 document.addEventListener('DOMContentLoaded', function (e) {
+  printTime(new Date(), "Scroller dom");
   Scroller.init();
 })
