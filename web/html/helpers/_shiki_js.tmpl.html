@@ -1,59 +1,57 @@
 <script type="module">
+    // be sure to specify the exact version
+    import { codeToHtml } from 'https://esm.sh/shiki@3.0.0'
+    // or
+    // import { codeToHtml } from 'https://esm.run/shiki@3.0.0'
 
-// be sure to specify the exact version
-import { codeToHtml } from 'https://esm.sh/shiki@1.0.0'
-// or
-// import { codeToHtml } from 'https://esm.run/shiki@1.0.0'
+    // HTML entity decoding (same as before)
+    const htmlEscapes = new Map([
+        ['&amp;', '&'],
+        ['&lt;', '<'],
+        ['&gt;', '>'],
+    ])
 
-const htmlEscapes = new Map([
-    ['&amp;', '&'],
-    ['&lt;', '<'],
-    ['&gt;', '>'],
-]);
-
-function unescapeHTMLEntities(str) {
-    for (const [escaped, unescaped] of htmlEscapes) {
-        str = str.replaceAll(escaped, unescaped)
-    }
-    return str
-}
-
-await Promise.all(Array.from(document.querySelectorAll('pre code')).map((codeBlock) => {
-    const classNames = codeBlock.getAttribute("class");
-    if (classNames == null) {
-        return
-    }
-
-    let language = null;
-    for (const className of classNames.split(" ")) {
-        const [languageToken, ...rest] = className.split("-")
-        if (languageToken == "language") {
-            // Some languages may contain their own hyphens like `git-commit`,
-            // so make sure we handle that case by joining them back together
-            // before sending out to Shiki.
-            language = rest.join("-")
-            break
+    function unescapeHTMLEntities(str) {
+        for (const [escaped, unescaped] of htmlEscapes) {
+            str = str.replaceAll(escaped, unescaped)
         }
+        return str
     }
 
-    if (language == null) {
-        return
-    }
+    // Shiki 3.0 API uses `themes` instead of `themes.dark/light`
+    const THEME_DARK = 'dark-plus'
+    const THEME_LIGHT = THEME_DARK
 
-    return (async () => {
-        const code = unescapeHTMLEntities(codeBlock.innerHTML)
+    // Loop through all <pre><code> blocks
+    await Promise.all(
+        Array.from(document.querySelectorAll('pre code')).map(async (codeBlock) => {
+            const classNames = codeBlock.getAttribute('class')
+            if (!classNames) return
 
-        // Shiki will add its own `<pre><code>`, so go to parent `<pre>` and
-        // replace the entirety of its HTML.
-        codeBlock.parentElement.outerHTML = 
-            await codeToHtml(code, {
+            // Extract language from class like "language-js"
+            let language = null
+            for (const className of classNames.split(' ')) {
+                const [token, ...rest] = className.split('-')
+                if (token === 'language') {
+                    language = rest.join('-')
+                    break
+                }
+            }
+
+            if (!language) return
+
+            const code = unescapeHTMLEntities(codeBlock.innerHTML)
+
+            // Shiki 3 adds only <pre><code> too, so same replacement pattern works
+            const html = await codeToHtml(code, {
                 lang: language,
                 themes: {
-                    dark: 'github-dark',
-                    light: 'github-dark'
+                    light: THEME_LIGHT,
+                    dark: THEME_DARK
                 }
             })
-    })()
-}))
 
+            codeBlock.parentElement.outerHTML = html
+        })
+    )
 </script>
