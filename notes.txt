@@ -129,9 +129,10 @@ Make it so big titles don't overflow on mobile ✅
 Make hidden contact page ✅
 Fix youtube embed issue ✅
 Make code copyable ✅
-    - Fine tune copy header
+    - Fine tune copy header ✅
 Play with Shiki code ✅
 Explore colors thoroughly (inline)
+See what is taking so long on starting page
 Downsize images
 Make it so when you hover over published time, it shows full timestamp 😎
 Remove IncludeMarkdown func
