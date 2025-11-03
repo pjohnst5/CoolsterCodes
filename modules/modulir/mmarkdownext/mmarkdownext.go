@@ -555,7 +555,7 @@ func renderBackToHTML(n *html.Node) (string, error) {
 	return renderedHTML, nil
 }
 
-// Define a small struct to hold both name and color
+// Define a small struct to hold both name and color.
 type LangInfo struct {
 	Pretty string
 	Color  string
