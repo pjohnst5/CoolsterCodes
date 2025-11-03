@@ -38,7 +38,7 @@ This creates a new folder App with a very simple [console app](https://docs.micr
 
 We’re just going to edit it slightly to loop after saying “Hello world!”
 
-``` c#
+```c#
 Console.WriteLine("Hello, World!");
 
 for (int i = 0; i < 500; i++)

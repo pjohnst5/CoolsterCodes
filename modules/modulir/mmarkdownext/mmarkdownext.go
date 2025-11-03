@@ -562,30 +562,31 @@ type LangInfo struct {
 }
 
 var languages = map[string]LangInfo{
-	"yaml":       {"YAML", "blue"},
-	"python":     {"Python", "yellow"},
-	"go":         {"Go", "teal"},
-	"javascript": {"JavaScript", "gold"},
-	"c":          {"C", "gray"},
-	"cpp":        {"C++", "lightblue"},
-	"rust":       {"Rust", "orange"},
-	"bash":       {"Bash", "green"},
-	"json":       {"JSON", "purple"},
-	"html":       {"HTML", "red"},
-	"css":        {"CSS", "blue"},
-	"ps1":        {"Powershell", "blue"},
+	"yaml":       {"YAML", "bg-cyan-500"},
+	"python":     {"Python", "bg-lime-600"},
+	"docker":     {"Docker", "bg-indigo-500"},
+	"go":         {"Go", "bg-myblue"},
+	"javascript": {"JavaScript", "bg-amber-300"},
+	"c":          {"C", "bg-green-500"},
+	"c#":         {"C#", "bg-teal-500"},
+	"bash":       {"Bash", "bg-zinc-800"},
+	"shell":      {"Shell", "bg-zinc-800"},
+	"json":       {"JSON", "bg-orange-400"},
+	"html":       {"HTML", "bg-pink-500"},
+	"css":        {"CSS", "bg-fuchsia-500"},
+	"ps1":        {"Powershell", "bg-blue-500"},
 	"":           {"", ""},
 }
 
 var preRE = regexp.MustCompile(`<pre\b[^>]*>[\s\S]*?<\/pre>`)
 
-var languageRE = regexp.MustCompile(`language-([a-zA-Z0-9_+-]+)`)
+var languageRE = regexp.MustCompile(`language-([a-zA-Z0-9_+#+-]+)`)
 
 const copyButtonHTML = `
 <div class="relative my-4 rounded-lg overflow-hidden mt-4">
 	<!-- Header bar -->
 	<div class="flex bg-codeHeader pr-3">
-		<div class="w-32 bg-myblue flex justify-center py-1 font-bold">
+		<div class="w-32 %s flex justify-center py-1 font-bold">
 			%s
 		</div>
 		<div class="flex-grow  py-1">
@@ -620,7 +621,10 @@ func addCodeCopyButtons(source string, _ *RenderOptions) (string, error) {
 		// Get pretty print version of language
 		languagePretty := languages[language].Pretty
 
-		return fmt.Sprintf(copyButtonHTML, languagePretty, shortID, shortID, pre)
+		// Get the color of the language block
+		languageColor := languages[language].Color
+
+		return fmt.Sprintf(copyButtonHTML, languageColor, languagePretty, shortID, shortID, pre)
 	}), nil
 }
 
