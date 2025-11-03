@@ -17,7 +17,7 @@ Via Powershell, run the following command to download the 32 bit Wireshark insta
 
 See the full list of downloadables [here](https://www.wireshark.org/download.html)
 
-``` ps
+```ps1
 Start-BitsTransfer -Source https://1.as.dl.wireshark.org/win32/Wireshark-win32-3.6.1.exe
 ```
 
@@ -25,7 +25,7 @@ Start-BitsTransfer -Source https://1.as.dl.wireshark.org/win32/Wireshark-win32-3
 
 Run the installer with
 
-``` ps
+```ps1
 .\Wireshark-win32-3.6.1.exe
 ```
 

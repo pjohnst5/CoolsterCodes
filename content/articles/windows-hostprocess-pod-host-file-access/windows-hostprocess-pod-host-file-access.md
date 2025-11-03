@@ -19,7 +19,7 @@ First we will create a HostProcess capable Kubernetes cluster in Azure using [AK
 
 Simply run `make-aks-engine-cluster.ps1` with `hostprocess-cluster.json` in the same directory, providing a valid `subscription_id`.
 
-``` ps
+```ps1
 $SUBSCRIPTION_ID='' # Provide a valid subscription id
 $CLUSTER_NAME='hostprocess-cluster'
 $LOCATION='westus2'
@@ -184,7 +184,7 @@ COPY --from=builder /usr/local/app/app.exe \
 ENTRYPOINT ["/usr/local/bin/app.exe"]
 ```
 
-``` sh
+```bash
 docker build -t windowspodfilemount:v1.0.0 -f Dockerfile .
 ```
 
@@ -242,11 +242,11 @@ spec:
     command: ["%CONTAINER_SANDBOX_MOUNT_POINT%/usr/local/bin/app.exe"]
 ```
 
-``` sh
+```bash
 .\kubectl --kubeconfig .\_output\hostprocess-cluster\kubeconfig\kubeconfig.westus2.json apply -f hostprocesspod.yaml
 ```
 
-``` sh
+```bash
 .\kubectl --kubeconfig .\_output\hostprocess-cluster\kubeconfig\kubeconfig.westus2.json logs hostprocesspod
 ```
 

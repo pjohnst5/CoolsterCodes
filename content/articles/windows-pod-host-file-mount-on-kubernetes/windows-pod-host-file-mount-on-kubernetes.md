@@ -23,7 +23,7 @@ One way to do this is to use [AKS Engine](https://github.com/Azure/aks-engine#re
 
 All you need to provide is the subscription id you wish to deploy to:
 
-``` bash
+```ps1
 $SUBSCRIPTION_ID=''
 $CLUSTER_NAME='win-cluster'
 $LOCATION='westus2'
@@ -141,7 +141,7 @@ Normal Windows pods can’t run as “privileged” pods, so we have to do this 
 
 For the time being, we have to give the right permissions:
 
-``` cmd
+```cmd
 icacls C:\users\azureuser /grant BUILTIN\Users:(OI)(CI)(F) /t
 ```
 
@@ -156,11 +156,11 @@ This command will give the directory `C:\users\azureuser` and all files/director
 
 Next we use Docker to containerize `app.go`, which simply reads and writes to a given file:
 
-``` sh
+```bash
 docker build -t windowspodfilemount:v1.0.0 -f Dockerfile .
 ```
 
-``` docker
+```docker
 # Use golang image to build binary
 FROM golang:1.17 AS builder
 
@@ -227,11 +227,11 @@ func main() {
 
 Next we deploy the app in a Windows pod with the host file system mounted as a volume.
 
-``` shell
+```ps1
 .\kubectl --kubeconfig .\_output\win-cluster\kubeconfig\kubeconfig.westus2.json apply -f windowspodfilemount.yaml
 ```
 
-``` yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -261,7 +261,7 @@ After deployment you should see something like:
 
 And finally view the logs with:
 
-``` shell
+```ps1
 .\kubectl --kubeconfig .\_output\win-cluster\kubeconfig\kubeconfig.westus2.json logs winpodfilemount
 ```
 
@@ -279,11 +279,11 @@ Now you can RDP back onto the Windows agent node and see the updated `hostfile.t
 
 If you’re just trying to write to the host and it doesn’t need to be an existing directory, you could alternatively use `windowspodfilemount_alternative.yaml`, which creates a new directory on the host which the pod has full access to.
 
-``` shell
+```ps1
 .\kubectl --kubeconfig .\_output\win-cluster\kubeconfig\kubeconfig.westus2.json apply -f windowspodfilemount_alternative.yaml
 ```
 
-``` yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -308,7 +308,7 @@ spec:
 
 The “read” portion of the code will error out (because there’s nothing in this new directory), but the write will succeed:
 
-``` shell
+```ps1
 .\kubectl --kubeconfig .\_output\win-cluster\kubeconfig\kubeconfig.westus2.json logs winpodfilemount
 ```
 
