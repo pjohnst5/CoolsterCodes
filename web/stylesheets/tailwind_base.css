@@ -34,9 +34,9 @@
 }
 
 .filterTag {
-    @apply hidden
+    @apply block
 }
 
-.show {
-    @apply block
+.hide {
+    @apply hidden
 }
