@@ -37,6 +37,6 @@
     @apply block
 }
 
-.show {
+.hide {
     @apply hidden
 }
