@@ -2390,11 +2390,11 @@ video {
 }
 
 .filterTag {
-  display: none;
+  display: block;
 }
 
 .show {
-  display: block;
+  display: none;
 }
 
 .hover\:border-b-sky-600:hover {
