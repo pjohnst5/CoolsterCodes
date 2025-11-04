@@ -131,8 +131,7 @@ Fix youtube embed issue ✅
 Make code copyable ✅
     - Fine tune copy header ✅
 Play with Shiki code ✅
-Explore colors thoroughly (inline)
-See what is taking so long on starting page
+See what is taking so long on starting page ✅
 Downsize images
 Make it so when you hover over published time, it shows full timestamp 😎
 Remove IncludeMarkdown func
@@ -163,6 +162,7 @@ Add all my articles
 Final cosmetic review
     - Make underlines bold? (see CN review)
     - Fix sizing of headers? (nested)
+    - Explore colors thoroughly (inline)
     - Picture size? (like smaller picture size for smaller pictures)
 Host it
     - Make sure to make CC_Env=Prod ✅
