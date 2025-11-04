@@ -46,9 +46,9 @@ const (
 	MTags = 1
 
 	// Image optimization constants
-	MaxImageWidth  = 800 // Maximum width for content images (px)
-	MaxImageHeight = 800 // Maximum height for content images (px)
-	ImageQuality   = 85  // JPEG quality (0-100)
+	MaxImageWidth  = 1200 // Maximum width for content images (px) - less aggressive scaling
+	MaxImageHeight = 1200 // Maximum height for content images (px) - less aggressive scaling
+	ImageQuality   = 85   // JPEG quality (0-100)
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -282,11 +282,7 @@ func copyAndOptimizeImageWithStats(c *modulir.Context, sourcePath, targetDir str
 	return nil
 }
 
-// copyAndOptimizeImage is a wrapper for backward compatibility
-func copyAndOptimizeImage(c *modulir.Context, sourcePath, targetDir string) error {
-	stats := &ImageOptimizationStats{}
-	return copyAndOptimizeImageWithStats(c, sourcePath, targetDir, stats)
-} // isImageFile checks if a file is likely an image based on its extension
+// isImageFile checks if a file is likely an image based on its extension
 func isImageFile(filePath string) bool {
 	ext := strings.ToLower(filepath.Ext(filePath))
 	imageExts := []string{".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".tif", ".webp", ".heic", ".heif"}
