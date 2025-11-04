@@ -16,6 +16,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/disintegration/imaging"
 	"github.com/go-playground/validator/v10"
 	stripmd "github.com/writeas/go-strip-markdown"
 	"golang.org/x/xerrors"
@@ -42,6 +43,11 @@ import (
 const (
 	NTags = 10
 	MTags = 1
+
+	// Image optimization constants
+	MaxImageWidth  = 800 // Maximum width for content images (px)
+	MaxImageHeight = 800 // Maximum height for content images (px)
+	ImageQuality   = 85  // JPEG quality (0-100)
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -76,6 +82,150 @@ var validate = validator.New()
 
 func init() {
 	mmarkdownext.FuncMap = scommon.TextTemplateFuncMap
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//
+//
+// Image optimization functions
+//
+//
+//
+//////////////////////////////////////////////////////////////////////////////
+
+// CopyDirectoryImagesOptimized recursively copies images from source to target,
+// resizing them if they exceed the maximum dimensions while maintaining aspect ratio.
+func CopyDirectoryImagesOptimized(c *modulir.Context, source, target string) error {
+	dirs, err := mfile.ReadDirWithOptions(c, source, &mfile.ReadDirOptions{ShowDirs: true})
+	if err != nil {
+		return err
+	}
+
+	for _, dir := range dirs {
+		// Read the files from that dir ignoring *.md
+		files, err := mfile.ReadDirWithOptions(c, dir, &mfile.ReadDirOptions{IgnoreMDs: true})
+		if err != nil {
+			return err
+		}
+
+		// Make new target directory path
+		justNameOfDir := filepath.Base(dir)
+		targetDir := filepath.Join(target, justNameOfDir)
+
+		// Ensure target directory exists
+		if err = mfile.EnsureDir(c, targetDir); err != nil {
+			return err
+		}
+
+		// Copy and potentially resize all image files
+		for _, file := range files {
+			if err = copyAndOptimizeImage(c, file, targetDir); err != nil {
+				c.Log.Errorf("Error processing image %s: %v", file, err)
+				// Continue with other files even if one fails
+				continue
+			}
+		}
+	}
+	return nil
+}
+
+// copyAndOptimizeImage copies a single image file, resizing it if necessary
+func copyAndOptimizeImage(c *modulir.Context, sourcePath, targetDir string) error {
+	fileName := filepath.Base(sourcePath)
+	targetPath := filepath.Join(targetDir, fileName)
+
+	// Check if it's an image file
+	if !isImageFile(sourcePath) {
+		// Not an image, just copy normally
+		return mfile.CopyFile(c, sourcePath, targetPath)
+	}
+
+	// Open and decode the image
+	src, err := imaging.Open(sourcePath)
+	if err != nil {
+		// If we can't open it as an image, just copy it normally
+		c.Log.Debugf("Could not decode %s as image, copying normally: %v", sourcePath, err)
+		return mfile.CopyFile(c, sourcePath, targetPath)
+	}
+
+	originalBounds := src.Bounds()
+	originalWidth := originalBounds.Dx()
+	originalHeight := originalBounds.Dy()
+
+	c.Log.Debugf("Processing image %s (%dx%d)", fileName, originalWidth, originalHeight)
+
+	// Check if resizing is needed
+	if originalWidth <= MaxImageWidth && originalHeight <= MaxImageHeight {
+		// Image is already small enough, just copy it
+		return mfile.CopyFile(c, sourcePath, targetPath)
+	}
+
+	// Calculate new dimensions while maintaining aspect ratio
+	newWidth, newHeight := calculateNewDimensions(originalWidth, originalHeight, MaxImageWidth, MaxImageHeight)
+
+	c.Log.Infof("Resizing image %s from %dx%d to %dx%d", fileName, originalWidth, originalHeight, newWidth, newHeight)
+
+	// Resize the image
+	resized := imaging.Resize(src, newWidth, newHeight, imaging.Lanczos)
+
+	// Save the resized image
+	ext := strings.ToLower(filepath.Ext(sourcePath))
+	switch ext {
+	case ".jpg", ".jpeg":
+		return imaging.Save(resized, targetPath, imaging.JPEGQuality(ImageQuality))
+	case ".png":
+		return imaging.Save(resized, targetPath)
+	case ".gif":
+		return imaging.Save(resized, targetPath)
+	case ".bmp":
+		return imaging.Save(resized, targetPath)
+	case ".tiff", ".tif":
+		return imaging.Save(resized, targetPath)
+	case ".webp":
+		return imaging.Save(resized, targetPath)
+	default:
+		// Unknown format, try to save as JPEG
+		newTargetPath := strings.TrimSuffix(targetPath, ext) + ".jpg"
+		c.Log.Debugf("Converting %s to JPEG format", fileName)
+		return imaging.Save(resized, newTargetPath, imaging.JPEGQuality(ImageQuality))
+	}
+}
+
+// isImageFile checks if a file is likely an image based on its extension
+func isImageFile(filePath string) bool {
+	ext := strings.ToLower(filepath.Ext(filePath))
+	imageExts := []string{".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".tif", ".webp", ".heic", ".heif"}
+
+	for _, imgExt := range imageExts {
+		if ext == imgExt {
+			return true
+		}
+	}
+	return false
+}
+
+// calculateNewDimensions calculates new width and height that fit within maxWidth and maxHeight
+// while maintaining the original aspect ratio
+func calculateNewDimensions(originalWidth, originalHeight, maxWidth, maxHeight int) (int, int) {
+	if originalWidth <= maxWidth && originalHeight <= maxHeight {
+		return originalWidth, originalHeight
+	}
+
+	// Calculate scaling factors
+	widthScale := float64(maxWidth) / float64(originalWidth)
+	heightScale := float64(maxHeight) / float64(originalHeight)
+
+	// Use the smaller scaling factor to ensure both dimensions fit
+	scale := widthScale
+	if heightScale < widthScale {
+		scale = heightScale
+	}
+
+	newWidth := int(float64(originalWidth) * scale)
+	newHeight := int(float64(originalHeight) * scale)
+
+	return newWidth, newHeight
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -202,10 +352,10 @@ func build(c *modulir.Context) []error {
 	}
 
 	//
-	// Recursively copy over article pictures into /content/images
+	// Recursively copy over article pictures into /content/images (with optimization)
 	//
 
-	if err := mfile.CopyDirectoryImages(c, c.SourceDir+"/content/articles", c.TargetDir+"/content/images"); err != nil {
+	if err := CopyDirectoryImagesOptimized(c, c.SourceDir+"/content/articles", c.TargetDir+"/content/images"); err != nil {
 		return []error{err}
 	}
 
@@ -238,10 +388,10 @@ func build(c *modulir.Context) []error {
 	}
 
 	//
-	// Recursively copy over pages pictures into /content/images
+	// Recursively copy over pages pictures into /content/images (with optimization)
 	//
 
-	if err := mfile.CopyDirectoryImages(c, c.SourceDir+"/content/pages", c.TargetDir+"/content/images"); err != nil {
+	if err := CopyDirectoryImagesOptimized(c, c.SourceDir+"/content/pages", c.TargetDir+"/content/images"); err != nil {
 		return []error{err}
 	}
 
