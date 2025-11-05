@@ -47,9 +47,9 @@ func (s *OptimizationStats) GetCompressionRatio() float64 {
 
 // OptimizationOptions contains settings for image optimization
 type OptimizationOptions struct {
-	MaxWidth     int // Maximum width for images (px)
-	MaxHeight    int // Maximum height for images (px)
-	JpegQuality  int // JPEG quality (0-100)
+	MaxWidth    int // Maximum width for images (px)
+	MaxHeight   int // Maximum height for images (px)
+	JpegQuality int // JPEG quality (0-100)
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -62,11 +62,73 @@ type OptimizationOptions struct {
 //
 //////////////////////////////////////////////////////////////////////////////
 
-// CopyDirectoryImagesOptimized recursively copies images from source to target,
-// resizing them if they exceed the maximum dimensions while maintaining aspect ratio.
+// CopyDirectoryImagesOptimized first optimizes all original images in-place,
+// then copies the optimized images from source to target.
 func CopyDirectoryImagesOptimized(c *modulir.Context, source, target string, opts *OptimizationOptions) error {
+	// First pass: Optimize all original images in-place
+	c.Log.Infof("=== Phase 1: Optimizing original images in-place ===")
+	stats, err := optimizeImagesInPlace(c, source, opts)
+	if err != nil {
+		return err
+	}
+
+	// Report optimization statistics
+	reportOptimizationStats(c, stats, source)
+
+	// Second pass: Copy the now-optimized images normally
+	c.Log.Infof("=== Phase 2: Copying optimized images ===")
+	err = copyOptimizedImages(c, source, target)
+	if err != nil {
+		return err
+	}
+
+	c.Log.Infof("=== Image processing complete ===")
+	return nil
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//
+//
+// Private Functions
+//
+//
+//
+//////////////////////////////////////////////////////////////////////////////
+
+// optimizeImagesInPlace recursively optimizes all images in the source directory in-place,
+// resizing them if they exceed the maximum dimensions while maintaining aspect ratio.
+func optimizeImagesInPlace(c *modulir.Context, source string, opts *OptimizationOptions) (*OptimizationStats, error) {
 	stats := &OptimizationStats{}
 
+	dirs, err := mfile.ReadDirWithOptions(c, source, &mfile.ReadDirOptions{ShowDirs: true})
+	if err != nil {
+		return stats, err
+	}
+
+	for _, dir := range dirs {
+		// Read the files from that dir ignoring *.md
+		files, err := mfile.ReadDirWithOptions(c, dir, &mfile.ReadDirOptions{IgnoreMDs: true})
+		if err != nil {
+			return stats, err
+		}
+
+		// Optimize all image files in-place
+		for _, file := range files {
+			if err = optimizeImageInPlace(c, file, stats, opts); err != nil {
+				c.Log.Errorf("Error optimizing image %s: %v", file, err)
+				// Continue with other files even if one fails
+				continue
+			}
+		}
+	}
+
+	return stats, nil
+}
+
+// copyOptimizedImages recursively copies all files from source to target normally
+// (assumes images have already been optimized in-place)
+func copyOptimizedImages(c *modulir.Context, source, target string) error {
 	dirs, err := mfile.ReadDirWithOptions(c, source, &mfile.ReadDirOptions{ShowDirs: true})
 	if err != nil {
 		return err
@@ -88,76 +150,50 @@ func CopyDirectoryImagesOptimized(c *modulir.Context, source, target string, opt
 			return err
 		}
 
-		// Copy and potentially resize all image files
+		// Copy all files normally (no optimization needed since already done)
 		for _, file := range files {
-			if err = copyAndOptimizeImageWithStats(c, file, targetDir, stats, opts); err != nil {
-				c.Log.Errorf("Error processing image %s: %v", file, err)
+			fileName := filepath.Base(file)
+			targetPath := filepath.Join(targetDir, fileName)
+
+			if err = mfile.CopyFile(c, file, targetPath); err != nil {
+				c.Log.Errorf("Error copying file %s: %v", file, err)
 				// Continue with other files even if one fails
 				continue
 			}
 		}
 	}
 
-	// Report optimization statistics
-	reportOptimizationStats(c, stats, source)
 	return nil
 }
 
-//////////////////////////////////////////////////////////////////////////////
-//
-//
-//
-// Private Functions
-//
-//
-//
-//////////////////////////////////////////////////////////////////////////////
-
-// copyAndOptimizeImageWithStats copies a single image file, resizing it if necessary,
+// optimizeImageInPlace optimizes a single image file in-place, resizing it if necessary,
 // and tracks statistics about the optimization
-func copyAndOptimizeImageWithStats(c *modulir.Context, sourcePath, targetDir string, stats *OptimizationStats, opts *OptimizationOptions) error {
-	fileName := filepath.Base(sourcePath)
-	targetPath := filepath.Join(targetDir, fileName)
+func optimizeImageInPlace(c *modulir.Context, imagePath string, stats *OptimizationStats, opts *OptimizationOptions) error {
+	fileName := filepath.Base(imagePath)
 
 	// Get original file size
-	originalInfo, err := os.Stat(sourcePath)
+	originalInfo, err := os.Stat(imagePath)
 	if err != nil {
-		return xerrors.Errorf("error getting file info for %s: %w", sourcePath, err)
+		return xerrors.Errorf("error getting file info for %s: %w", imagePath, err)
 	}
 	originalSize := originalInfo.Size()
 	stats.TotalOriginalSize += originalSize
 	stats.FilesProcessed++
 
 	// Check if it's an image file
-	if !isImageFile(sourcePath) {
-		// Not an image, just copy normally
-		err := mfile.CopyFile(c, sourcePath, targetPath)
-		if err != nil {
-			return err
-		}
-
-		// Get final file size
-		if finalInfo, err := os.Stat(targetPath); err == nil {
-			stats.TotalOptimizedSize += finalInfo.Size()
-		}
+	if !isImageFile(imagePath) {
+		// Not an image, skip optimization
+		stats.TotalOptimizedSize += originalSize
 		stats.FilesSkipped++
 		return nil
 	}
 
 	// Open and decode the image
-	src, err := imaging.Open(sourcePath)
+	src, err := imaging.Open(imagePath)
 	if err != nil {
-		// If we can't open it as an image, just copy it normally
-		c.Log.Debugf("Could not decode %s as image, copying normally: %v", sourcePath, err)
-		err := mfile.CopyFile(c, sourcePath, targetPath)
-		if err != nil {
-			return err
-		}
-
-		// Get final file size
-		if finalInfo, err := os.Stat(targetPath); err == nil {
-			stats.TotalOptimizedSize += finalInfo.Size()
-		}
+		// If we can't open it as an image, skip optimization
+		c.Log.Debugf("Could not decode %s as image, skipping: %v", imagePath, err)
+		stats.TotalOptimizedSize += originalSize
 		stats.FilesSkipped++
 		return nil
 	}
@@ -170,16 +206,8 @@ func copyAndOptimizeImageWithStats(c *modulir.Context, sourcePath, targetDir str
 
 	// Check if resizing is needed
 	if originalWidth <= opts.MaxWidth && originalHeight <= opts.MaxHeight {
-		// Image is already small enough, just copy it
-		err := mfile.CopyFile(c, sourcePath, targetPath)
-		if err != nil {
-			return err
-		}
-
-		// Get final file size
-		if finalInfo, err := os.Stat(targetPath); err == nil {
-			stats.TotalOptimizedSize += finalInfo.Size()
-		}
+		// Image is already small enough, no optimization needed
+		stats.TotalOptimizedSize += originalSize
 		stats.FilesSkipped++
 		return nil
 	}
@@ -187,33 +215,39 @@ func copyAndOptimizeImageWithStats(c *modulir.Context, sourcePath, targetDir str
 	// Calculate new dimensions while maintaining aspect ratio
 	newWidth, newHeight := calculateNewDimensions(originalWidth, originalHeight, opts.MaxWidth, opts.MaxHeight)
 
-	c.Log.Infof("Resizing image %s from %dx%d to %dx%d", fileName, originalWidth, originalHeight, newWidth, newHeight)
+	c.Log.Infof("Resizing image %s from %dx%d to %dx%d (in-place)", fileName, originalWidth, originalHeight, newWidth, newHeight)
 
 	// Resize the image
 	resized := imaging.Resize(src, newWidth, newHeight, imaging.Lanczos)
 
-	// Save the resized image
-	ext := strings.ToLower(filepath.Ext(sourcePath))
+	// Save the resized image back to the original path (in-place optimization)
+	ext := strings.ToLower(filepath.Ext(imagePath))
 	var saveErr error
 	switch ext {
 	case ".jpg", ".jpeg":
-		saveErr = imaging.Save(resized, targetPath, imaging.JPEGQuality(opts.JpegQuality))
+		saveErr = imaging.Save(resized, imagePath, imaging.JPEGQuality(opts.JpegQuality))
 	case ".png":
-		saveErr = imaging.Save(resized, targetPath)
+		saveErr = imaging.Save(resized, imagePath)
 	case ".gif":
-		saveErr = imaging.Save(resized, targetPath)
+		saveErr = imaging.Save(resized, imagePath)
 	case ".bmp":
-		saveErr = imaging.Save(resized, targetPath)
+		saveErr = imaging.Save(resized, imagePath)
 	case ".tiff", ".tif":
-		saveErr = imaging.Save(resized, targetPath)
+		saveErr = imaging.Save(resized, imagePath)
 	case ".webp":
-		saveErr = imaging.Save(resized, targetPath)
+		saveErr = imaging.Save(resized, imagePath)
 	default:
-		// Unknown format, try to save as JPEG
-		newTargetPath := strings.TrimSuffix(targetPath, ext) + ".jpg"
+		// Unknown format, try to save as JPEG (replace original file)
+		newImagePath := strings.TrimSuffix(imagePath, ext) + ".jpg"
 		c.Log.Debugf("Converting %s to JPEG format", fileName)
-		saveErr = imaging.Save(resized, newTargetPath, imaging.JPEGQuality(opts.JpegQuality))
-		targetPath = newTargetPath // Update target path for size calculation
+		saveErr = imaging.Save(resized, newImagePath, imaging.JPEGQuality(opts.JpegQuality))
+
+		// Remove the original file if conversion was successful
+		if saveErr == nil {
+			if removeErr := os.Remove(imagePath); removeErr != nil {
+				c.Log.Debugf("Warning: could not remove original file %s: %v", imagePath, removeErr)
+			}
+		}
 	}
 
 	if saveErr != nil {
@@ -221,14 +255,14 @@ func copyAndOptimizeImageWithStats(c *modulir.Context, sourcePath, targetDir str
 	}
 
 	// Get final file size and update stats
-	if finalInfo, err := os.Stat(targetPath); err == nil {
+	if finalInfo, err := os.Stat(imagePath); err == nil {
 		finalSize := finalInfo.Size()
 		stats.TotalOptimizedSize += finalSize
 
 		savings := originalSize - finalSize
 		compressionPercent := float64(savings) / float64(originalSize) * 100.0
 
-		c.Log.Infof("Optimized %s: %s -> %s (saved %s, %.1f%% compression)",
+		c.Log.Infof("Optimized %s in-place: %s -> %s (saved %s, %.1f%% compression)",
 			fileName, formatBytes(originalSize), formatBytes(finalSize),
 			formatBytes(savings), compressionPercent)
 	}
