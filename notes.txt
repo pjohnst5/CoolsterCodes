@@ -134,6 +134,8 @@ Play with Shiki code ✅
 See what is taking so long on starting page ✅
 Downsize images ✅
 Make it so when you hover over published time, it shows full timestamp 😎 ✅
+Make it so article script sluggifies title if no slug given ✅
+Make it so copied text is centered vertically ✅
 Remove IncludeMarkdown func
 May not need transformGoTemplate
 Maybe make InsertOrReplaceArticle more generic
