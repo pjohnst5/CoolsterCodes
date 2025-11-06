@@ -1,6 +1,26 @@
 #!/bin/bash
+
+slugify() {
+  local input="$1"
+
+  input=$(echo "$input" \
+    | tr '[:upper:]' '[:lower:]' \
+    | sed 's/[^a-z0-9[:space:]-]//g' \
+    | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' \
+    | sed -E 's/[[:space:]]+/-/g' \
+    | sed -E 's/-+/-/g')
+
+  echo "$input"
+}
+
 read -p "Slug? " slug
 read -p "Title? " title
+
+# If no slug provided, generate one from the title
+if [ -z "$slug" ]; then
+  slug=$(slugify "$title")
+  echo "Generated slug: $slug"
+fi
 read -p "Hook? " hook
 read -p "Tags? " -a tags
 
