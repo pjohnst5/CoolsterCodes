@@ -132,7 +132,7 @@ Make code copyable ✅
     - Fine tune copy header ✅
 Play with Shiki code ✅
 See what is taking so long on starting page ✅
-Downsize images
+Downsize images ✅
 Make it so when you hover over published time, it shows full timestamp 😎
 Remove IncludeMarkdown func
 May not need transformGoTemplate
