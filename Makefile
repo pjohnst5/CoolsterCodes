@@ -80,7 +80,7 @@ images:
 					fi; \
 				fi; \
 			else \
-				echo "⚠️  ImageMagick not found. Install: brew install imagemagick"; \
+				echo "⚠️  ImageMagick not found"; \
 				exit 1; \
 			fi; \
 		fi; \
