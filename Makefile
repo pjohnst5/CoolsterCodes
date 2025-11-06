@@ -64,11 +64,8 @@ test:
 vet:
 	go vet ./...
 
-.PHONY: photos
-photos:
-	@echo "=== Scanning repository for oversized images ==="
-	@echo "Maximum allowed dimensions: 1200x1200 pixels"
-	@echo ""
+.PHONY: images
+images:
 	@oversized_found=0; \
 	total_images=0; \
 	temp_file=$$(mktemp); \
@@ -82,8 +79,6 @@ photos:
 				if [ "$$width" -gt 1200 ] || [ "$$height" -gt 1200 ]; then \
 					echo "❌ OVERSIZED: $$img ($$dimensions)"; \
 					echo "OVERSIZED" >> "$$temp_file"; \
-				else \
-					echo "✅ OK: $$img ($$dimensions)"; \
 				fi; \
 			else \
 				echo "⚠️  SKIP: $$img (could not read dimensions)"; \
@@ -92,7 +87,6 @@ photos:
 			echo "⚠️  ImageMagick 'identify' command not found. Install with:"; \
 			echo "   macOS: brew install imagemagick"; \
 			echo "   Ubuntu: sudo apt-get install imagemagick"; \
-			echo "   Alternative: this target requires ImageMagick to check dimensions"; \
 			rm -f "$$temp_file"; \
 			exit 1; \
 		fi; \
