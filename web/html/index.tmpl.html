@@ -57,7 +57,12 @@
                         {{end}}
                         <a href="/{{.Slug}}"
                             class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">{{.Title}}</a>
-                        <span class="italic ml-0.5 text-gray-300 text-xs">{{FormatTime .PublishedAt "Jan 2, 2006"}}</span>
+                        <span class="italic ml-0.5 text-gray-300 text-xs relative">
+                            <span class="cursor-default hover-tooltip">{{FormatTime .PublishedAt "Jan 2, 2006"}}</span>
+                            <div class="tooltip-content absolute left-1/2 -translate-x-1/2 top-full mt-2 bg-[#414242] text-white text-xs px-3 py-2 rounded shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-50 not-italic">
+                                {{FormatTime .PublishedAt "2006-01-02T15:04:05"}}
+                            </div>
+                        </span>
                         
                         {{if gt (len .TagCounts) 0}}
                         <div class="flex flex-wrap items-center pt-1">
