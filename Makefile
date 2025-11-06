@@ -71,16 +71,17 @@ photos:
 	@echo ""
 	@oversized_found=0; \
 	total_images=0; \
-	for img in $$(find content/ -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.bmp" -o -iname "*.webp" -o -iname "*.tiff" -o -iname "*.tif" \) 2>/dev/null); do \
+	temp_file=$$(mktemp); \
+	find content/ -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.bmp" -o -iname "*.webp" -o -iname "*.tiff" -o -iname "*.tif" \) -print0 2>/dev/null | while IFS= read -r -d '' img; do \
 		total_images=$$((total_images + 1)); \
 		if command -v identify >/dev/null 2>&1; then \
-			dimensions=$$(identify -format "%wx%h" "$$img[0]" 2>/dev/null | head -1); \
+			dimensions=$$(identify -format "%wx%h" "$${img}[0]" 2>/dev/null | head -1); \
 			if [ -n "$$dimensions" ]; then \
 				width=$$(echo "$$dimensions" | cut -d'x' -f1); \
 				height=$$(echo "$$dimensions" | cut -d'x' -f2); \
 				if [ "$$width" -gt 1200 ] || [ "$$height" -gt 1200 ]; then \
 					echo "❌ OVERSIZED: $$img ($$dimensions)"; \
-					oversized_found=$$((oversized_found + 1)); \
+					echo "OVERSIZED" >> "$$temp_file"; \
 				else \
 					echo "✅ OK: $$img ($$dimensions)"; \
 				fi; \
@@ -92,9 +93,14 @@ photos:
 			echo "   macOS: brew install imagemagick"; \
 			echo "   Ubuntu: sudo apt-get install imagemagick"; \
 			echo "   Alternative: this target requires ImageMagick to check dimensions"; \
+			rm -f "$$temp_file"; \
 			exit 1; \
 		fi; \
+		echo "TOTAL" >> "$$temp_file"; \
 	done; \
+	total_images=$$(grep -c "TOTAL" "$$temp_file" 2>/dev/null || echo 0); \
+	oversized_found=$$(grep -c "OVERSIZED" "$$temp_file" 2>/dev/null || echo 0); \
+	rm -f "$$temp_file"; \
 	echo ""; \
 	echo "=== SUMMARY ==="; \
 	echo "Total images scanned: $$total_images"; \
@@ -106,4 +112,3 @@ photos:
 	else \
 		echo "✅ PASSED: All images are within size limits"; \
 	fi
-
