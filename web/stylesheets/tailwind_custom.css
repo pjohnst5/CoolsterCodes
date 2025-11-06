@@ -92,3 +92,8 @@ html img[src$=".svg"], .dark svg {
     top: 1px;
     border-radius: 0 0 2px 0;
 }
+
+/* Tooltip */
+.hover-tooltip:hover + .tooltip-content {
+    opacity: 1;
+}
