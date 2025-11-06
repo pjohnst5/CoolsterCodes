@@ -65,8 +65,9 @@ vet:
 
 .PHONY: images
 images:
+	@echo "Scanning images.."
 	@temp_file=$$(mktemp); \
-	find content/ -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.bmp" -o -iname "*.webp" -o -iname "*.tiff" -o -iname "*.tif" \) -print0 2>/dev/null | while IFS= read -r -d '' img; do \
+	find content/ -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -print0 2>/dev/null | while IFS= read -r -d '' img; do \
 		if command -v identify >/dev/null 2>&1; then \
 			dimensions=$$(identify -format "%wx%h" "$${img}[0]" 2>/dev/null | head -1); \
 			if [ -n "$$dimensions" ]; then \
@@ -94,7 +95,6 @@ images:
 		[ -z "$$total_images" ] && total_images=0; \
 		[ -z "$$oversized_found" ] && oversized_found=0; \
 		rm -f "$$temp_file"; \
-		echo "=== SUMMARY ==="; \
 		echo "Total images scanned: $$total_images"; \
 		echo "Oversized images: $$oversized_found"; \
 		if [ "$$oversized_found" -gt 0 ]; then \
