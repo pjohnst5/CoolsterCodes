@@ -19,7 +19,6 @@ read -p "Title? " title
 # If no slug provided, generate one from the title
 if [ -z "$slug" ]; then
   slug=$(slugify "$title")
-  echo "Generated slug: $slug"
 fi
 read -p "Hook? " hook
 read -p "Tags? " -a tags
