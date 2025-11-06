@@ -64,7 +64,12 @@
                         <div class="flex items-center">
                             <div class="px-4 py-4">
                                 <div class="font-bold mb-0.5 text-white">Published</div>
-                                <div class="leading-tight">{{FormatTime .Article.PublishedAt "Jan 2, 2006"}}</div>
+                                <div class="leading-tight relative">
+                                    <span class="cursor-default hover-tooltip">{{FormatTime .Article.PublishedAt "Jan 2, 2006"}}</span>
+                                        <div class="tooltip-content absolute left-1/2 -translate-x-1/2 top-full mt-2 bg-[#414242] text-white text-xs px-3 py-2 rounded shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-50">
+                                        {{FormatTime .Article.PublishedAt "2006-01-02T15:04:05"}}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -1,10 +1,29 @@
 #!/bin/bash
+
+slugify() {
+  local input="$1"
+
+  input=$(echo "$input" \
+    | tr '[:upper:]' '[:lower:]' \
+    | sed 's/[^a-z0-9[:space:]-]//g' \
+    | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' \
+    | sed -E 's/[[:space:]]+/-/g' \
+    | sed -E 's/-+/-/g')
+
+  echo "$input"
+}
+
 read -p "Slug? " slug
 read -p "Title? " title
+
+# If no slug provided, generate one from the title
+if [ -z "$slug" ]; then
+  slug=$(slugify "$title")
+fi
 read -p "Hook? " hook
 read -p "Tags? " -a tags
 
-published_at=$(date -v+8H +"%Y-%m-%dT%H:%M:%S%z" | sed -E -n 's/([0-9]{2})([0-9]{2})$/\1:\2/p')
+published_at=$(date +"%Y-%m-%dT%H:%M:%S%z" | sed -E -n 's/([0-9]{2})([0-9]{2})$/\1:\2/p')
 new_article_dir=content/articles/$slug
 new_article_path=$new_article_dir/$slug.md
 mkdir -p $new_article_dir
