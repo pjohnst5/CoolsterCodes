@@ -74,36 +74,6 @@ func getImageDimensions(t *testing.T, path string) (int, int) {
 	return bounds.Dx(), bounds.Dy()
 }
 
-func TestOptimizationStats(t *testing.T) {
-	stats := &OptimizationStats{
-		TotalOriginalSize:  1000,
-		TotalOptimizedSize: 600,
-		FilesProcessed:     10,
-		FilesOptimized:     5,
-		FilesSkipped:       5,
-	}
-
-	// Test GetSpaceSaved
-	spaceSaved := stats.GetSpaceSaved()
-	expectedSpaceSaved := int64(400)
-	if spaceSaved != expectedSpaceSaved {
-		t.Errorf("GetSpaceSaved() = %d, want %d", spaceSaved, expectedSpaceSaved)
-	}
-
-	// Test GetCompressionRatio
-	compressionRatio := stats.GetCompressionRatio()
-	expectedRatio := 40.0 // (1000-600)/1000 * 100
-	if compressionRatio != expectedRatio {
-		t.Errorf("GetCompressionRatio() = %.1f, want %.1f", compressionRatio, expectedRatio)
-	}
-
-	// Test edge case with zero original size
-	emptyStats := &OptimizationStats{}
-	if emptyStats.GetCompressionRatio() != 0.0 {
-		t.Errorf("GetCompressionRatio() with zero original size should return 0.0")
-	}
-}
-
 func TestIsImageFile(t *testing.T) {
 	testCases := []struct {
 		filename string
@@ -112,11 +82,11 @@ func TestIsImageFile(t *testing.T) {
 		{"test.jpg", true},
 		{"test.jpeg", true},
 		{"test.png", true},
-		{"test.gif", true},
-		{"test.bmp", true},
-		{"test.webp", true},
-		{"test.heic", true},
-		{"test.JPG", true}, // Case insensitive
+		{"test.gif", false},  // No longer supported
+		{"test.bmp", false},  // No longer supported
+		{"test.webp", false}, // No longer supported
+		{"test.heic", false}, // No longer supported
+		{"test.JPG", true},   // Case insensitive
 		{"test.PNG", true},
 		{"test.txt", false},
 		{"test.md", false},
@@ -276,17 +246,11 @@ func TestOptimizeImageInPlace(t *testing.T) {
 			imagePath := filepath.Join(tempDir, tc.filename)
 			createTestImage(t, imagePath, tc.width, tc.height, tc.format)
 
-			// Get original dimensions and size
+			// Get original dimensions
 			originalWidth, originalHeight := getImageDimensions(t, imagePath)
-			originalInfo, err := os.Stat(imagePath)
-			if err != nil {
-				t.Fatalf("Failed to get original file info: %v", err)
-			}
-			originalSize := originalInfo.Size()
 
-			// Create test context and stats
+			// Create test context and options
 			ctx := createTestContext(t)
-			stats := &OptimizationStats{}
 			opts := &OptimizationOptions{
 				MaxWidth:    tc.maxWidth,
 				MaxHeight:   tc.maxHeight,
@@ -294,7 +258,7 @@ func TestOptimizeImageInPlace(t *testing.T) {
 			}
 
 			// Run optimization
-			err = optimizeImageInPlace(ctx, imagePath, stats, opts)
+			err := optimizeImageInPlace(ctx, imagePath, opts)
 			if err != nil {
 				t.Fatalf("optimizeImageInPlace failed: %v", err)
 			}
@@ -317,31 +281,12 @@ func TestOptimizeImageInPlace(t *testing.T) {
 					t.Errorf("Aspect ratio not maintained: original %.3f, new %.3f",
 						originalAspect, newAspect)
 				}
-
-				// Stats should reflect optimization
-				if stats.FilesOptimized != 1 {
-					t.Errorf("Expected 1 file optimized, got %d", stats.FilesOptimized)
-				}
 			} else {
 				// Should not be resized
 				if newWidth != originalWidth || newHeight != originalHeight {
 					t.Errorf("Small image was unexpectedly resized: %dx%d -> %dx%d",
 						originalWidth, originalHeight, newWidth, newHeight)
 				}
-
-				// Stats should reflect skipping
-				if stats.FilesSkipped != 1 {
-					t.Errorf("Expected 1 file skipped, got %d", stats.FilesSkipped)
-				}
-			}
-
-			// Verify stats are updated correctly
-			if stats.FilesProcessed != 1 {
-				t.Errorf("Expected 1 file processed, got %d", stats.FilesProcessed)
-			}
-			if stats.TotalOriginalSize != originalSize {
-				t.Errorf("Original size not tracked correctly: expected %d, got %d",
-					originalSize, stats.TotalOriginalSize)
 			}
 		})
 	}
@@ -358,27 +303,18 @@ func TestOptimizeImageInPlace_NonImageFile(t *testing.T) {
 		t.Fatalf("Failed to create test file: %v", err)
 	}
 
-	// Create test context and stats
+	// Create test context and options
 	ctx := createTestContext(t)
-	stats := &OptimizationStats{}
 	opts := &OptimizationOptions{
 		MaxWidth:    1200,
 		MaxHeight:   1200,
 		JpegQuality: 85,
 	}
 
-	// Run optimization on non-image file
-	err := optimizeImageInPlace(ctx, textPath, stats, opts)
+	// Run optimization on non-image file (should be skipped silently)
+	err := optimizeImageInPlace(ctx, textPath, opts)
 	if err != nil {
 		t.Fatalf("optimizeImageInPlace failed on non-image file: %v", err)
-	}
-
-	// Verify file was skipped
-	if stats.FilesSkipped != 1 {
-		t.Errorf("Expected 1 file skipped, got %d", stats.FilesSkipped)
-	}
-	if stats.FilesOptimized != 0 {
-		t.Errorf("Expected 0 files optimized, got %d", stats.FilesOptimized)
 	}
 
 	// Verify file content unchanged
@@ -402,51 +338,28 @@ func TestOptimizeImageInPlace_CorruptImage(t *testing.T) {
 		t.Fatalf("Failed to create corrupt test file: %v", err)
 	}
 
-	// Create test context and stats
+	// Create test context and options
 	ctx := createTestContext(t)
-	stats := &OptimizationStats{}
 	opts := &OptimizationOptions{
 		MaxWidth:    1200,
 		MaxHeight:   1200,
 		JpegQuality: 85,
 	}
 
-	// Run optimization on corrupt image file
-	err := optimizeImageInPlace(ctx, corruptPath, stats, opts)
+	// Run optimization on corrupt image file (should be skipped silently)
+	err := optimizeImageInPlace(ctx, corruptPath, opts)
 	if err != nil {
 		t.Fatalf("optimizeImageInPlace failed on corrupt image: %v", err)
 	}
 
-	// Verify file was skipped (not optimized due to decode error)
-	if stats.FilesSkipped != 1 {
-		t.Errorf("Expected 1 file skipped, got %d", stats.FilesSkipped)
+	// Verify file content unchanged (since it couldn't be processed)
+	newContent, err := os.ReadFile(corruptPath)
+	if err != nil {
+		t.Fatalf("Failed to read file after optimization: %v", err)
 	}
-	if stats.FilesOptimized != 0 {
-		t.Errorf("Expected 0 files optimized, got %d", stats.FilesOptimized)
+	if string(newContent) != string(corruptContent) {
+		t.Errorf("Corrupt image file content was modified")
 	}
-}
-
-func TestReportOptimizationStats(t *testing.T) {
-	// This test mainly verifies that reportOptimizationStats doesn't crash
-	// In a real scenario, you might want to capture log output for verification
-
-	ctx := createTestContext(t)
-
-	// Test with some stats
-	stats := &OptimizationStats{
-		TotalOriginalSize:  1000000, // 1MB
-		TotalOptimizedSize: 600000,  // 600KB
-		FilesProcessed:     10,
-		FilesOptimized:     5,
-		FilesSkipped:       5,
-	}
-
-	// Should not panic
-	reportOptimizationStats(ctx, stats, "/test/source")
-
-	// Test with empty stats
-	emptyStats := &OptimizationStats{}
-	reportOptimizationStats(ctx, emptyStats, "/test/empty")
 }
 
 // Benchmark tests for performance evaluation
