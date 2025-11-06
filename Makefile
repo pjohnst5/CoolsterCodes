@@ -69,7 +69,7 @@ images:
 	@temp_file=$$(mktemp); \
 	find content/ -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -print0 2>/dev/null | while IFS= read -r -d '' img; do \
 		if command -v identify >/dev/null 2>&1; then \
-			dimensions=$$(identify -format "%wx%h" "$${img}[0]" 2>/dev/null | head -1); \
+			dimensions=$$(identify -format "%wx%h" "$$img" 2>/dev/null); \
 			if [ -n "$$dimensions" ]; then \
 				width=$$(echo "$$dimensions" | cut -d'x' -f1); \
 				height=$$(echo "$$dimensions" | cut -d'x' -f2); \
