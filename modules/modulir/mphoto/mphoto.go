@@ -23,7 +23,7 @@ import (
 //
 //////////////////////////////////////////////////////////////////////////////
 
-// OptimizationOptions contains settings for image optimization
+// OptimizationOptions contains settings for image optimization.
 type OptimizationOptions struct {
 	MaxWidth    int // Maximum width for images (px)
 	MaxHeight   int // Maximum height for images (px)
@@ -97,7 +97,7 @@ func optimizeImagesInPlace(c *modulir.Context, source string, opts *Optimization
 }
 
 // copyOptimizedImages recursively copies all files from source to target normally
-// (assumes images have already been optimized in-place)
+// (assumes images have already been optimized in-place).
 func copyOptimizedImages(c *modulir.Context, source, target string) error {
 	dirs, err := mfile.ReadDirWithOptions(c, source, &mfile.ReadDirOptions{ShowDirs: true})
 	if err != nil {
@@ -137,7 +137,7 @@ func copyOptimizedImages(c *modulir.Context, source, target string) error {
 }
 
 // optimizeImageInPlace optimizes a single image file in-place, resizing it if necessary,
-// and tracks statistics about the optimization
+// and tracks statistics about the optimization.
 func optimizeImageInPlace(c *modulir.Context, imagePath string, opts *OptimizationOptions) error {
 	fileName := filepath.Base(imagePath)
 
@@ -156,6 +156,8 @@ func optimizeImageInPlace(c *modulir.Context, imagePath string, opts *Optimizati
 	// Open and decode the image
 	src, err := imaging.Open(imagePath)
 	if err != nil {
+		// Skip files that can't be decoded as images
+		c.Log.Debugf("Could not decode %s as image, skipping: %v", imagePath, err)
 		return nil
 	}
 
@@ -192,7 +194,7 @@ func optimizeImageInPlace(c *modulir.Context, imagePath string, opts *Optimizati
 	}
 
 	if saveErr != nil {
-		return saveErr
+		return xerrors.Errorf("failed to save optimized image %s: %w", imagePath, saveErr)
 	}
 
 	// Get final file size and update stats
@@ -209,8 +211,8 @@ func optimizeImageInPlace(c *modulir.Context, imagePath string, opts *Optimizati
 	return nil
 }
 
-// isImageFile checks if a file is likely an image based on its extension
-// Only handles JPG/JPEG and PNG files
+// isImageFile checks if a file is likely an image based on its extension.
+// Only handles JPG/JPEG and PNG files.
 func isImageFile(filePath string) bool {
 	ext := strings.ToLower(filepath.Ext(filePath))
 	imageExts := []string{".jpg", ".jpeg", ".png"}
@@ -224,7 +226,7 @@ func isImageFile(filePath string) bool {
 }
 
 // calculateNewDimensions calculates new width and height that fit within maxWidth and maxHeight
-// while maintaining the original aspect ratio
+// while maintaining the original aspect ratio.
 func calculateNewDimensions(originalWidth, originalHeight, maxWidth, maxHeight int) (int, int) {
 	if originalWidth <= maxWidth && originalHeight <= maxHeight {
 		return originalWidth, originalHeight
@@ -246,7 +248,7 @@ func calculateNewDimensions(originalWidth, originalHeight, maxWidth, maxHeight i
 	return newWidth, newHeight
 }
 
-// formatBytes formats bytes into a human-readable string
+// formatBytes formats bytes into a human-readable string.
 func formatBytes(bytes int64) string {
 	const unit = 1024
 	if bytes < unit {

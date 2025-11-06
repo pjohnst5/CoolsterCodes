@@ -14,24 +14,27 @@ import (
 	"coolstercodes/modules/modulir"
 )
 
-// createTestContext creates a test context for modulir
+// createTestContext creates a test context for modulir.
 func createTestContext(_ *testing.T) *modulir.Context {
 	return modulir.NewContext(&modulir.Args{
 		Log: &modulir.Logger{Level: modulir.LevelInfo},
 	})
 }
 
-// createTestImage creates a test image with specified dimensions and saves it to the given path
+// createTestImage creates a test image with specified dimensions and saves it to the given path.
 func createTestImage(t *testing.T, path string, width, height int, format string) {
+	t.Helper()
 	// Create a simple test image
 	img := image.NewRGBA(image.Rect(0, 0, width, height))
 
 	// Fill with a gradient pattern for testing
-	for y := 0; y < height; y++ {
-		for x := 0; x < width; x++ {
-			r := uint8((x * 255) / width)
-			g := uint8((y * 255) / height)
-			b := uint8(128)
+	for y := range height {
+		for x := range width {
+			rVal := (x * 255) / max(width, 1)
+			gVal := (y * 255) / max(height, 1)
+			r := byte(min(255, max(0, rVal)))
+			g := byte(min(255, max(0, gVal)))
+			b := byte(128)
 			img.Set(x, y, color.RGBA{r, g, b, 255})
 		}
 	}
@@ -64,8 +67,9 @@ func createTestImage(t *testing.T, path string, width, height int, format string
 	}
 }
 
-// getImageDimensions returns the dimensions of an image file
+// getImageDimensions returns the dimensions of an image file.
 func getImageDimensions(t *testing.T, path string) (int, int) {
+	t.Helper()
 	img, err := imaging.Open(path)
 	if err != nil {
 		t.Fatalf("Failed to open image %s: %v", path, err)
@@ -281,12 +285,10 @@ func TestOptimizeImageInPlace(t *testing.T) {
 					t.Errorf("Aspect ratio not maintained: original %.3f, new %.3f",
 						originalAspect, newAspect)
 				}
-			} else {
+			} else if newWidth != originalWidth || newHeight != originalHeight {
 				// Should not be resized
-				if newWidth != originalWidth || newHeight != originalHeight {
-					t.Errorf("Small image was unexpectedly resized: %dx%d -> %dx%d",
-						originalWidth, originalHeight, newWidth, newHeight)
-				}
+				t.Errorf("Small image was unexpectedly resized: %dx%d -> %dx%d",
+					originalWidth, originalHeight, newWidth, newHeight)
 			}
 		})
 	}
@@ -299,7 +301,7 @@ func TestOptimizeImageInPlace_NonImageFile(t *testing.T) {
 	// Create a text file
 	textPath := filepath.Join(tempDir, "test.txt")
 	content := []byte("This is a test file")
-	if err := os.WriteFile(textPath, content, 0644); err != nil {
+	if err := os.WriteFile(textPath, content, 0600); err != nil {
 		t.Fatalf("Failed to create test file: %v", err)
 	}
 
@@ -334,7 +336,7 @@ func TestOptimizeImageInPlace_CorruptImage(t *testing.T) {
 	// Create a corrupt "image" file
 	corruptPath := filepath.Join(tempDir, "corrupt.jpg")
 	corruptContent := []byte("This is not a valid JPEG file but has .jpg extension")
-	if err := os.WriteFile(corruptPath, corruptContent, 0644); err != nil {
+	if err := os.WriteFile(corruptPath, corruptContent, 0600); err != nil {
 		t.Fatalf("Failed to create corrupt test file: %v", err)
 	}
 
@@ -362,9 +364,9 @@ func TestOptimizeImageInPlace_CorruptImage(t *testing.T) {
 	}
 }
 
-// Benchmark tests for performance evaluation
+// Benchmark tests for performance evaluation.
 func BenchmarkCalculateNewDimensions(b *testing.B) {
-	for i := 0; i < b.N; i++ {
+	for range b.N {
 		calculateNewDimensions(2000, 1500, 1200, 1200)
 	}
 }
@@ -375,7 +377,7 @@ func BenchmarkIsImageFile(b *testing.B) {
 	}
 
 	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for range b.N {
 		for _, filename := range filenames {
 			isImageFile(filename)
 		}
@@ -386,7 +388,7 @@ func BenchmarkFormatBytes(b *testing.B) {
 	sizes := []int64{0, 1024, 1048576, 1073741824}
 
 	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for range b.N {
 		for _, size := range sizes {
 			formatBytes(size)
 		}
