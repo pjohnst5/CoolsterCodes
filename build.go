@@ -41,13 +41,11 @@ import (
 //////////////////////////////////////////////////////////////////////////////
 
 const (
-	NTags = 10
-	MTags = 1
-
-	// Image optimization constants
-	MaxImageWidth  = 1200 // Maximum width for content images (px) - less aggressive scaling
-	MaxImageHeight = 1200 // Maximum height for content images (px) - less aggressive scaling
-	ImageQuality   = 85   // JPEG quality (0-100)
+	NTags          = 10
+	MTags          = 1
+	MaxImageWidth  = 1200
+	MaxImageHeight = 1200
+	ImageQuality   = 85
 )
 
 //////////////////////////////////////////////////////////////////////////////
