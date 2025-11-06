@@ -597,7 +597,7 @@ const copyButtonHTML = `
 		</div>
 		<div class="w-32 flex justify-end py-1">
 			<span id="copyalert-%s"
-			class="hidden tooltip mr-1 bg-gray-600 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300">
+			class="hidden tooltip mr-1 bg-gray-600 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300 flex items-center justify-center">
 			Copied!
 			</span>
 			<a class="no-underline" href="javascript:void(0)" onclick="copyCode(this, 'copyalert-' + '%s')">
