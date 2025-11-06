@@ -11,8 +11,7 @@ help:
 	@echo "  check        - Run tailwind, lint, and test"
 	@echo "  test         - Run all tests"
 	@echo "  test-mphoto  - Run image optimization module tests"
-	@echo "  photos       - Scan for oversized images (>1200x1200)"
-	@echo "  photos-quick - Quick scan for large images (>500KB)"
+	@echo "  images       - Scan for oversized images (>1200x1200)"
 	@echo "  lint         - Run linter"
 	@echo "  vet          - Run go vet"
 	@echo "  tailwind     - Build Tailwind CSS"
@@ -66,11 +65,8 @@ vet:
 
 .PHONY: images
 images:
-	@oversized_found=0; \
-	total_images=0; \
-	temp_file=$$(mktemp); \
+	@temp_file=$$(mktemp); \
 	find content/ -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.bmp" -o -iname "*.webp" -o -iname "*.tiff" -o -iname "*.tif" \) -print0 2>/dev/null | while IFS= read -r -d '' img; do \
-		total_images=$$((total_images + 1)); \
 		if command -v identify >/dev/null 2>&1; then \
 			dimensions=$$(identify -format "%wx%h" "$${img}[0]" 2>/dev/null | head -1); \
 			if [ -n "$$dimensions" ]; then \
@@ -92,17 +88,23 @@ images:
 		fi; \
 		echo "TOTAL" >> "$$temp_file"; \
 	done; \
-	total_images=$$(grep -c "TOTAL" "$$temp_file" 2>/dev/null || echo 0); \
-	oversized_found=$$(grep -c "OVERSIZED" "$$temp_file" 2>/dev/null || echo 0); \
-	rm -f "$$temp_file"; \
-	echo ""; \
-	echo "=== SUMMARY ==="; \
-	echo "Total images scanned: $$total_images"; \
-	echo "Oversized images: $$oversized_found"; \
-	if [ "$$oversized_found" -gt 0 ]; then \
-		echo "❌ FAILED: Found $$oversized_found oversized image(s)"; \
-		echo "Run 'make build' to optimize images in-place"; \
-		exit 1; \
+	if [ -f "$$temp_file" ]; then \
+		total_images=$$(grep -c "TOTAL" "$$temp_file" 2>/dev/null); \
+		oversized_found=$$(grep -c "OVERSIZED" "$$temp_file" 2>/dev/null); \
+		[ -z "$$total_images" ] && total_images=0; \
+		[ -z "$$oversized_found" ] && oversized_found=0; \
+		rm -f "$$temp_file"; \
+		echo "=== SUMMARY ==="; \
+		echo "Total images scanned: $$total_images"; \
+		echo "Oversized images: $$oversized_found"; \
+		if [ "$$oversized_found" -gt 0 ]; then \
+			echo "❌ FAILED: Found $$oversized_found oversized image(s)"; \
+			echo "Run 'make build' to optimize images in-place"; \
+			exit 1; \
+		else \
+			echo "✅ PASSED: All images are within size limits"; \
+		fi; \
 	else \
-		echo "✅ PASSED: All images are within size limits"; \
+		echo "❌ ERROR: Could not create temporary file"; \
+		exit 1; \
 	fi
