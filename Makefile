@@ -65,46 +65,30 @@ vet:
 
 .PHONY: images
 images:
-	@echo "Scanning images.."
-	@temp_file=$$(mktemp); \
-	find content/ -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -print0 2>/dev/null | while IFS= read -r -d '' img; do \
-		if command -v identify >/dev/null 2>&1; then \
-			dimensions=$$(identify -format "%wx%h" "$$img" 2>/dev/null); \
-			if [ -n "$$dimensions" ]; then \
-				width=$$(echo "$$dimensions" | cut -d'x' -f1); \
-				height=$$(echo "$$dimensions" | cut -d'x' -f2); \
-				if [ "$$width" -gt 1200 ] || [ "$$height" -gt 1200 ]; then \
-					echo "❌ OVERSIZED: $$img ($$dimensions)"; \
-					echo "OVERSIZED" >> "$$temp_file"; \
+	@echo "Scanning images for size violations..."
+	@oversized=0; total=0; \
+	for img in $$(find content/ -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) 2>/dev/null); do \
+		if [ -f "$$img" ]; then \
+			total=$$((total + 1)); \
+			if command -v identify >/dev/null 2>&1; then \
+				dimensions=$$(identify -format "%wx%h" "$$img" 2>/dev/null); \
+				if [ -n "$$dimensions" ]; then \
+					width=$${dimensions%x*}; height=$${dimensions#*x}; \
+					if [ "$$width" -gt 1200 ] || [ "$$height" -gt 1200 ]; then \
+						echo "❌ OVERSIZED: $$img ($$dimensions)"; \
+						oversized=$$((oversized + 1)); \
+					fi; \
 				fi; \
 			else \
-				echo "⚠️  SKIP: $$img (could not read dimensions)"; \
+				echo "⚠️  ImageMagick not found. Install: brew install imagemagick"; \
+				exit 1; \
 			fi; \
-		else \
-			echo "⚠️  ImageMagick 'identify' command not found. Install with:"; \
-			echo "   macOS: brew install imagemagick"; \
-			echo "   Ubuntu: sudo apt-get install imagemagick"; \
-			rm -f "$$temp_file"; \
-			exit 1; \
 		fi; \
-		echo "TOTAL" >> "$$temp_file"; \
 	done; \
-	if [ -f "$$temp_file" ]; then \
-		total_images=$$(grep -c "TOTAL" "$$temp_file" 2>/dev/null); \
-		oversized_found=$$(grep -c "OVERSIZED" "$$temp_file" 2>/dev/null); \
-		[ -z "$$total_images" ] && total_images=0; \
-		[ -z "$$oversized_found" ] && oversized_found=0; \
-		rm -f "$$temp_file"; \
-		echo "Total images scanned: $$total_images"; \
-		echo "Oversized images: $$oversized_found"; \
-		if [ "$$oversized_found" -gt 0 ]; then \
-			echo "❌ FAILED: Found $$oversized_found oversized image(s)"; \
-			echo "Run 'make build' to optimize images in-place"; \
-			exit 1; \
-		else \
-			echo "✅ PASSED: All images are within size limits"; \
-		fi; \
-	else \
-		echo "❌ ERROR: Could not create temporary file"; \
+	echo "Total: $$total images, Oversized: $$oversized"; \
+	if [ "$$oversized" -gt 0 ]; then \
+		echo "❌ FAILED: Run 'make build' to optimize"; \
 		exit 1; \
+	else \
+		echo "✅ All images are properly sized"; \
 	fi
