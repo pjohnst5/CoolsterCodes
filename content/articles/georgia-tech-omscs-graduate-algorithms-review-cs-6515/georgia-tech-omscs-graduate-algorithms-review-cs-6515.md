@@ -63,7 +63,7 @@ Example: [Traveling Salesman Problem](https://en.wikipedia.org/wiki/Travelling_s
 
 This one is about merging two MSTs together, using an algorithm that is efficient and correct
 
-![](./SpanningTree-edited.png)
+![](../georgia-tech-omscs-computer-networks-review-cs-6250/SpanningTree.png)
 *Minimum Spanning Tree*
 
 ## Homework 6: Modular math and RSA

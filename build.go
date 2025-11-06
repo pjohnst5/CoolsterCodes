@@ -23,6 +23,7 @@ import (
 	"coolstercodes/modules/modulir"
 	"coolstercodes/modules/modulir/mfile"
 	"coolstercodes/modules/modulir/mmarkdownext"
+	"coolstercodes/modules/modulir/mphoto"
 	"coolstercodes/modules/modulir/mtemplate"
 	"coolstercodes/modules/modulir/mtoc"
 	"coolstercodes/modules/modulir/mtoml"
@@ -40,8 +41,11 @@ import (
 //////////////////////////////////////////////////////////////////////////////
 
 const (
-	NTags = 10
-	MTags = 1
+	NTags          = 10
+	MTags          = 1
+	MaxImageWidth  = 1200
+	MaxImageHeight = 1200
+	ImageQuality   = 85
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -202,10 +206,15 @@ func build(c *modulir.Context) []error {
 	}
 
 	//
-	// Recursively copy over article pictures into /content/images
+	// Recursively copy over article pictures into /content/images (with optimization)
 	//
 
-	if err := mfile.CopyDirectoryImages(c, c.SourceDir+"/content/articles", c.TargetDir+"/content/images"); err != nil {
+	opts := &mphoto.OptimizationOptions{
+		MaxWidth:    MaxImageWidth,
+		MaxHeight:   MaxImageHeight,
+		JpegQuality: ImageQuality,
+	}
+	if err := mphoto.CopyDirectoryImagesOptimized(c, c.SourceDir+"/content/articles", c.TargetDir+"/content/images", opts); err != nil {
 		return []error{err}
 	}
 
@@ -238,10 +247,15 @@ func build(c *modulir.Context) []error {
 	}
 
 	//
-	// Recursively copy over pages pictures into /content/images
+	// Recursively copy over pages pictures into /content/images (with optimization)
 	//
 
-	if err := mfile.CopyDirectoryImages(c, c.SourceDir+"/content/pages", c.TargetDir+"/content/images"); err != nil {
+	pagesOpts := &mphoto.OptimizationOptions{
+		MaxWidth:    MaxImageWidth,
+		MaxHeight:   MaxImageHeight,
+		JpegQuality: ImageQuality,
+	}
+	if err := mphoto.CopyDirectoryImagesOptimized(c, c.SourceDir+"/content/pages", c.TargetDir+"/content/images", pagesOpts); err != nil {
 		return []error{err}
 	}
 

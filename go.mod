@@ -28,6 +28,11 @@ require (
 )
 
 require (
+	github.com/disintegration/imaging v1.6.2 // indirect
+	golang.org/x/image v0.0.0-20191009234506-e7c1f5e7dbb8 // indirect
+)
+
+require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.4 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect

@@ -45,3 +45,7 @@ test:
 .PHONY: vet
 vet:
 	go vet ./...
+
+.PHONY: images
+images:
+	scripts/images.sh
