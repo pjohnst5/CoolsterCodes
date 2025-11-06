@@ -228,26 +228,9 @@ func optimizeImageInPlace(c *modulir.Context, imagePath string, stats *Optimizat
 		saveErr = imaging.Save(resized, imagePath, imaging.JPEGQuality(opts.JpegQuality))
 	case ".png":
 		saveErr = imaging.Save(resized, imagePath)
-	case ".gif":
-		saveErr = imaging.Save(resized, imagePath)
-	case ".bmp":
-		saveErr = imaging.Save(resized, imagePath)
-	case ".tiff", ".tif":
-		saveErr = imaging.Save(resized, imagePath)
-	case ".webp":
-		saveErr = imaging.Save(resized, imagePath)
 	default:
-		// Unknown format, try to save as JPEG (replace original file)
-		newImagePath := strings.TrimSuffix(imagePath, ext) + ".jpg"
-		c.Log.Debugf("Converting %s to JPEG format", fileName)
-		saveErr = imaging.Save(resized, newImagePath, imaging.JPEGQuality(opts.JpegQuality))
-
-		// Remove the original file if conversion was successful
-		if saveErr == nil {
-			if removeErr := os.Remove(imagePath); removeErr != nil {
-				c.Log.Debugf("Warning: could not remove original file %s: %v", imagePath, removeErr)
-			}
-		}
+		// This should not happen since isImageFile() only allows JPG/JPEG and PNG
+		return xerrors.Errorf("unsupported image format: %s", ext)
 	}
 
 	if saveErr != nil {
@@ -272,9 +255,10 @@ func optimizeImageInPlace(c *modulir.Context, imagePath string, stats *Optimizat
 }
 
 // isImageFile checks if a file is likely an image based on its extension
+// Only handles JPG/JPEG and PNG files
 func isImageFile(filePath string) bool {
 	ext := strings.ToLower(filepath.Ext(filePath))
-	imageExts := []string{".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".tif", ".webp", ".heic", ".heif"}
+	imageExts := []string{".jpg", ".jpeg", ".png"}
 
 	for _, imgExt := range imageExts {
 		if ext == imgExt {
