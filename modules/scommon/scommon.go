@@ -7,7 +7,6 @@ import (
 	"strings"
 
 	"coolstercodes/modules/modulir/mtemplate"
-	"coolstercodes/modules/modulir/mtemplatemd"
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -46,12 +45,8 @@ const (
 //
 //////////////////////////////////////////////////////////////////////////////
 
-// HTMLTemplateFuncMap is a function map of template helpers which is the
-// combined version of the maps from ftemplate, mtemplate, and mtemplatemd.
-var HTMLTemplateFuncMap = mtemplate.CombineFuncMaps(
-	mtemplate.FuncMap,
-	mtemplatemd.FuncMap,
-)
+// HTMLTemplateFuncMap is a function map of template helpers from mtemplate.
+var HTMLTemplateFuncMap = mtemplate.FuncMap
 
 // TextTemplateFuncMap is a combined set of template helpers for text
 // templates.
