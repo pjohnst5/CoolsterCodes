@@ -12,7 +12,6 @@ import (
 	"golang.org/x/xerrors"
 
 	"coolstercodes/modules/modulir"
-	"coolstercodes/modules/modulir/mtemplatemd"
 	"coolstercodes/modules/scommon"
 )
 
@@ -89,8 +88,6 @@ func (r *DependencyRegistry) renderGoTemplate(ctx context.Context, c *modulir.Co
 func (r *DependencyRegistry) renderGoTemplateWriter(ctx context.Context, c *modulir.Context,
 	source string, writer io.Writer, locals map[string]interface{},
 ) error {
-	ctx, includeMarkdownContainer := mtemplatemd.Context(ctx)
-
 	locals["Ctx"] = ctx
 
 	tmpl, dependencies, err := r.parseGoTemplate(template.New("base_empty"), source)
@@ -102,7 +99,7 @@ func (r *DependencyRegistry) renderGoTemplateWriter(ctx context.Context, c *modu
 		return xerrors.Errorf("error executing template: %w", err)
 	}
 
-	r.setDependencies(ctx, c, source, append(dependencies, includeMarkdownContainer.Dependencies...))
+	r.setDependencies(ctx, c, source, dependencies)
 
 	return nil
 }
