@@ -1,6 +1,5 @@
 // Package mmarkdownext provides an extended version of Markdown that does
-// several passes to add additional niceties like adding footnotes and allowing
-// Go template helpers to be used..
+// several passes to add additional niceties like adding footnotes.
 package mmarkdownext
 
 import (
@@ -20,15 +19,8 @@ import (
 	"gopkg.in/russross/blackfriday.v2"
 )
 
-// FuncMap is the map of helper functions that will be used when passing the
-// Markdown through a Go template step.
-var FuncMap = template.FuncMap{}
-
 // RenderOptions describes a rendering operation to be customized.
 type RenderOptions struct {
-	// TemplateData is data injected while rendering Go templates.
-	TemplateData interface{}
-
 	// ImgDir is the path to the images
 	ImgDir string
 }

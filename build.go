@@ -78,10 +78,6 @@ var universalSources []string
 
 var validate = validator.New()
 
-func init() {
-	mmarkdownext.FuncMap = scommon.TextTemplateFuncMap
-}
-
 //////////////////////////////////////////////////////////////////////////////
 //
 //
@@ -607,9 +603,6 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	}
 
 	content, err := mmarkdownext.Render(string(data), &mmarkdownext.RenderOptions{
-		TemplateData: map[string]interface{}{
-			"Ctx": ctx,
-		},
 		ImgDir: article.ImgDir,
 	})
 	if err != nil {
@@ -779,9 +772,6 @@ func renderPage(ctx context.Context, c *modulir.Context, source string,
 	}
 
 	content, err := mmarkdownext.Render(string(data), &mmarkdownext.RenderOptions{
-		TemplateData: map[string]interface{}{
-			"Ctx": ctx,
-		},
 		ImgDir: page.ImgDir,
 	})
 	if err != nil {
