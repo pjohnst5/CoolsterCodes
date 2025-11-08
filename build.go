@@ -608,7 +608,7 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	// Define an ImgDir (for later processing) and set Image as full path
 	article.ImgDir = "/" + strings.Replace(relativeDir, "articles", "images", 1) + "/"
 	if article.Image != "" {
-		article.Image = filepath.Join(article.ImgDir, article.Image)
+		article.Image = article.ImgDir + article.Image
 	}
 	if article.YouTube != "" {
 		article.YouTubeEmbed = getYouTubeEmbedLink(article.YouTube)
