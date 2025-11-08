@@ -495,6 +495,41 @@ type TagCount struct {
 //
 //////////////////////////////////////////////////////////////////////////////
 
+// itemWithSlug is an interface for types that have a Slug field.
+type itemWithSlug interface {
+	*Article | *Page
+}
+
+// insertOrReplace is a generic function that inserts or replaces an item in a slice
+// based on the Slug field. If an item with the same slug exists, it replaces it.
+// Otherwise, it appends the new item to the slice.
+func insertOrReplace[T itemWithSlug](items *[]T, item T) {
+	var slug string
+	switch v := any(item).(type) {
+	case *Article:
+		slug = v.Slug
+	case *Page:
+		slug = v.Slug
+	}
+
+	for i, existingItem := range *items {
+		var existingSlug string
+		switch v := any(existingItem).(type) {
+		case *Article:
+			existingSlug = v.Slug
+		case *Page:
+			existingSlug = v.Slug
+		}
+
+		if slug == existingSlug {
+			(*items)[i] = item
+			return
+		}
+	}
+
+	*items = append(*items, item)
+}
+
 // Very similar to RFC 4648 base32 except that numbers come first instead of
 // last so that sortable values encoded to base32 will sort in the same
 // lexicographic (alphabetical) order as the original values. Also, use lower
@@ -540,24 +575,11 @@ func getLocals(locals map[string]interface{}) map[string]interface{} {
 }
 
 func insertOrReplaceArticle(articles *[]*Article, article *Article) {
-	for i, a := range *articles {
-		if article.Slug == a.Slug {
-			(*articles)[i] = article
-			return
-		}
-	}
-
-	*articles = append(*articles, article)
+	insertOrReplace(articles, article)
 }
 
 func insertOrReplacePage(pages *[]*Page, page *Page) {
-	for i, a := range *pages {
-		if page.Slug == a.Slug {
-			(*pages)[i] = page
-			return
-		}
-	}
-	*pages = append(*pages, page)
+	insertOrReplace(pages, page)
 }
 
 func renderArticle(ctx context.Context, c *modulir.Context, source string,
