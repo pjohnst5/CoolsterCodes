@@ -495,7 +495,7 @@ type TagCount struct {
 //
 //////////////////////////////////////////////////////////////////////////////
 
-// itemWithSlug is an interface for types that have a Slug field
+// itemWithSlug is an interface for types that have a Slug field.
 type itemWithSlug interface {
 	*Article | *Page
 }
