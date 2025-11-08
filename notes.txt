@@ -136,7 +136,7 @@ Downsize images ✅
 Make it so when you hover over published time, it shows full timestamp 😎 ✅
 Make it so article script sluggifies title if no slug given ✅
 Make it so copied text is centered vertically ✅
-Remove IncludeMarkdown func ✅
+Remove IncludeMarkdown func
 May not need transformGoTemplate ✅
 Maybe make InsertOrReplaceArticle more generic
 Fix up spacing on main list of articles
