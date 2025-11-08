@@ -62,3 +62,49 @@ func TestTruncateString(t *testing.T) {
 		truncateString("This is a longer string that's going to need truncation and which will be truncated by ending it with a space and an ellipsis.", 100),
 	)
 }
+
+func TestInsertOrReplaceArticle(t *testing.T) {
+	articles := []*Article{}
+
+	// Test inserting a new article
+	article1 := &Article{Slug: "article-1", Title: "Article 1"}
+	insertOrReplaceArticle(&articles, article1)
+	require.Len(t, articles, 1)
+	require.Equal(t, "article-1", articles[0].Slug)
+	require.Equal(t, "Article 1", articles[0].Title)
+
+	// Test inserting another new article
+	article2 := &Article{Slug: "article-2", Title: "Article 2"}
+	insertOrReplaceArticle(&articles, article2)
+	require.Len(t, articles, 2)
+	require.Equal(t, "article-2", articles[1].Slug)
+
+	// Test replacing an existing article
+	article1Updated := &Article{Slug: "article-1", Title: "Article 1 Updated"}
+	insertOrReplaceArticle(&articles, article1Updated)
+	require.Len(t, articles, 2)
+	require.Equal(t, "Article 1 Updated", articles[0].Title)
+}
+
+func TestInsertOrReplacePage(t *testing.T) {
+	pages := []*Page{}
+
+	// Test inserting a new page
+	page1 := &Page{Slug: "page-1", Title: "Page 1"}
+	insertOrReplacePage(&pages, page1)
+	require.Len(t, pages, 1)
+	require.Equal(t, "page-1", pages[0].Slug)
+	require.Equal(t, "Page 1", pages[0].Title)
+
+	// Test inserting another new page
+	page2 := &Page{Slug: "page-2", Title: "Page 2"}
+	insertOrReplacePage(&pages, page2)
+	require.Len(t, pages, 2)
+	require.Equal(t, "page-2", pages[1].Slug)
+
+	// Test replacing an existing page
+	page1Updated := &Page{Slug: "page-1", Title: "Page 1 Updated"}
+	insertOrReplacePage(&pages, page1Updated)
+	require.Len(t, pages, 2)
+	require.Equal(t, "Page 1 Updated", pages[0].Title)
+}
