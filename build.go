@@ -611,6 +611,8 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	// Define an ImgDir (for later processing) and set Image as full path
 	article.ImgDir = "/" + strings.Replace(relativeDir, "articles", "images", 1) + "/"
 	if article.Image != "" {
+		// Strip leading "./" if present
+		article.Image = strings.TrimPrefix(article.Image, "./")
 		article.Image = filepath.Join(article.ImgDir, article.Image)
 		
 		// Further optimize the article header image to make it smaller
