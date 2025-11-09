@@ -262,9 +262,9 @@ func TestOptimizeImageInPlace(t *testing.T) {
 			}
 
 			// Run optimization
-			err := optimizeImageInPlace(ctx, imagePath, opts)
+			err := OptimizeImageInPlace(ctx, imagePath, opts)
 			if err != nil {
-				t.Fatalf("optimizeImageInPlace failed: %v", err)
+				t.Fatalf("OptimizeImageInPlace failed: %v", err)
 			}
 
 			// Verify dimensions after optimization
@@ -314,9 +314,9 @@ func TestOptimizeImageInPlace_NonImageFile(t *testing.T) {
 	}
 
 	// Run optimization on non-image file (should be skipped silently)
-	err := optimizeImageInPlace(ctx, textPath, opts)
+	err := OptimizeImageInPlace(ctx, textPath, opts)
 	if err != nil {
-		t.Fatalf("optimizeImageInPlace failed on non-image file: %v", err)
+		t.Fatalf("OptimizeImageInPlace failed on non-image file: %v", err)
 	}
 
 	// Verify file content unchanged
@@ -349,9 +349,9 @@ func TestOptimizeImageInPlace_CorruptImage(t *testing.T) {
 	}
 
 	// Run optimization on corrupt image file (should be skipped silently)
-	err := optimizeImageInPlace(ctx, corruptPath, opts)
+	err := OptimizeImageInPlace(ctx, corruptPath, opts)
 	if err != nil {
-		t.Fatalf("optimizeImageInPlace failed on corrupt image: %v", err)
+		t.Fatalf("OptimizeImageInPlace failed on corrupt image: %v", err)
 	}
 
 	// Verify file content unchanged (since it couldn't be processed)

@@ -85,7 +85,7 @@ func optimizeImagesInPlace(c *modulir.Context, source string, opts *Optimization
 
 		// Optimize all image files in-place
 		for _, file := range files {
-			if err = optimizeImageInPlace(c, file, opts); err != nil {
+			if err = OptimizeImageInPlace(c, file, opts); err != nil {
 				c.Log.Errorf("Error optimizing image %s: %v", file, err)
 				// Continue with other files even if one fails
 				continue
@@ -136,9 +136,9 @@ func copyOptimizedImages(c *modulir.Context, source, target string) error {
 	return nil
 }
 
-// optimizeImageInPlace optimizes a single image file in-place, resizing it if necessary,
+// OptimizeImageInPlace optimizes a single image file in-place, resizing it if necessary,
 // and tracks statistics about the optimization.
-func optimizeImageInPlace(c *modulir.Context, imagePath string, opts *OptimizationOptions) error {
+func OptimizeImageInPlace(c *modulir.Context, imagePath string, opts *OptimizationOptions) error {
 	fileName := filepath.Base(imagePath)
 
 	// Get original file size
