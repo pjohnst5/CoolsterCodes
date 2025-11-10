@@ -615,7 +615,7 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 
 		// Further optimize the article header image to make it smaller
 		// Map web path to source file path
-		sourceImagePath := filepath.Join(c.SourceDir, strings.TrimPrefix(article.Image, "/"))
+		sourceImagePath := strings.Replace(filepath.Join(c.SourceDir, strings.TrimPrefix(article.Image, "/")), "images", "articles", 1)
 		if _, err := os.Stat(sourceImagePath); err == nil {
 			articleImageOpts := &mphoto.OptimizationOptions{
 				MaxWidth:    ArticleImageMaxWidth,
