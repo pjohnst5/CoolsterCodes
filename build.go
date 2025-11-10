@@ -41,14 +41,14 @@ import (
 //////////////////////////////////////////////////////////////////////////////
 
 const (
-	NTags                  = 10
-	MTags                  = 1
-	MaxImageWidth          = 1200
-	MaxImageHeight         = 1200
-	ImageQuality           = 85
-	ArticleImageMaxWidth   = 800  // Smaller for article header images
-	ArticleImageMaxHeight  = 600  // Smaller for article header images
-	ArticleImageQuality    = 75   // Lower quality for article header images
+	NTags                 = 10
+	MTags                 = 1
+	MaxImageWidth         = 1200
+	MaxImageHeight        = 1200
+	ImageQuality          = 85
+	ArticleImageMaxWidth  = 400 // Smaller for article header images
+	ArticleImageMaxHeight = 300 // Smaller for article header images
+	ArticleImageQuality   = 35  // Lower quality for article header images
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -611,13 +611,11 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	// Define an ImgDir (for later processing) and set Image as full path
 	article.ImgDir = "/" + strings.Replace(relativeDir, "articles", "images", 1) + "/"
 	if article.Image != "" {
-		// Strip leading "./" if present
-		article.Image = strings.TrimPrefix(article.Image, "./")
 		article.Image = filepath.Join(article.ImgDir, article.Image)
-		
+
 		// Further optimize the article header image to make it smaller
 		// Map web path to source file path
-		sourceImagePath := filepath.Join(c.SourceDir, "content", strings.TrimPrefix(article.Image, "/"))
+		sourceImagePath := filepath.Join(c.SourceDir, strings.TrimPrefix(article.Image, "/"))
 		if _, err := os.Stat(sourceImagePath); err == nil {
 			articleImageOpts := &mphoto.OptimizationOptions{
 				MaxWidth:    ArticleImageMaxWidth,
