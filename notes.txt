@@ -139,8 +139,8 @@ Make it so copied text is centered vertically ✅
 Remove IncludeMarkdown func ✅
 May not need transformGoTemplate ✅
 Maybe make InsertOrReplaceArticle more generic ✅
+Search fix? (why doesn't "wife" show up?) ✅
 Fix up spacing on main list of articles
-Search fix? (why doesn't "wife" show up?)
 Links ✅
     - Headers with links underlined ✅
         - Fix TOC though ✅
