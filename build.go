@@ -46,9 +46,9 @@ const (
 	MaxImageWidth         = 1200
 	MaxImageHeight        = 1200
 	ImageQuality          = 85
-	ArticleImageMaxWidth  = 400 // Smaller for article header images
-	ArticleImageMaxHeight = 300 // Smaller for article header images
-	ArticleImageQuality   = 35  // Lower quality for article header images
+	ArticleImageMaxWidth  = 800 // Smaller for article header images
+	ArticleImageMaxHeight = 600 // Smaller for article header images
+	ArticleImageQuality   = 85  // Lower quality for article header images
 )
 
 //////////////////////////////////////////////////////////////////////////////
