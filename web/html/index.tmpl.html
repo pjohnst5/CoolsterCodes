@@ -47,33 +47,27 @@
             <ul class="clear-both mb-7">
                 {{- range .Articles -}}
                 <li class="filterTag {{range .Tags}}{{.}} {{end}} clear-both mb-7 mt-1.5 text-md text-white">
-                    <div class="mb-[1px]">
-                        {{if .Image}}
-                        <div class="w-[75px] aspect-square overflow-hidden relative float-left mr-4">
-                            <a href="/{{.Slug}}">
-                                <img src="{{.Image}}" class="w-full h-full object-cover object-center rounded-lg">
-                            </a>
-                        </div>
-                        {{end}}
+                    {{if .Image}}
+                    <a class="w-[75px] aspect-square overflow-hidden relative float-left mr-4" href="/{{.Slug}}">
+                        <img src="{{.Image}}" class="w-full h-full object-cover object-center rounded-lg">
+                    </a>
+                    {{end}}
+                    <div class="mb-2">
                         <a href="/{{.Slug}}"
                             class="text-myblue border-b-[1px] border-b-myblue font-semibold hover:border-b-sky-600 hover:text-sky-600">{{.Title}}</a>
                         <span class="italic ml-0.5 text-gray-300 text-xs relative">
                             <span class="cursor-default hover-tooltip">{{FormatTime .PublishedAt "Jan 2, 2006"}}</span>
-                            <div class="tooltip-content absolute left-1/2 -translate-x-1/2 top-full mt-2 bg-[#414242] text-white text-xs px-3 py-2 rounded shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-50 not-italic">
+                            <div
+                                class="tooltip-content absolute left-1/2 -translate-x-1/2 top-full mt-2 bg-[#414242] text-white text-xs px-3 py-2 rounded shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-50 not-italic">
                                 {{FormatTime .PublishedAt "2006-01-02T15:04:05"}}
                             </div>
                         </span>
-                        
-                        {{if gt (len .TagCounts) 0}}
-                        <div class="flex flex-wrap items-center pt-1">
-                            {{range .TagCounts}}
-                            <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] mt-[3px] text-myblue text-sm hover:text-sky-600 mx-0.5"
-                                href="/tags/{{.URLTag}}">#{{.Tag}}</a>
-                            {{end}}
-                        </div>
-                        {{end}}
-                        <p class="font-serif leading-7">{{.Hook}}</p>
                     </div>
+                    {{range .TagCounts}}
+                    <a class="italic bg-gray-700 rounded-md px-[5px] py-[2px] text-myblue text-sm hover:text-sky-600"
+                        href="/tags/{{.URLTag}}">#{{.Tag}}</a>
+                    {{end}}
+                    <p class="font-serif leading-7">{{.Hook}}</p>
                 </li>
                 {{- end -}}
             </ul>
