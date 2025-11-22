@@ -1,5 +1,5 @@
 +++
-title = "OMSCS Which Specialization Should You Choose"
+title = "OMSCS Which Specialization Should You Choose?"
 hook = "Choosing the right OMSCS specialization for you"
 image = "./spec3.jpg"
 published_at = 2024-10-05T15:47:41-07:00
