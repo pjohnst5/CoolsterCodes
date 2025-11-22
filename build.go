@@ -293,6 +293,11 @@ func build(c *modulir.Context) []error {
 		return []error{err}
 	}
 
+	// Copy over "staticwebapp.config.json" to target build directory
+	if err := mfile.CopyFile(c, c.SourceDir+"/web/staticwebapp.config.json", c.TargetDir+"/staticwebapp.config.json"); err != nil {
+		return []error{err}
+	}
+
 	//
 	//
 	//
