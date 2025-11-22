@@ -2,7 +2,7 @@
 title = "How I got a job at Microsoft!"
 hook = "My Software Engineering journey!"
 image = "./Thumbnail1.jpg"
-published_at = 2025-10-02T19:20:09-06:00
+published_at = 2024-07-18T19:20:09-06:00
 tags = ["Microsoft", "Career"]
 youtube = "https://youtu.be/Qtf2msivEW4"
 +++
