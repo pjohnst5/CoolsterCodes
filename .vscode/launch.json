@@ -10,7 +10,9 @@
             "request": "launch",
             "mode": "auto",
             "program": "${fileDirname}",
-            "args": ["build"]
+            "args": [
+                "build"
+            ]
         }
     ]
 }

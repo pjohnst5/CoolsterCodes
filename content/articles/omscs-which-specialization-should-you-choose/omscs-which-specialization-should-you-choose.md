@@ -12,7 +12,9 @@ youtube = "https://youtu.be/0R-XlpVCoM0"
 ![](./Specializations.png)
 *The 6 specializations for the OMSCS as of Fall 2025*
 
-- Computer graphics is new as of Fall 2026 (see the sneak peak into this from [my interview with Dr. Joyner](https://youtu.be/FyUmqKmt1kA))
+- Computer graphics is new as of Fall 2026 (see the sneak peak into this from my interview with Dr. Joyner!
+
+![](https://youtu.be/FyUmqKmt1kA?si=jfD8XOHu_YeccfCi&t=1780)
 
 ## Criteria
 
