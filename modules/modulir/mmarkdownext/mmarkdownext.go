@@ -249,22 +249,23 @@ const youTubeHTML = `
 `
 
 var youTubeRE = regexp.MustCompile(`!\[\]\(https://youtu\.be/([a-zA-Z0-9_-]+)(?:\?[^\)]+)?\)`)
+
 var timestampRE = regexp.MustCompile(`[?&]t=(\d+)`)
 
-func transformYouTubeVideos(source string, opts *RenderOptions) (string, error) {
+func transformYouTubeVideos(source string, _ *RenderOptions) (string, error) {
 	return youTubeRE.ReplaceAllStringFunc(source, func(figure string) string {
 		matches := youTubeRE.FindStringSubmatch(figure)
 		if len(matches) != 2 {
 			return figure
 		}
 		videoID := matches[1]
-		
+
 		// Check if there's a timestamp parameter
 		timestampParam := ""
 		if tsMatch := timestampRE.FindStringSubmatch(figure); len(tsMatch) == 2 {
 			timestampParam = "?start=" + tsMatch[1]
 		}
-		
+
 		return fmt.Sprintf(youTubeHTML, videoID, timestampParam)
 	}), nil
 }
