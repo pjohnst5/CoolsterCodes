@@ -45,6 +45,7 @@ var renderStack = []func(string, *RenderOptions) (string, error){
 	transformImages,
 	transformPDFs,
 	transformVideos,
+	transformYouTubeVideos,
 	transformFiles,
 
 	// The actual Blackfriday rendering
@@ -237,6 +238,35 @@ func transformVideos(source string, opts *RenderOptions) (string, error) {
 		caption := matches[3]
 		htmlCaption := transformCaption(caption, opts)
 		return fmt.Sprintf(videoHTMLCaption, video, htmlCaption)
+	}), nil
+}
+
+const youTubeHTML = `
+<div class="relative pb-[56.25%%] h-0 overflow-hidden w-full">
+	<iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/%s%s" referrerpolicy="strict-origin-when-cross-origin">
+	</iframe>
+</div>
+`
+
+var youTubeRE = regexp.MustCompile(`!\[\]\(https://youtu\.be/([a-zA-Z0-9_-]+)(?:\?[^\)]+)?\)`)
+
+var timestampRE = regexp.MustCompile(`[?&]t=(\d+)`)
+
+func transformYouTubeVideos(source string, _ *RenderOptions) (string, error) {
+	return youTubeRE.ReplaceAllStringFunc(source, func(figure string) string {
+		matches := youTubeRE.FindStringSubmatch(figure)
+		if len(matches) != 2 {
+			return figure
+		}
+		videoID := matches[1]
+
+		// Check if there's a timestamp parameter
+		timestampParam := ""
+		if tsMatch := timestampRE.FindStringSubmatch(figure); len(tsMatch) == 2 {
+			timestampParam = "?start=" + tsMatch[1]
+		}
+
+		return fmt.Sprintf(youTubeHTML, videoID, timestampParam)
 	}), nil
 }
 
