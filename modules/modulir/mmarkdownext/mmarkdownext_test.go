@@ -131,6 +131,70 @@ func TestTransformVideos(t *testing.T) {
 	)
 }
 
+func TestTransformYouTubeVideos(t *testing.T) {
+	// Test YouTube with caption
+	assert.Equal(t, `
+<figure class="text-center">
+  <div class="relative pb-[56.25%] h-0 overflow-hidden w-full">
+    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/MltL_6sgSFo" referrerpolicy="strict-origin-when-cross-origin">
+    </iframe>
+  </div>
+  <figcaption>An awesome video I made!</figcaption>
+</figure>
+`,
+		must(transformYouTubeVideos(`![](https://youtu.be/MltL_6sgSFo)
+*An awesome video I made!*`, &RenderOptions{})),
+	)
+
+	// Test YouTube without caption
+	assert.Equal(t, `
+<div class="relative pb-[56.25%] h-0 overflow-hidden w-full">
+	<iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/MltL_6sgSFo" referrerpolicy="strict-origin-when-cross-origin">
+	</iframe>
+</div>
+`,
+		must(transformYouTubeVideos(`![](https://youtu.be/MltL_6sgSFo)`, &RenderOptions{})),
+	)
+
+	// Test YouTube with timestamp and caption
+	assert.Equal(t, `
+<figure class="text-center">
+  <div class="relative pb-[56.25%] h-0 overflow-hidden w-full">
+    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/MltL_6sgSFo?start=120" referrerpolicy="strict-origin-when-cross-origin">
+    </iframe>
+  </div>
+  <figcaption>Video starting at 2 minutes</figcaption>
+</figure>
+`,
+		must(transformYouTubeVideos(`![](https://youtu.be/MltL_6sgSFo?t=120)
+*Video starting at 2 minutes*`, &RenderOptions{})),
+	)
+
+	// Test YouTube with timestamp but no caption
+	assert.Equal(t, `
+<div class="relative pb-[56.25%] h-0 overflow-hidden w-full">
+	<iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/MltL_6sgSFo?start=60" referrerpolicy="strict-origin-when-cross-origin">
+	</iframe>
+</div>
+`,
+		must(transformYouTubeVideos(`![](https://youtu.be/MltL_6sgSFo?t=60)`, &RenderOptions{})),
+	)
+
+	// Test YouTube caption with markdown link
+	assert.Equal(t, `
+<figure class="text-center">
+  <div class="relative pb-[56.25%] h-0 overflow-hidden w-full">
+    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/MltL_6sgSFo" referrerpolicy="strict-origin-when-cross-origin">
+    </iframe>
+  </div>
+  <figcaption>Check out <a href="https://example.com" target="_blank" class="text-myblue underline">this link</a></figcaption>
+</figure>
+`,
+		must(transformYouTubeVideos(`![](https://youtu.be/MltL_6sgSFo)
+*Check out [this link](https://example.com)*`, &RenderOptions{})),
+	)
+}
+
 func TestFiles(t *testing.T) {
 	assert.Equal(t, `
 <a href="/content/images/hey/file.txt" download>file.txt</a>

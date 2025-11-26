@@ -241,21 +241,31 @@ func transformVideos(source string, opts *RenderOptions) (string, error) {
 	}), nil
 }
 
-const youTubeHTML = `
+const youTubeHTMLCaption = `
+<figure class="text-center">
+  <div class="relative pb-[56.25%%] h-0 overflow-hidden w-full">
+    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/%s%s" referrerpolicy="strict-origin-when-cross-origin">
+    </iframe>
+  </div>
+  <figcaption>%s</figcaption>
+</figure>
+`
+
+const youTubeHTMLNoCaption = `
 <div class="relative pb-[56.25%%] h-0 overflow-hidden w-full">
 	<iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/%s%s" referrerpolicy="strict-origin-when-cross-origin">
 	</iframe>
 </div>
 `
 
-var youTubeRE = regexp.MustCompile(`!\[\]\(https://youtu\.be/([a-zA-Z0-9_-]+)(?:\?[^\)]+)?\)`)
+var youTubeRE = regexp.MustCompile(`!\[\]\(https://youtu\.be/([a-zA-Z0-9_-]+)(?:\?[^\)]+)?\)(\n\*(.*)\*)?`)
 
 var timestampRE = regexp.MustCompile(`[?&]t=(\d+)`)
 
-func transformYouTubeVideos(source string, _ *RenderOptions) (string, error) {
+func transformYouTubeVideos(source string, opts *RenderOptions) (string, error) {
 	return youTubeRE.ReplaceAllStringFunc(source, func(figure string) string {
 		matches := youTubeRE.FindStringSubmatch(figure)
-		if len(matches) != 2 {
+		if len(matches) != 4 {
 			return figure
 		}
 		videoID := matches[1]
@@ -266,7 +276,15 @@ func transformYouTubeVideos(source string, _ *RenderOptions) (string, error) {
 			timestampParam = "?start=" + tsMatch[1]
 		}
 
-		return fmt.Sprintf(youTubeHTML, videoID, timestampParam)
+		// No caption option
+		if matches[2] == "" {
+			return fmt.Sprintf(youTubeHTMLNoCaption, videoID, timestampParam)
+		}
+
+		// Grab the caption (only if 2nd arg isn't empty)
+		caption := matches[3]
+		htmlCaption := transformCaption(caption, opts)
+		return fmt.Sprintf(youTubeHTMLCaption, videoID, timestampParam, htmlCaption)
 	}), nil
 }
 
