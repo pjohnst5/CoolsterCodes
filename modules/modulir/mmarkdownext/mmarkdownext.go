@@ -247,7 +247,7 @@ const youTubeHTMLCaption = `
     <iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/%s%s" referrerpolicy="strict-origin-when-cross-origin">
     </iframe>
   </div>
-  <figcaption>%s</figcaption>
+  <figcaption class="text-center">%s</figcaption>
 </figure>
 `
 
@@ -281,7 +281,7 @@ func transformYouTubeVideos(source string, opts *RenderOptions) (string, error) 
 			return fmt.Sprintf(youTubeHTMLNoCaption, videoID, timestampParam)
 		}
 
-		// Grab the caption (only if 2nd arg isn't empty)
+		// Grab the caption
 		caption := matches[3]
 		htmlCaption := transformCaption(caption, opts)
 		return fmt.Sprintf(youTubeHTMLCaption, videoID, timestampParam, htmlCaption)

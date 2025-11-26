@@ -139,7 +139,7 @@ func TestTransformYouTubeVideos(t *testing.T) {
     <iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/MltL_6sgSFo" referrerpolicy="strict-origin-when-cross-origin">
     </iframe>
   </div>
-  <figcaption>An awesome video I made!</figcaption>
+  <figcaption class="text-center">An awesome video I made!</figcaption>
 </figure>
 `,
 		must(transformYouTubeVideos(`![](https://youtu.be/MltL_6sgSFo)
@@ -163,7 +163,7 @@ func TestTransformYouTubeVideos(t *testing.T) {
     <iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/MltL_6sgSFo?start=120" referrerpolicy="strict-origin-when-cross-origin">
     </iframe>
   </div>
-  <figcaption>Video starting at 2 minutes</figcaption>
+  <figcaption class="text-center">Video starting at 2 minutes</figcaption>
 </figure>
 `,
 		must(transformYouTubeVideos(`![](https://youtu.be/MltL_6sgSFo?t=120)
@@ -187,7 +187,7 @@ func TestTransformYouTubeVideos(t *testing.T) {
     <iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/MltL_6sgSFo" referrerpolicy="strict-origin-when-cross-origin">
     </iframe>
   </div>
-  <figcaption>Check out <a href="https://example.com" target="_blank" class="text-myblue underline">this link</a></figcaption>
+  <figcaption class="text-center">Check out <a href="https://example.com" target="_blank" class="text-myblue underline">this link</a></figcaption>
 </figure>
 `,
 		must(transformYouTubeVideos(`![](https://youtu.be/MltL_6sgSFo)
