@@ -2727,6 +2727,11 @@ video {
   list-style-type: lower-roman;
 }
 
+.prose-th\:text-white :is(:where(th):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
 .prose-img\:my-0 :is(:where(img):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
   margin-top: 0px;
   margin-bottom: 0px;
