@@ -131,6 +131,52 @@ func TestTransformVideos(t *testing.T) {
 	)
 }
 
+func TestTransformYouTubeVideos(t *testing.T) {
+	assert.Equal(t, `
+<div class="relative pb-[56.25%] h-0 overflow-hidden w-full">
+	<iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/1ad5dq0Wi-c" referrerpolicy="strict-origin-when-cross-origin">
+	</iframe>
+</div>
+`,
+		must(transformYouTubeVideos(`![](https://youtu.be/1ad5dq0Wi-c)`, &RenderOptions{})),
+	)
+
+	assert.Equal(t, `
+<figure class="text-center">
+  <div class="relative pb-[56.25%] h-0 overflow-hidden w-full">
+    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/1ad5dq0Wi-c" referrerpolicy="strict-origin-when-cross-origin">
+    </iframe>
+  </div>
+  <figcaption class="text-center">My first tutorial on this site!</figcaption>
+</figure>
+`,
+		must(transformYouTubeVideos(`![](https://youtu.be/1ad5dq0Wi-c)
+*My first tutorial on this site!*`, &RenderOptions{})),
+	)
+
+	assert.Equal(t, `
+<div class="relative pb-[56.25%] h-0 overflow-hidden w-full">
+	<iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/1ad5dq0Wi-c?start=42" referrerpolicy="strict-origin-when-cross-origin">
+	</iframe>
+</div>
+`,
+		must(transformYouTubeVideos(`![](https://youtu.be/1ad5dq0Wi-c?t=42)`, &RenderOptions{})),
+	)
+
+	assert.Equal(t, `
+<figure class="text-center">
+  <div class="relative pb-[56.25%] h-0 overflow-hidden w-full">
+    <iframe class="absolute w-full h-full top-0 left-0 border-0" src="https://www.youtube.com/embed/1ad5dq0Wi-c?start=42" referrerpolicy="strict-origin-when-cross-origin">
+    </iframe>
+  </div>
+  <figcaption class="text-center">Timestamped video with caption</figcaption>
+</figure>
+`,
+		must(transformYouTubeVideos(`![](https://youtu.be/1ad5dq0Wi-c?t=42)
+*Timestamped video with caption*`, &RenderOptions{})),
+	)
+}
+
 func TestFiles(t *testing.T) {
 	assert.Equal(t, `
 <a href="/content/images/hey/file.txt" download>file.txt</a>

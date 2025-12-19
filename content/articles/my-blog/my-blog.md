@@ -87,5 +87,4 @@ I figured it out and just really wanted to make a cool blog such as [ComputerHop
 You can even tell from ComputerHope that my color scheme is quite similar, I really liked that look and wanted my own site where I could put my ideas.
 
 ![](https://youtu.be/1ad5dq0Wi-c)
-
-My first tutorial on this site!
+*My first tutorial on this site!*
