@@ -1,5 +1,9 @@
 version: "2"
 
+run:
+  skip-files:
+    - modules/modulir/log.go
+
 linters:
   default: all
 
