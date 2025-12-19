@@ -1,7 +1,7 @@
 +++
 title = "My blog"
 hook = "All about this blog you are reading right now"
-image = ""
+image = "../favicon.png"
 published_at = 2025-11-25T19:50:10-07:00
 tags = ["Blog", "Life", "Programming"]
 youtube = "https://youtu.be/olfTsjbafGU"
