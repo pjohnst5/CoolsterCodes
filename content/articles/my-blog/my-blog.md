@@ -28,7 +28,7 @@ I really wanted a way to just quickly get my ideas down and not have to think ab
 Now I use.. MY OWN CODE to make my website!
 
 ![](./TheCode.png)
-*The beautiful [code](https://github.com/coolstercodes/MyBlog)*
+*The beautiful [code](https://github.com/pjohnst5/CoolsterCodes)*
 
 I must give a lot of credit to [brandur](https://github.com/brandur/sorg) for creating his own and making it open-source!!
 
