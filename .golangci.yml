@@ -52,18 +52,6 @@ linters:
       - legacy
       - std-error-handling
 
-issues:
-  exclude-rules:
-    - path: modules/modulir/log\.go
-      linters:
-        - godoclint
-        - godot
-        - gomoddirectives
-        - ireturn
-        - modernize
-        - unused
-        - wsl_v5
-
 formatters:
   enable:
     - gci
