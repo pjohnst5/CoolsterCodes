@@ -14,9 +14,6 @@ I officially created my blog **December 28th, 2021**
 ![](./order.png)
 *Me beginning this mixed up tale*
 
-![](./order.png)
-*My new caption*
-
 I originally used [EasyWP](https://www.namecheap.com/wordpress/) using [WordPress](https://wordpress.com/) through [Namecheap](https://www.namecheap.com/)
 
 WordPress is a great way to get a site up and running with minimal effort, it really just becomes about [hosting](https://en.wikipedia.org/wiki/Web_hosting_service) after that
