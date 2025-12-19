@@ -268,6 +268,7 @@ func transformYouTubeVideos(source string, opts *RenderOptions) (string, error) 
 		if len(matches) != 4 {
 			return figure
 		}
+
 		videoID := matches[1]
 
 		// Check if there's a timestamp parameter
@@ -284,6 +285,7 @@ func transformYouTubeVideos(source string, opts *RenderOptions) (string, error) 
 		// Grab the caption
 		caption := matches[3]
 		htmlCaption := transformCaption(caption, opts)
+
 		return fmt.Sprintf(youTubeHTMLCaption, videoID, timestampParam, htmlCaption)
 	}), nil
 }
