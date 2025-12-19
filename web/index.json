@@ -11,6 +11,20 @@
   ],
   "img": "/content/images/10-tips-and-tricks-to-survive-the-omscs-program/tips.jpg"
  },
+ "3-websites": {
+  "href": "3-websites",
+  "title": "3 Different Ways to Make a Website",
+  "summary": "Three different ways to build a website, ranging from most expensive and easiest to cheapest and most difficult ",
+  "tags": [
+   "Programming",
+   "WebDev"
+  ],
+  "tagslugged": [
+   "programming",
+   "webdev"
+  ],
+  "img": ""
+ },
  "about": {
   "href": "about",
   "title": "About",
@@ -300,6 +314,22 @@
    "omscs"
   ],
   "img": "/content/images/is-georgia-techs-online-masters-worth-it-omscs/Presentation1.jpg"
+ },
+ "my-blog": {
+  "href": "my-blog",
+  "title": "My blog",
+  "summary": "All about this blog you are reading right now When did this start?  I officially created my blog December 28th, 2021  Me beginning this mixed up tale  My new caption  I originally used EasyWP using WordPress through Namecheap  WordPress is a great way to get a site up and running with minimal effort, it really just becomes about hosting after that  I really wanted a way to just quickly get my ideas down and not have to think about the nuances of coding my own website (although I had already done that before)  How did you build this?  Now I use.. MY OWN CODE to make my website!  The beautiful code  I must give a lot of credit to brandur for creating his own and making it open-source!!  I totally just took that, and rolled with it  Brandur's lovely site  I also did take great inspiration from Victor Zhou's blog which looks very aesthetically pleasing and has tags (yoinked that feature for myself)  Victor's lovely site  Features  This website has a lot of features that I am proud of, namely:  Tags (implemented that logic myself) Search (Reversed engineered this from docfx) Image preview using FancyBox Quick article creation using make article A basis on Markdown with my own HTML shortcuts built in! Code blocks and copy to clipboard features Auto-highlighting table of contents CI/CD through Github Actions and integration with Azure 😎  I will probably make a dedicated video about each of these features above, as they are quite technical  Why did you decide to build-your-own?  Well I'm a developer by trade so writing Markdown felt much more natural to me now than editing in Wordpress  The WordPress way of doing things (too many buttons 🤮)   The Markdown way of doing things (so simplified 😇)   Also cost was a factor, here's a breakdown of the cost of both ways  | Feature | EasyWP | Markdown | |---------|--------|----------| | Domain Name | $20 | $20 | | Hosting | $50/year | Free! 🤩 | | Editing Experience | Editing in browser 🤮 | Writing Markdown 😇 | | Search | Search was very basic and not responsive | Wicked fast search and super usable ⚡️ | | Configuration | Hard to configure / have to pay for certain plugins | Can change anything I want fairly straightforwardly | | Learning | Don't learn as much about how websites work and what is even available to change | I know this website inside and out now | | Speed | Convenient / fast | Takes a while |  Why did you start a blog?  I originally started because I wanted to make a programming tutorial, about how to build a docker image using windows nanoserver as base.  At the time, Windows pods were still pretty new, and it was pretty hard to find all the exact info out there about how to mount a configmap into one, on Windows.  I figured it out and just really wanted to make a cool blog such as ComputerHope (which, btw is from my hometown of Salt Lake City let's go BABY! 🙌🏼)  You can even tell from ComputerHope that my color scheme is quite similar, I really liked that look and wanted my own site where I could put my ideas.  My first tutorial on this site!",
+  "tags": [
+   "Blog",
+   "Life",
+   "Programming"
+  ],
+  "tagslugged": [
+   "blog",
+   "life",
+   "programming"
+  ],
+  "img": ""
  },
  "omscs-computing-systems-specialization-interview": {
   "href": "omscs-computing-systems-specialization-interview",
