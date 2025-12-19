@@ -37,7 +37,7 @@ I totally just took that, and rolled with it
 ![](./brandur.png)
 *Brandur's lovely site*
 
-I also did take great inspiration from [Victor Zhou's](https://victorzhou.com/) blog which looks very aesthetically pleasing and has tags (yoinked that feature for myself)
+I also did take great inspiration from [Victor Zhou's](https://victorzhou.com/) blog which looks very aesthetically pleasing and has tags ([yoinked](https://github.com/pjohnst5/CoolsterCodes/pull/32) that feature for myself)
 
 ![](./Victor.png)
 *Victor's lovely site*
