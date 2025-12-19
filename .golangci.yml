@@ -53,8 +53,16 @@ linters:
       - std-error-handling
 
 issues:
-  exclude-files:
-    - modules/modulir/log.go
+  exclude-rules:
+    - path: modules/modulir/log\.go
+      linters:
+        - godoclint
+        - godot
+        - gomoddirectives
+        - ireturn
+        - modernize
+        - unused
+        - wsl_v5
 
 formatters:
   enable:
