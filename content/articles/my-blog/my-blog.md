@@ -4,7 +4,7 @@ hook = "All about this blog you are reading right now"
 image = ""
 published_at = 2025-11-25T19:50:10-07:00
 tags = ["Blog", "Life", "Programming"]
-youtube = ""
+youtube = "https://youtu.be/olfTsjbafGU"
 +++
 
 ## When did this start?
