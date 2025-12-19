@@ -1,9 +1,5 @@
 version: "2"
 
-run:
-  skip-files:
-    - modules/modulir/log.go
-
 linters:
   default: all
 
@@ -55,6 +51,10 @@ linters:
       - common-false-positives
       - legacy
       - std-error-handling
+
+issues:
+  exclude-files:
+    - modules/modulir/log.go
 
 formatters:
   enable:
