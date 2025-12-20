@@ -135,6 +135,9 @@ const linkedImageHTMLNoCaption = `
 </figure>
 `
 
+// linkedImageRE matches the pattern [![](./image.png)](https://google.com)
+// with an optional caption on the next line: *some caption*
+// Capture groups: 1=image path, 2=link URL, 3=full caption line (with newline and asterisks), 4=caption text only
 var linkedImageRE = regexp.MustCompile(`\[!\[\]\(([^)]+\.(?:png|jpg|jpeg|gif|svg))\)\]\(([^)]+)\)(\n\*(.*)\*)?`)
 
 func transformLinkedImages(source string, opts *RenderOptions) (string, error) {
@@ -143,24 +146,19 @@ func transformLinkedImages(source string, opts *RenderOptions) (string, error) {
 		if len(matches) != 5 {
 			return figure
 		}
-		
 		// Grab the image path
 		img := matches[1]
 		if opts.ImgDir != "" {
 			img = filepath.Join(opts.ImgDir, img)
 		}
-		
 		// Grab the link URL
 		linkURL := matches[2]
-		
 		// No caption option
 		if matches[3] == "" {
 			return fmt.Sprintf(linkedImageHTMLNoCaption, linkURL, img)
 		}
-		
 		// Grab the caption
 		caption := matches[4]
-		
 		// Process the caption in case it has markdown in it
 		htmlCaption := transformCaption(caption, opts)
 		return fmt.Sprintf(linkedImageHTMLCaption, linkURL, img, htmlCaption)
@@ -811,7 +809,7 @@ func transformFootnotes(source string, _ *RenderOptions) (string, error) {
 }
 
 // This just always transforms any "http*" links to blank targets to open in new tabs.
-var absoluteLinkRE = regexp.MustCompile(`<a [^>]*href="http[^"]+[^>]*>`)
+var absoluteLinkRE = regexp.MustCompile(`<a[^>]*href="http[^"]*"[^>]*>`)
 
 func transformLinksToTargetBlank(source string, _ *RenderOptions) (string, error) {
 	return absoluteLinkRE.ReplaceAllStringFunc(source, func(link string) string {
