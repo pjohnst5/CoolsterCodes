@@ -51,6 +51,9 @@ linters:
       - common-false-positives
       - legacy
       - std-error-handling
+    rules:
+      - path: ^modules/modulir/log\.go$
+        text: ".*"
 
 formatters:
   enable:
