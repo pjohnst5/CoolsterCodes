@@ -1,4 +1,6 @@
-# Coolster Codes [![ci](https://github.com/pjohnst5/CoolsterCodes/actions/workflows/ci.yaml/badge.svg)](https://github.com/pjohnst5/CoolsterCodes/actions/workflows/ci.yaml)
+# Coolster Codes
+
+[![CoolsterCodes CI/CD](https://github.com/pjohnst5/CoolsterCodes/actions/workflows/ci.yaml/badge.svg)](https://github.com/pjohnst5/CoolsterCodes/actions/workflows/ci.yaml)
 
 [CoolsterCodes.com](https://coolstercodes.com) is my blog!
 
