@@ -166,7 +166,7 @@ ENTRYPOINT ["/usr/local/bin/app.exe"]
 And bulid it using the `docker` command like program like so:
 
 
-```shell
+```bash
 docker build -t configmapfilemount:v1.0.0 -f Dockerfile .
 ```
 

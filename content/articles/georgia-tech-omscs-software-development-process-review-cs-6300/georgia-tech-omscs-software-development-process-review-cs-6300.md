@@ -102,7 +102,7 @@ Here you’ll develop a command-line tool that alters text in a file:
 Hello, world!
 ```
 
-```shell
+```bash
 txter -d 1 hello_world.txt
 ```
 
