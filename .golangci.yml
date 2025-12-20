@@ -53,8 +53,9 @@ linters:
       - std-error-handling
 
 issues:
-  exclude-files:
-    - modules/modulir/log.go
+  exclude-rules:
+    - path: ^modules/modulir/log\.go$
+      text: ".*"
 
 formatters:
   enable:
