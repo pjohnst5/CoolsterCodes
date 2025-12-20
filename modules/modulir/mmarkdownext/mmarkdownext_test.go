@@ -115,7 +115,7 @@ func TestTransformLinkedImages(t *testing.T) {
 	// Test with relative link
 	assert.Equal(t, `
 <figure class="text-center">
-  <a href="/some/page" target="_blank">
+  <a href="/some/page">
     <img src="/content/images/hey/photo.jpg" />
   </a>
   <figcaption>A cool photo</figcaption>

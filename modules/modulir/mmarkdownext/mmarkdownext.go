@@ -120,7 +120,7 @@ func transformCaption(rawCaption string, opts *RenderOptions) string {
 
 const linkedImageHTMLCaption = `
 <figure class="text-center">
-  <a href="%s" target="_blank">
+  <a href="%s"%s>
     <img src="%s" />
   </a>
   <figcaption>%s</figcaption>
@@ -129,7 +129,7 @@ const linkedImageHTMLCaption = `
 
 const linkedImageHTMLNoCaption = `
 <figure class="text-center">
-  <a href="%s" target="_blank">
+  <a href="%s"%s>
     <img src="%s" />
   </a>
 </figure>
@@ -153,15 +153,20 @@ func transformLinkedImages(source string, opts *RenderOptions) (string, error) {
 		}
 		// Grab the link URL
 		linkURL := matches[2]
+		// Determine target attribute based on link type (same logic as transformCaption)
+		targetAttr := ""
+		if strings.HasPrefix(linkURL, "http") {
+			targetAttr = ` target="_blank"`
+		}
 		// No caption option
 		if matches[3] == "" {
-			return fmt.Sprintf(linkedImageHTMLNoCaption, linkURL, img)
+			return fmt.Sprintf(linkedImageHTMLNoCaption, linkURL, targetAttr, img)
 		}
 		// Grab the caption
 		caption := matches[4]
 		// Process the caption in case it has markdown in it
 		htmlCaption := transformCaption(caption, opts)
-		return fmt.Sprintf(linkedImageHTMLCaption, linkURL, img, htmlCaption)
+		return fmt.Sprintf(linkedImageHTMLCaption, linkURL, targetAttr, img, htmlCaption)
 	}), nil
 }
 
