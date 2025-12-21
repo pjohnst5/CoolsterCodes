@@ -286,15 +286,7 @@ func build(c *modulir.Context) []error {
 	//
 	// Copy over remaining images to /content/images
 	//
-	if err := mfile.CopyFile(c, c.SourceDir+"/content/images/CoolsterCodes.png", c.TargetDir+"/content/images/CoolsterCodes.png"); err != nil {
-		return []error{err}
-	}
-	if err := mfile.CopyFile(c, c.SourceDir+"/content/images/favicon.png", c.TargetDir+"/content/images/favicon.png"); err != nil {
-		return []error{err}
-	}
-
-	// Copy over "staticwebapp.config.json" to target build directory
-	if err := mfile.CopyFile(c, c.SourceDir+"/web/staticwebapp.config.json", c.TargetDir+"/staticwebapp.config.json"); err != nil {
+	if err := mfile.CopyDirectory(c, c.SourceDir+"/content/images", c.TargetDir+"/content/images"); err != nil {
 		return []error{err}
 	}
 

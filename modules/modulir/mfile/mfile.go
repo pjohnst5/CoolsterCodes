@@ -24,36 +24,27 @@ import (
 //
 //////////////////////////////////////////////////////////////////////////////
 
-// CopyDirectoryImages is a shortcut for copying over all non-md files into the /public/images/<identifier>/.
-func CopyDirectoryImages(c *modulir.Context, source, target string) error {
-	dirs, err := ReadDirWithOptions(c, source, &ReadDirOptions{ShowDirs: true})
+// CopyDirectory copies all files from source directory directly to target directory (non-recursive).
+// This is useful for copying static assets like images without subdirectory structure.
+func CopyDirectory(c *modulir.Context, source, target string) error {
+	// Ensure target directory exists
+	if err := EnsureDir(c, target); err != nil {
+		return err
+	}
+
+	// Read files from source directory (ignoring subdirectories by default)
+	files, err := ReadDirWithOptions(c, source, &ReadDirOptions{IgnoreMDs: true})
 	if err != nil {
 		return err
 	}
 
-	for _, dir := range dirs {
-		// Read the files from that dir ignoring *.md
-		files, err := ReadDirWithOptions(c, dir, &ReadDirOptions{IgnoreMDs: true})
-		if err != nil {
+	// Copy all files to target directory
+	for _, file := range files {
+		if err = CopyFileToDir(c, file, target); err != nil {
 			return err
-		}
-
-		// Make new target directory path
-		justNameOfDir := filepath.Base(dir)
-		targetDir := filepath.Join(target, justNameOfDir)
-
-		// Ensure target directory exists
-		if err = EnsureDir(c, targetDir); err != nil {
-			return err
-		}
-
-		// Copy all files into there
-		for _, file := range files {
-			if err = CopyFileToDir(c, file, targetDir); err != nil {
-				return err
-			}
 		}
 	}
+
 	return nil
 }
 
@@ -202,20 +193,6 @@ func MustAbs(path string) string {
 		panic(err)
 	}
 	return absPath
-}
-
-//
-// ReadDir
-//
-
-// ReadDir reads files in a directory and returns a list of file paths.
-//
-// Unlike os.ReadDir, this function skips hidden, "meta" (i.e. prefixed by
-// an underscore), and Vim backup (i.e. suffixed with a tilde) files, and
-// returns a list of full paths (easier to plumb into other functions), and
-// sets up a watch on the listed source.
-func ReadDir(c *modulir.Context, source string) ([]string, error) {
-	return ReadDirWithOptions(c, source, nil)
 }
 
 // ReadDirOptions are options for ReadDirWithOptions.
