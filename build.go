@@ -560,6 +560,7 @@ func getLocals(locals map[string]interface{}) map[string]interface{} {
 	defaults := map[string]interface{}{
 		"AbsoluteURL": conf.AbsoluteURL,
 		"FavIcon":     "/content/images/favicon.png",
+		"SiteIcon":    "/content/images/CoolsterCodes.jpg",
 		"CCEnv":       conf.CCEnv,
 		"TitleSuffix": scommon.TitleSuffix,
 	}
