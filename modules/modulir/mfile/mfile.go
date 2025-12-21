@@ -57,6 +57,30 @@ func CopyDirectoryImages(c *modulir.Context, source, target string) error {
 	return nil
 }
 
+// CopyDirectory copies all files from source directory directly to target directory (non-recursive).
+// This is useful for copying static assets like images without subdirectory structure.
+func CopyDirectory(c *modulir.Context, source, target string) error {
+	// Ensure target directory exists
+	if err := EnsureDir(c, target); err != nil {
+		return err
+	}
+
+	// Read files from source directory (ignoring subdirectories by default)
+	files, err := ReadDirWithOptions(c, source, &ReadDirOptions{IgnoreMDs: true})
+	if err != nil {
+		return err
+	}
+
+	// Copy all files to target directory
+	for _, file := range files {
+		if err = CopyFileToDir(c, file, target); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 // CopyFile is a shortcut for copy a file from a source path to a target path.
 func CopyFile(c *modulir.Context, source, target string) error {
 	in, err := os.Open(source)
