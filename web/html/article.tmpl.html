@@ -7,7 +7,7 @@
 {{ if .Article.Image }}
 <meta property="og:image" content="{{.AbsoluteURL}}{{.Article.Image}}">
 {{ else }}
-<meta property="og:image" content="{{.AbsoluteURL}}{{.FavIcon}}">
+<meta property="og:image" content="{{.AbsoluteURL}}{{.SiteIcon}}">
 {{ end }}
 <meta property="og:url" content="{{.AbsoluteURL}}/{{.Article.Slug}}">
 <link rel="canonical" href="{{.AbsoluteURL}}/{{.Article.Slug}}">
