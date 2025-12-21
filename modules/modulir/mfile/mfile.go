@@ -195,20 +195,6 @@ func MustAbs(path string) string {
 	return absPath
 }
 
-//
-// ReadDir
-//
-
-// ReadDir reads files in a directory and returns a list of file paths.
-//
-// Unlike os.ReadDir, this function skips hidden, "meta" (i.e. prefixed by
-// an underscore), and Vim backup (i.e. suffixed with a tilde) files, and
-// returns a list of full paths (easier to plumb into other functions), and
-// sets up a watch on the listed source.
-func ReadDir(c *modulir.Context, source string) ([]string, error) {
-	return ReadDirWithOptions(c, source, nil)
-}
-
 // ReadDirOptions are options for ReadDirWithOptions.
 type ReadDirOptions struct {
 	// RecurseDir tells the function to recurse into subdirectories.
