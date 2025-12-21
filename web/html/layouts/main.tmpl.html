@@ -3,6 +3,7 @@
 <html lang="en">
 
 <head>
+    {{if ne .CCEnv "development" -}}
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NX7VL0ZZMV"></script>
     <script>
@@ -12,6 +13,7 @@
 
         gtag('config', 'G-NX7VL0ZZMV');
     </script>
+    {{end -}}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
