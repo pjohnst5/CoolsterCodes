@@ -3,7 +3,6 @@
 <html lang="en">
 
 <head>
-    {{- /* Only load Google Analytics in production (not in development) */ -}}
     {{if ne .CCEnv "development" -}}
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NX7VL0ZZMV"></script>
