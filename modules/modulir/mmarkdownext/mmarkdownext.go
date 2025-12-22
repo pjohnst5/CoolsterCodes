@@ -42,6 +42,7 @@ func Render(s string, options *RenderOptions) (string, error) {
 // to get our fully rendered Markdown. This includes the rendering itself, but
 // also a number of custom transformation options.
 var renderStack = []func(string, *RenderOptions) (string, error){
+	transformLinkedImages,
 	transformImages,
 	transformPDFs,
 	transformVideos,
@@ -115,6 +116,58 @@ func transformCaption(rawCaption string, opts *RenderOptions) string {
 	})
 
 	return captionAsHTML
+}
+
+const linkedImageHTMLCaption = `
+<figure class="text-center">
+  <a href="%s"%s>
+    <img src="%s" />
+  </a>
+  <figcaption>%s</figcaption>
+</figure>
+`
+
+const linkedImageHTMLNoCaption = `
+<figure class="text-center">
+  <a href="%s"%s>
+    <img src="%s" />
+  </a>
+</figure>
+`
+
+// linkedImageRE matches the pattern [![](./image.png)](https://google.com).
+// with an optional caption on the next line: *some caption*
+// Capture groups: 1=image path, 2=link URL, 3=full caption line (with newline and asterisks), 4=caption text only.
+var linkedImageRE = regexp.MustCompile(`\[!\[\]\(([^)]+\.(?:png|jpg|jpeg|gif|svg))\)\]\(([^)]+)\)(\n\*(.*)\*)?`)
+
+func transformLinkedImages(source string, opts *RenderOptions) (string, error) {
+	return linkedImageRE.ReplaceAllStringFunc(source, func(figure string) string {
+		matches := linkedImageRE.FindStringSubmatch(figure)
+		if len(matches) != 5 {
+			return figure
+		}
+		// Grab the image path
+		img := matches[1]
+		if opts.ImgDir != "" {
+			img = filepath.Join(opts.ImgDir, img)
+		}
+		// Grab the link URL
+		linkURL := matches[2]
+		// Determine target attribute based on link type (same logic as transformCaption)
+		targetAttr := ""
+		if strings.HasPrefix(linkURL, "http") {
+			targetAttr = ` target="_blank"`
+		}
+		// No caption option
+		if matches[3] == "" {
+			return fmt.Sprintf(linkedImageHTMLNoCaption, linkURL, targetAttr, img)
+		}
+		// Grab the caption
+		caption := matches[4]
+		// Process the caption in case it has markdown in it
+		htmlCaption := transformCaption(caption, opts)
+		return fmt.Sprintf(linkedImageHTMLCaption, linkURL, targetAttr, img, htmlCaption)
+	}), nil
 }
 
 const figureHTMLCaption = `
@@ -761,10 +814,15 @@ func transformFootnotes(source string, _ *RenderOptions) (string, error) {
 }
 
 // This just always transforms any "http*" links to blank targets to open in new tabs.
-var absoluteLinkRE = regexp.MustCompile(`<a href="http[^"]+"`)
+var absoluteLinkRE = regexp.MustCompile(`<a[^>]*href="http[^"]*"[^>]*>`)
 
 func transformLinksToTargetBlank(source string, _ *RenderOptions) (string, error) {
 	return absoluteLinkRE.ReplaceAllStringFunc(source, func(link string) string {
-		return link + " target=\"_blank\""
+		// Don't add target="_blank" if it already exists
+		if strings.Contains(link, `target="_blank"`) {
+			return link
+		}
+		// Insert target="_blank" before the closing >
+		return strings.TrimSuffix(link, ">") + ` target="_blank">`
 	}), nil
 }

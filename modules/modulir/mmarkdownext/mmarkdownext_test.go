@@ -89,6 +89,87 @@ func TestTransformImages(t *testing.T) {
 	)
 }
 
+func TestTransformLinkedImages(t *testing.T) {
+	assert.Equal(t, `
+<figure class="text-center">
+  <a href="https://google.com" target="_blank">
+    <img src="/content/images/hey/image.png" />
+  </a>
+  <figcaption>some caption, but sometimes might not have a caption</figcaption>
+</figure>
+`,
+		must(transformLinkedImages(`[![](./image.png)](https://google.com)
+*some caption, but sometimes might not have a caption*`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+
+	assert.Equal(t, `
+<figure class="text-center">
+  <a href="https://google.com" target="_blank">
+    <img src="/content/images/hey/image.png" />
+  </a>
+</figure>
+`,
+		must(transformLinkedImages(`[![](./image.png)](https://google.com)`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+
+	// Test with relative link
+	assert.Equal(t, `
+<figure class="text-center">
+  <a href="/some/page">
+    <img src="/content/images/hey/photo.jpg" />
+  </a>
+  <figcaption>A cool photo</figcaption>
+</figure>
+`,
+		must(transformLinkedImages(`[![](./photo.jpg)](/some/page)
+*A cool photo*`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+
+	// Test with caption containing markdown
+	assert.Equal(t, `
+<figure class="text-center">
+  <a href="https://example.com" target="_blank">
+    <img src="/content/images/hey/test.png" />
+  </a>
+  <figcaption>Check out this <a href="https://linked.com" target="_blank" class="text-myblue underline">cool link</a></figcaption>
+</figure>
+`,
+		must(transformLinkedImages(`[![](./test.png)](https://example.com)
+*Check out this [cool link](https://linked.com)*`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+
+	// Test different image formats
+	assert.Equal(t, `
+<figure class="text-center">
+  <a href="https://google.com" target="_blank">
+    <img src="/content/images/hey/image.jpeg" />
+  </a>
+</figure>
+`,
+		must(transformLinkedImages(`[![](./image.jpeg)](https://google.com)`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+
+	assert.Equal(t, `
+<figure class="text-center">
+  <a href="https://google.com" target="_blank">
+    <img src="/content/images/hey/image.gif" />
+  </a>
+</figure>
+`,
+		must(transformLinkedImages(`[![](./image.gif)](https://google.com)`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+
+	assert.Equal(t, `
+<figure class="text-center">
+  <a href="https://google.com" target="_blank">
+    <img src="/content/images/hey/image.svg" />
+  </a>
+</figure>
+`,
+		must(transformLinkedImages(`[![](./image.svg)](https://google.com)`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+}
+
 func TestTransformPDFs(t *testing.T) {
 	assert.Equal(t, `
 <iframe width="100%" height="800" src="/content/images/hey/pdf.pdf">
@@ -260,6 +341,15 @@ func TestTransformLinksTargetBlank(t *testing.T) {
 		`<a href="/relative">Relative link</a>`,
 		must(transformLinksToTargetBlank(
 			`<a href="/relative">Relative link</a>`,
+			&RenderOptions{},
+		)),
+	)
+
+	// Links that already have target="_blank" should not get duplicated
+	assert.Equal(t,
+		`<a href="https://example.com" target="_blank">Example</a>`,
+		must(transformLinksToTargetBlank(
+			`<a href="https://example.com" target="_blank">Example</a>`,
 			&RenderOptions{},
 		)),
 	)
