@@ -135,9 +135,9 @@ const linkedImageHTMLNoCaption = `
 </figure>
 `
 
-// linkedImageRE matches the pattern [![](./image.png)](https://google.com)
+// linkedImageRE matches the pattern [![](./image.png)](https://google.com).
 // with an optional caption on the next line: *some caption*
-// Capture groups: 1=image path, 2=link URL, 3=full caption line (with newline and asterisks), 4=caption text only
+// Capture groups: 1=image path, 2=link URL, 3=full caption line (with newline and asterisks), 4=caption text only.
 var linkedImageRE = regexp.MustCompile(`\[!\[\]\(([^)]+\.(?:png|jpg|jpeg|gif|svg))\)\]\(([^)]+)\)(\n\*(.*)\*)?`)
 
 func transformLinkedImages(source string, opts *RenderOptions) (string, error) {
