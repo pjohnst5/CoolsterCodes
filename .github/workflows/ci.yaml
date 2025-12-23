@@ -123,6 +123,14 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Cache SWA CLI
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-swa-cli-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-swa-cli-
+
       - name: Install Azure Static Web Apps CLI
         run: npm install -g @azure/static-web-apps-cli
 
@@ -132,6 +140,14 @@ jobs:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Cache StaticSitesClient
+        uses: actions/cache@v4
+        with:
+          path: ~/.swa
+          key: ${{ runner.os }}-staticsitesclient-694f9b1be52be00b1b4cde5deb5bb4994154f9b6
+          restore-keys: |
+            ${{ runner.os }}-staticsitesclient-
 
       - name: Send it
         run: swa deploy ./public --app-name CoolsterCodes --env $SWA_ENV --deployment-token ${{ secrets.SWA_TOKEN }}
