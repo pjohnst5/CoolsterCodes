@@ -52,6 +52,6 @@ I believe I had 8-9 interviews come from this simple trick (and eventually, 3-4 
 
 ## Landing an internship!
 
-![](./llnl.mp4)
+![](https://youtu.be/aF2tLNeHRU0)
 *My summer internship project*
 
