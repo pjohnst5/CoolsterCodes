@@ -39,6 +39,11 @@ You are allowed to use machine learning packages for it, but not anything that r
 
 For example, you could make a deep learning neural network, but not import a pre-made one, that has already been trained on these problems.
 
+![](./DeepNeuralNetwork.png)
+*An example of a deep neural network*
+
+[Tensorflow](https://www.tensorflow.org/) and [Pytorch](https://pytorch.org/) are kind of the de facto industry standard libraries to use to build neural networks
+
 ## How does this impact the class overall?
 
 I would say, it makes it even better
