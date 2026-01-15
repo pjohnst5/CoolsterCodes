@@ -46,7 +46,7 @@ For example, you could make a deep learning neural network, but not import a pre
 
 ## How does this impact the class overall?
 
-I would say, it makes it even better
+I would say, it makes it even [better](../georgia-tech-omscs-knowledge-based-ai-cs-7637/)
 
 ARC-AGI is a cool project, and honestly it's what researchers and companies are using today to measure their AI agents
 
