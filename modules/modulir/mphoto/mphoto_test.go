@@ -364,6 +364,62 @@ func TestOptimizeImageInPlace_CorruptImage(t *testing.T) {
 	}
 }
 
+func TestOptimizeImageInPlace_FileSizeLimit(t *testing.T) {
+	tempDir := t.TempDir()
+
+	// Create a small valid JPEG image
+	imagePath := filepath.Join(tempDir, "test.jpg")
+	createTestImage(t, imagePath, 100, 100, "jpeg")
+
+	// Get the actual file size
+	info, err := os.Stat(imagePath)
+	if err != nil {
+		t.Fatalf("Failed to stat test image: %v", err)
+	}
+	actualSize := info.Size()
+
+	ctx := createTestContext(t)
+
+	t.Run("File within size limit is processed normally", func(t *testing.T) {
+		opts := &OptimizationOptions{
+			MaxWidth:         1200,
+			MaxHeight:        1200,
+			JpegQuality:      85,
+			MaxFileSizeBytes: actualSize + 1, // just above actual size
+		}
+		err := optimizeImageInPlace(ctx, imagePath, opts)
+		if err != nil {
+			t.Errorf("Expected no error for file within size limit, got: %v", err)
+		}
+	})
+
+	t.Run("File exceeding size limit returns error", func(t *testing.T) {
+		opts := &OptimizationOptions{
+			MaxWidth:         1200,
+			MaxHeight:        1200,
+			JpegQuality:      85,
+			MaxFileSizeBytes: actualSize - 1, // just below actual size
+		}
+		err := optimizeImageInPlace(ctx, imagePath, opts)
+		if err == nil {
+			t.Errorf("Expected error for file exceeding size limit, got nil")
+		}
+	})
+
+	t.Run("Zero MaxFileSizeBytes means no limit", func(t *testing.T) {
+		opts := &OptimizationOptions{
+			MaxWidth:         1200,
+			MaxHeight:        1200,
+			JpegQuality:      85,
+			MaxFileSizeBytes: 0, // disabled
+		}
+		err := optimizeImageInPlace(ctx, imagePath, opts)
+		if err != nil {
+			t.Errorf("Expected no error when MaxFileSizeBytes is 0, got: %v", err)
+		}
+	})
+}
+
 // Benchmark tests for performance evaluation.
 func BenchmarkCalculateNewDimensions(b *testing.B) {
 	for range b.N {

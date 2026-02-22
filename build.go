@@ -41,11 +41,12 @@ import (
 //////////////////////////////////////////////////////////////////////////////
 
 const (
-	NTags          = 10
-	MTags          = 1
-	MaxImageWidth  = 1200
-	MaxImageHeight = 1200
-	ImageQuality   = 85
+	NTags                = 10
+	MTags                = 1
+	MaxImageWidth        = 1200
+	MaxImageHeight       = 1200
+	ImageQuality         = 85
+	MaxImageFileSizeBytes = 10 * 1024 * 1024 // 10 MB
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -206,9 +207,10 @@ func build(c *modulir.Context) []error {
 	//
 
 	opts := &mphoto.OptimizationOptions{
-		MaxWidth:    MaxImageWidth,
-		MaxHeight:   MaxImageHeight,
-		JpegQuality: ImageQuality,
+		MaxWidth:         MaxImageWidth,
+		MaxHeight:        MaxImageHeight,
+		JpegQuality:      ImageQuality,
+		MaxFileSizeBytes: MaxImageFileSizeBytes,
 	}
 	if err := mphoto.CopyDirectoryImagesOptimized(c, c.SourceDir+"/content/articles", c.TargetDir+"/content/images", opts); err != nil {
 		return []error{err}
@@ -247,9 +249,10 @@ func build(c *modulir.Context) []error {
 	//
 
 	pagesOpts := &mphoto.OptimizationOptions{
-		MaxWidth:    MaxImageWidth,
-		MaxHeight:   MaxImageHeight,
-		JpegQuality: ImageQuality,
+		MaxWidth:         MaxImageWidth,
+		MaxHeight:        MaxImageHeight,
+		JpegQuality:      ImageQuality,
+		MaxFileSizeBytes: MaxImageFileSizeBytes,
 	}
 	if err := mphoto.CopyDirectoryImagesOptimized(c, c.SourceDir+"/content/pages", c.TargetDir+"/content/images", pagesOpts); err != nil {
 		return []error{err}

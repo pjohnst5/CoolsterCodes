@@ -25,9 +25,10 @@ import (
 
 // OptimizationOptions contains settings for image optimization.
 type OptimizationOptions struct {
-	MaxWidth    int // Maximum width for images (px)
-	MaxHeight   int // Maximum height for images (px)
-	JpegQuality int // JPEG quality (0-100)
+	MaxWidth        int   // Maximum width for images (px)
+	MaxHeight       int   // Maximum height for images (px)
+	JpegQuality     int   // JPEG quality (0-100)
+	MaxFileSizeBytes int64 // Maximum file size in bytes (0 means no limit)
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -166,6 +167,12 @@ func optimizeImageInPlace(c *modulir.Context, imagePath string, opts *Optimizati
 	originalHeight := originalBounds.Dy()
 
 	c.Log.Debugf("Processing image %s (%dx%d, %s)", fileName, originalWidth, originalHeight, formatBytes(originalSize))
+
+	// Check if file size exceeds the limit
+	if opts.MaxFileSizeBytes > 0 && originalSize > opts.MaxFileSizeBytes {
+		return xerrors.Errorf("image %s exceeds maximum file size: %s > %s",
+			fileName, formatBytes(originalSize), formatBytes(opts.MaxFileSizeBytes))
+	}
 
 	// Check if resizing is needed
 	if originalWidth <= opts.MaxWidth && originalHeight <= opts.MaxHeight {
