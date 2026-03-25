@@ -4,7 +4,7 @@ hook = "How to remap the Copilot key to work as a ctrl key using PowerToys"
 image = "copilot.png"
 published_at = 2026-03-15T17:46:06-07:00
 tags = ["Windows", "Programming"]
-youtube = ""
+youtube = "https://youtu.be/G44vqNfRpwU"
 +++
 
 ## What exactly is the Copilot key?
