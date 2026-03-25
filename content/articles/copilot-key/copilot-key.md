@@ -29,6 +29,9 @@ So in order to comprehensively remap the Copilot key back to ctrl, you actually 
 ![](./thekey.jpg)
 *The infamous Copilot key*
 
+![](./funcitonlock.jpg)
+*The funciton lock key*
+
 ## Adding a PowerToys shortcut
 
 The Copilot key sends `Win + Fn + F23` to the OS when the function lock is off. 
