@@ -1,7 +1,7 @@
 +++
-title = "remapping copilot key to control"
-hook = "How to remap the Copilot key to work as a Control key using PowerToys"
-image = ""
+title = "How to remap the copilot key to ctrl"
+hook = "How to remap the Copilot key to work as a ctrl key using PowerToys"
+image = "copilot.png"
 published_at = 2026-03-15T17:46:06-07:00
 tags = ["Windows", "Programming"]
 youtube = ""
@@ -9,30 +9,48 @@ youtube = ""
 
 ## What exactly is the Copilot key?
 
-Before remapping the Copilot key, it helps to understand what keystrokes it actually sends to Windows.
+The Copilot key actually sends a combination of **three keys** to the OS when the function lock is off!!
 
-When **Function Lock is off**, the Copilot key is a combination of three keys:
-
-```
-Win (left) + Fn (left) + F23
+```txt
+Win (left) + Shift (left) + F23
 ```
 
-When **Function Lock is on**, the Copilot key simply sends:
+When the **function lock is on**, the Copilot key only sends **one** keystroke to the OS:
 
-```
+```txt
 Apps / Menu
 ```
 
-Knowing this distinction matters because we need to handle both cases in our remapping.
+So in order to comprehensively remap the Copilot key back to ctrl, you actually need two things:
 
-## Adding a shortcut in PowerToys (Function Lock off)
+1. A PowerToys shortcut
+2. A PowerToys remap
 
-When Function Lock is off, the Copilot key sends `Win + Fn + F23`. We can intercept this in **PowerToys Keyboard Manager** by adding a shortcut remapping.
+![](./thekey.jpg)
+*The infamous Copilot key*
 
-TODO: Add steps for configuring the shortcut in PowerToys Keyboard Manager for the `Win + F23` combination.
+## Adding a PowerToys shortcut
 
-## Adding a key remapping in PowerToys (Function Lock on)
+The Copilot key sends `Win + Fn + F23` to the OS when the function lock is off. 
 
-When Function Lock is on, the Copilot key sends the `Apps/Menu` key. We need a separate key remapping in PowerToys to handle this case.
+We can intercept this in [**PowerToys Keyboard Manager**](https://learn.microsoft.com/en-us/windows/powertoys/) by adding a shortcut remapping.
+![](./shortcut.jpg)
+*This shortcut accounts for when function lock is off on your keyboard, and re-maps the copilot key to just ctrl*
 
-TODO: Add steps for configuring the key remapping in PowerToys Keyboard Manager for the `Apps/Menu` key.
+## Adding a PowerToys key remapping
+
+When Function Lock is **on**, the Copilot key sends `Apps/Menu` to the OS. 
+
+We need a separate key remapping in PowerToys to handle this case.
+
+![](./remapping.jpg)
+*This is the remap, for when function lock is turned on, on your keyboard*
+
+## Conclusion
+
+That's it! You just need these two things:
+
+1. A PowerToys shortcut
+2. A PowerToys remap
+
+To fully remap your copilot key _back_ to ctrl 🙂
