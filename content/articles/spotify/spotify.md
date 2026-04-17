@@ -7,7 +7,7 @@ tags = ["Music", "Spotify", "Programming"]
 youtube = ""
 +++
 
-I have a very particular used case where on my Garmin watch that can have up to **2,000** songs downloaded onto it from Spotify.
+I have a very particular use case where on my Garmin watch that can have up to **2,000** songs downloaded onto it from Spotify.
 
 Here's the catch: **Syncing** that many songs regularly is MASSIVE, and takes forever.
 
@@ -42,7 +42,7 @@ Feel free to clone it and go!!
 
 ## Walkthrough of the code
 
-So here's the deal, you could make raw API request to Spotify if you wanted to using any computing language you wanted, but that is quite verbose and unwieldy. There's a nice python package called spot which lets you do this in python very easily.
+So here's the deal, you could make raw API request to Spotify if you wanted to using any computing language you wanted, but that is quite verbose and unwieldy. There's a nice python package called Spotipy which lets you do this in python very easily.
 
 ![](./raw_vs_spotipy.jpg)
 *Raw `curl` requests to Spotify's API vs Spotipy*
@@ -63,7 +63,7 @@ This code runs once a day, on an [Azure Function](https://azure.microsoft.com/en
 
 ## Monitoring
 
-This Azure Function App prints its logs to an Azure Applciation Insights
+This Azure Function App prints its logs to an Azure Application Insights
 
 ![](./Logs.png)
 *Example run of this app*
