@@ -7,7 +7,7 @@ tags = ["Music", "Spotify", "Programming"]
 youtube = ""
 +++
 
-I have a very particular used case where on my Garmin watch that can have up to **2,000** songs downloaded onto it from Spotify.
+I have a very particular use case where on my Garmin watch that can have up to **2,000** songs downloaded onto it from Spotify.
 
 Here's the catch: **Syncing** that many songs regularly is MASSIVE, and takes forever.
 
@@ -42,10 +42,21 @@ Feel free to clone it and go!!
 
 ## Walkthrough of the code
 
-So here's the deal, you could make raw API request to Spotify if you wanted to using any computing language you wanted, but that is quite verbose and unwieldy. There's a nice python package called spot which lets you do this in python very easily.
+So here's the deal, you could make raw API request to Spotify if you wanted to using any computing language you wanted, but that is quite verbose and unwieldy. There's a nice python package called Spotipy which lets you do this in python very easily.
 
 ![](./raw_vs_spotipy.jpg)
 *Raw `curl` requests to Spotify's API vs Spotipy*
+
+Here's a walkthrough of the code:
+
+- `Lines 1-6` are importing our functions and dependencies that we need.
+- `Line 8` is creating a new Azure Function App instance.
+- `Line 10` is the way you trigger a run of your function app using cron job notation. Notice the `0 7 * * *` means that on the `7th` hour of every day I want this to run, which happens to be midnight my local time.
+- `Lines 12-14`, I don't really know what they are, to be honest; just some boilerplate code I found from Azure Functions.
+- `Line 16`, though, is the way you want to read your Spotify library.
+- `Line 17` is how I'm getting the ID of the playlist I want to alter as an environment variable. I've just saved it in my Azure function as an environment variable.
+- `Line 18` is making a new Spotipy instance.
+- `Line 21` is getting the most recently liked songs. By default it gets the last `20` songs, so I don't have to pass in any number there; it just does `20` by default. I then pull out the names and the ID of each one so that on line `25` I can just replace the playlist I want with those `20` tracks. I then just for loop through each one to print them off so I know which ones actually got transferred over.
 
 ## Getting a client-id
 
@@ -63,7 +74,7 @@ This code runs once a day, on an [Azure Function](https://azure.microsoft.com/en
 
 ## Monitoring
 
-This Azure Function App prints its logs to an Azure Applciation Insights
+This Azure Function App prints its logs to an Azure Application Insights
 
 ![](./Logs.png)
 *Example run of this app*
