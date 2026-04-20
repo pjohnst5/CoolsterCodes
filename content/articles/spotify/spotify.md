@@ -4,7 +4,7 @@ hook = "Make playlists automatically"
 image = "spotify_logo.png"
 published_at = 2026-04-13T19:11:54-06:00
 tags = ["Music", "Spotify", "Programming"]
-youtube = ""
+youtube = "https://youtu.be/iNIFFqa3wE8"
 +++
 
 I have a very particular use case where on my Garmin watch that can have up to **2,000** songs downloaded onto it from Spotify.
