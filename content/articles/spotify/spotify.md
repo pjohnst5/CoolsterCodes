@@ -58,6 +58,9 @@ Here's a walkthrough of the code:
 - `Line 18` is making a new Spotipy instance.
 - `Line 21` is getting the most recently liked songs. By default it gets the last `20` songs, so I don't have to pass in any number there; it just does `20` by default. I then pull out the names and the ID of each one so that on line `25` I can just replace the playlist I want with those `20` tracks. I then just for loop through each one to print them off so I know which ones actually got transferred over.
 
+![](./PlaylistID.png)
+*The easiest way to get your playlist ID is to look at it through a web browser. It is this portion underlined in red*
+
 ## Getting a client-id
 
 First you have to get a client-id by registering an app with Spotify. I think you only get one per account unless you pay more or something, but essentially it's letting the app act on your behalf and alter your Spotify library for you if you allow it (the first time you run the app, it will prompt you to allow the app to alter your Spotify account)
