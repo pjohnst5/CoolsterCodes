@@ -23,7 +23,7 @@
 
 <div class="container max-w-[800px] mx-auto mt-8 px-8">
     <div class="md:flex">
-        <div class="pb-8 md:flex-grow md:min-w-0 md:pl-6 md:pr-6">
+        <div class="pb-8 md:flex-grow md:min-w-0 md:pl-6 md:pr-6 text-center">
             {{- range  .TagCount -}}
             <div class="mb-3">
                 <a class="inline-block btn btn-blue" href="/tags/{{.URLTag}}">{{.Tag}} ({{.Count}})</a>
