@@ -428,9 +428,6 @@ type Article struct {
 
 	// The searchable body for index.json
 	Body string `toml:"body"`
-
-	// Hidden from search index
-	Hidden bool `toml:"hidden"`
 }
 
 type Page struct {
@@ -889,15 +886,13 @@ func getYouTubeEmbedLink(link string) string {
 func generateIndex(srcPath, dstPath string, articles []*Article, pages []*Page) (bool, error) {
 	entries := map[string]IndexEntry{}
 	for _, a := range articles {
-		if !a.Hidden {
-			entries[a.Slug] = IndexEntry{
-				Href:       a.Slug,
-				Title:      a.Title,
-				Summary:    a.Body,
-				Tags:       a.Tags,
-				TagSlugged: a.TagSlugged,
-				Img:        a.Image,
-			}
+		entries[a.Slug] = IndexEntry{
+			Href:       a.Slug,
+			Title:      a.Title,
+			Summary:    a.Body,
+			Tags:       a.Tags,
+			TagSlugged: a.TagSlugged,
+			Img:        a.Image,
 		}
 	}
 
