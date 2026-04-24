@@ -87,6 +87,43 @@ func TestTransformImages(t *testing.T) {
 `,
 		must(transformImages(`![](./img.svg)`, &RenderOptions{ImgDir: "/content/images/hey"})),
 	)
+
+	// Uppercase and mixed-case extensions
+	assert.Equal(t, `
+<a data-fancybox="gallery" href="/content/images/hey/Specs.JPG">
+  <img src="/content/images/hey/Specs.JPG" />
+</a>
+`,
+		must(transformImages(`![](./Specs.JPG)`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+
+	assert.Equal(t, `
+<a data-fancybox="gallery" href="/content/images/hey/photo.PNG">
+  <img src="/content/images/hey/photo.PNG" />
+</a>
+`,
+		must(transformImages(`![](./photo.PNG)`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+
+	assert.Equal(t, `
+<a data-fancybox="gallery" href="/content/images/hey/anim.GIF">
+  <img src="/content/images/hey/anim.GIF" />
+</a>
+`,
+		must(transformImages(`![](./anim.GIF)`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+
+	assert.Equal(t, `
+<figure class="text-center">
+  <a data-fancybox="gallery" href="/content/images/hey/Specs.JPG" data-caption="A spec sheet">
+    <img src="/content/images/hey/Specs.JPG" />
+  </a>
+  <figcaption>A spec sheet</figcaption>
+</figure>
+`,
+		must(transformImages(`![](./Specs.JPG)
+*A spec sheet*`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
 }
 
 func TestTransformLinkedImages(t *testing.T) {
@@ -167,6 +204,29 @@ func TestTransformLinkedImages(t *testing.T) {
 </figure>
 `,
 		must(transformLinkedImages(`[![](./image.svg)](https://google.com)`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+
+	// Uppercase and mixed-case extensions
+	assert.Equal(t, `
+<figure class="text-center">
+  <a href="https://google.com" target="_blank">
+    <img src="/content/images/hey/Specs.JPG" />
+  </a>
+</figure>
+`,
+		must(transformLinkedImages(`[![](./Specs.JPG)](https://google.com)`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+
+	assert.Equal(t, `
+<figure class="text-center">
+  <a href="https://google.com" target="_blank">
+    <img src="/content/images/hey/photo.PNG" />
+  </a>
+  <figcaption>A nice photo</figcaption>
+</figure>
+`,
+		must(transformLinkedImages(`[![](./photo.PNG)](https://google.com)
+*A nice photo*`, &RenderOptions{ImgDir: "/content/images/hey"})),
 	)
 }
 
