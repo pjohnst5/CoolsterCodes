@@ -428,9 +428,6 @@ type Article struct {
 
 	// The searchable body for index.json
 	Body string `toml:"body"`
-
-	// Hidden from search index
-	Hidden bool `toml:"hidden"`
 }
 
 type Page struct {
