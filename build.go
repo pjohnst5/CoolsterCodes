@@ -387,6 +387,9 @@ type Article struct {
 	// Footnotes are HTML footnotes extracted from content.
 	Footnotes template.HTML `toml:"-"`
 
+	// Hidden controls whether the article is excluded from the home screen listing.
+	Hidden bool `toml:"hidden"`
+
 	// Hook is a leading sentence or two to succinctly introduce the article.
 	Hook template.HTML `toml:"hook"`
 
@@ -707,8 +710,15 @@ func renderHome(ctx context.Context, c *modulir.Context,
 		return false, nil
 	}
 
+	var visibleArticles []*Article
+	for _, a := range articles {
+		if !a.Hidden {
+			visibleArticles = append(visibleArticles, a)
+		}
+	}
+
 	locals := getLocals(map[string]interface{}{
-		"Articles": articles,
+		"Articles": visibleArticles,
 		"TopNTags": topNTags,
 		"TopMTags": topMTags,
 	})

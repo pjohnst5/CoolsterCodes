@@ -5,4 +5,5 @@ image = ""
 published_at = PUBLISHED_AT
 tags = TAGS
 youtube = ""
+hidden = false
 +++
