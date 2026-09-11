@@ -35,8 +35,8 @@ import (
 // content/{articles,pages,images} to the configured Azure Blob container,
 // mirroring the repo layout in blob keys. Images are optimized (max 1200x1200,
 // JPEG quality 85) before upload using the same rules as the old local build
-// step. Blobs whose local source has been removed are deleted from the
-// container.
+// step. Blobs are never removed from the container; delete them manually if
+// you need to reclaim space.
 //
 //////////////////////////////////////////////////////////////////////////////
 
@@ -71,8 +71,7 @@ var mediaExtensions = map[string]bool{
 	".zip":  true,
 }
 
-// syncMediaPrefixes are the repo-relative directory roots we sync from and the
-// only blob-key prefixes the deletion phase will touch.
+// syncMediaPrefixes are the repo-relative directory roots we sync from.
 var syncMediaPrefixes = []string{
 	"content/articles",
 	"content/pages",
@@ -83,7 +82,6 @@ type syncMediaFlags struct {
 	account     string
 	containerNm string
 	dryRun      bool
-	deleteMode  bool
 	concurrency int
 	watch       bool
 	debounceMs  int
@@ -94,7 +92,6 @@ func newSyncMediaCommand() *cobra.Command {
 		account:     defaultStorageAccount,
 		containerNm: defaultContainerName,
 		concurrency: defaultConcurrency,
-		deleteMode:  true,
 		debounceMs:  750,
 	}
 
@@ -104,11 +101,12 @@ func newSyncMediaCommand() *cobra.Command {
 		Long: strings.TrimSpace(`
 Walks content/{articles,pages,images}, optimizes images, and uploads every
 media file to the configured Azure Blob Storage container, mirroring the repo
-layout. Blobs whose local source no longer exists are deleted (opt out with
---delete=false). Authenticates via DefaultAzureCredential (typically 'az login').
+layout. Blobs are never removed from the container; delete them manually if
+you need to reclaim space. Authenticates via DefaultAzureCredential (typically
+'az login').
 
 With --watch, performs an initial sync and then keeps running, re-syncing
-whenever a media file is added, changed, or removed under the media roots.
+whenever a media file is added or changed under the media roots.
 `),
 		RunE: func(_ *cobra.Command, _ []string) error {
 			return runSyncMedia(context.Background(), f)
@@ -117,9 +115,8 @@ whenever a media file is added, changed, or removed under the media roots.
 
 	cmd.Flags().StringVar(&f.account, "account", f.account, "Azure Storage account name")
 	cmd.Flags().StringVar(&f.containerNm, "container", f.containerNm, "Azure Blob container name")
-	cmd.Flags().BoolVar(&f.dryRun, "dry-run", false, "Log actions without uploading or deleting")
-	cmd.Flags().BoolVar(&f.deleteMode, "delete", true, "Delete blobs that no longer have a local source")
-	cmd.Flags().IntVar(&f.concurrency, "concurrency", f.concurrency, "Number of parallel upload/delete workers")
+	cmd.Flags().BoolVar(&f.dryRun, "dry-run", false, "Log actions without uploading")
+	cmd.Flags().IntVar(&f.concurrency, "concurrency", f.concurrency, "Number of parallel upload workers")
 	cmd.Flags().BoolVar(&f.watch, "watch", false, "Keep running and re-sync on filesystem changes")
 	cmd.Flags().IntVar(&f.debounceMs, "debounce-ms", f.debounceMs, "Debounce window for coalescing filesystem events (ms)")
 
@@ -173,14 +170,7 @@ func syncOnce(
 	}
 	log.Infof("Upload phase complete: uploaded=%d skipped=%d", uploaded, skipped)
 
-	deleted := 0
-	if f.deleteMode {
-		deleted, err = deleteOrphans(ctx, log, containerClient, local, f)
-		if err != nil {
-			return err
-		}
-	}
-	log.Infof("Sync complete: uploaded=%d skipped=%d deleted=%d dryRun=%v", uploaded, skipped, deleted, f.dryRun)
+	log.Infof("Sync complete: uploaded=%d skipped=%d dryRun=%v", uploaded, skipped, f.dryRun)
 	return nil
 }
 
@@ -506,58 +496,6 @@ func blobMatches(ctx context.Context, bc *blob.Client, localMD5 []byte) (bool, e
 		return false, nil
 	}
 	return bytes.Equal(props.ContentMD5, localMD5), nil
-}
-
-func deleteOrphans(
-	ctx context.Context,
-	log *logrus.Logger,
-	containerClient *container.Client,
-	local map[string]*localMediaFile,
-	f *syncMediaFlags,
-) (int, error) {
-	toDelete := make([]string, 0)
-	for _, prefix := range syncMediaPrefixes {
-		prefix := prefix + "/"
-		pager := containerClient.NewListBlobsFlatPager(&container.ListBlobsFlatOptions{
-			Prefix: to.Ptr(prefix),
-		})
-		for pager.More() {
-			page, err := pager.NextPage(ctx)
-			if err != nil {
-				return 0, xerrors.Errorf("listing blobs under %s: %w", prefix, err)
-			}
-			for _, b := range page.Segment.BlobItems {
-				if b.Name == nil {
-					continue
-				}
-				name := *b.Name
-				if _, keep := local[name]; !keep {
-					toDelete = append(toDelete, name)
-				}
-			}
-		}
-	}
-
-	if len(toDelete) == 0 {
-		log.Debugf("No orphan blobs to delete")
-		return 0, nil
-	}
-
-	deleted := 0
-	for _, name := range toDelete {
-		if f.dryRun {
-			log.Infof("[dry-run] Would delete orphan blob: %s", name)
-			deleted++
-			continue
-		}
-		if _, err := containerClient.NewBlobClient(name).Delete(ctx, nil); err != nil {
-			log.Errorf("Failed to delete %s: %v", name, err)
-			continue
-		}
-		log.Infof("Deleted orphan blob: %s", name)
-		deleted++
-	}
-	return deleted, nil
 }
 
 func contentTypeForExt(ext string) string {
