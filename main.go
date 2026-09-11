@@ -55,6 +55,8 @@ Runs the build loop one time and places the result in TARGET_DIR
 	}
 	rootCmd.AddCommand(loopCommand)
 
+	rootCmd.AddCommand(newSyncMediaCommand())
+
 	if err := envdecode.Decode(&conf); err != nil {
 		fmt.Fprintf(os.Stderr, "Error decoding conf from env: %v", err)
 		os.Exit(1)
