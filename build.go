@@ -23,7 +23,6 @@ import (
 	"coolstercodes/modules/modulir"
 	"coolstercodes/modules/modulir/mfile"
 	"coolstercodes/modules/modulir/mmarkdownext"
-	"coolstercodes/modules/modulir/mphoto"
 	"coolstercodes/modules/modulir/mtemplate"
 	"coolstercodes/modules/modulir/mtoc"
 	"coolstercodes/modules/modulir/mtoml"
@@ -46,6 +45,13 @@ const (
 	MaxImageWidth  = 1200
 	MaxImageHeight = 1200
 	ImageQuality   = 85
+
+	// DefaultMediaBaseURL is the base URL for media hosted in Azure Blob Storage.
+	// Blob keys mirror the repo-relative path (e.g. content/articles/<slug>/img.png),
+	// so a full URL looks like:
+	//   https://coolstercodes.blob.core.windows.net/public/content/articles/<slug>/img.png
+	// Override with the MEDIA_BASE_URL environment variable.
+	DefaultMediaBaseURL = "https://coolstercodes.blob.core.windows.net/public"
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -88,7 +94,7 @@ var validate = validator.New()
 //
 //////////////////////////////////////////////////////////////////////////////
 
-//nolint:gocyclo,maintidx // complexity is acceptable for this case
+//nolint:gocyclo // complexity is acceptable for this case
 func build(c *modulir.Context) []error {
 	//
 	// PHASE 0: Setup
@@ -202,17 +208,11 @@ func build(c *modulir.Context) []error {
 	}
 
 	//
-	// Recursively copy over article pictures into /content/images (with optimization)
+	// Media (images, PDFs, videos, etc.) is hosted in Azure Blob Storage; see
+	// the sync-media command and scripts/migrate-media.sh. Rendered HTML
+	// references those blob URLs directly, so there's no local copy/optimize
+	// step here anymore.
 	//
-
-	opts := &mphoto.OptimizationOptions{
-		MaxWidth:    MaxImageWidth,
-		MaxHeight:   MaxImageHeight,
-		JpegQuality: ImageQuality,
-	}
-	if err := mphoto.CopyDirectoryImagesOptimized(c, c.SourceDir+"/content/articles", c.TargetDir+"/content/images", opts); err != nil {
-		return []error{err}
-	}
 
 	//
 	// Articles
@@ -240,19 +240,6 @@ func build(c *modulir.Context) []error {
 					&articles, &articlesChanged, &articlesMu)
 			})
 		}
-	}
-
-	//
-	// Recursively copy over pages pictures into /content/images (with optimization)
-	//
-
-	pagesOpts := &mphoto.OptimizationOptions{
-		MaxWidth:    MaxImageWidth,
-		MaxHeight:   MaxImageHeight,
-		JpegQuality: ImageQuality,
-	}
-	if err := mphoto.CopyDirectoryImagesOptimized(c, c.SourceDir+"/content/pages", c.TargetDir+"/content/images", pagesOpts); err != nil {
-		return []error{err}
 	}
 
 	//
@@ -284,11 +271,8 @@ func build(c *modulir.Context) []error {
 	}
 
 	//
-	// Copy over remaining images to /content/images
+	// (Media is served from Azure Blob Storage; nothing to copy locally.)
 	//
-	if err := mfile.CopyDirectory(c, c.SourceDir+"/content/images", c.TargetDir+"/content/images"); err != nil {
-		return []error{err}
-	}
 
 	//
 	//
@@ -557,13 +541,42 @@ func extImageTarget(canonicalExt string) string {
 	return canonicalExt
 }
 
+// mediaBaseURL returns the base URL under which media assets are hosted,
+// controlled by the MEDIA_BASE_URL env var. It never has a trailing slash.
+func mediaBaseURL() string {
+	if v := strings.TrimRight(os.Getenv("MEDIA_BASE_URL"), "/"); v != "" {
+		return v
+	}
+	return DefaultMediaBaseURL
+}
+
+// mediaURL joins the media base URL with a repo-relative path, producing a
+// full URL to a blob (e.g. content/images/favicon.png -> https://.../public/content/images/favicon.png).
+func mediaURL(relPath string) string {
+	return mediaBaseURL() + "/" + strings.TrimLeft(filepath.ToSlash(relPath), "/")
+}
+
+// joinMediaURL joins an absolute media URL with a relative file reference
+// (possibly starting with "./" or "../"), collapsing those segments the way
+// filepath.Join would for a filesystem path.
+func joinMediaURL(baseURL, file string) string {
+	idx := strings.Index(baseURL, "://")
+	if idx == -1 {
+		return filepath.Join(baseURL, file)
+	}
+	scheme := baseURL[:idx+3]
+	rest := baseURL[idx+3:]
+	return scheme + path.Join(rest, file)
+}
+
 // Gets a map of local values for use while rendering a template and includes
 // a few "special" values that are globally relevant to all templates.
 func getLocals(locals map[string]interface{}) map[string]interface{} {
 	defaults := map[string]interface{}{
 		"AbsoluteURL": conf.AbsoluteURL,
-		"FavIcon":     "/content/images/favicon.png",
-		"SiteIcon":    "/content/images/CoolsterCodes.jpg",
+		"FavIcon":     mediaURL("content/images/favicon.png"),
+		"SiteIcon":    mediaURL("content/images/CoolsterCodes.jpg"),
+		"NavLogo":     mediaURL("content/images/CoolsterCodes.png"),
 		"CCEnv":       conf.CCEnv,
 		"TitleSuffix": scommon.TitleSuffix,
 	}
@@ -606,10 +619,12 @@ func renderArticle(ctx context.Context, c *modulir.Context, source string,
 	article.Slug = scommon.ExtractSlug(source)
 	relativeDir := scommon.GetPathToParentDirectory(source)
 
-	// Define an ImgDir (for later processing) and set Image as full path
-	article.ImgDir = "/" + strings.Replace(relativeDir, "articles", "images", 1) + "/"
+	// ImgDir points at the article's media directory in Azure Blob Storage.
+	// Blob keys mirror the repo layout (see sync-media command), so an article
+	// at content/articles/<slug>/ has media under <MEDIA_BASE>/content/articles/<slug>/.
+	article.ImgDir = mediaURL(relativeDir) + "/"
 	if article.Image != "" {
-		article.Image = filepath.Join(article.ImgDir, article.Image)
+		article.Image = joinMediaURL(article.ImgDir, article.Image)
 	}
 	if article.YouTube != "" {
 		article.YouTubeEmbed = getYouTubeEmbedLink(article.YouTube)
@@ -790,8 +805,9 @@ func renderPage(ctx context.Context, c *modulir.Context, source string,
 	page.Slug = scommon.ExtractSlug(source)
 	relativeDir := scommon.GetPathToParentDirectory(source)
 
-	// Define an ImgDir (for later processing) and set Image as full path
-	page.ImgDir = "/" + strings.Replace(relativeDir, "pages", "images", 1) + "/"
+	// ImgDir points at the page's media directory in Azure Blob Storage
+	// (mirrors the repo layout; see sync-media).
+	page.ImgDir = mediaURL(relativeDir) + "/"
 
 	stripped := stripmd.Strip(string(data))
 	page.Body = strings.ReplaceAll(stripped, "\n", " ")

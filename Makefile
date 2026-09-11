@@ -1,7 +1,8 @@
 .DEFAULT_GOAL := dev
 
 .PHONY: dev
-dev: clean install loop
+dev: clean install
+	scripts/dev.sh
 
 .PHONY: check
 check: tailwind lint test
@@ -49,3 +50,11 @@ vet:
 .PHONY: images
 images:
 	scripts/images.sh
+
+.PHONY: sync-media
+sync-media:
+	$(shell go env GOPATH)/bin/coolstercodes sync-media
+
+.PHONY: watch-media
+watch-media:
+	$(shell go env GOPATH)/bin/coolstercodes sync-media --watch

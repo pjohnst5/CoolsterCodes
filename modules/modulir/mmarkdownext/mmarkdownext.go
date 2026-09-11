@@ -21,8 +21,23 @@ import (
 
 // RenderOptions describes a rendering operation to be customized.
 type RenderOptions struct {
-	// ImgDir is the path to the images
+	// ImgDir is the path to the images. It can be an absolute file path
+	// (e.g. "/content/images/hey") or an absolute URL
+	// (e.g. "https://coolstercodes.blob.core.windows.net/public/content/articles/hey").
 	ImgDir string
+}
+
+// joinImgDir joins a base ImgDir with a file reference from markdown (typically
+// something like "./img.png"). It preserves the scheme when ImgDir is an
+// absolute URL because filepath.Join collapses "https://" into "https:/", and
+// it cleans up "./" and "../" segments so blob keys resolve correctly.
+func joinImgDir(imgDir, file string) string {
+	if idx := strings.Index(imgDir, "://"); idx != -1 {
+		scheme := imgDir[:idx+3]
+		rest := imgDir[idx+3:]
+		return scheme + path.Join(rest, file)
+	}
+	return filepath.Join(imgDir, file)
 }
 
 // Render a Markdown string to HTML while applying all custom project-specific
@@ -109,7 +124,7 @@ func transformCaption(rawCaption string, opts *RenderOptions) string {
 
 		// Otherwise, treat it as a downloadable file
 		if opts.ImgDir != "" {
-			file = filepath.Join(opts.ImgDir, file)
+			file = joinImgDir(opts.ImgDir, file)
 		}
 
 		return fmt.Sprintf(fileInCaptionHTML, file, display)
@@ -149,7 +164,7 @@ func transformLinkedImages(source string, opts *RenderOptions) (string, error) {
 		// Grab the image path
 		img := matches[1]
 		if opts.ImgDir != "" {
-			img = filepath.Join(opts.ImgDir, img)
+			img = joinImgDir(opts.ImgDir, img)
 		}
 		// Grab the link URL
 		linkURL := matches[2]
@@ -196,7 +211,7 @@ func transformImages(source string, opts *RenderOptions) (string, error) {
 		// Grab the image (it's the same every time)
 		img := matches[2]
 		if opts.ImgDir != "" {
-			img = filepath.Join(opts.ImgDir, img)
+			img = joinImgDir(opts.ImgDir, img)
 		}
 
 		// No caption option
@@ -236,7 +251,7 @@ func transformPDFs(source string, opts *RenderOptions) (string, error) {
 		// Grab the pdf (it's the same every time)
 		pdf := matches[1]
 		if opts.ImgDir != "" {
-			pdf = filepath.Join(opts.ImgDir, pdf)
+			pdf = joinImgDir(opts.ImgDir, pdf)
 		}
 
 		// No caption option
@@ -279,7 +294,7 @@ func transformVideos(source string, opts *RenderOptions) (string, error) {
 		// Grab the video (it's the same every time)
 		video := matches[1]
 		if opts.ImgDir != "" {
-			video = filepath.Join(opts.ImgDir, video)
+			video = joinImgDir(opts.ImgDir, video)
 		}
 
 		// No caption option
@@ -374,7 +389,7 @@ func transformFiles(source string, opts *RenderOptions) (string, error) {
 
 		// Otherwise, treat it as a downloadable file
 		if opts.ImgDir != "" {
-			file = filepath.Join(opts.ImgDir, file)
+			file = joinImgDir(opts.ImgDir, file)
 		}
 
 		return fmt.Sprintf(fileHTML, file, display)
