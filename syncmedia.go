@@ -203,7 +203,7 @@ func watchAndSync(
 	addDirsRecursively := func(root string) {
 		_ = filepath.WalkDir(root, func(p string, d os.DirEntry, err error) error {
 			if err != nil || d == nil {
-				return nil
+				return nil //nolint:nilerr // skip unreadable entries and keep walking
 			}
 			if d.IsDir() {
 				if addErr := w.Add(p); addErr != nil {
@@ -281,10 +281,10 @@ func isLikelyDirEvent(ev fsnotify.Event) bool {
 // localMediaFile is a single file we intend to upload. Content is the bytes to
 // upload (post-optimization for images) and MD5 is the checksum of those bytes.
 type localMediaFile struct {
-	SourcePath string // absolute or repo-relative path on disk
-	BlobKey    string // repo-relative, unix-style; matches blob path in container
-	Content    []byte
-	MD5        []byte
+	SourcePath  string // absolute or repo-relative path on disk
+	BlobKey     string // repo-relative, unix-style; matches blob path in container
+	Content     []byte
+	MD5         []byte
 	ContentType string
 }
 
@@ -326,7 +326,7 @@ func uploadAll(
 	containerClient *container.Client,
 	local map[string]*localMediaFile,
 	f *syncMediaFlags,
-) (uploaded, skipped int, err error) {
+) (int, int, error) {
 	type result struct {
 		key      string
 		uploaded bool
@@ -337,7 +337,7 @@ func uploadAll(
 	results := make(chan result)
 
 	var wg sync.WaitGroup
-	for i := 0; i < f.concurrency; i++ {
+	for range f.concurrency {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
@@ -357,7 +357,11 @@ func uploadAll(
 		close(results)
 	}()
 
-	var firstErr error
+	var (
+		uploaded int
+		skipped  int
+		firstErr error
+	)
 	for r := range results {
 		if r.err != nil {
 			log.Errorf("Upload failed for %s: %v", r.key, r.err)
