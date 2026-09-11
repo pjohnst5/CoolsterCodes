@@ -48,6 +48,10 @@ const (
 
 // mediaExtensions is the set of file extensions treated as "media" (i.e.
 // non-code) that will be synced to blob storage. Keep in lowercase.
+//
+// This is an allowlist: files whose extensions are not listed here are never
+// uploaded. See codeExtensions for an explicit denylist of source-code
+// extensions that must never leak into storage even if this allowlist grows.
 var mediaExtensions = map[string]bool{
 	".png":  true,
 	".jpg":  true,
@@ -69,6 +73,27 @@ var mediaExtensions = map[string]bool{
 	".ppt":  true,
 	".pptx": true,
 	".zip":  true,
+}
+
+// codeExtensions is an explicit denylist of source-code file extensions that
+// must NEVER be uploaded to blob storage. Code lives in git; only rendered
+// media belongs in the container. This check runs before the mediaExtensions
+// allowlist so accidental additions to that allowlist can't slip code through.
+// Keep in lowercase.
+var codeExtensions = map[string]bool{
+	".md":   true,
+	".css":  true,
+	".html": true,
+	".go":   true,
+	".js":   true,
+	".ts":   true,
+	".json": true,
+	".yaml": true,
+	".yml":  true,
+	".toml": true,
+	".mod":  true,
+	".sum":  true,
+	".sh":   true,
 }
 
 // syncMediaPrefixes are the repo-relative directory roots we sync from.
@@ -258,7 +283,15 @@ func watchAndSync(
 }
 
 func isMediaPath(p string) bool {
-	return mediaExtensions[strings.ToLower(filepath.Ext(p))]
+	ext := strings.ToLower(filepath.Ext(p))
+	if codeExtensions[ext] {
+		return false
+	}
+	return mediaExtensions[ext]
+}
+
+func isCodePath(p string) bool {
+	return codeExtensions[strings.ToLower(filepath.Ext(p))]
 }
 
 // isLikelyDirEvent returns true if the event has no file extension (usually a
@@ -293,6 +326,9 @@ func collectLocalMedia(log *logrus.Logger) (map[string]*localMediaFile, error) {
 				return nil
 			}
 			ext := strings.ToLower(filepath.Ext(p))
+			if codeExtensions[ext] {
+				return nil
+			}
 			if !mediaExtensions[ext] {
 				return nil
 			}
