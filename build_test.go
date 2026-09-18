@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"context"
 	"fmt"
 	"html/template"
 	"os"
@@ -124,12 +123,7 @@ func TestArticleOpenGraphImageUsesMediaURLDirectly(t *testing.T) {
 		},
 	})
 
-	err := NewDependencyRegistry().renderGoTemplateWriter(
-		context.Background(),
-		"web/html/article.tmpl.html",
-		&buf,
-		locals,
-	)
+	err := renderTemplateForTest("web/html/article.tmpl.html", &buf, locals)
 	require.NoError(t, err)
 
 	rendered := buf.String()
@@ -146,15 +140,18 @@ func TestCommonOpenGraphImageUsesSiteIconDirectly(t *testing.T) {
 	})
 	siteIcon := locals["SiteIcon"].(string)
 
-	err := NewDependencyRegistry().renderGoTemplateWriter(
-		context.Background(),
-		"web/html/index.tmpl.html",
-		&buf,
-		locals,
-	)
+	err := renderTemplateForTest("web/html/index.tmpl.html", &buf, locals)
 	require.NoError(t, err)
 
 	rendered := buf.String()
 	require.Contains(t, rendered, `<meta property="og:image" content="`+siteIcon+`">`)
 	require.NotContains(t, rendered, conf.AbsoluteURL+siteIcon)
+}
+
+func renderTemplateForTest(source string, buf *bytes.Buffer, locals map[string]interface{}) error {
+	tmpl, _, err := NewDependencyRegistry().parseGoTemplate(template.New("base_empty"), source)
+	if err != nil {
+		return err
+	}
+	return tmpl.Execute(buf, locals)
 }
