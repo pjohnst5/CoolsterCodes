@@ -31,6 +31,17 @@ func TestExtImageTarget(t *testing.T) {
 	require.Equal(t, ".webp", extImageTarget(".heic"))
 }
 
+func TestAbsoluteAssetURL(t *testing.T) {
+	require.Equal(t,
+		"https://coolstercodes.blob.core.windows.net/public/content/images/CoolsterCodes.jpg",
+		absoluteAssetURL("https://coolstercodes.com", "https://coolstercodes.blob.core.windows.net/public/content/images/CoolsterCodes.jpg"),
+	)
+	require.Equal(t,
+		"https://coolstercodes.com/content/images/CoolsterCodes.jpg",
+		absoluteAssetURL("https://coolstercodes.com/", "/content/images/CoolsterCodes.jpg"),
+	)
+}
+
 func TestLexicographicBase32(t *testing.T) {
 	// Should only incorporate lower case characters.
 	require.Equal(t, lexicographicBase32, strings.ToLower(lexicographicBase32))
