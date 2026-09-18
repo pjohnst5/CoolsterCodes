@@ -11,6 +11,7 @@ import (
 
 	"github.com/joeshaw/envdecode"
 	"github.com/stretchr/testify/require"
+	"golang.org/x/xerrors"
 )
 
 func init() {
@@ -164,5 +165,8 @@ func renderTemplateForTest(source string, buf *bytes.Buffer, locals map[string]i
 	if err != nil {
 		return err
 	}
-	return tmpl.Execute(buf, locals)
+	if err := tmpl.Execute(buf, locals); err != nil {
+		return xerrors.Errorf("executing template %q: %w", source, err)
+	}
+	return nil
 }
