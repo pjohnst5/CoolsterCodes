@@ -569,10 +569,20 @@ func joinMediaURL(baseURL, file string) string {
 	return scheme + path.Join(rest, file)
 }
 
+func absoluteAssetURL(baseURL, assetURL string) string {
+	if u, err := url.Parse(assetURL); err == nil && u.IsAbs() {
+		return assetURL
+	}
+	return strings.TrimRight(baseURL, "/") + "/" + strings.TrimLeft(assetURL, "/")
+}
+
 // Gets a map of local values for use while rendering a template and includes
 // a few "special" values that are globally relevant to all templates.
 func getLocals(locals map[string]interface{}) map[string]interface{} {
 	defaults := map[string]interface{}{
+		"AbsoluteAssetURL": func(assetURL string) string {
+			return absoluteAssetURL(conf.AbsoluteURL, assetURL)
+		},
 		"AbsoluteURL": conf.AbsoluteURL,
 		"FavIcon":     mediaURL("content/images/favicon.png"),
 		"SiteIcon":    mediaURL("content/images/CoolsterCodes.jpg"),

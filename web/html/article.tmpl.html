@@ -5,9 +5,9 @@
 <meta property="og:description" content="{{.Article.Hook}}">
 <meta name="description" content="{{.Article.Hook}}">
 {{ if .Article.Image }}
-<meta property="og:image" content="{{.AbsoluteURL}}{{.Article.Image}}">
+<meta property="og:image" content="{{call .AbsoluteAssetURL .Article.Image}}">
 {{ else }}
-<meta property="og:image" content="{{.AbsoluteURL}}{{.SiteIcon}}">
+<meta property="og:image" content="{{call .AbsoluteAssetURL .SiteIcon}}">
 {{ end }}
 <meta property="og:url" content="{{.AbsoluteURL}}/{{.Article.Slug}}">
 <link rel="canonical" href="{{.AbsoluteURL}}/{{.Article.Slug}}">
