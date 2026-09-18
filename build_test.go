@@ -1,7 +1,10 @@
 package main
 
 import (
+	"bytes"
+	"context"
 	"fmt"
+	"html/template"
 	"os"
 	"slices"
 	"strings"
@@ -107,4 +110,51 @@ func TestInsertOrReplacePage(t *testing.T) {
 	insertOrReplacePage(&pages, page1Updated)
 	require.Len(t, pages, 2)
 	require.Equal(t, "Page 1 Updated", pages[0].Title)
+}
+
+func TestArticleOpenGraphImageUsesMediaURLDirectly(t *testing.T) {
+	var buf bytes.Buffer
+	articleImage := "https://coolstercodes.blob.core.windows.net/public/content/articles/test/test.jpg"
+	locals := getLocals(map[string]interface{}{
+		"Article": Article{
+			Title: "Test Article",
+			Hook:  template.HTML("Test hook"),
+			Image: articleImage,
+			Slug:  "test",
+		},
+	})
+
+	err := NewDependencyRegistry().renderGoTemplateWriter(
+		context.Background(),
+		"web/html/article.tmpl.html",
+		&buf,
+		locals,
+	)
+	require.NoError(t, err)
+
+	rendered := buf.String()
+	require.Contains(t, rendered, `<meta property="og:image" content="`+articleImage+`">`)
+	require.NotContains(t, rendered, conf.AbsoluteURL+articleImage)
+}
+
+func TestCommonOpenGraphImageUsesSiteIconDirectly(t *testing.T) {
+	var buf bytes.Buffer
+	locals := getLocals(map[string]interface{}{
+		"Articles": []*Article{},
+		"TopNTags": []TagCount{},
+		"TopMTags": []TagCount{},
+	})
+	siteIcon := locals["SiteIcon"].(string)
+
+	err := NewDependencyRegistry().renderGoTemplateWriter(
+		context.Background(),
+		"web/html/index.tmpl.html",
+		&buf,
+		locals,
+	)
+	require.NoError(t, err)
+
+	rendered := buf.String()
+	require.Contains(t, rendered, `<meta property="og:image" content="`+siteIcon+`">`)
+	require.NotContains(t, rendered, conf.AbsoluteURL+siteIcon)
 }
