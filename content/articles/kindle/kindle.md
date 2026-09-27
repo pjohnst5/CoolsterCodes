@@ -8,6 +8,10 @@ youtube = ""
 hidden = false
 +++
 
+Is the Color Kindle the greatest invention known to man? 
+
+Here we will discuss in detail..
+
 ## Hold-ability
 
 The kindle is soo much easier to hold than a real book (sorry real books)
@@ -28,12 +32,17 @@ Usually, you'd need a flashlight, lamp or other source of light to read a physic
 
 With the Kindle, you don't!! It has a customizable light source built in, and it actually points light DOWN at the screen
 
+Anyways, it is so nice to not need an external source of light to read.
+
 ![](./Lighting.png)
 *Instead of light shining up at your face, the light actually shines across the screen and slightly down!*
 
-Anyways, it is so nice to not need an external source of light to read.
+Some have said in reviews that there is a "Yellow band" or "yellow light" on the bottom of the screen when reading in the dark
 
-TODO: insert picture here of kindle at night
+You can judge for yourself. I personally don't really see/notice anything like that, but if I look hard enough, I might think I see something? 🤔 I'm not sure, but it has honestly not affected my reading haha
+
+![](./Dark.jpg)
+*Reading in the dark with brightness and warmth both set to 10*
 
 ## Insta-bility of books
 
@@ -75,7 +84,8 @@ Weblinks even
 Dictionary words
 Highlighting
 
-*Video of wikipedia lookups, and highlights*
+![](./Kindle_Wiki_Box.mp4)
+*Looking things up is directly with the Kindle is so nice*
 
 ## Color screen
 The color is great!
@@ -106,9 +116,9 @@ Get a cover! I suggest the Amazon made suede one, it is so soft 🤤
 Check out this bed cubby I made for it haha so nice!! Now, reading is right within my fingertips when I'm in bed
 
 ![](./20260828_035211000_iOS.MOV)
-*My genius [Kindle Cubby](https://makerworld.com/en/models/3245209-kindle-cubby) invention 🙂*
 
 ![](./kindlecubby.jpg)
+*My genius [Kindle Cubby](https://makerworld.com/en/models/3245209-kindle-cubby) invention 🙂*
 
 ## Verdict: The Kindle Colorsoft is the BEST!!!
 
