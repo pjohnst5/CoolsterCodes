@@ -1,7 +1,7 @@
 +++
 title = "Kindle Colorsoft 2 year review!"
 hook = "Why the Kindle is the Greatest Invention Known to Man"
-image = ""
+image = "./Scuffs.jpg"
 published_at = 2026-09-11T09:44:24-06:00
 tags = ["Kindle", "Reading"]
 youtube = ""
