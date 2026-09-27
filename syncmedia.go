@@ -69,6 +69,7 @@ var mediaExtensions = map[string]bool{
 	".ppt":  true,
 	".pptx": true,
 	".zip":  true,
+	".MOV":  true,
 }
 
 // syncMediaPrefixes are the repo-relative directory roots we sync from.

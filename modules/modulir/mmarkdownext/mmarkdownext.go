@@ -269,7 +269,7 @@ func transformPDFs(source string, opts *RenderOptions) (string, error) {
 const videoHTMLCaption = `
 <figure class="text-center">
   <video controls>
-    <source src="%s" type="video/mp4">
+    <source src="%s" type="%s">
     Your browser does not support the video tag.
   </video>
   <figcaption class="text-center">%s</figcaption>
@@ -278,12 +278,12 @@ const videoHTMLCaption = `
 
 const videoHTMLNoCaption = `
 <video controls>
-  <source src="%s" type="video/mp4">
+  <source src="%s" type="%s">
   Your browser does not support the video tag.
 </video>
 `
 
-var videoRE = regexp.MustCompile(`!\[\]\(([^)]+\.mp4)\)(\n\*(.*)\*)?`)
+var videoRE = regexp.MustCompile(`(?i)!\[\]\(([^)]+\.(?:mp4|mov))\)(\n\*(.*)\*)?`)
 
 func transformVideos(source string, opts *RenderOptions) (string, error) {
 	return videoRE.ReplaceAllStringFunc(source, func(figure string) string {
@@ -293,19 +293,23 @@ func transformVideos(source string, opts *RenderOptions) (string, error) {
 		}
 		// Grab the video (it's the same every time)
 		video := matches[1]
+		mimeType := "video/mp4"
+		if strings.EqualFold(path.Ext(video), ".mov") {
+			mimeType = "video/quicktime"
+		}
 		if opts.ImgDir != "" {
 			video = joinImgDir(opts.ImgDir, video)
 		}
 
 		// No caption option
 		if matches[3] == "" {
-			return fmt.Sprintf(videoHTMLNoCaption, video)
+			return fmt.Sprintf(videoHTMLNoCaption, video, mimeType)
 		}
 
 		// Grab the caption (only if 3rd arg isn't empty)
 		caption := matches[3]
 		htmlCaption := transformCaption(caption, opts)
-		return fmt.Sprintf(videoHTMLCaption, video, htmlCaption)
+		return fmt.Sprintf(videoHTMLCaption, video, mimeType, htmlCaption)
 	}), nil
 }
 
