@@ -268,7 +268,7 @@ func transformPDFs(source string, opts *RenderOptions) (string, error) {
 
 const videoHTMLCaption = `
 <figure class="text-center">
-  <video controls>
+  <video controls preload="metadata">
     <source src="%s" type="%s">
     Your browser does not support the video tag.
   </video>
@@ -277,13 +277,17 @@ const videoHTMLCaption = `
 `
 
 const videoHTMLNoCaption = `
-<video controls>
+<video controls preload="metadata">
   <source src="%s" type="%s">
   Your browser does not support the video tag.
 </video>
 `
 
 var videoRE = regexp.MustCompile(`(?i)!\[\]\(([^)]+\.(?:mp4|mov))\)(\n\*(.*)\*)?`)
+
+// Browsers commonly render the first decoded video frame as the preview image
+// when the source starts just after 0.
+const videoFirstFrameFragment = "#t=0.001"
 
 func transformVideos(source string, opts *RenderOptions) (string, error) {
 	return videoRE.ReplaceAllStringFunc(source, func(figure string) string {
@@ -300,6 +304,7 @@ func transformVideos(source string, opts *RenderOptions) (string, error) {
 		if opts.ImgDir != "" {
 			video = joinImgDir(opts.ImgDir, video)
 		}
+		video += videoFirstFrameFragment
 
 		// No caption option
 		if matches[3] == "" {
