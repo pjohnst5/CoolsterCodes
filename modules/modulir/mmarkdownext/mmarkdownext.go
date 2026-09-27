@@ -268,7 +268,7 @@ func transformPDFs(source string, opts *RenderOptions) (string, error) {
 
 const videoHTMLCaption = `
 <figure class="text-center">
-  <video controls>
+  <video controls preload="metadata">
     <source src="%s" type="%s">
     Your browser does not support the video tag.
   </video>
@@ -277,7 +277,7 @@ const videoHTMLCaption = `
 `
 
 const videoHTMLNoCaption = `
-<video controls>
+<video controls preload="metadata">
   <source src="%s" type="%s">
   Your browser does not support the video tag.
 </video>
@@ -300,6 +300,7 @@ func transformVideos(source string, opts *RenderOptions) (string, error) {
 		if opts.ImgDir != "" {
 			video = joinImgDir(opts.ImgDir, video)
 		}
+		video += "#t=0.001"
 
 		// No caption option
 		if matches[3] == "" {

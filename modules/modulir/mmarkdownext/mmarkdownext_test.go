@@ -251,8 +251,8 @@ func TestTransformPDFs(t *testing.T) {
 func TestTransformVideos(t *testing.T) {
 	assert.Equal(t, `
 <figure class="text-center">
-  <video controls>
-    <source src="/content/images/hey/video.mp4" type="video/mp4">
+  <video controls preload="metadata">
+    <source src="/content/images/hey/video.mp4#t=0.001" type="video/mp4">
     Your browser does not support the video tag.
   </video>
   <figcaption class="text-center">A dope video</figcaption>
@@ -263,12 +263,21 @@ func TestTransformVideos(t *testing.T) {
 	)
 
 	assert.Equal(t, `
-<video controls>
-  <source src="/content/images/hey/video.mp4" type="video/mp4">
+<video controls preload="metadata">
+  <source src="/content/images/hey/video.mp4#t=0.001" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 `,
 		must(transformVideos(`![](./video.mp4)`, &RenderOptions{ImgDir: "/content/images/hey"})),
+	)
+
+	assert.Equal(t, `
+<video controls preload="metadata">
+  <source src="/content/images/hey/video.MOV#t=0.001" type="video/quicktime">
+  Your browser does not support the video tag.
+</video>
+`,
+		must(transformVideos(`![](./video.MOV)`, &RenderOptions{ImgDir: "/content/images/hey"})),
 	)
 }
 
